@@ -9,25 +9,35 @@ const Footer: React.FC<Props> = ({ children }) => {
   return (
     <>
       <footer>
-        <p className="site-license">
-          &copy; <Link href="/">CogNano, Inc.</Link>. Powered by Next.js and WordPress.
-        </p>
+        <div className="footer-inner container">
+          <p className="site-license">
+            &copy; {` `}
+            <Link href="/">
+              <a>CogNano 🦙</a>
+            </Link> {` `}
+            Powered by <a href="https://nextjs.org">Next.js</a> and <a href="https://wordpress.org">WordPress</a>.
+          </p>
+        </div>
       </footer>
 
       <style jsx>{`
         footer {
-          display: grid;
-          grid-template-columns: 180px 1fr;
-          gap: var(--spacing-10);
-          margin-top: var(--spacing-5);
-          margin-left: var(--spacing-20);
-          margin-right: var(--spacing-20);
-          padding: var(--spacing-20) 0 var(--spacing-10);
-          font-family: var(--fontFamily-sans);
+          margin-top: var(--spacing-32);
+          background-color: #888;
+        }
+        .footer-inner {
+          margin-top: var(--spacing-1);
+          margin-bottom: var(--spacing-1);
         }
         .site-license {
+          font-family: var(--fontFamily-sans);
+          margin: var(--spacing-0) var(--spacing-20);
           font-size: var(--fontSize-0);
-          margin: 0;
+          color: #fff;
+        }
+        footer a {
+          color: #fff;
+          font-weight: bold;
         }
       `}</style>
     </>
