@@ -7,29 +7,23 @@ import Footer from '../components/footer'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div>
+    <>
       <Head>
-        <title>CogNano 🦙</title>
+        <title>COGNANO</title>
         <meta name="description" content="CogNano is VHH antibody designing and manufacturing" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <div className="header container">
-        <Header />
-      </div>
-
+      <Header />
       <div className="content container">
         <Component {...pageProps} />
       </div>
-
       <Footer />
-
       <style jsx>{`
         .content {
           margin: 0 auto;
         }
       `}</style>
-    </div>
+    </>
   )
 }
 
