@@ -2,68 +2,8 @@ import type { NextPage, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-
-const API_URL = process.env.WORDPRESS_API_URL || 'https://wp.cognano.co.jp/graphql'
-//const API_TOKEN = process.env.WORDPRESS_AUTH_REFRESH_TOKEN
-
-async function fetchAPI(query, { variables } = {}) {
-  const headers = {
-    'Content-Type': 'application/json',
-    //'Authorization': `Bearer ${API_TOKEN}`,
-  }
-
-  const res = await fetch(API_URL, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({
-      query,
-      variables,
-    }),
-  })
-
-  const json = await res.json()
-  if (json.errors) {
-    console.error(json.errors)
-    throw new Error('Failed to fetch API')
-  }
-  return json.data
-}
-
-async function getPosts() {
-  const data = await fetchAPI(
-    `query AllPosts {
-      posts(first: 20) {
-        edges {
-          node {
-            title
-            categories {
-              edges {
-                node {
-                  name
-                }
-              }
-            }
-            excerpt
-            slug
-            date
-            author {
-              node {
-                name
-                firstName
-                lastName
-              }
-            }
-          }
-        }
-      }
-    }
-    `,
-    {
-      variables: {},
-    }
-  )
-  return data?.posts?.edges
-}
+import { useRouter } from 'next/router'
+import { fetchAPI, getPosts } from '../lib/data'
 
 export const getStaticProps: GetStaticProps<{
   posts: WPPost[]
@@ -76,27 +16,50 @@ export const getStaticProps: GetStaticProps<{
   }
 }
 
+const en = {
+  heroMessage: `COGNANO is a venture to aim computer-supported drug discovery.
+    The big VHH data obtained from our own alpacas will lead us to a new drug discovery platform.
+    Our goal is to optimize drug designing/development.`,
+  aboutUs: `About Us`,
+  latestPosts: `Latest posts`,
+  viewAllPosts: `View all posts`,
+  latestProjects: `Latest Projects`,
+  viewAllProjects: `View all projects`,
+}
+const ja = {
+  heroMessage: `COGNANOは、コンピューターを利用した創薬を目指すベンチャー企業です。
+    アルパカから得られた大きなVHHデータは、私たちを新しい創薬プラットフォームに導きます。
+    私たちのゴールは、薬のデザイン/開発を最適化することです。`,
+  aboutUs: `私たちについて`,
+  latestPosts: `最近のブログ`,
+  viewAllPosts: `ブログ一覧へ`,
+  latestProjects: `最近のプロジェクト`,
+  viewAllProjects: `プロジェクト一覧へ`,
+}
+
 const Home: NextPage = ({ posts } ) => {
+  const { locale } = useRouter()
+  const t = locale === 'en' ? en : ja
+
   return (
     <>
       <main>
         <div className="hero">
-          Cognano is a venture to aim computer-supported drug discovery.
-          The big VHH data obtained from our own alpacas will lead us to a new drug discovery platform.
-          Our goal is to optimize drug designing/development.
-        </div>
-
-        <div className="blog">
-          <h2>
-            Latest posts
-          </h2>
-
-          <p>
-            <Link href="/blog">
-              View all posts &rarr;
+          <p>{t.heroMessage}</p>
+          <p className="to-about-button">
+            <Link href="/about">
+              <a>{t.aboutUs}</a>
             </Link>
           </p>
+        </div>
 
+        <div className="blog summary">
+          <h2>{t.latestPosts}</h2>
+          <p>
+            <Link href="/blog">
+              <a>{t.viewAllPosts} &rarr;</a>
+            </Link>
+          </p>
           <div className="post-container">
             {posts.map((post, i) => (
               <div className="post" key={i}>
@@ -118,20 +81,17 @@ const Home: NextPage = ({ posts } ) => {
           </div>
         </div>
 
-        <div className="research">
-          <h2>
-            Latest research
-          </h2>
-
+        <div className="projects summary">
+          <h2>{t.latestProjects}</h2>
           <p>
-            <Link href="/research">
-              View all posts &rarr;
+            <Link href="/projects">
+              <a>{t.viewAllProjects} &rarr;</a>
             </Link>
           </p>
 
           {posts.map((post, i) => (
-            <div className="publication" key={i}>
-              <Link href={`/research/${post.node.id}`}>
+            <div className="project" key={i}>
+              <Link href={`/projects/${post.node.id}`}>
                 <a>
                   <h3 className="post-title">
                     {post.node.title}
@@ -156,8 +116,27 @@ const Home: NextPage = ({ posts } ) => {
           font-family: var(--fontFamily-sans);
           font-size: var(--fontSize-6);
         }
-        .blog {
-          margin: var(--spacing-5) var(--spacing-20);
+        .to-about-button {
+          margin: 0;
+          padding: 0;
+          text-align: right;
+        }
+        .to-about-button a {
+          text-decoration: none;
+          display: inline-block;
+          margin: 0;
+          padding: var(--spacing-2) var(--spacing-10);
+          border: 1px solid #000;
+          border-radius: 30px;
+          font-size: var(--fontSize-1);
+          color: #000;
+        }
+        .to-about-button a:hover {
+          border: 1px solid var(--color-primary);
+          color: var(--color-primary);
+        }
+        .summary {
+          margin: var(--spacing-20) var(--spacing-20) var(--spacing-5);
           font-size: var(--fontSize-0);
         }
         .post-container {
@@ -192,10 +171,6 @@ const Home: NextPage = ({ posts } ) => {
           color: #000;
           font-size: var(--fontSize-2);
           margin-bottom: 0;
-        }
-        .research {
-          margin: var(--spacing-5) var(--spacing-20);
-          font-size: var(--fontSize-0);
         }
       `}</style>
     </>
