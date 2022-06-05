@@ -31,11 +31,19 @@ const Footer: React.FC<Props> = ({ children }) => {
         .footer-inner {
           margin-top: var(--spacing-1);
           margin-bottom: var(--spacing-1);
-        }
-        .site-license {
           font-family: var(--fontFamily-sans);
+        }
+        .footer-inner p {
           margin: var(--spacing-0) var(--spacing-20);
           font-size: var(--fontSize-0);
+        }
+        .copyright {
+          disply: inline;
+          color: #fff;
+          padding: 0 var(--spacing-1) 0 var(--spacing-4);
+        }
+        .site-license {
+          disply: inline;
           color: #fff;
         }
         footer a {
