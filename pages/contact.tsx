@@ -113,7 +113,6 @@ const Contact: NextPage<Props> = ({}) => {
         <span></span>
         <div>
           <h1>Contact</h1>
-          {Blocks({ blocks: contact })}
         </div>
       </header>
 
