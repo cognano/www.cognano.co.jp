@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
 import Link from 'next/link'
+import Logo from './logo'
 
 type Props = {
   children?: ReactNode
@@ -10,12 +11,14 @@ const Footer: React.FC<Props> = ({ children }) => {
     <>
       <footer>
         <div className="footer-inner container">
-          <p className="site-license">
-            &copy; {` `}
-            <Link href="/">
-              <a>CogNano 🦙</a>
-            </Link> {` `}
-            Powered by <a href="https://nextjs.org">Next.js</a> and <a href="https://wordpress.org">WordPress</a>.
+          <p>
+            <Logo />
+            <span className="copyright">
+              &copy; {new Date().getFullYear()} cognano.{` `}
+            </span>
+            <span className="site-license">
+              Powered by <a href="https://nextjs.org">Next.js</a> and <a href="https://wordpress.org">WordPress</a>.
+            </span>
           </p>
         </div>
       </footer>

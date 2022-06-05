@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
 import Link from 'next/link'
+import Logo from './logo'
 
 type Props = {
   children?: ReactNode
@@ -37,7 +38,44 @@ const Header: React.FC<Props> = ({ children }) => {
               </Link>
             </li>
           </ul>
-        </nav>
+        </div>
+
+        <div className="container">
+          <div className="header-inner">
+            <h1 className="site-name">
+              <Logo />
+            </h1>
+            <nav className="global-nav">
+              <ul>
+                <li>
+                  <Link href="/about">
+                    <a>{t.about}</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/news">
+                    <a>{t.news}</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/projects">
+                    <a>{t.projects}</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/blog">
+                    <a>{t.blog}</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact">
+                    <a>{t.contact}</a>
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
       </header>
 
       <style jsx>{`
