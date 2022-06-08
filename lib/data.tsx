@@ -61,3 +61,22 @@ export async function getPosts() {
   const data = await fetchAPI({ query, variables })
   return data?.posts?.edges
 }
+
+export async function getPages() {
+  const query = `query AllPages {
+    pages(where: {status: PUBLISH}) {
+      edges {
+        node {
+          date
+          slug
+          title
+          content
+          modified
+        }
+      }
+    }
+  }`
+  const variables = {}
+  const data = await fetchAPI({ query, variables })
+  return data?.pages?.edges
+}
