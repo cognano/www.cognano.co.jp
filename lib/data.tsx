@@ -22,7 +22,7 @@ export async function fetchAPI({ query, variables }: fetchAPIArgs) {
   })
 
   if (!res.ok) {
-    console.error(json.errors)
+    console.error(res)
     throw new Error(`fetchAPI: http request error`)
   }
 
