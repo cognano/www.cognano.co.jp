@@ -2,11 +2,13 @@ import type { NextPage, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { fetchAPI, getPosts } from '../../lib/data'
+import { fetchAPI, getPosts, WPPost } from '../../lib/data'
 
-export const getStaticProps: GetStaticProps<{
+type Props = {
   posts: WPPost[]
-}> = async () => {
+}
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const posts = await getPosts()
   return {
     props: {
@@ -15,7 +17,7 @@ export const getStaticProps: GetStaticProps<{
   }
 }
 
-const BlogIndex: NextPage = ({ posts } ) => {
+const BlogIndex: NextPage<Props> = ({ posts }) => {
   return (
     <>
       <main>
@@ -31,7 +33,7 @@ const BlogIndex: NextPage = ({ posts } ) => {
         <div className="post-container">
           {posts.map((post, i) => (
             <div className="post" key={i}>
-              <Link href={`/blog/${post.node.id}`}>
+              <Link href={`/blog/${post.node.slug}`}>
                 <a>
                   <h3 className="post-title">
                     {post.node.title}

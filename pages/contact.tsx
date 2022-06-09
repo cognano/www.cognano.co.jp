@@ -1,3 +1,4 @@
+import { MutatingDots } from 'react-loader-spinner'
 import { useState } from 'react'
 import { GetStaticProps, NextPage } from 'next'
 import Link from 'next/link'

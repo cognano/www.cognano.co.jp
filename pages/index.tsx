@@ -3,11 +3,13 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { fetchAPI, getPosts } from '../lib/data'
+import { fetchAPI, getPosts, WPPost } from '../lib/data'
 
-export const getStaticProps: GetStaticProps<{
+type Props = {
   posts: WPPost[]
-}> = async () => {
+}
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const posts = await getPosts()
   return {
     props: {
@@ -37,7 +39,7 @@ const ja = {
   viewAllProjects: `プロジェクト一覧へ`,
 }
 
-const Home: NextPage = ({ posts } ) => {
+const Home: NextPage<Props> = ({ posts }) => {
   const { locale } = useRouter()
   const t = locale === 'en' ? en : ja
 
@@ -63,7 +65,7 @@ const Home: NextPage = ({ posts } ) => {
           <div className="post-container">
             {posts.map((post, i) => (
               <div className="post" key={i}>
-                <Link href={`/blog/${post.node.id}`}>
+                <Link href={`/blog/${post.node.slug}`}>
                   <a>
                     <h3 className="post-title">
                       {post.node.title}
@@ -91,7 +93,7 @@ const Home: NextPage = ({ posts } ) => {
 
           {posts.map((post, i) => (
             <div className="project" key={i}>
-              <Link href={`/projects/${post.node.id}`}>
+              <Link href={`/projects/${post.node.slug}`}>
                 <a>
                   <h3 className="post-title">
                     {post.node.title}
