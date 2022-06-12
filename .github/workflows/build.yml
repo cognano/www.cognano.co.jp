@@ -1,4 +1,4 @@
-name: Build
+name: Build and Deploy
 
 on:
   pull_request:
@@ -24,3 +24,17 @@ jobs:
         yarn install
         yarn lint
         yarn build
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+    - name: Deploy by SCP
+      uses: appleboy/scp-action@master
+      with:
+        source: "out/*"
+        target: ${{ secrets.STAGPATH }}
+        port: ${{ secrets.PORT }}
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
