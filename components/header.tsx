@@ -74,15 +74,13 @@ const Header: React.FC<Props> = ({ children }) => {
           color: #888;
           font-weight: bold;
         }
-        .info-nav a {
-          color: #333;
-          border-bottom: 1px solid #999;
-        }
-        .info-nav a:hover {
-          border-bottom: none;
-        }
         .info-nav li {
           padding-left: var(--spacing-3);
+        }
+        .info-nav span {
+          color: #333;
+          border-bottom: 1px solid #999;
+          cursor: pointer;
         }
         .info-nav ul {
           list-style-type: none;
