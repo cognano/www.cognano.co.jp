@@ -2,40 +2,23 @@ import React, { ReactNode } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Logo from './logo'
+import { useTranslation, LanguageSwitcher } from '../i18n'
 
 type Props = {
   children?: ReactNode
 }
 
-const en = {
-  language: `Language`,
-  news: `News`,
-  projects: `Projects`,
-  blog: `Blog`,
-  about: `About`,
-  contact: `Contact`,
-}
-const ja = {
-  language: `言語`,
-  news: `お知らせ`,
-  projects: `プロジェクト`,
-  blog: `ブログ`,
-  about: `私たちについて`,
-  contact: `お問合わせ`,
-}
-
 const Header: React.FC<Props> = ({ children }) => {
-  const { locale } = useRouter()
-  const t = locale === 'en' ? en : ja
+  const { t } = useTranslation()
 
   return (
     <>
       <header>
         <div className="info-nav">
-          {t.language}:
+          {t('header.language')}:
           <ul>
-            <li><Link href="/" locale="en" passHref><a>English</a></Link></li>
-            <li><Link href="/ja" locale="ja" passHref><a>日本語</a></Link></li>
+            <li><span><LanguageSwitcher lang="en">English</LanguageSwitcher></span></li>
+            <li><span><LanguageSwitcher lang="ja">日本語</LanguageSwitcher></span></li>
           </ul>
         </div>
 
@@ -48,27 +31,27 @@ const Header: React.FC<Props> = ({ children }) => {
               <ul>
                 <li>
                   <Link href="/about">
-                    <a>{t.about}</a>
+                    <a>{t('header.about')}</a>
                   </Link>
                 </li>
                 <li>
                   <Link href="/news">
-                    <a>{t.news}</a>
+                    <a>{t('header.news')}</a>
                   </Link>
                 </li>
                 <li>
                   <Link href="/projects">
-                    <a>{t.projects}</a>
+                    <a>{t('header.projects')}</a>
                   </Link>
                 </li>
                 <li>
                   <Link href="/blog">
-                    <a>{t.blog}</a>
+                    <a>{t('header.blog')}</a>
                   </Link>
                 </li>
                 <li>
                   <Link href="/contact">
-                    <a>{t.contact}</a>
+                    <a>{t('header.contact')}</a>
                   </Link>
                 </li>
               </ul>

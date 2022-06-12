@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { fetchAPI, getPosts, WPPost } from '../lib/data'
+import { useTranslation } from '../i18n'
 
 type Props = {
   posts: WPPost[]
@@ -18,48 +19,26 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   }
 }
 
-const en = {
-  heroMessage: `COGNANO is a venture to aim computer-supported drug discovery.
-    The big VHH data obtained from our own alpacas will lead us to a new drug discovery platform.
-    Our goal is to optimize drug designing/development.`,
-  aboutUs: `About Us`,
-  latestPosts: `Latest posts`,
-  viewAllPosts: `View all posts`,
-  latestProjects: `Latest Projects`,
-  viewAllProjects: `View all projects`,
-}
-const ja = {
-  heroMessage: `COGNANOは、コンピューターを利用した創薬を目指すベンチャー企業です。
-    アルパカから得られた大きなVHHデータは、私たちを新しい創薬プラットフォームに導きます。
-    私たちのゴールは、薬のデザイン/開発を最適化することです。`,
-  aboutUs: `私たちについて`,
-  latestPosts: `最近のブログ`,
-  viewAllPosts: `ブログ一覧へ`,
-  latestProjects: `最近のプロジェクト`,
-  viewAllProjects: `プロジェクト一覧へ`,
-}
-
 const Home: NextPage<Props> = ({ posts }) => {
-  const { locale } = useRouter()
-  const t = locale === 'en' ? en : ja
+  const { t } = useTranslation()
 
   return (
     <>
       <main>
         <div className="hero">
-          <p>{t.heroMessage}</p>
+          <p>{t('index.heroMessage')}</p>
           <p className="to-about-button">
             <Link href="/about">
-              <a>{t.aboutUs}</a>
+              <a>{t('index.aboutUs')}</a>
             </Link>
           </p>
         </div>
 
         <div className="blog summary">
-          <h2>{t.latestPosts}</h2>
+          <h2>{t('index.latestPosts')}</h2>
           <p>
             <Link href="/blog">
-              <a>{t.viewAllPosts} &rarr;</a>
+              <a>{t('index.viewAllPosts')} &rarr;</a>
             </Link>
           </p>
           <div className="post-container">
@@ -84,10 +63,10 @@ const Home: NextPage<Props> = ({ posts }) => {
         </div>
 
         <div className="projects summary">
-          <h2>{t.latestProjects}</h2>
+          <h2>{t('index.latestProjects')}</h2>
           <p>
             <Link href="/projects">
-              <a>{t.viewAllProjects} &rarr;</a>
+              <a>{t('index.viewAllProjects')} &rarr;</a>
             </Link>
           </p>
 
