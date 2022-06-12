@@ -1,24 +1,31 @@
-import type { NextPage, GetStaticProps } from 'next'
+import type { NextPage, GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { getPages, WPPage } from '../lib/data'
+import { formatDate } from '../lib/date'
+import { useTranslation, useSelectedLanguage } from '../i18n'
 
 type Props = {
-  page?: WPPage
+  enPage?: WPPage
+  jaPage?: WPPage
 }
 
-export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const pages = await getPages()
-  const page = pages.find(p => p.node.slug === `${locale}-privacy`)
-  if (page) {
+  const enPage = pages.find(p => p.node.slug === `en-privacy`)
+  const jaPage = pages.find(p => p.node.slug === `ja-privacy`)
+
+  if (enPage || jaPage) {
     return {
       props: {
-        page
+        enPage,
+        jaPage,
       }
     }
   }
+
   return {
     props: {},
     redirect: {
@@ -27,22 +34,13 @@ export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
   }
 }
 
-type Tex = {
-  [key: string]: string
-}
-const text: Tex = {
-  en: `This privacy policy was last modified on %s.`,
-  ja: `このプライバシーポリシーの最終更新日は%sです。`,
-}
+const Privacy: NextPage<Props> = ({ enPage, jaPage }) => {
+  const { t } = useTranslation()
+  const { lang } = useSelectedLanguage()
 
-const Privacy: NextPage<Props> = ({ page }) => {
-  const p = page!
-  const { locale } = useRouter()
-  const msec = Date.parse(p.node.modified)
-  const d = new Date(msec)
-  const m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  const dateformat = locale === 'en' ? `${d.getDate()}st ${m[d.getMonth()]} ${d.getFullYear()}` : `${d.getFullYear()}年${d.getMonth()}月${d.getDate()}日`
-  const modifiedDate = text[`${locale}`].replace('%s', dateformat)
+  const p = lang === 'en' ? enPage! : jaPage!
+  const date = formatDate(p.node.modified, lang)
+  const modifiedDate = t('privacy.modified').replace('%s', date)
 
   return (
     <>
@@ -53,6 +51,7 @@ const Privacy: NextPage<Props> = ({ page }) => {
           <div dangerouslySetInnerHTML={{ __html: p.node.content }} />
         </div>
       </div>
+
       <style jsx>{`
         .callout {
           background-color: #eee;

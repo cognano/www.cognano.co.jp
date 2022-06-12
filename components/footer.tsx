@@ -7,6 +7,8 @@ type Props = {
 }
 
 const Footer: React.FC<Props> = ({ children }) => {
+  const nowYear = new Date().getFullYear()
+
   return (
     <>
       <footer>
@@ -14,7 +16,7 @@ const Footer: React.FC<Props> = ({ children }) => {
           <p>
             <Logo />
             <span className="copyright">
-              &copy; {new Date().getFullYear()} cognano.{` `}
+              &copy; {nowYear} cognano.{` `}
             </span>
             <span className="site-license">
               Powered by <a href="https://nextjs.org">Next.js</a> and <a href="https://wordpress.org">WordPress</a>.
