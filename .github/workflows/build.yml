@@ -24,7 +24,6 @@ jobs:
         yarn install
         yarn lint
         yarn build
-        ls -las
 
   deploy-to-stag:
     runs-on: ubuntu-latest
