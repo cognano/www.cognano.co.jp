@@ -31,6 +31,7 @@ jobs:
     needs: [build]
     if: github.ref != 'refs/heads/main'
     steps:
+    - uses: actions/checkout@v3
     - run: |
         ls -las
     - name: Deploy to staging by FTP
@@ -46,6 +47,7 @@ jobs:
     needs: [build]
     if: github.ref == 'refs/heads/main'
     steps:
+    - uses: actions/checkout@v3
     - name: Deploy to production by FTP
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
