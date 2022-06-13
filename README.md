@@ -3,6 +3,8 @@ The Corporate Website.
 
 This is a corporate website for the cognano, inc.
 
+[![Build and Deploy](https://github.com/cognano/www.cognano.co.jp/actions/workflows/build.yml/badge.svg)](https://github.com/cognano/www.cognano.co.jp/actions/workflows/build.yml)
+
 Getting Started
 --
 
@@ -31,4 +33,4 @@ To learn more about Next.js, take a look at the following resources:
 Deployment
 --
 
-Work in progress.
+Deployed to each environment by FTP of deploy workflow in GitHub Actions. The environment has `production` and `staging`, and only builds on the `main` branch are production deployed.
