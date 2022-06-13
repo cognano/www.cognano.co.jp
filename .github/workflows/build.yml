@@ -44,7 +44,7 @@ jobs:
         server: ${{ secrets.FTPHOST }}
         username: ${{ secrets.FTPUSERNAME_STAG }}
         password: ${{ secrets.FTPPASSWORD_STAG }}
-        local-dir: out
+        local-dir: ./out/
 
   deploy-to-prod:
     runs-on: ubuntu-latest
@@ -66,4 +66,4 @@ jobs:
         server: ${{ secrets.FTPHOST }}
         username: ${{ secrets.FTPUSERNAME_PROD }}
         password: ${{ secrets.FTPPASSWORD_PROD }}
-        local-dir: out
+        local-dir: ./out/
