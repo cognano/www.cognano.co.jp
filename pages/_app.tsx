@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Header from '../components/header'
 import Footer from '../components/footer'
+import Cookie from '../components/cookie'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -18,6 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </div>
       <Footer />
+      <Cookie />
       <style jsx>{`
         .content {
           margin: 0 auto;
