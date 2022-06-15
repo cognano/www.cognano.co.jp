@@ -1,11 +1,11 @@
-import React, { ReactNode, useEffect } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import Link from 'next/link'
-import * as ReactGA from 'react-ga'
 import CookieConsent, {
   getCookieConsentValue,
   Cookies,
 } from 'react-cookie-consent'
 import { useTranslation } from '../i18n'
+import GA from './ga'
 
 type Props = {
   children?: ReactNode
@@ -14,16 +14,14 @@ type Props = {
 const Cookie: React.FC<Props> = ({ children }) => {
   const { t } = useTranslation()
 
-  const initGA = (id: string) => {
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.initialize(id)
-    }
+  const handleAcceptCookie = () => {
+    setGA(<GA />)
   }
 
-  const handleAcceptCookie = () => {
-    if (process.env.GOOGLE_ANALYTICS_ID) {
-      initGA(process.env.GOOGLE_ANALYTICS_ID)
-    }
+  const handleDeclineCookie = () => {
+    Cookies.remove('_ga')
+    Cookies.remove('_gat')
+    Cookies.remove('_gid')
   }
 
   useEffect(() => {
@@ -33,20 +31,37 @@ const Cookie: React.FC<Props> = ({ children }) => {
     }
   }, [])
 
+  const [initGA, setGA] = useState(() => { return (<></>)})
+
   return (
     <>
       <CookieConsent
+        enableDeclineButton={true}
         onAccept={handleAcceptCookie}
+        onDecline={handleDeclineCookie}
         buttonText={t('cookie.buttonText')}
+        declineButtonText={t('cookie.declineButtonText')}
         expires={150}
         style={{
           backgroundColor: "#eee",
           color: "#000",
         }}
+        contentStyle={{
+          margin: "var(--spacing-10) var(--spacing-20)",
+        }}
         buttonStyle={{
           backgroundColor: "#999",
           color: "#fff",
           borderRadius: "30px",
+          fontWeight: "bold",
+          padding: "var(--spacing-2) var(--spacing-5)",
+          marginRight: "var(--spacing-20)",
+        }}
+        declineButtonStyle={{
+          backgroundColor: "inherit",
+          color: "#666",
+          borderRadius: "30px",
+          border: "1px solid #888",
           fontWeight: "bold",
           padding: "var(--spacing-2) var(--spacing-5)",
         }}
@@ -57,6 +72,7 @@ const Cookie: React.FC<Props> = ({ children }) => {
           <a>Privacy Policy</a>
         </Link>.
       </CookieConsent>
+      {initGA}
     </>
   )
 }
