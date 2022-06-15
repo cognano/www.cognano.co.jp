@@ -11,6 +11,7 @@ export default {
   cookie: {
     message: `We serve cookies to analyse traffic to this site. Information about your use of this site is shared with we for that purpose.`,
     buttonText: `OK, got it`,
+    declineButtonText: `Decline`,
   },
   index: {
     heroMessage: `COGNANO is a venture to aim computer-supported drug discovery.

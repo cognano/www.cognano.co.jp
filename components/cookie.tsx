@@ -36,17 +36,32 @@ const Cookie: React.FC<Props> = ({ children }) => {
   return (
     <>
       <CookieConsent
+        enableDeclineButton={true}
         onAccept={handleAcceptCookie}
+        onDecline={handleDeclineCookie}
         buttonText={t('cookie.buttonText')}
+        declineButtonText={t('cookie.declineButtonText')}
         expires={150}
         style={{
           backgroundColor: "#eee",
           color: "#000",
         }}
+        contentStyle={{
+          margin: "var(--spacing-10) var(--spacing-20)",
+        }}
         buttonStyle={{
           backgroundColor: "#999",
           color: "#fff",
           borderRadius: "30px",
+          fontWeight: "bold",
+          padding: "var(--spacing-2) var(--spacing-5)",
+          marginRight: "var(--spacing-20)",
+        }}
+        declineButtonStyle={{
+          backgroundColor: "inherit",
+          color: "#666",
+          borderRadius: "30px",
+          border: "1px solid #888",
           fontWeight: "bold",
           padding: "var(--spacing-2) var(--spacing-5)",
         }}
