@@ -1,11 +1,11 @@
-import React, { ReactNode, useEffect } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import Link from 'next/link'
-import * as ReactGA from 'react-ga'
 import CookieConsent, {
   getCookieConsentValue,
   Cookies,
 } from 'react-cookie-consent'
 import { useTranslation } from '../i18n'
+import GA from './ga'
 
 type Props = {
   children?: ReactNode
@@ -14,16 +14,14 @@ type Props = {
 const Cookie: React.FC<Props> = ({ children }) => {
   const { t } = useTranslation()
 
-  const initGA = (id: string) => {
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.initialize(id)
-    }
+  const handleAcceptCookie = () => {
+    setGA(<GA />)
   }
 
-  const handleAcceptCookie = () => {
-    if (process.env.GOOGLE_ANALYTICS_ID) {
-      initGA(process.env.GOOGLE_ANALYTICS_ID)
-    }
+  const handleDeclineCookie = () => {
+    Cookies.remove('_ga')
+    Cookies.remove('_gat')
+    Cookies.remove('_gid')
   }
 
   useEffect(() => {
@@ -32,6 +30,8 @@ const Cookie: React.FC<Props> = ({ children }) => {
       handleAcceptCookie()
     }
   }, [])
+
+  const [initGA, setGA] = useState('')
 
   return (
     <>
@@ -72,6 +72,7 @@ const Cookie: React.FC<Props> = ({ children }) => {
           <a>Privacy Policy</a>
         </Link>.
       </CookieConsent>
+      {initGA}
     </>
   )
 }
