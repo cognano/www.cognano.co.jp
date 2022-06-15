@@ -31,7 +31,7 @@ const Cookie: React.FC<Props> = ({ children }) => {
     }
   }, [])
 
-  const [initGA, setGA] = useState('')
+  const [initGA, setGA] = useState(() => { return (<></>)})
 
   return (
     <>
