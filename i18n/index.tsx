@@ -8,7 +8,7 @@ import ja from './ja'
 const userI18n: I18N = {
   translations: { en, ja },
   defaultLang: 'en',
-  useBrowserDefault: true,
+  useBrowserDefault: false,
 }
 
 type Dictionary = {
