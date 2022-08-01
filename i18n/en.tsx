@@ -20,7 +20,7 @@ export default {
     aboutUs: `About Us`,
     latestPosts: `Latest posts`,
     viewAllPosts: `View all posts`,
-    latestProjects: `Latest Projects`,
+    latestProjects: `Latest projects`,
     viewAllProjects: `View all projects`,
   },
   privacy: {
