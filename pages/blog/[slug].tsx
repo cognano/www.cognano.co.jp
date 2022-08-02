@@ -1,9 +1,11 @@
 import type { NextPage, GetStaticPaths, GetStaticProps } from 'next'
 import type { ParsedUrlQuery } from 'node:querystring'
-import { getPosts, WPPost } from '../../lib/data'
+import { useTranslation, useSelectedLanguage } from '../../i18n'
+import { Blog, GetBlogs } from '../../lib/blog'
+import { formatDate } from '../../lib/date'
 
 type Props = {
-  post?: WPPost
+  post: Blog
 }
 
 type Params = ParsedUrlQuery & {
@@ -11,9 +13,9 @@ type Params = ParsedUrlQuery & {
 }
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-  const posts = await getPosts()
+  const posts = await GetBlogs()
   const paths = posts.map(v => {
-    const slug = v.node.slug
+    const slug = v.slug
     return { params: { slug } }
   })
 
@@ -24,8 +26,8 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 }
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
-  const posts = await getPosts()
-  const post = posts.find(v => v.node.slug === params!.slug)
+  const posts = await GetBlogs()
+  const post = posts.find(v => v.slug === params!.slug)
   if (post) {
     return {
       props: {
@@ -47,7 +49,7 @@ const BlogPost: NextPage<Props> = (context) => {
   const post = context.post!
   return (
     <>
-      <h1>{post.node.title}</h1>
+      <h1>{post.title}</h1>
     </>
   )
 }

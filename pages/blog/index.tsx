@@ -2,14 +2,16 @@ import type { NextPage, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { fetchAPI, getPosts, WPPost } from '../../lib/data'
+import { useTranslation, useSelectedLanguage } from '../../i18n'
+import { Blog, GetBlogs } from '../../lib/blog'
+import { formatDate } from '../../lib/date'
 
 type Props = {
-  posts: WPPost[]
+  posts: Blog[]
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const posts = await getPosts()
+  const posts = await GetBlogs()
   return {
     props: {
       posts
@@ -18,6 +20,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 }
 
 const BlogIndex: NextPage<Props> = ({ posts }) => {
+  //const { t } = useTranslation()
+  const { lang } = useSelectedLanguage()
+
   return (
     <>
       <main>
@@ -33,16 +38,16 @@ const BlogIndex: NextPage<Props> = ({ posts }) => {
         <div className="post-container">
           {posts.map((post, i) => (
             <div className="post" key={i}>
-              <Link href={`/blog/${post.node.slug}`}>
+              <Link href={`/blog/${post.slug}`}>
                 <a>
                   <h3 className="post-title">
-                    {post.node.title}
+                    {post.title}
                   </h3>
                   <p className="post-meta">
-                    <span>{post.node.date}</span>, By {post.node.author.node.name}
+                    <span>{formatDate(post.date, lang)}</span>, By {post.writers.join(',')}
                   </p>
                   <p className="post-excerpt">
-                    {post.node.excerpt.replace(/<[^>]*>?/gm, '').replace(/\r?\n/g, '').substr(0, 60)}...
+                    {post.excerpt}
                   </p>
                 </a>
               </Link>

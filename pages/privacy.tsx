@@ -3,26 +3,22 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { getPages, WPPage } from '../lib/data'
 import { formatDate } from '../lib/date'
 import { useTranslation, useSelectedLanguage } from '../i18n'
+import { GetContent } from '../lib/content'
+import { Blocks } from 'notionate/dist/components'
+import { GetPageResponseEx } from 'notionate'
 
 type Props = {
-  enPage?: WPPage
-  jaPage?: WPPage
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const pages = await getPages()
-  const enPage = pages.find(p => p.node.slug === `en-privacy`)
-  const jaPage = pages.find(p => p.node.slug === `ja-privacy`)
+  const content = await GetContent('privacy')
+  console.log(content.en.blocks)
 
-  if (enPage || jaPage) {
-    return {
-      props: {
-        enPage,
-        jaPage,
-      }
+  return {
+    props: {
+      content,
     }
   }
 
@@ -34,21 +30,21 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   }
 }
 
-const Privacy: NextPage<Props> = ({ enPage, jaPage }) => {
+const Privacy: NextPage<Props> = ({ content }) => {
   const { t } = useTranslation()
   const { lang } = useSelectedLanguage()
 
-  const p = lang === 'en' ? enPage! : jaPage!
-  const date = formatDate(p.node.modified, lang)
+  const privacy = lang === 'en' ? content.en : content.ja
+  const date = formatDate(privacy.page.last_edited_time, lang)
   const modifiedDate = t('privacy.modified').replace('%s', date)
 
   return (
     <>
       <div className="privacy">
-        <h1>{p.node.title}</h1>
+        <h1>{privacy.page.properties.Name.title.map(v => v.text.content).join(',')}</h1>
         <p className="callout"><span role="img" aria-label="bulb">💡</span> {modifiedDate}</p>
         <div className="privacy-content">
-          <div dangerouslySetInnerHTML={{ __html: p.node.content }} />
+          <Blocks blocks={privacy.blocks} />
         </div>
       </div>
 

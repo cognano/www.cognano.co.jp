@@ -14,9 +14,6 @@ export default {
     declineButtonText: `Decline`,
   },
   index: {
-    heroMessage: `COGNANO is a venture to aim computer-supported drug discovery.
-      The big VHH data obtained from our own alpacas will lead us to a new drug discovery platform.
-      Our goal is to optimize drug designing/development.`,
     aboutUs: `About Us`,
     latestPosts: `Latest posts`,
     viewAllPosts: `View all posts`,
