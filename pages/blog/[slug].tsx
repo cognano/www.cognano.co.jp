@@ -5,10 +5,10 @@ import { Blog, GetBlogs } from '../../lib/blog'
 import { formatDate } from '../../lib/date'
 
 type Props = {
-  post: Blog
+  post?: Blog
 }
 
-type Params = ParsedUrlQuery & {
+type Params = {
   slug: string
 }
 

@@ -6,18 +6,27 @@ import { useRouter } from 'next/router'
 import { useTranslation, useSelectedLanguage } from '../i18n'
 import { formatDate } from '../lib/date'
 import { Blog, GetBlogs } from '../lib/blog'
-import { GetContent } from '../lib/content'
+import { GetContent, ContentBilingual } from '../lib/content'
 import { Blocks } from 'notionate/dist/components'
 import { GetPageResponseEx } from 'notionate'
 
 type Props = {
-  home: GetPageResponseEx
+  home: ContentBilingual
   posts: Blog[]
 }
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getStaticProps: GetStaticProps = async (context) => {
   const home = await GetContent('home')
   const posts = await GetBlogs()
+
+  if (home === undefined) {
+    return {
+      props: {},
+      redirect: {
+        destination: '/404'
+      }
+    }
+  }
 
   return {
     props: {

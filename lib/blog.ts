@@ -20,7 +20,7 @@ export type Blog = {
   excerpt: string
 }
 
-type DBPage = DBPageBase & {
+export type DBPage = DBPageBase & {
   properties: {
     Name: {
       type: "title"
@@ -44,7 +44,7 @@ type DBPage = DBPageBase & {
     }
     Writers: {
       type: "people"
-      people: Array
+      people: Array<SelectPropertyResponse>
       id: string
     }
     Excerpt: {
@@ -66,7 +66,7 @@ const build = (page: DBPage): Blog => {
     id: page.id,
     title: props.Name.title.map(v => v.text.content).join(',') || '',
     slug: props.Slug.select.name || '',
-    date: props.Date.date?.start,
+    date: props.Date.date?.start || '',
     edited: page.last_edited_time,
     createdTs: Date.parse(page.created_time),
     lastEditedTs: Date.parse(page.last_edited_time),
@@ -76,9 +76,9 @@ const build = (page: DBPage): Blog => {
   }
 }
 
-export const GetBlogs = async (): Blog[] => {
+export const GetBlogs = async (): Promise<Blog[]> => {
   const { results } = await FetchDatabase(process.env.NOTION_BLOG_DB_ID as string)
   return results.map(v => {
-    return build(v)
+    return build(v as unknown as DBPage)
   })
 }

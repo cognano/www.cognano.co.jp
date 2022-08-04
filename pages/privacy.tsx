@@ -5,27 +5,29 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { formatDate } from '../lib/date'
 import { useTranslation, useSelectedLanguage } from '../i18n'
-import { GetContent } from '../lib/content'
+import { GetContent, ContentBilingual } from '../lib/content'
 import { Blocks } from 'notionate/dist/components'
 import { GetPageResponseEx } from 'notionate'
 
 type Props = {
+  content: ContentBilingual
 }
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const content = await GetContent('privacy')
-  console.log(content.en.blocks)
 
-  return {
-    props: {
-      content,
+  if (!content) {
+    return {
+      props: {},
+      redirect: {
+        destination: '/404'
+      }
     }
   }
 
   return {
-    props: {},
-    redirect: {
-      destination: '/404'
+    props: {
+      content,
     }
   }
 }
