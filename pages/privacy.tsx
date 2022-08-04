@@ -37,13 +37,17 @@ const Privacy: NextPage<Props> = ({ content }) => {
   const { lang } = useSelectedLanguage()
 
   const privacy = lang === 'en' ? content.en : content.ja
-  const date = formatDate(privacy.page.last_edited_time, lang)
+  const page = privacy.page
+  // @ts-ignore
+  const date = formatDate(page.last_edited_time, lang)
   const modifiedDate = t('privacy.modified').replace('%s', date)
 
   return (
     <>
       <div className="privacy">
-        <h1>{privacy.page.properties.Name.title.map(v => v.text.content).join(',')}</h1>
+        {/*
+ // @ts-ignore */}
+        <h1>{page.properties.Name.title.map(v => v.text.content).join(',')}</h1>
         <p className="callout"><span role="img" aria-label="bulb">💡</span> {modifiedDate}</p>
         <div className="privacy-content">
           <Blocks blocks={privacy.blocks} />
