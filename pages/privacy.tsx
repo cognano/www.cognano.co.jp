@@ -3,52 +3,54 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { getPages, WPPage } from '../lib/data'
 import { formatDate } from '../lib/date'
 import { useTranslation, useSelectedLanguage } from '../i18n'
+import { GetContent, ContentBilingual } from '../lib/content'
+import { Blocks } from 'notionate/dist/components'
+import { GetPageResponseEx } from 'notionate'
 
 type Props = {
-  enPage?: WPPage
-  jaPage?: WPPage
+  content: ContentBilingual
 }
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
-  const pages = await getPages()
-  const enPage = pages.find(p => p.node.slug === `en-privacy`)
-  const jaPage = pages.find(p => p.node.slug === `ja-privacy`)
+export const getStaticProps: GetStaticProps = async () => {
+  const content = await GetContent('privacy')
 
-  if (enPage || jaPage) {
+  if (!content) {
     return {
-      props: {
-        enPage,
-        jaPage,
+      props: {},
+      redirect: {
+        destination: '/404'
       }
     }
   }
 
   return {
-    props: {},
-    redirect: {
-      destination: '/404'
+    props: {
+      content,
     }
   }
 }
 
-const Privacy: NextPage<Props> = ({ enPage, jaPage }) => {
+const Privacy: NextPage<Props> = ({ content }) => {
   const { t } = useTranslation()
   const { lang } = useSelectedLanguage()
 
-  const p = lang === 'en' ? enPage! : jaPage!
-  const date = formatDate(p.node.modified, lang)
+  const privacy = lang === 'en' ? content.en : content.ja
+  const page = privacy.page
+  // @ts-ignore
+  const date = formatDate(page.last_edited_time, lang)
   const modifiedDate = t('privacy.modified').replace('%s', date)
 
   return (
     <>
       <div className="privacy">
-        <h1>{p.node.title}</h1>
+        {/*
+ // @ts-ignore */}
+        <h1>{page.properties.Name.title.map(v => v.text.content).join(',')}</h1>
         <p className="callout"><span role="img" aria-label="bulb">💡</span> {modifiedDate}</p>
         <div className="privacy-content">
-          <div dangerouslySetInnerHTML={{ __html: p.node.content }} />
+          <Blocks blocks={privacy.blocks} />
         </div>
       </div>
 

@@ -3,30 +3,49 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { fetchAPI, getPosts, WPPost } from '../lib/data'
-import { useTranslation } from '../i18n'
+import { useTranslation, useSelectedLanguage } from '../i18n'
+import { formatDate } from '../lib/date'
+import { Blog, GetBlogs } from '../lib/blog'
+import { GetContent, ContentBilingual } from '../lib/content'
+import { Blocks } from 'notionate/dist/components'
+import { GetPageResponseEx } from 'notionate'
 
 type Props = {
-  posts: WPPost[]
+  home: ContentBilingual
+  posts: Blog[]
 }
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
-  const posts = await getPosts()
+export const getStaticProps: GetStaticProps = async (context) => {
+  const home = await GetContent('home')
+  const posts = await GetBlogs()
+
+  if (home === undefined) {
+    return {
+      props: {},
+      redirect: {
+        destination: '/404'
+      }
+    }
+  }
+
   return {
     props: {
+      home,
       posts
     }
   }
 }
 
-const Home: NextPage<Props> = ({ posts }) => {
+const Home: NextPage<Props> = ({ home, posts }) => {
   const { t } = useTranslation()
+  const { lang } = useSelectedLanguage()
+  const hero = lang === 'en' ? home.en : home.ja
 
   return (
     <>
       <main>
         <div className="hero">
-          <p>{t('index.heroMessage')}</p>
+          <Blocks blocks={hero.blocks} />
           <p className="to-about-button">
             <Link href="/about">
               <a>{t('index.aboutUs')}</a>
@@ -44,16 +63,16 @@ const Home: NextPage<Props> = ({ posts }) => {
           <div className="post-container">
             {posts.map((post, i) => (
               <div className="post" key={i}>
-                <Link href={`/blog/${post.node.slug}`}>
+                <Link href={`/blog/${post.slug}`}>
                   <a>
                     <h3 className="post-title">
-                      {post.node.title}
+                      {post.title}
                     </h3>
                     <p className="post-meta">
-                      <span>{post.node.date}</span>, By {post.node.author.node.name}
+                      <span>{formatDate(post.date, lang)}</span>, By {post.writers.join(',')}
                     </p>
                     <p className="post-excerpt">
-                      {post.node.excerpt.replace(/<[^>]*>?/gm, '').replace(/\r?\n/g, '').substr(0, 60)}...
+                      {post.excerpt}
                     </p>
                   </a>
                 </Link>
@@ -72,16 +91,16 @@ const Home: NextPage<Props> = ({ posts }) => {
 
           {posts.map((post, i) => (
             <div className="project" key={i}>
-              <Link href={`/projects/${post.node.slug}`}>
+              <Link href={`/projects/${post.slug}`}>
                 <a>
                   <h3 className="post-title">
-                    {post.node.title}
+                    {post.title}
                   </h3>
                   <p className="post-meta">
-                    <span>{post.node.date}</span>, By {post.node.author.node.name}
+                    <span>{formatDate(post.date, lang)}</span>, By {post.writers.join(',')}
                   </p>
                   <p className="post-excerpt">
-                    {post.node.excerpt.replace(/<[^>]*>?/gm, '').replace(/\r?\n/g, '').substr(0, 60)}...
+                    {post.excerpt}
                   </p>
                 </a>
               </Link>
@@ -152,6 +171,8 @@ const Home: NextPage<Props> = ({ posts }) => {
           color: #000;
           font-size: var(--fontSize-2);
           margin-bottom: 0;
+          text-overflow: ellipsis;
+          overflow: hidden;
         }
       `}</style>
     </>

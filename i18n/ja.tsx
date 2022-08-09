@@ -14,9 +14,6 @@ export default {
     declineButtonText: `同意しない`,
   },
   index: {
-    heroMessage: `COGNANOは、コンピューターを利用した創薬を目指すベンチャー企業です。
-      アルパカから得られた大きなVHHデータは、私たちを新しい創薬プラットフォームに導きます。
-      私たちのゴールは、薬のデザイン/開発を最適化することです。`,
     aboutUs: `私たちについて`,
     latestPosts: `最近のブログ`,
     viewAllPosts: `ブログ一覧へ`,
