@@ -1,59 +1,100 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useState } from 'react'
 import Link from 'next/link'
 import Logo from './logo'
+import styles from '../styles/App.module.css'
+
+import { useTranslation, LanguageSwitcher, useSelectedLanguage } from '../i18n'
+import { twitterIcon, youtubeIcon, facebookIcon, linkedinIcon, languageIcon, sortdownIcon, githubIcon } from './icons'
 
 type Props = {
   children?: ReactNode
 }
 
 const Footer: React.FC<Props> = ({ children }) => {
+  const { t } = useTranslation()
+  const { lang } = useSelectedLanguage()
   const nowYear = new Date().getFullYear()
+  const [open, setOpen] = useState(false)
+  const onClick = () => setOpen(!open)
 
   return (
-    <>
-      <footer>
-        <div className="footer-inner container">
-          <p>
-            <Logo />
-            <span className="copyright">
-              &copy; {nowYear} cognano.{` `}
-            </span>
-            <span className="site-license">
-              Powered by <a href="https://nextjs.org">Next.js</a> and <a href="https://wordpress.org">WordPress</a>.
-            </span>
+    <footer className={`${styles.footer} container`}>
+      <div className={styles.footerinner}>
+        <Logo />
+        <div className={styles.footernav}>
+          <ul>
+            <li>
+              <Link href="/about">
+                <a>{t('header.about')}</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/news">
+                <a>{t('header.news')}</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/projects">
+                <a>{t('header.projects')}</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/blog">
+                <a>{t('header.blog')}</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact">
+                <a>{t('header.contact')}</a>
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div className={styles.siteinfo}>
+        <div>
+          <div className={styles.languages} onClick={onClick}>
+            <span className={styles.languageIcon}>{languageIcon()}</span>
+            <span>{t(`language.${lang}`)}</span>
+            <span className={styles.sortdownIcon}>{sortdownIcon()}</span>
+            {open && <div className={styles.switcher}>
+              <ul>
+                <li>
+                  <LanguageSwitcher lang="en">
+                    {t('language.en')}
+                    <span className={styles.langen}>English (US)</span>
+                  </LanguageSwitcher>
+                </li>
+                <li>
+                  <LanguageSwitcher lang="ja">
+                    {t('language.ja')}
+                    <span className={styles.langen}>日本語</span>
+                  </LanguageSwitcher>
+                </li>
+              </ul>
+            </div>}
+          </div>
+          <p className={styles.privacy}>
+            <Link href="/privacy">
+              {t('footer.privacy')}
+            </Link>
+          </p>
+          <p className={styles.copyright}>
+            &copy; {nowYear} COGNANO, Inc.
+          </p>
+          <p className={styles.sitelicense}>
+            Powered by <a href="https://nextjs.org" target="_blank" rel="noopener noreferrer">Next.js</a> and <a href="https://github.com/linyows/notionate" target="_blank" rel="noopener noreferrer">Notionate</a>.
           </p>
         </div>
-      </footer>
-
-      <style jsx>{`
-        footer {
-          margin-top: var(--spacing-32);
-          background-color: #888;
-        }
-        .footer-inner {
-          margin-top: var(--spacing-1);
-          margin-bottom: var(--spacing-1);
-          font-family: var(--fontFamily-sans);
-        }
-        .footer-inner p {
-          margin: var(--spacing-0) var(--spacing-20);
-          font-size: var(--fontSize-0);
-        }
-        .copyright {
-          disply: inline;
-          color: #fff;
-          padding: 0 var(--spacing-1) 0 var(--spacing-4);
-        }
-        .site-license {
-          disply: inline;
-          color: #fff;
-        }
-        footer a {
-          color: #fff;
-          font-weight: bold;
-        }
-      `}</style>
-    </>
+        <p className={styles.snsnav}>
+          <a className={styles.youtube} href="https://www.youtube.com/channel/UCffw3_nn9m_nJhOED6QS0vQ" target="_blank" rel="noopener noreferrer">{youtubeIcon()}</a>
+          <a className={styles.twitter} href="https://twitter.com/cognano_inc" target="_blank" rel="noopener noreferrer">{twitterIcon()}</a>
+          <a className={styles.facebook} href="https://www.facebook.com/profile.php?id=100057515646298" target="_blank" rel="noopener noreferrer">{facebookIcon()}</a>
+          <a className={styles.linkedin} href="https://jp.linkedin.com/company/cognano" target="_blank" rel="noopener noreferrer">{linkedinIcon()}</a>
+          <a className={styles.github} href="https://github.com/cognano" target="_blank" rel="noopener noreferrer">{githubIcon()}</a>
+        </p>
+      </div>
+    </footer>
   )
 }
 

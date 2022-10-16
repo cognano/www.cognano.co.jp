@@ -6,30 +6,30 @@ import {
   DBPageBase,
   QueryDatabaseParameters,
   PersonUserObjectResponse,
+  PageObjectResponse,
+  QueryDatabaseResponseEx,
+  PageObjectResponseEx,
 } from 'notionate'
 
-type Writer = {
-  name: string
-  avatar: string
-}
-
-export type Blog = {
+export type LocalizedProject = {
   id: string
   title: string
   date: string
   edited: string
-  slug: string
   createdTs: number
   lastEditedTs: number
   tags: string[]
-  writers: Writer[]
-  excerpt: string
-  language: string
+  host: string
 }
 
-export type BlogEachLangs = {
-  en: Blog[]
-  ja: Blog[]
+export type Projects = {
+  en: LocalizedProject[]
+  ja: LocalizedProject[]
+}
+
+export type ProjectsOriginal = {
+  en: QueryDatabaseResponseEx
+  ja: QueryDatabaseResponseEx
 }
 
 export type DBPage = DBPageBase & {
@@ -37,11 +37,6 @@ export type DBPage = DBPageBase & {
     Name: {
       type: "title"
       title: RichTextItemResponse[]
-      id: string
-    }
-    Slug: {
-      type: "select"
-      select: SelectPropertyResponse
       id: string
     }
     Language: {
@@ -59,12 +54,7 @@ export type DBPage = DBPageBase & {
       multi_select: SelectPropertyResponse[]
       id: string
     }
-    Writers: {
-      type: "people"
-      people: PersonUserObjectResponse[]
-      id: string
-    }
-    Excerpt: {
+    Host: {
       type: "rich_text"
       rich_text: RichTextItemResponse[]
       id: string
@@ -77,27 +67,22 @@ export type DBPage = DBPageBase & {
   }
 }
 
-const build = (page: DBPage): Blog => {
+const build = (page: DBPage): LocalizedProject => {
   const props = page.properties
   return {
     id: page.id,
     title: props.Name.title.map(v => v.plain_text).join(',') || '',
-    slug: props.Slug.select.name || '',
     date: props.Date.date?.start || '',
     edited: page.last_edited_time,
     createdTs: Date.parse(page.created_time),
     lastEditedTs: Date.parse(page.last_edited_time),
     tags: props.Tags.multi_select.map(v => v.name) || [],
-    writers: props.Writers.people.map(v => {
-      return { name: v.name, avatar: v.avatar_url } as Writer
-    }) || [],
-    excerpt: props.Excerpt.rich_text.map(v => v.plain_text).join(',') || '',
-    language: props.Language.select.name || '',
+    host: props.Host.rich_text.map(v => v.plain_text).join(',') || '',
   }
 }
 
-export const blogQuery = {
-  database_id: process.env.NOTION_BLOG_DB_ID,
+export const projectsQuery = {
+  database_id: process.env.NOTION_PROJECT_DB_ID,
   filter: {
     and: [
       {
@@ -123,38 +108,9 @@ export const blogQuery = {
 } as QueryDatabaseParameters
 
 // Double value because it is bilingual, Actually 5
-export const blogQueryLatest = { ...blogQuery, page_size: 10 }
+export const projectsQueryLatest = { ...projectsQuery, page_size: 10 }
 
-export const newsQuery = {
-  database_id: process.env.NOTION_BLOG_DB_ID,
-  filter: {
-    and: [
-      {
-        property: 'Published',
-        checkbox: {
-          equals: true
-        }
-      },
-      {
-        property: 'Tags',
-        multi_select: {
-          contains: 'News'
-        }
-      }
-    ]
-  },
-  sorts: [
-    {
-      property: 'Date',
-      direction: 'descending'
-    },
-  ]
-} as QueryDatabaseParameters
-
-// Double value because it is bilingual, Actually 5
-export const newsQueryLatest = { ...newsQuery, page_size: 10 }
-
-export const GetBlogsEachLangs = async (q: QueryDatabaseParameters): Promise<BlogEachLangs> => {
+export const GetProjects = async (q: QueryDatabaseParameters): Promise<Projects> => {
   const { results } = await FetchDatabase(q)
 
   const ja = results.filter(v => {
@@ -180,10 +136,23 @@ export const GetBlogsEachLangs = async (q: QueryDatabaseParameters): Promise<Blo
   return { ja, en }
 }
 
-export const GetBlogs = async (q: QueryDatabaseParameters): Promise<Blog[]> => {
-  const { results } = await FetchDatabase(q)
-  return results.map(v => {
+export const GetProjectsOriginal = async (q: QueryDatabaseParameters): Promise<ProjectsOriginal> => {
+  let jadb = await FetchDatabase(q)
+  let endb = await FetchDatabase(q)
+
+  jadb.results = jadb.results.filter(v => {
     const p = v as DBPage
-    return build(p)
-  })
+    if (p.properties.Language.select.name === 'Japanese') {
+      return v
+    }
+  }).filter(v => v) as PageObjectResponseEx[]
+
+  endb.results = endb.results.filter(v => {
+    const p = v as DBPage
+    if (p.properties.Language.select.name === 'English') {
+      return v
+    }
+  }).filter(v => v) as PageObjectResponseEx[]
+
+  return { ja: jadb, en: endb }
 }

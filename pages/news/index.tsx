@@ -2,45 +2,45 @@ import type { NextPage, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import BlogList from '../../components/blog-list'
+import NewsList from '../../components/news-list'
 import { useSelectedLanguage } from '../../i18n'
-import { BlogEachLangs, blogQuery, GetBlogsEachLangs } from '../../lib/blog'
+import { newsQuery, BlogEachLangs, GetBlogsEachLangs } from '../../lib/blog'
 
 type Props = {
-  blog: BlogEachLangs
+  news: BlogEachLangs
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const blog = await GetBlogsEachLangs(blogQuery)
+  const news = await GetBlogsEachLangs(newsQuery)
   return {
     props: {
-      blog
+      news
     }
   }
 }
 
-const BlogIndex: NextPage<Props> = ({ blog }) => {
+const NewsIndex: NextPage<Props> = ({ news }) => {
   const { lang } = useSelectedLanguage()
-  const posts = lang === 'en' ? blog.en : blog.ja
+  const posts = lang === 'en' ? news.en : news.ja
 
   return (
     <>
       <main>
         <header className="container">
           <h1>
-            Blog
+            News
           </h1>
           <p>
-            This is blog.
+            This is news.
           </p>
         </header>
 
         <div className="container">
-          <BlogList blog={posts} lang={lang} />
+          <NewsList news={posts} lang={lang} />
         </div>
       </main>
     </>
   )
 }
 
-export default BlogIndex
+export default NewsIndex

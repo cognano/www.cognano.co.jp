@@ -3,18 +3,19 @@ import {
   FetchBlocks,
   FetchPage,
   DateResponse,
-  RichText,
+  RichTextItemResponse,
   SelectPropertyResponse,
   DBPageBase,
   GetPageResponseEx,
-  ListBlockChildrenResponseEx
+  ListBlockChildrenResponseEx,
+  QueryDatabaseParameters,
 } from 'notionate'
 
 type DBPage = DBPageBase & {
   properties: {
     Name: {
       type: "title"
-      title: Array<RichText>
+      title: RichTextItemResponse[]
       id: string
     }
     Slug: {
@@ -34,7 +35,7 @@ type DBPage = DBPageBase & {
     }
     Tags: {
       type: "multi_select"
-      multi_select: Array<SelectPropertyResponse>
+      multi_select: SelectPropertyResponse[]
       id: string
     }
     Published: {
@@ -55,8 +56,24 @@ export type ContentBilingual = {
   ja: Content
 }
 
+const query = {
+  database_id: process.env.NOTION_PAGES_DB_ID,
+  filter: {
+    property: 'Published',
+    checkbox: {
+      equals: true
+    },
+  },
+  sorts: [
+    {
+      property: 'Date',
+      direction: 'descending'
+    },
+  ]
+} as QueryDatabaseParameters
+
 export const GetContent = async (slug: string): Promise<ContentBilingual|undefined> => {
-  const { results } = await FetchDatabase(process.env.NOTION_PAGES_DB_ID as string)
+  const { results } = await FetchDatabase(query)
 
   const pageEn = results.find(vv => {
     const v = vv as unknown as DBPage

@@ -1,11 +1,22 @@
 import type { NextPage, GetStaticPaths, GetStaticProps } from 'next'
-import type { ParsedUrlQuery } from 'node:querystring'
-import { useTranslation, useSelectedLanguage } from '../../i18n'
-import { Blog, GetBlogs } from '../../lib/blog'
+import Link from 'next/link'
+import { useSelectedLanguage, useLanguageQuery } from '../../i18n'
+import { Blog, blogQuery, GetBlogsEachLangs } from '../../lib/blog'
+import { FetchBlocks } from 'notionate'
+import { Blocks, ListBlockChildrenResponseEx } from 'notionate/dist/components'
 import { formatDate } from '../../lib/date'
+import styles from '../../styles/Blog.module.css'
+import { calendarIcon, pensquareIcon } from '../../components/icons'
 
 type Props = {
-  post?: Blog
+  blog?: {
+    en?: Blog
+    ja?: Blog
+  }
+  blocks?: {
+    en?: ListBlockChildrenResponseEx
+    ja?: ListBlockChildrenResponseEx
+  }
 }
 
 type Params = {
@@ -13,10 +24,12 @@ type Params = {
 }
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-  const posts = await GetBlogs()
-  const paths = posts.map(v => {
+  const blog = await GetBlogsEachLangs(blogQuery)
+  const paths = blog.en.map(v => {
     const slug = v.slug
-    return { params: { slug } }
+    return {
+      params: { slug },
+    }
   })
 
   return {
@@ -26,12 +39,19 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 }
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
-  const posts = await GetBlogs()
-  const post = posts.find(v => v.slug === params!.slug)
-  if (post) {
+  const blog = await GetBlogsEachLangs(blogQuery)
+  const en = blog.en.find(v => v.slug === params!.slug)
+  const ja = blog.ja.find(v => v.slug === params!.slug)
+  if (en && ja) {
+    const blocksEn = await FetchBlocks(en.id)
+    const blocksJa = await FetchBlocks(ja.id)
     return {
       props: {
-        post
+        blog: { en, ja },
+        blocks: {
+          en: blocksEn,
+          ja: blocksJa,
+        }
       },
       revalidate: 60,
     }
@@ -45,12 +65,38 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
   }
 }
 
-const BlogPost: NextPage<Props> = (context) => {
-  const post = context.post!
+const BlogPost: NextPage<Props> = ({ blog, blocks }) => {
+  const [query] = useLanguageQuery()
+  const { lang } = useSelectedLanguage()
+  const post = lang === 'en' ? blog!.en! : blog!.ja!
+  const postBlocks = lang === 'en' ? blocks!.en! : blocks!.ja!
   return (
-    <>
-      <h1>{post.title}</h1>
-    </>
+    <article className="container">
+      <header className={styles.header}>
+        <p className={styles.category}>
+          <Link href={{ pathname: '/blog', query }}>Blog</Link>
+        </p>
+        <h1 className={styles.title}>{post.title}</h1>
+        <div className={styles.meta}>
+          <p className={styles.publishedAt}>
+            <span className={styles.calendarIcon}>{calendarIcon()}</span>
+            <span className={styles.date}>{formatDate(post.date, lang)}</span>
+          </p>
+          <p className={styles.authors}>
+            <span className={styles.writtenByIcon}>{pensquareIcon()}</span>
+            {post.writers.map((u, i) => (
+              <span className={styles.author} key={i}>
+                {u.name}
+                <img src={u.avatar} />
+              </span>
+            ))}
+          </p>
+        </div>
+      </header>
+      <section className={styles.blocks}>
+        <Blocks blocks={postBlocks} />
+      </section>
+    </article>
   )
 }
 
