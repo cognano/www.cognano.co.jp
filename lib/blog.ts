@@ -5,7 +5,7 @@ import {
   SelectPropertyResponse,
   DBPageBase,
   QueryDatabaseParameters,
-  PersonUserObjectResponse,
+  PersonUserObjectResponseEx,
 } from 'notionate'
 
 type Writer = {
@@ -61,7 +61,7 @@ export type DBPage = DBPageBase & {
     }
     Writers: {
       type: "people"
-      people: PersonUserObjectResponse[]
+      people: PersonUserObjectResponseEx[]
       id: string
     }
     Excerpt: {
@@ -89,7 +89,7 @@ const build = (page: DBPage): Blog => {
     lastEditedTs: Date.parse(page.last_edited_time),
     tags: props.Tags.multi_select.map(v => v.name) || [],
     writers: props.Writers.people.map(v => {
-      return { name: v.name, avatar: v.avatar_url } as Writer
+      return { name: v.name, avatar: v.avatar } as Writer
     }) || [],
     excerpt: props.Excerpt.rich_text.map(v => v.plain_text).join(',') || '',
     language: props.Language.select.name || '',

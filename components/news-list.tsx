@@ -53,7 +53,7 @@ const NewsList: React.FC<Props> = ({ news, lang }) => {
         <div className={styles.news} key={i}>
           <ul className={styles.newsTags}>
             {post.tags.map((tag, i) => (
-              <li key={i}>
+              tag !== 'News' && <li key={i}>
                 {tagIcon(tag)}
               </li>
             ))}

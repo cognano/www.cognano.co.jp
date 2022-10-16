@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import Link from 'next/link'
 import Logo from './logo'
 import styles from '../styles/App.module.css'
-import { useTranslation } from '../i18n'
+import { useTranslation, useLanguageQuery } from '../i18n'
 import { envelopeIcon } from './icons'
 
 type Props = {
@@ -11,6 +11,7 @@ type Props = {
 
 const Header: React.FC<Props> = ({ children }) => {
   const { t } = useTranslation()
+  const [query] = useLanguageQuery()
 
   return (
     <header className={styles.header}>
@@ -21,29 +22,29 @@ const Header: React.FC<Props> = ({ children }) => {
         <nav className={styles.globalnav}>
           <ul>
             <li>
-              <Link href="/about">
+              <Link href={{ pathname: '/about', query }}>
                 <a>{t('header.about')}</a>
               </Link>
             </li>
             <li>
-              <Link href="/projects">
+              <Link href={{ pathname: '/projects', query }}>
                 <a>{t('header.projects')}</a>
               </Link>
             </li>
             <li>
-              <Link href="/blog">
+              <Link href={{ pathname: '/blog', query }}>
                 <a>{t('header.blog')}</a>
               </Link>
             </li>
             <li>
-              <Link href="/news">
+              <Link href={{ pathname: '/news', query }}>
                 <a>{t('header.news')}</a>
               </Link>
             </li>
           </ul>
         </nav>
         <div className={styles.infonav}>
-          <Link href="/contact">
+          <Link href={{ pathname: '/contact', query }}>
             <a>
               <span className={styles.envelopeIcon}>{envelopeIcon()}</span>
               {t('header.contact')}

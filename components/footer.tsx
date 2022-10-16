@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Logo from './logo'
 import styles from '../styles/App.module.css'
 
-import { useTranslation, LanguageSwitcher, useSelectedLanguage } from '../i18n'
+import { useTranslation, LanguageSwitcher, useSelectedLanguage, useLanguageQuery } from '../i18n'
 import { twitterIcon, youtubeIcon, facebookIcon, linkedinIcon, languageIcon, sortdownIcon, githubIcon } from './icons'
 
 type Props = {
@@ -12,6 +12,7 @@ type Props = {
 
 const Footer: React.FC<Props> = ({ children }) => {
   const { t } = useTranslation()
+  const [query] = useLanguageQuery()
   const { lang } = useSelectedLanguage()
   const nowYear = new Date().getFullYear()
   const [open, setOpen] = useState(false)
@@ -24,27 +25,27 @@ const Footer: React.FC<Props> = ({ children }) => {
         <div className={styles.footernav}>
           <ul>
             <li>
-              <Link href="/about">
+              <Link href={{ pathname: '/about', query }}>
                 <a>{t('header.about')}</a>
               </Link>
             </li>
             <li>
-              <Link href="/news">
+              <Link href={{ pathname: '/news', query }}>
                 <a>{t('header.news')}</a>
               </Link>
             </li>
             <li>
-              <Link href="/projects">
+              <Link href={{ pathname: '/projects', query }}>
                 <a>{t('header.projects')}</a>
               </Link>
             </li>
             <li>
-              <Link href="/blog">
+              <Link href={{ pathname: '/blog', query }}>
                 <a>{t('header.blog')}</a>
               </Link>
             </li>
             <li>
-              <Link href="/contact">
+              <Link href={{ pathname: '/contact', query }}>
                 <a>{t('header.contact')}</a>
               </Link>
             </li>
@@ -75,7 +76,7 @@ const Footer: React.FC<Props> = ({ children }) => {
             </div>}
           </div>
           <p className={styles.privacy}>
-            <Link href="/privacy">
+            <Link href={{ pathname: '/privacy', query }}>
               {t('footer.privacy')}
             </Link>
           </p>
