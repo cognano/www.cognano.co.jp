@@ -110,14 +110,14 @@ const Contact: NextPage<Props> = ({}) => {
 
   return (
     <>
-      <header className="grider category-header">
+      <header className="grider category-header container">
         <span></span>
         <div>
           <h1>Contact</h1>
         </div>
       </header>
 
-      <section>
+      <section className="container">
         <form onSubmit={handleSubmit}>
           <legend className="form-name grider">
             <label htmlFor="name" className="form-label">
@@ -195,6 +195,7 @@ const Contact: NextPage<Props> = ({}) => {
         }
         .form-body {
           margin-top: var(--spacing-8);
+          border: 1px solid #000;
         }
         .form-name input {
           min-width: 60%;

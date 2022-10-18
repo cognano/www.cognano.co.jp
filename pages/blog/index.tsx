@@ -2,31 +2,31 @@ import type { NextPage, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useTranslation, useSelectedLanguage } from '../../i18n'
-import { Blog, GetBlogs } from '../../lib/blog'
-import { formatDate } from '../../lib/date'
+import BlogList from '../../components/blog-list'
+import { useSelectedLanguage } from '../../i18n'
+import { BlogEachLangs, blogQuery, GetBlogsEachLangs } from '../../lib/blog'
 
 type Props = {
-  posts: Blog[]
+  blog: BlogEachLangs
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const posts = await GetBlogs()
+  const blog = await GetBlogsEachLangs(blogQuery)
   return {
     props: {
-      posts
+      blog
     }
   }
 }
 
-const BlogIndex: NextPage<Props> = ({ posts }) => {
-  //const { t } = useTranslation()
+const BlogIndex: NextPage<Props> = ({ blog }) => {
   const { lang } = useSelectedLanguage()
+  const posts = lang === 'en' ? blog.en : blog.ja
 
   return (
     <>
       <main>
-        <header>
+        <header className="container">
           <h1>
             Blog
           </h1>
@@ -35,62 +35,10 @@ const BlogIndex: NextPage<Props> = ({ posts }) => {
           </p>
         </header>
 
-        <div className="post-container">
-          {posts.map((post, i) => (
-            <div className="post" key={i}>
-              <Link href={`/blog/${post.slug}`}>
-                <a>
-                  <h3 className="post-title">
-                    {post.title}
-                  </h3>
-                  <p className="post-meta">
-                    <span>{formatDate(post.date, lang)}</span>, By {post.writers.join(',')}
-                  </p>
-                  <p className="post-excerpt">
-                    {post.excerpt}
-                  </p>
-                </a>
-              </Link>
-            </div>
-          ))}
+        <div className="container">
+          <BlogList blog={posts} lang={lang} />
         </div>
       </main>
-
-      <style jsx>{`
-        .post-container {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-          gap: var(--spacing-10);
-        }
-        .post a {
-          display: block;
-          height: 100%;
-          padding: 1.5rem;
-          text-decoration: none;
-          border: 1px solid #eaeaea;
-          border-radius: 10px;
-          transition: color 0.15s ease, border-color 0.15s ease;
-        }
-        .post a:hover {
-          border: 1px solid #000;
-        }
-        .post-title {
-          font-size: var(--fontSize-4);
-          margin-bottom: var(--spacing-2);
-        }
-        .post-meta {
-          margin-bottom: var(--spacing-4);
-          color: #000;
-        }
-        .post-meta span {
-          font-weight: bold;
-        }
-        .post-excerpt {
-          color: #000;
-          font-size: var(--fontSize-2);
-          margin-bottom: 0;
-        }
-      `}</style>
     </>
   )
 }

@@ -3,7 +3,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, 'Helvetica Neue', sans-serif;
 }
 
 a {
@@ -48,7 +48,7 @@ a {
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --fontFamily-serif: 'Noto Serif JP', "Merriweather", "Georgia", Cambria, "Times New Roman",
     Times, serif;
-  --font-body: var(--fontFamily-serif);
+  --font-body: var(--fontFamily-sans);
   --font-heading: var(--fontFamily-sans);
   --fontWeight-normal: 400;
   --fontWeight-medium: 500;
@@ -70,7 +70,7 @@ a {
   --fontSize-5: 2.074rem;
   --fontSize-6: 2.488rem;
   --fontSize-7: 2.986rem;
-  --color-primary: #005b99;
+  --color-primary: #fa7363;
   --color-text: #2e353f;
   --color-text-light: #4f5969;
   --color-heading: #1a202c;
@@ -261,7 +261,85 @@ a:focus {
   text-decoration: none;
 }
 
+.logo {
+  letter-spacing: .2rem;
+  margin: 0;
+  font-family: var(--fontFamily-sans);
+  font-weight: bold;
+}
+
 .container {
-  margin: var(--spacing-20) auto;
+  margin: 0 auto;
+  padding: 0 var(--spacing-10);
   max-width: 1800px;
+}
+
+/* NOTIONATE */
+.container .notionate-list {
+  font-size: var(--fontSize-2);
+}
+.container .notionate-list-record {
+  margin: 8px 0;
+  padding: 8px 0;
+}
+.container .notionate-list-spacer {
+  border-top: 1px dashed var(--color-text);
+}
+.container .notionate-list-title {
+  font-weight: bold;
+}
+.container .notionate-list-title-a:hover {
+  color: var(--color-primary);
+}
+.container .notionate-list-date {
+  color: var(--color-text);
+  font-weight: bold;
+}
+.container .notionate-list-record:hover {
+  background-color: #eee;
+}
+@media (prefers-color-scheme: dark) {
+  .container .notionate-list-record:hover {
+    background-color: #eee;
+  }
+  .container .notionate-select-default {
+    color: rgb(50, 48, 44);
+    background-color: rgba(227, 226, 224, 0.5);
+  }
+  .container .notionate-select-gray {
+    color: rgb(50, 48, 44);
+    background-color: rgb(227, 226, 224);
+  }
+  .container .notionate-select-brown {
+    color: rgb(68, 42, 30);
+    background-color: rgb(238, 224, 218);
+  }
+  .container .notionate-select-orange {
+    color: rgb(73, 41, 14);
+    background-color: rgb(250, 222, 201);
+  }
+  .container .notionate-select-yellow {
+    color: rgb(64, 44, 27);
+    background-color: rgb(253, 236, 200);
+  }
+  .container .notionate-select-green {
+    color: rgb(28, 56, 41);
+    background-color: rgb(219, 237, 219);
+  }
+  .container .notionate-select-blue {
+    color: rgb(24, 51, 71);
+    background-color: rgb(211, 229, 239);
+  }
+  .container .notionate-select-purple {
+    color: rgb(65, 36, 84);
+    background-color: rgb(232, 222, 238);
+  }
+  .container .notionate-select-pink {
+    color: rgb(76, 35, 55);
+    background-color: rgb(245, 224, 233);
+  }
+  .container .notionate-select-red {
+    color: rgb(93, 23, 21);
+    background-color: rgb(255, 226, 221);
+  }
 }

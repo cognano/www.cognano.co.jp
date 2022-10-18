@@ -7,10 +7,15 @@ import { formatDate } from '../lib/date'
 import { useTranslation, useSelectedLanguage } from '../i18n'
 import { GetContent, ContentBilingual } from '../lib/content'
 import { Blocks } from 'notionate/dist/components'
-import { GetPageResponseEx } from 'notionate'
+import { GetPageResponse, PageObjectResponse } from 'notionate'
+import styles from '../styles/Privacy.module.css'
 
 type Props = {
   content: ContentBilingual
+}
+
+type Privacy = {
+  Name: string
 }
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -41,33 +46,17 @@ const Privacy: NextPage<Props> = ({ content }) => {
   // @ts-ignore
   const date = formatDate(page.last_edited_time, lang)
   const modifiedDate = t('privacy.modified').replace('%s', date)
+  // @ts-ignore
+  const title = ('properties' in page && page.properties.Name) ? page.properties.Name.title.map(v => v.text.content).join(',') : ''
 
   return (
     <>
-      <div className="privacy">
-        {/*
- // @ts-ignore */}
-        <h1>{page.properties.Name.title.map(v => v.text.content).join(',')}</h1>
-        <p className="callout"><span role="img" aria-label="bulb">💡</span> {modifiedDate}</p>
-        <div className="privacy-content">
+      <div className={styles.privacy}>
+        <h1>{title}</h1>
+        <div className={styles.privacyContent}>
           <Blocks blocks={privacy.blocks} />
         </div>
       </div>
-
-      <style jsx>{`
-        .callout {
-          background-color: #eee;
-          padding: var(--spacing-6);
-          font-family: var(--fontFamily-sans);
-        }
-        .callout span {
-          margin-right: var(--spacing-2);
-        }
-        .privacy {
-          margin: var(--spacing-20) var(--spacing-20);
-          padding: var(--spacing-20) 0 var(--spacing-20);
-        }
-      `}</style>
     </>
   )
 }

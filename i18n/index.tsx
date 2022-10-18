@@ -8,7 +8,7 @@ import ja from './ja'
 const userI18n: I18N = {
   translations: { en, ja },
   defaultLang: 'en',
-  useBrowserDefault: false,
+  useBrowserDefault: true,
 }
 
 type Dictionary = {
@@ -35,13 +35,18 @@ export const useLanguageQuery = (forceLang?: string) => {
     let query: ParsedUrlQuery = router.query
     const keys = Object.keys(query)
     keys.forEach((key: string, index: number) => {
-        passedQuery[key] = query[key] as string
+      passedQuery[key] = query[key] as string
     })
   }
 
   useEffect(() => {
     setValue({ ...passedQuery, lang: forceLang || (lang as string) || (passedQuery['lang'] as string) })
   }, [forceLang, lang])
+
+  // remove query string when default language
+  if (value && value.lang === userI18n.defaultLang) {
+    return [undefined] as const
+  }
 
   return [value] as const
 }
@@ -83,6 +88,7 @@ export const LanguageSwitcher = ({ lang, children, shallow=false }: Props) => {
 
   if (React.isValidElement(children)) {
     return React.cloneElement(children, {
+      // @ts-ignore
       onClick: () => {
         if (children && children.props && typeof children.props.onClick === 'function') {
           children.props.onClick()

@@ -1,23 +1,28 @@
 import type { NextPage, GetStaticProps } from 'next'
-import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useTranslation, useSelectedLanguage } from '../i18n'
-import { formatDate } from '../lib/date'
-import { Blog, GetBlogs } from '../lib/blog'
+import { useTranslation, useSelectedLanguage, useLanguageQuery } from '../i18n'
+import { blogQueryLatest, newsQueryLatest, BlogEachLangs, GetBlogsEachLangs } from '../lib/blog'
 import { GetContent, ContentBilingual } from '../lib/content'
-import { Blocks } from 'notionate/dist/components'
-import { GetPageResponseEx } from 'notionate'
+import { Blocks, List } from 'notionate/dist/components'
+import styles from '../styles/Home.module.css'
+import { GetProjectsOriginal, ProjectsOriginal, projectsQueryLatest } from '../lib/project'
+import Unsplash from '../components/unsplash'
+import BlogList from '../components/blog-list'
+import NewsList from '../components/news-list'
 
 type Props = {
   home: ContentBilingual
-  posts: Blog[]
+  blog: BlogEachLangs
+  news: BlogEachLangs
+  projects: ProjectsOriginal
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const home = await GetContent('home')
-  const posts = await GetBlogs()
+  const blog = await GetBlogsEachLangs(blogQueryLatest)
+  const news = await GetBlogsEachLangs(newsQueryLatest)
+  const projects = await GetProjectsOriginal(projectsQueryLatest)
 
   if (home === undefined) {
     return {
@@ -31,152 +36,145 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       home,
-      posts
+      blog,
+      news,
+      projects,
     }
   }
 }
 
-const Home: NextPage<Props> = ({ home, posts }) => {
+const HomePage: NextPage<Props> = ({ home, blog, news, projects }) => {
   const { t } = useTranslation()
   const { lang } = useSelectedLanguage()
   const hero = lang === 'en' ? home.en : home.ja
+  const blogPosts = lang === 'en' ? blog.en : blog.ja
+  const newsPosts = lang === 'en' ? news.en : news.ja
+  const projectList = lang === 'en' ? projects.en : projects.ja
+  const [query] = useLanguageQuery()
 
   return (
     <>
       <main>
-        <div className="hero">
-          <Blocks blocks={hero.blocks} />
-          <p className="to-about-button">
-            <Link href="/about">
-              <a>{t('index.aboutUs')}</a>
-            </Link>
-          </p>
-        </div>
-
-        <div className="blog summary">
-          <h2>{t('index.latestPosts')}</h2>
-          <p>
-            <Link href="/blog">
-              <a>{t('index.viewAllPosts')} &rarr;</a>
-            </Link>
-          </p>
-          <div className="post-container">
-            {posts.map((post, i) => (
-              <div className="post" key={i}>
-                <Link href={`/blog/${post.slug}`}>
-                  <a>
-                    <h3 className="post-title">
-                      {post.title}
-                    </h3>
-                    <p className="post-meta">
-                      <span>{formatDate(post.date, lang)}</span>, By {post.writers.join(',')}
-                    </p>
-                    <p className="post-excerpt">
-                      {post.excerpt}
-                    </p>
-                  </a>
-                </Link>
+        <div className={styles.wrapper}>
+          <div className="container">
+            <div className={styles.hero}>
+              <div className={styles.treeDiagram}>
+                <img src="/images/tree.svg" />
               </div>
-            ))}
+              <div className={styles.researchImage}>
+                <img src="/images/research2.jpg" />
+                <Unsplash href="https://unsplash.com/@nci?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" name="National Cancer Institute"/>
+              </div>
+              <div className={styles.heroInner}>
+                <Blocks blocks={hero.blocks} />
+                <p className={styles.aboutButton}>
+                  <Link href={{ pathname: '/about', query }}>
+                    <a>{t('index.aboutUs')}</a>
+                  </Link>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="projects summary">
-          <h2>{t('index.latestProjects')}</h2>
-          <p>
-            <Link href="/projects">
-              <a>{t('index.viewAllProjects')} &rarr;</a>
-            </Link>
-          </p>
+        <section>
+          <header className="container">
+            <h2>{t('index.research')}</h2>
+          </header>
 
-          {posts.map((post, i) => (
-            <div className="project" key={i}>
-              <Link href={`/projects/${post.slug}`}>
-                <a>
-                  <h3 className="post-title">
-                    {post.title}
-                  </h3>
-                  <p className="post-meta">
-                    <span>{formatDate(post.date, lang)}</span>, By {post.writers.join(',')}
-                  </p>
-                  <p className="post-excerpt">
-                    {post.excerpt}
-                  </p>
-                </a>
-              </Link>
+          <div className={`${styles.secondImage} container`}>
+            <div className={styles.secondImageText}>
+              <p>text text text text text text text text text text text text text text text text text text text text text text text text.</p>
+              <p>text text text text text text text text text text text text text text text text text text text text text text text text.</p>
+              <p>text text text text text text text text text text text text text text text text text text text text text text text text.....</p>
+              <p className={styles.button}>
+                <Link href={{ pathname: '/research/tnbc', query }}>{t('index.tnbc')}</Link>
+              </p>
             </div>
-          ))}
+            <div className={`${styles.secondImageFlame} ${styles.secondImageRight}`}>
+              <img src="/images/cancer.jpg" width="800" />
+              <Unsplash href="https://unsplash.com/@nci?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" name="National Cancer Institute"/>
+            </div>
+          </div>
+
+          <div className={`${styles.secondImage} container`}>
+            <div className={styles.secondImageFlame}>
+              <img src="/images/alpaca.jpg" width="800" />
+              <Unsplash href="https://unsplash.com/@nci?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" name="National Cancer Institute"/>
+            </div>
+            <div className={`${styles.secondImageText} ${styles.secondImageRight}`}>
+              <p>text text text text text text text text text text text text text text text text text text text text text text text text.</p>
+              <p>text text text text text text text text text text text text text text text text text text text text text text text text.</p>
+              <p>text text text text text text text text text text text text text text text text text text text text text text text text.....</p>
+              <p className={styles.button}>
+                <Link href={{ pathname: '/research/vhh', query }}>{t('index.vhh')}</Link>
+              </p>
+            </div>
+          </div>
+
+          <div className={`${styles.secondImage} container`}>
+            <div className={styles.secondImageText}>
+              <p>text text text text text text text text text text text text text text text text text text text text text text text text.</p>
+              <p>text text text text text text text text text text text text text text text text text text text text text text text text.</p>
+              <p>text text text text text text text text text text text text text text text text text text text text text text text text.....</p>
+              <p className={styles.button}>
+                <Link href={{ pathname: '/research', query }}>{t('index.research')}</Link>
+              </p>
+            </div>
+            <div className={`${styles.secondImageFlame} ${styles.secondImageRight}`}>
+              <img src="/images/lab.webp" width="800" />
+            </div>
+          </div>
+        </section>
+
+        <div className="container">
+          <div className={styles.projectsWrapper}>
+            <header className={styles.projectsHeader}>
+              <h2>{t('index.projects')}</h2>
+              <p className={styles.projectsIndexLink}>
+                <Link href={{ pathname: '/projects', query }}>
+                  <a>{t('index.viewAllProjects')} &rarr;</a>
+                </Link>
+              </p>
+            </header>
+            <List
+              keys={['Name', 'Host', 'spacer', 'Tags', 'Date']}
+              db={projectList}
+              href="/projects/[id]"
+            />
+          </div>
+        </div>
+
+        <div className="container">
+          <div className={styles.blogWrapper}>
+            <header className={styles.blogHeader}>
+              <h2>{t('index.blog')}</h2>
+              <p className={styles.blogIndexLink}>
+                <Link href={{ pathname: '/blog', query }}>
+                  <a>{t('index.viewAllBlog')} &rarr;</a>
+                </Link>
+              </p>
+            </header>
+            <BlogList blog={blogPosts} lang={lang} />
+          </div>
+        </div>
+
+        <div className="container">
+          <div className={styles.newsWrapper}>
+            <header className={styles.newsHeader}>
+              <h2>{t('index.news')}</h2>
+              <p className={styles.newsIndexLink}>
+                <Link href={{ pathname: '/news', query }}>
+                  <a>{t('index.viewAllNews')} &rarr;</a>
+                </Link>
+              </p>
+            </header>
+            <NewsList news={newsPosts} lang={lang} />
+          </div>
         </div>
       </main>
-
-      <style jsx>{`
-        .hero {
-          margin: var(--spacing-20) var(--spacing-20);
-          padding: var(--spacing-20) 0 var(--spacing-20);
-          font-family: var(--fontFamily-sans);
-          font-size: var(--fontSize-6);
-        }
-        .to-about-button {
-          margin: 0;
-          padding: 0;
-          text-align: right;
-        }
-        .to-about-button a {
-          text-decoration: none;
-          display: inline-block;
-          margin: 0;
-          padding: var(--spacing-2) var(--spacing-10);
-          border: 1px solid #000;
-          border-radius: 30px;
-          font-size: var(--fontSize-1);
-          color: #000;
-        }
-        .to-about-button a:hover {
-          border: 1px solid var(--color-primary);
-          color: var(--color-primary);
-        }
-        .summary {
-          margin: var(--spacing-20) var(--spacing-20) var(--spacing-5);
-          font-size: var(--fontSize-0);
-        }
-        .post-container {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-          gap: var(--spacing-10);
-        }
-        .post a {
-          display: block;
-          height: 100%;
-          padding: 1.5rem;
-          text-decoration: none;
-          border: 1px solid #eaeaea;
-          border-radius: 10px;
-          transition: color 0.15s ease, border-color 0.15s ease;
-        }
-        .post a:hover {
-          border: 1px solid #000;
-        }
-        .post-title {
-          font-size: var(--fontSize-4);
-          margin-bottom: var(--spacing-2);
-        }
-        .post-meta {
-          margin-bottom: var(--spacing-4);
-          color: #000;
-        }
-        .post-meta span {
-          font-weight: bold;
-        }
-        .post-excerpt {
-          color: #000;
-          font-size: var(--fontSize-2);
-          margin-bottom: 0;
-          text-overflow: ellipsis;
-          overflow: hidden;
-        }
-      `}</style>
     </>
   )
 }
 
-export default Home
+export default HomePage
