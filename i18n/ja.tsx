@@ -2,6 +2,7 @@ export default {
   hello: 'やあ！',
   header: {
     news: `お知らせ`,
+    research: `研究`,
     projects: `プロジェクト`,
     blog: `ブログ`,
     about: `私たち`,
@@ -27,8 +28,16 @@ export default {
     vhh: `VHH抗体`,
     research: `研究について`,
   },
-  privacy: {
-    modified: `このプライバシーポリシーの最終更新日は%sです。`,
+  about: {
+    purpose: `パーパス`,
+    story: `ストーリー`,
+    team: `チーム`,
+    mission: `ミッション`,
+    vision: `ビジョン`,
+    values: `バリュー`,
+    mindset: `マインドセット`,
+    viewFullProfile: `つづきを見る`,
+    companyOverview: `会社概要`,
   },
   language: {
     ja: `日本語`,

@@ -23,7 +23,6 @@ export type Blog = {
   lastEditedTs: number
   tags: string[]
   writers: Writer[]
-  excerpt: string
   language: string
 }
 
@@ -64,11 +63,6 @@ export type DBPage = DBPageBase & {
       people: PersonUserObjectResponseEx[]
       id: string
     }
-    Excerpt: {
-      type: "rich_text"
-      rich_text: RichTextItemResponse[]
-      id: string
-    }
     Published: {
       type: "checkbox"
       checkbox: boolean
@@ -91,7 +85,6 @@ const build = (page: DBPage): Blog => {
     writers: props.Writers.people.map(v => {
       return { name: v.name, avatar: v.avatar } as Writer
     }) || [],
-    excerpt: props.Excerpt.rich_text.map(v => v.plain_text).join(',') || '',
     language: props.Language.select.name || '',
   }
 }
