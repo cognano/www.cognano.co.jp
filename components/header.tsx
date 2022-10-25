@@ -27,6 +27,11 @@ const Header: React.FC<Props> = ({ children }) => {
               </Link>
             </li>
             <li>
+              <Link href={{ pathname: '/research', query }}>
+                <a>{t('header.research')}</a>
+              </Link>
+            </li>
+            <li>
               <Link href={{ pathname: '/projects', query }}>
                 <a>{t('header.projects')}</a>
               </Link>

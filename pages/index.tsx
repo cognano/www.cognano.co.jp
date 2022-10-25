@@ -10,21 +10,28 @@ import { GetProjectsOriginal, ProjectsOriginal, projectsQueryLatest } from '../l
 import Unsplash from '../components/unsplash'
 import BlogList from '../components/blog-list'
 import NewsList from '../components/news-list'
+import { GetQEs, QE } from '../lib/qe'
 
 type Props = {
-  home: ContentBilingual
+  about: ContentBilingual
+  pitch: ContentBilingual
+  vhh: ContentBilingual
   blog: BlogEachLangs
   news: BlogEachLangs
   projects: ProjectsOriginal
+  qes: QE
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const home = await GetContent('home')
+  const about = await GetContent('about')
+  const pitch = await GetContent('pitch')
+  const vhh = await GetContent('vhh-antibody')
+  const qes = await GetQEs()
   const blog = await GetBlogsEachLangs(blogQueryLatest)
   const news = await GetBlogsEachLangs(newsQueryLatest)
   const projects = await GetProjectsOriginal(projectsQueryLatest)
 
-  if (home === undefined) {
+  if (about === undefined) {
     return {
       props: {},
       redirect: {
@@ -35,21 +42,27 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
-      home,
+      about,
+      pitch,
+      vhh,
       blog,
       news,
       projects,
+      qes,
     }
   }
 }
 
-const HomePage: NextPage<Props> = ({ home, blog, news, projects }) => {
+const HomePage: NextPage<Props> = ({ about, pitch, vhh, blog, news, projects, qes }) => {
   const { t } = useTranslation()
   const { lang } = useSelectedLanguage()
-  const hero = lang === 'en' ? home.en : home.ja
+  const hero = lang === 'en' ? about.en : about.ja
   const blogPosts = lang === 'en' ? blog.en : blog.ja
   const newsPosts = lang === 'en' ? news.en : news.ja
   const projectList = lang === 'en' ? projects.en : projects.ja
+  const p = lang === 'en' ? pitch.en : pitch.ja
+  const q = lang === 'en' ? qes.en : qes.ja
+  const v = lang === 'en' ? vhh.en : vhh.ja
   const [query] = useLanguageQuery()
 
   return (
@@ -77,52 +90,46 @@ const HomePage: NextPage<Props> = ({ home, blog, news, projects }) => {
           </div>
         </div>
 
+        <div className={styles.qesWrapper}>
+          <div className={styles.qes}>
+            {q.map((v, i) => (
+              <div className={styles.qe} key={i}>
+                <p className={styles.qeNumber}>
+                  {v.number}
+                  <span className={styles.qeUnit}>
+                    {v.unit}
+                  </span>
+                </p>
+                <p className={styles.qeTitle}>
+                  {v.title}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div className={styles.qesBackgroundImageLicense}>
+            <Unsplash href="https://unsplash.com/@whoisdenilo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" name="Who’s Denilo ?"/>
+          </div>
+        </div>
+
+        <div className={styles.pitches}>
+          <h2>{p.title}</h2>
+          <Blocks blocks={p.blocks} />
+        </div>
+
         <section>
-          <header className="container">
-            <h2>{t('index.research')}</h2>
-          </header>
-
-          <div className={`${styles.secondImage} container`}>
-            <div className={styles.secondImageText}>
-              <p>text text text text text text text text text text text text text text text text text text text text text text text text.</p>
-              <p>text text text text text text text text text text text text text text text text text text text text text text text text.</p>
-              <p>text text text text text text text text text text text text text text text text text text text text text text text text.....</p>
-              <p className={styles.button}>
-                <Link href={{ pathname: '/research/tnbc', query }}>{t('index.tnbc')}</Link>
+          <div className={styles.researchIntro}>
+            <div className={styles.researchBody}>
+              <h2 className={styles.researchTitle}>
+                {t('index.research')}
+              </h2>
+              <Blocks blocks={v.blocks} />
+              <p className={styles.researchButton}>
+                <Link href={{ pathname: '/research', query }}>
+                  {t('index.research')}
+                </Link>
               </p>
             </div>
-            <div className={`${styles.secondImageFlame} ${styles.secondImageRight}`}>
-              <img src="/images/cancer.jpg" width="800" />
-              <Unsplash href="https://unsplash.com/@nci?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" name="National Cancer Institute"/>
-            </div>
-          </div>
-
-          <div className={`${styles.secondImage} container`}>
-            <div className={styles.secondImageFlame}>
-              <img src="/images/alpaca.jpg" width="800" />
-              <Unsplash href="https://unsplash.com/@nci?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" name="National Cancer Institute"/>
-            </div>
-            <div className={`${styles.secondImageText} ${styles.secondImageRight}`}>
-              <p>text text text text text text text text text text text text text text text text text text text text text text text text.</p>
-              <p>text text text text text text text text text text text text text text text text text text text text text text text text.</p>
-              <p>text text text text text text text text text text text text text text text text text text text text text text text text.....</p>
-              <p className={styles.button}>
-                <Link href={{ pathname: '/research/vhh', query }}>{t('index.vhh')}</Link>
-              </p>
-            </div>
-          </div>
-
-          <div className={`${styles.secondImage} container`}>
-            <div className={styles.secondImageText}>
-              <p>text text text text text text text text text text text text text text text text text text text text text text text text.</p>
-              <p>text text text text text text text text text text text text text text text text text text text text text text text text.</p>
-              <p>text text text text text text text text text text text text text text text text text text text text text text text text.....</p>
-              <p className={styles.button}>
-                <Link href={{ pathname: '/research', query }}>{t('index.research')}</Link>
-              </p>
-            </div>
-            <div className={`${styles.secondImageFlame} ${styles.secondImageRight}`}>
-              <img src="/images/lab.webp" width="800" />
+            <div className={styles.researchCover} style={{backgroundImage: `url(${v.cover})`}}>
             </div>
           </div>
         </section>

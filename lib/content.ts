@@ -9,6 +9,7 @@ import {
   GetPageResponseEx,
   ListBlockChildrenResponseEx,
   QueryDatabaseParameters,
+  PageObjectResponseEx,
 } from 'notionate'
 
 type DBPage = DBPageBase & {
@@ -47,6 +48,8 @@ type DBPage = DBPageBase & {
 }
 
 type Content = {
+  title: string
+  cover: string
   page: GetPageResponseEx
   blocks: ListBlockChildrenResponseEx
 }
@@ -78,25 +81,38 @@ export const GetContent = async (slug: string): Promise<ContentBilingual|undefin
   const pageEn = results.find(vv => {
     const v = vv as unknown as DBPage
     return v.properties.Slug.select.name === slug
-    && v.properties.Language.select.name === 'English'
+      && v.properties.Language.select.name === 'English'
   })
 
   const pageJa = results.find(vv => {
     const v = vv as unknown as DBPage
     return v.properties.Slug.select.name === slug
-    && v.properties.Language.select.name === 'Japanese'
-    })
+      && v.properties.Language.select.name === 'Japanese'
+  })
 
   if (!pageEn || !pageJa) {
+    if (!pageEn) {
+      console.log(`english page with slug "${slug}" not found`)
+    }
+    if (!pageJa) {
+      console.log(`japanese page with slug "${slug}" not found`)
+    }
     return undefined
   }
 
+  const propsEn = pageEn as DBPage
+  const porEn = pageEn as PageObjectResponseEx
   const en = {
+    title: propsEn.properties.Name.title.map(v => v.plain_text).join(','), 
+    cover: porEn.cover !== null ? porEn.cover.src : '',
     page: await FetchPage(pageEn.id),
     blocks: await FetchBlocks(pageEn.id),
   }
-
+  const propsJa = pageJa as DBPage
+  const porJa = pageJa as PageObjectResponseEx
   const ja = {
+    title: propsJa.properties.Name.title.map(v => v.plain_text).join(','),
+    cover: porJa.cover !== null ? porJa.cover.src : '',
     page: await FetchPage(pageJa.id),
     blocks: await FetchBlocks(pageJa.id),
   }

@@ -32,9 +32,6 @@ const BlogList: React.FC<Props> = ({ blog, lang }) => {
                   ))}
                 </p>
               </div>
-              <p className={styles.postExcerpt}>
-                {post.excerpt}
-              </p>
             </a>
           </Link>
         </div>

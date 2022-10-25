@@ -30,8 +30,8 @@ const Footer: React.FC<Props> = ({ children }) => {
               </Link>
             </li>
             <li>
-              <Link href={{ pathname: '/news', query }}>
-                <a>{t('header.news')}</a>
+              <Link href={{ pathname: '/research', query }}>
+                <a>{t('header.research')}</a>
               </Link>
             </li>
             <li>
@@ -45,12 +45,17 @@ const Footer: React.FC<Props> = ({ children }) => {
               </Link>
             </li>
             <li>
-              <Link href={{ pathname: '/contact', query }}>
-                <a>{t('header.contact')}</a>
+              <Link href={{ pathname: '/news', query }}>
+                <a>{t('header.news')}</a>
               </Link>
             </li>
           </ul>
         </div>
+        <p className={styles.footerinfonav}>
+          <Link href={{ pathname: '/contact', query }}>
+            <a>{t('header.contact')}</a>
+          </Link>
+        </p>
       </div>
       <div className={styles.siteinfo}>
         <div>

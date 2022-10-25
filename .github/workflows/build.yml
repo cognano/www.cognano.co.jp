@@ -35,6 +35,9 @@ jobs:
       NOTION_PAGES_DB_ID: ${{ secrets.NOTION_PAGES_DB_ID }}
       NOTION_BLOG_DB_ID: ${{ secrets.NOTION_BLOG_DB_ID }}
       NOTION_PROJECT_DB_ID: ${{ secrets.NOTION_PROJECT_DB_ID }}
+      NOTION_MEMBER_DB_ID: ${{ secrets.NOTION_MEMBER_DB_ID }}
+      NOTION_MINDSET_DB_ID: ${{ secrets.NOTION_MINDSET_DB_ID }}
+      NOTION_QE_DB_ID: ${{ secrets.NOTION_QE_DB_ID }}
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
@@ -63,6 +66,9 @@ jobs:
       NOTION_PAGES_DB_ID: ${{ secrets.NOTION_PAGES_DB_ID }}
       NOTION_BLOG_DB_ID: ${{ secrets.NOTION_BLOG_DB_ID }}
       NOTION_PROJECT_DB_ID: ${{ secrets.NOTION_PROJECT_DB_ID }}
+      NOTION_MEMBER_DB_ID: ${{ secrets.NOTION_MEMBER_DB_ID }}
+      NOTION_MINDSET_DB_ID: ${{ secrets.NOTION_MINDSET_DB_ID }}
+      NOTION_QE_DB_ID: ${{ secrets.NOTION_QE_DB_ID }}
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3

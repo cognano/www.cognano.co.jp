@@ -1,8 +1,8 @@
 export default {
   hello: 'Yo',
   header: {
-    language: `Language`,
     news: `News`,
+    research: `Research`,
     projects: `Projects`,
     blog: `Blog`,
     about: `About`,
@@ -28,8 +28,16 @@ export default {
     vhh: `VHH Antibody`,
     research: `Research`,
   },
-  privacy: {
-    modified: `This privacy policy was last modified on %s.`,
+  about: {
+    purpose: `Purpose`,
+    story: `Our Story`,
+    team: `Our Team`,
+    mission: `Mission`,
+    vision: `Vision`,
+    values: `Values`,
+    mindset: `Our Mindsets`,
+    viewFullProfile: `View full profile`,
+    companyOverview: `Company Overview`,
   },
   language: {
     ja: `Japanese`,

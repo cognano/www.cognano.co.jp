@@ -1,6 +1,6 @@
 .header {
   margin: 0;
-  padding: var(--spacing-2) 0 var(--spacing-32);
+  padding: var(--spacing-2) 0 0;
   z-index: 1000;
 }
 .headerinner {
@@ -31,7 +31,7 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   justify-items: end;
   gap: var(--spacing-6);
 }
@@ -137,6 +137,10 @@
   display: inline-block;
   margin: 0 var(--spacing-6) var(--spacing-1) 0;
   padding: 0;
+}
+.footerinfonav {
+  font-weight: bold;
+  justify-self: right;
 }
 
 /* SITEINFO */
