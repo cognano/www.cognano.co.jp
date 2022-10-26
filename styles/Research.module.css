@@ -13,8 +13,8 @@
   font-family: var(--fontFamily-serif);
   font-weight: var(--fontWeight-black);
   position: relative;
-  margin: 0 0 0 var(--spacing-4);
-  padding: 0 var(--spacing-4);
+  margin: 0;
+  padding: 0 var(--spacing-4) 0 0;
   display: inline-block;
   background-color: #fff;
   z-index: 2;

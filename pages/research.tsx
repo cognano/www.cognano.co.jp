@@ -52,8 +52,8 @@ const Research: NextPage<Props> = ({ research, tnbc, vhh, covid }) => {
         <div className={styles.researches}>
           <div className={styles.research}>
             <div className={styles.researchTitle}>
-              <span></span>
               <h2>{v.title}</h2>
+              <span></span>
             </div>
             <p className={styles.researchCover}>
               <img src={v.cover} />
