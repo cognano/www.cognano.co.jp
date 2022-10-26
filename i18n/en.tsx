@@ -39,6 +39,16 @@ export default {
     viewFullProfile: `View full profile`,
     companyOverview: `Company Overview`,
   },
+  contact: {
+    name: `Name`,
+    email: `Email`,
+    message: `Message`,
+    submit: `Submit`,
+    thanks: `Thank you for your message!`,
+    required: `* This field is required.`,
+    tooshort: `* This input is too short.`,
+    emailinvalid: `* This email address format is incorrect.`,
+  },
   language: {
     ja: `Japanese`,
     en: `English`

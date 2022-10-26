@@ -1,0 +1,52 @@
+.error {
+  color: var(--color-primary);
+  font-size: var(--fontSize-1);
+  margin: 0;
+}
+.form {
+  max-width: 1000px;
+  margin: var(--spacing-20) auto 0;
+}
+
+.line {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  gap: 2rem;
+  margin: var(--spacing-10) 0 0;
+}
+.label {
+  text-align: right;
+  font-size: var(--fontSize-3);
+  font-family: var(--fontFamily-serif);
+  font-weight: bold;
+  padding-top: var(--spacing-1);
+}
+.input {
+  font-size: var(--fontSize-3);
+}
+.input input {
+  font-size: var(--fontSize-3);
+  max-width: 100%;
+  padding: var(--spacing-2);
+}
+.input textarea {
+  font-family: var(--fontFamily-sans);
+  font-size: var(--fontSize-3);
+  padding: var(--spacing-2);
+  max-width: 100%;
+  height: 30rem;
+}
+.button {
+  padding: var(--spacing-3) var(--spacing-10);
+  font-size: var(--fontSize-1);
+  font-family: var(--fontFamily-serif);
+  font-weight: var(--fontWeight-black);
+  cursor: pointer;
+  border: 1px solid var(--color-text);
+  border-radius: 30px;
+  background-color: inherit;
+}
+.button:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}

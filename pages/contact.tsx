@@ -1,33 +1,37 @@
+import { useTranslation, useSelectedLanguage, useLanguageQuery } from '../i18n'
 import { MutatingDots } from 'react-loader-spinner'
 import { useState } from 'react'
 import { GetStaticProps, NextPage } from 'next'
+import { Blocks } from 'notionate/dist/components'
 import Link from 'next/link'
+import { GetContent, ContentBilingual } from '../lib/content'
+import styles from '../styles/Contact.module.css'
 
 type Props = {
+  contact: ContentBilingual
 }
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getStaticProps: GetStaticProps<{}> = async () => {
+  const contact = await GetContent('contact')
   return {
     props: {
+      contact,
     }
   }
 }
 
 const formError = (msg: string) => {
   return (
-    <>
-      <p className="error">{msg}</p>
-      <style jsx>{`
-        .error {
-          color: #FF0000;
-        }
-      `}</style>
-    </>
+    <p className={styles.error}>{msg}</p>
   )
 }
 
-const Contact: NextPage<Props> = ({}) => {
-  const endpoint = `https://contact.cognano.co.jp/`
+const Contact: NextPage<Props> = ({ contact }) => {
+  const { t } = useTranslation()
+  const { lang } = useSelectedLanguage()
+  const c = lang === 'en' ? contact.en : contact.ja
+
+  const endpoint = `https://api.cognano.co.jp/`
   const initQuery = {
     name: ``,
     email: ``,
@@ -60,19 +64,19 @@ const Contact: NextPage<Props> = ({}) => {
         isValid = false
         setErrors((prevState) => ({
           ...prevState,
-          [k]: `* This field is required.`
+          [k]: t('contact.required')
         }))
       } else if (v.length < 3) {
         isValid = false
         setErrors((prevState) => ({
           ...prevState,
-          [k]: `* This input is too short.`
+          [k]: t('contact.tooshort')
         }))
       } else if (k === 'email' && !validateEmail(v)) {
         isValid = false
         setErrors((prevState) => ({
           ...prevState,
-          [k]: `* This email address format is incorrect.`
+          [k]: t('contact.emailinvalid') 
         }))
       }
     })
@@ -110,54 +114,55 @@ const Contact: NextPage<Props> = ({}) => {
 
   return (
     <>
-      <header className="grider category-header container">
-        <span></span>
-        <div>
-          <h1>Contact</h1>
+      <header className="container">
+        <h1>{c.title}</h1>
+        <div className={styles.contactDesc}>
+          <Blocks blocks={c.blocks} />
         </div>
       </header>
 
       <section className="container">
-        <form onSubmit={handleSubmit}>
-          <legend className="form-name grider">
-            <label htmlFor="name" className="form-label">
-              Full Name
+        <form className={styles.form} onSubmit={handleSubmit}>
+
+          <div className={styles.line}>
+            <label htmlFor="name" className={styles.label}>
+              {t('contact.name')}
             </label>
-            <div className="form-body">
+            <div className={styles.input}>
               <input
                 type="text"
                 id="name"
-                placeholder="Alan Mathison Turing"
+                placeholder="Your Name"
                 name="name"
                 value={query.name}
                 onChange={handleChange()}
               />
               {errors.name && formError(errors.name)}
             </div>
-          </legend>
+          </div>
 
-          <legend className="form-email grider">
-            <label htmlFor="email" className="form-label">
-              Email Address
+          <div className={styles.line}>
+            <label htmlFor="email" className={styles.label}>
+              {t('contact.email')}
             </label>
-            <div className="form-body">
+            <div className={styles.input}>
               <input
                 type="email"
                 id="email"
-                placeholder="alan@example.com"
+                placeholder="youremail@example.com"
                 name="email"
                 value={query.email}
                 onChange={handleChange()}
               />
               {errors.email && formError(errors.email)}
             </div>
-          </legend>
+          </div>
 
-          <legend className="form-message grider">
-            <label htmlFor="message" className="form-label">
-              Message
+          <div className={styles.line}>
+            <label htmlFor="message" className={styles.label}>
+              {t('contact.message')}
             </label>
-            <div className="form-body">
+            <div className={styles.input}>
               <textarea
                 name="message"
                 id="message"
@@ -167,51 +172,17 @@ const Contact: NextPage<Props> = ({}) => {
               />
               {errors.message && formError(errors.message)}
             </div>
-          </legend>
+          </div>
 
-          <div className="form-button grider">
+          <div className={styles.line}>
             <span></span>
-            <div className="form-body">
-            {formStatus ? (<p>Thanks for your message!</p>) : lockStatus ? (<MutatingDots color="#999" secondaryColor="#fff" height={100} width={100} />) : (<button className="neumorphism-h" type="submit" disabled={lockStatus}>Submit</button>)}
+            <div className={styles.input}>
+              {formStatus ? (<p>{t('contact.thanks')}</p>) : lockStatus ? (<MutatingDots color="#666" secondaryColor="#000" height={100} width={100} />) : (<button className={styles.button} type="submit" disabled={lockStatus}>{t('contact.submit')}</button>)}
             </div>
           </div>
+
         </form>
       </section>
-
-      <style jsx>{`
-        input, textarea {
-          font-family: var(--fontFamily-sans);
-          font-size: var(--fontSize-3);
-          border: none;
-        }
-        button {
-          padding: var(--spacing-4) var(--spacing-8);
-          cursor: pointer;
-        }
-        .form-label {
-          text-align: right;
-          font-family: var(--fontFamily-sans);
-          margin-top: var(--spacing-10);
-        }
-        .form-body {
-          margin-top: var(--spacing-8);
-          border: 1px solid #000;
-        }
-        .form-name input {
-          min-width: 60%;
-        }
-        .form-email input {
-          min-width: 60%;
-        }
-        .form-message textarea {
-          width: 100%;
-          height: 15rem;
-        }
-        .form-button {
-          margin-top: var(--spacing-5);
-          font-family: var(--fontFamily-sans);
-        }
-      `}</style>
     </>
   )
 }

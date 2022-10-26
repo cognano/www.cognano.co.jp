@@ -6,7 +6,7 @@ export default {
     projects: `プロジェクト`,
     blog: `ブログ`,
     about: `私たち`,
-    contact: `お問合わせ`,
+    contact: `お問合せ`,
   },
   footer: {
     privacy: `プライバシーポリシー`,
@@ -38,6 +38,16 @@ export default {
     mindset: `マインドセット`,
     viewFullProfile: `つづきを見る`,
     companyOverview: `会社概要`,
+  },
+  contact: {
+    name: `氏名`,
+    email: `メールアドレス`,
+    message: `内容`,
+    submit: `送信する`,
+    thanks: `お問合せありがとうございます！`,
+    required: `* このフィールドは必須です。`,
+    tooshort: `* 入力が少なすぎます。`,
+    emailinvalid: `* メールアドレスの形式が正しくありません。`,
   },
   language: {
     ja: `日本語`,
