@@ -4,7 +4,7 @@ import Logo from './logo'
 import styles from '../styles/App.module.css'
 
 import { useTranslation, LanguageSwitcher, useSelectedLanguage, useLanguageQuery } from '../i18n'
-import { twitterIcon, youtubeIcon, facebookIcon, linkedinIcon, languageIcon, sortdownIcon, githubIcon } from './icons'
+import { twitterIcon, youtubeIcon, facebookIcon, linkedinIcon, languageIcon, sortdownIcon, githubIcon, companyIcon, fileIcon, briefcaseIcon, pensquareIcon, envelopeIcon, newsIcon } from './icons'
 
 type Props = {
   children?: ReactNode
@@ -100,6 +100,57 @@ const Footer: React.FC<Props> = ({ children }) => {
           <a className={styles.github} href="https://github.com/cognano" target="_blank" rel="noopener noreferrer">{githubIcon()}</a>
         </p>
       </div>
+
+      <ul className={styles.mobileNav}>
+        <li>
+          <Link href={{ pathname: '/about', query }}>
+            <a>
+              {companyIcon()}
+              {t('header.about')}
+            </a>
+          </Link>
+        </li>
+        <li>
+          <Link href={{ pathname: '/research', query }}>
+            <a>
+              {fileIcon()}
+              {t('header.research')}
+            </a>
+          </Link>
+        </li>
+        <li>
+          <Link href={{ pathname: '/projects', query }}>
+            <a>
+              {briefcaseIcon()}
+              {t('header.projects')}
+            </a>
+          </Link>
+        </li>
+        <li>
+          <Link href={{ pathname: '/blog', query }}>
+            <a>
+              {pensquareIcon()}
+              {t('header.blog')}
+            </a>
+          </Link>
+        </li>
+        <li>
+          <Link href={{ pathname: '/news', query }}>
+            <a>
+              {newsIcon()}
+              {t('header.news')}
+            </a>
+          </Link>
+        </li>
+        <li>
+          <Link href={{ pathname: '/contact', query }}>
+            <a>
+              {envelopeIcon()}
+              {t('header.contact')}
+            </a>
+          </Link>
+        </li>
+      </ul>
     </footer>
   )
 }
