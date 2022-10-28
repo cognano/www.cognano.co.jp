@@ -375,25 +375,26 @@
 }
 @media (max-width: 480px) {
   .treeDiagram {
-    width: 600px;
-    height: 600px;
-    top: -50px;
-    left: -330px;
+    width: 400px;
+    height: 400px;
+    top: -40px;
+    left: -200px;
     animation: 180s linear infinite rotation1;
   }
   .researchImage {
-    width: 150px;
-    height: 150px;
-    top: 185px;
-    left: -110px;
+    width: 110px;
+    height: 110px;
+    top: 110px;
+    left: -60px;
   }
   .researchImage img {
-    width: 150px;
-    height: 150px;
+    width: 110px;
+    height: 110px;
   }
   .researchImage p {
-    padding-left: 4.5rem;
-    font-size: 9px;
+    padding-left: 2.6rem;
+    font-size: 8px;
+    margin-top: 1px;
   }
   .hero {
     margin-bottom: var(--spacing-10);
@@ -403,7 +404,7 @@
     padding: 0 0 var(--spacing-10);
   }
   .hero h1 {
-    font-size: var(--fontSize-5);
+    font-size: var(--fontSize-4);
     line-height: 1.2;
     padding: var(--spacing-16) 0 var(--spacing-6);
   }
@@ -412,6 +413,15 @@
     font-size: var(--fontSize-1);
     font-weight: normal;
   }
+  .aboutButton {
+    margin: var(--spacing-5) 0 0;
+  }
+  .aboutButton a {
+    padding: var(--spacing-2) var(--spacing-6);
+    font-size: var(--fontSize-0);
+  }
+
+  /* QE */
   .qeNumber {
     font-size: 4rem;
   }
@@ -428,5 +438,21 @@
   }
   .newsIcon {
     fill: var(--color-primary);
+  }
+
+  /* PITCHES */
+  .pitches {
+    padding: 0 var(--spacing-5);
+  }
+  .projectsHeader h2,
+  .blogHeader h2,
+  .newsHeader h2 {
+    margin-top: 0;
+    line-height: 1;
+  }
+  .projectsIndexLink,
+  .blogIndexLink,
+  .newsIndexLink {
+    font-size: var(--fontSize-0);
   }
 }

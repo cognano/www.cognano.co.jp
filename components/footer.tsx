@@ -142,14 +142,6 @@ const Footer: React.FC<Props> = ({ children }) => {
             </a>
           </Link>
         </li>
-        <li>
-          <Link href={{ pathname: '/contact', query }}>
-            <a>
-              {envelopeIcon()}
-              {t('header.contact')}
-            </a>
-          </Link>
-        </li>
       </ul>
     </footer>
   )
