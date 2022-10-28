@@ -37,6 +37,7 @@ export default {
     values: `Values`,
     mindset: `Our Mindsets`,
     viewFullProfile: `View full profile`,
+    closeFullProfile: `Close`,
     companyOverview: `Company Overview`,
   },
   contact: {

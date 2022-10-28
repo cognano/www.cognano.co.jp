@@ -37,6 +37,7 @@ export default {
     values: `バリュー`,
     mindset: `マインドセット`,
     viewFullProfile: `つづきを見る`,
+    closeFullProfile: `閉じる`,
     companyOverview: `会社概要`,
   },
   contact: {

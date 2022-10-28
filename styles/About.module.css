@@ -180,7 +180,7 @@
   gap: var(--spacing-10);
 }
 .member {
-  height: 400px;
+  min-height: 400px;
   padding: 0;
   position: relative;
   overflow: hidden;
@@ -222,6 +222,19 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+}
+/*
+ * line-clamp on safari works only inline elements
+ * https://stackoverflow.com/questions/70897195/line-clamp-webkit-not-working-in-safari
+*/
+.memberProfile a,
+.memberProfile span,
+.memberProfile p {
+  display: inline;
+}
+.memberFullProfile {
+  margin: 0;
+  font-size: var(--fontSize-0);
 }
 .viewFullProfile {
   font-size: .7rem;

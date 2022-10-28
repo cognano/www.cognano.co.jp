@@ -1,9 +1,10 @@
+import React, { useState } from 'react'
 import type { NextPage, GetStaticProps } from 'next'
 import { useTranslation, useSelectedLanguage, useLanguageQuery } from '../i18n'
 import { GetMindset, LocalizedMindsetWithBlocks, Mindset, mindsetQuery } from '../lib/mindset'
 import { ContentBilingual, GetContent } from '../lib/content'
 import { Blocks } from 'notionate/dist/components'
-import { GetMembers, Members } from '../lib/member'
+import { GetMembers, Members, LocalizedMemberWithBlocks } from '../lib/member'
 import styles from '../styles/About.module.css'
 import Unsplash from '../components/unsplash'
 
@@ -63,6 +64,47 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
       members,
     }
   }
+}
+
+const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
+  const { t } = useTranslation()
+  const [open, setOpen] = useState(false)
+  const showIntroStyle = {
+    display: '-webkit-box',
+  }
+  const hideIntroStyle = {
+    display: 'none',
+  }
+  const showFullStyle = {
+    display: 'block',
+  }
+  const hideFullStyle = {
+    display: 'none',
+  }
+  const onClick = () => setOpen(!open)
+  return (
+    <div className={styles.member}>
+      <div className={styles.memberAvatar}>
+        {m.props.user && <img src={m.props.user.avatar} />}
+        {!m.props.user && <img src="/static/hirose.webp" />}
+      </div>
+      <h3 className={styles.memberName}>
+        {m.props.name}
+      </h3>
+      <p className={styles.memberRole}>
+        {m.props.role}
+      </p>
+      <div className={styles.memberProfile} style={open ? hideIntroStyle : showIntroStyle}>
+        <Blocks blocks={m.blocks} />
+      </div>
+      <div className={styles.memberFullProfile} style={open ? showFullStyle : hideFullStyle}>
+        <Blocks blocks={m.blocks} />
+      </div>
+      <p className={styles.viewFullProfile} onClick={onClick}>
+        {open ? t('about.closeFullProfile') : t('about.viewFullProfile')}
+      </p>
+    </div>
+  )
 }
 
 const About: NextPage<Props> = ({ story, team, mindset, company, purpose, mission, vision, values, members }) => {
@@ -191,22 +233,7 @@ const About: NextPage<Props> = ({ story, team, mindset, company, purpose, missio
 
         <div className={styles.members}>
           {mm.map((m, i) => (
-            <div key={i} className={styles.member}>
-              <div className={styles.memberAvatar}>
-                {m.props.user && <img src={m.props.user.avatar} />}
-                {!m.props.user && <img src="/static/hirose.webp" />}
-              </div>
-              <h3 className={styles.memberName}>
-                {m.props.name}
-              </h3>
-              <p className={styles.memberRole}>
-                {m.props.role}
-              </p>
-              <div className={styles.memberProfile}>
-                <Blocks blocks={m.blocks} />
-              </div>
-              <p className={styles.viewFullProfile}>{t('about.viewFullProfile')}</p>
-            </div>
+            <Member key={i} m={m} />
           ))}
         </div>
       </div>
