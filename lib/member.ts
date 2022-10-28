@@ -94,7 +94,7 @@ export const memberQuery = {
   },
   sorts: [
     {
-      property: 'Job Categories',
+      property: 'Number',
       direction: 'ascending'
     },
     {
