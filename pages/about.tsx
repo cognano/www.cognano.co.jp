@@ -141,7 +141,7 @@ const About: NextPage<Props> = ({ story, team, mindset, company, purpose, missio
               <h2 className={styles.missionVision}>
                 {m.props.title}
               </h2>
-              <div>
+              <div className={styles.missionVisionBody}>
                 <Blocks blocks={m.blocks} />
               </div>
             </div>
