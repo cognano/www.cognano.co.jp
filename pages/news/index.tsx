@@ -33,7 +33,7 @@ const NewsIndex: NextPage<Props> = ({ news, desc }) => {
   return (
     <main>
       <div className="container">
-        <header className={styles.newsHeader}>
+        <header>
           <h1>
             {d.title}
           </h1>
@@ -44,7 +44,9 @@ const NewsIndex: NextPage<Props> = ({ news, desc }) => {
       </div>
 
       <div className="container">
-        <NewsList news={posts} lang={lang} />
+        <div className={styles.newsList}>
+          <NewsList news={posts} lang={lang} />
+        </div>
       </div>
     </main>
   )
