@@ -354,12 +354,14 @@
     margin-bottom: var(--spacing-32);
   }
 }
-@media (max-width: 480px) {
+@media (max-width: 820px) {
   .headerinner {
     margin-top: var(--spacing-2);
     padding: 0 0 var(--spacing-5) var(--spacing-5);
     text-align: center;
   }
+}
+@media (max-width: 480px) {
   .siteinfo {
     padding: 0;
   }
