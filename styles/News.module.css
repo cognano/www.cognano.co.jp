@@ -1,3 +1,123 @@
 .newsHeader {
-  margin-bottom: var(--spacing-20);
+  padding: 0 0 var(--spacing-10);
+}
+
+.articleWrapper {
+  max-width: 1800px;
+  padding: 0 var(--spacing-10);
+  margin: var(--spacing-16) auto 0;
+  display: grid;
+  grid-template-columns: 1fr 45% 1fr;
+  gap: 3%;
+}
+
+/* HEADER */
+.newsHeader {
+  margin: 0;
+}
+.category {
+  margin: 0 0 var(--spacing-10);
+  line-height: var(--lineHeight-tight);
+}
+.category a {
+  font-size: var(--fontSize-0);
+  font-weight: var(--fontWeight-black);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  padding: var(--spacing-2) var(--spacing-6);
+  border-radius: 30px;
+}
+.category a:hover {
+  color: var(--color-text);
+  border-color: var(--color-text);
+}
+.newsTitle {
+  margin: 0;
+  padding: 0;
+  font-size: var(--fontSize-4);
+  line-height: 1.7;
+  font-family: var(--fontFamily-serif);
+}
+.newsMeta {
+  margin: var(--spacing-6) 0;
+  font-weight: var(--fontWeight-medium);
+}
+.publishedAt {
+  margin: 0;
+  font-size: var(--fontSize-0);
+  display: inline;
+}
+.calendarIcon svg {
+  max-width: 1rem;
+  max-height: 1rem;
+  overflow: hidden;
+  margin-right: var(--spacing-2);
+}
+.newsTags {
+  list-style: none;
+  display: inline;
+  margin: 0 0 0 var(--spacing-5);
+  padding: 0;
+  font-size: var(--fontSize-0);
+}
+.newsTags li {
+  display: inline;
+}
+.newsTags svg {
+  max-width: 1.2rem;
+  max-height: 1.2rem;
+}
+.newsTags span {
+  margin-right: var(--spacing-1);
+}
+
+/* BODY */
+.newsBody {
+  margin-top: var(--spacing-12);
+}
+.newsBody p {
+  font-size: var(--fontSize-2);
+  margin: var(--spacing-2) 0 var(--spacing-5);
+  line-height: 1.8;
+}
+.newsBody li {
+  font-size: var(--fontSize-1);
+  margin: var(--spacing-3) 0 0;
+}
+
+/* LATEST */
+.latestNews {
+  margin: var(--spacing-4) 0 0;
+  background-color: #f5f5f5;
+  border-radius: 3px;
+  padding: var(--spacing-6) var(--spacing-8);
+  color: #777;
+}
+.latestNews a {
+  color: #777;
+}
+.latestNews a:hover {
+  color: var(--color-primary);
+}
+.latestNewsHead {
+  font-size: var(--fontSize-2);
+  font-weight: var(--fontWeight-black);
+  margin: 0;
+}
+.latestBody ul {
+  list-style: none;
+  margin: var(--spacing-5) 0 0;
+  padding: 0;
+}
+.latestPost {
+  padding-top: var(--spacing-3);
+}
+.latestPostDate {
+  font-weight: var(--fontWeight-bold);
+}
+.latestPostDate::after {
+  content: ' - ';
+}
+.latestPostTitle {
+  font-family: var(--fontFamily-serif);
 }

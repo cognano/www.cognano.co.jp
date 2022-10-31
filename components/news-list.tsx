@@ -11,41 +11,42 @@ type Props = {
   lang: string
 }
 
+export const tagIcon = (tag: string) => {
+  switch (tag) {
+    case 'News':
+      return <></>
+    case 'Company':
+      return (
+        <>
+          <span className={styles.newsIcon}>{companyIcon()}</span>
+          {tag}
+        </>
+      )
+    case 'Publication':
+      return (
+        <>
+          <span className={styles.newsIcon}>{fileIcon()}</span>
+          {tag}
+        </>
+      )
+    case 'Event':
+      return (
+        <>
+          <span className={styles.newsIcon}>{usersIcon()}</span>
+          {tag}
+        </>
+      )
+    default:
+      return (
+        <>
+          {tag}
+        </>
+      )
+  }
+}
+
 const NewsList: React.FC<Props> = ({ news, lang }) => {
   const [query] = useLanguageQuery()
-  function tagIcon(tag: string) {
-    switch (tag) {
-      case 'News':
-        return <></>
-      case 'Company':
-        return (
-          <>
-            <span className={styles.newsIcon}>{companyIcon()}</span>
-            {tag}
-          </>
-        )
-      case 'Publication':
-        return (
-          <>
-            <span className={styles.newsIcon}>{fileIcon()}</span>
-            {tag}
-          </>
-        )
-      case 'Event':
-        return (
-          <>
-            <span className={styles.newsIcon}>{usersIcon()}</span>
-            {tag}
-          </>
-        )
-      default:
-        return (
-          <>
-            {tag}
-          </>
-        )
-    }
-  }
 
   return (
     <div className={styles.newsContainer}>

@@ -40,6 +40,9 @@ export default {
     closeFullProfile: `閉じる`,
     companyOverview: `会社概要`,
   },
+  news: {
+    latestNews: `最近のお知らせ`,
+  },
   contact: {
     name: `氏名`,
     email: `メールアドレス`,
