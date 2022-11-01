@@ -26,7 +26,7 @@ export default {
     viewAllNews: `View all news`,
     tnbc: `Triple-negative Breast Cancer`,
     vhh: `VHH Antibody`,
-    research: `Research`,
+    viewAllResearch: `Learn more`,
   },
   about: {
     purpose: `Purpose`,

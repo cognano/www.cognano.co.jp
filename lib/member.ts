@@ -7,6 +7,7 @@ import {
   ListBlockChildrenResponseEx,
   FetchBlocks,
   PersonUserObjectResponseEx,
+  PageObjectResponseEx,
 } from 'notionate'
 
 type User = {
@@ -20,6 +21,8 @@ export type LocalizedMember = {
   role: string
   jobs: string[]
   user: User | null
+  cover: string | null
+  excerpt: string | null
 }
 
 export type LocalizedMemberWithBlocks = {
@@ -69,6 +72,8 @@ export type DBPage = DBPageBase & {
 
 const build = (page: DBPage): LocalizedMember => {
   const props = page.properties
+  const p = page as unknown as PageObjectResponseEx
+
   return {
     id: page.id,
     name: props.Name.title.map(v => v.plain_text).join(',') || '',
@@ -77,7 +82,23 @@ const build = (page: DBPage): LocalizedMember => {
     user: props.User.people.length > 0 ? props.User.people.map(v => {
       return { name: v.name, avatar: v.avatar } as User
     })[0] : null,
+    cover: p.cover?.src || null,
+    excerpt: null,
   }
+}
+
+export const buildPlainText = (b: ListBlockChildrenResponseEx): string => {
+  const richText = b.results.map(v => 'type' in v && v.type === 'paragraph' ? v.paragraph.rich_text : [] )
+  const text = richText.map(v => v.map(vv => vv.plain_text)).flat().join('')
+  return text
+}
+
+const buildExcerpt = (b: ListBlockChildrenResponseEx): string => {
+  const max = 60
+  const text = buildPlainText(b)
+  const excerpt = text.substring(0, max)
+  const ellipsis = text.length > max ? '...' : ''
+  return `${excerpt}${ellipsis}`
 }
 
 export const memberQuery = {
@@ -118,6 +139,7 @@ export const GetMembers = async (): Promise<Members> => {
   })
   const ja = await Promise.all(jaProps.map(async (v) => {
     const blocks = await FetchBlocks(v.id)
+    v.excerpt = buildExcerpt(blocks)
     return {
       props: v,
       blocks,
@@ -135,6 +157,7 @@ export const GetMembers = async (): Promise<Members> => {
   })
   const en = await Promise.all(enProps.map(async (v) => {
     const blocks = await FetchBlocks(v.id)
+    v.excerpt = buildExcerpt(blocks)
     return {
       props: v,
       blocks,

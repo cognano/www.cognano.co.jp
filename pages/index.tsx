@@ -16,6 +16,7 @@ type Props = {
   about: ContentBilingual
   pitch: ContentBilingual
   vhh: ContentBilingual
+  algorithm: ContentBilingual
   blog: BlogEachLangs
   news: BlogEachLangs
   projects: ProjectsOriginal
@@ -26,6 +27,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const about = await GetContent('about')
   const pitch = await GetContent('pitch')
   const vhh = await GetContent('vhh-antibody')
+  const algorithm = await GetContent('algorithm')
   const qes = await GetQEs()
   const blog = await GetBlogsEachLangs(blogQueryLatest)
   const news = await GetBlogsEachLangs(newsQueryLatest)
@@ -45,6 +47,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       about,
       pitch,
       vhh,
+      algorithm,
       blog,
       news,
       projects,
@@ -53,13 +56,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-const HomePage: NextPage<Props> = ({ about, pitch, vhh, blog, news, projects, qes }) => {
+const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, projects, qes }) => {
   const { t } = useTranslation()
   const { lang } = useSelectedLanguage()
   const hero = lang === 'en' ? about.en : about.ja
   const blogPosts = lang === 'en' ? blog.en : blog.ja
   const newsPosts = lang === 'en' ? news.en : news.ja
   const projectList = lang === 'en' ? projects.en : projects.ja
+  const al = lang === 'en' ? algorithm.en : algorithm.ja
   const p = lang === 'en' ? pitch.en : pitch.ja
   const q = lang === 'en' ? qes.en : qes.ja
   const v = lang === 'en' ? vhh.en : vhh.ja
@@ -120,12 +124,12 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, blog, news, projects, qe
           <div className={styles.researchIntro}>
             <div className={styles.researchBody}>
               <h2 className={styles.researchTitle}>
-                {t('index.research')}
+                {v.title}
               </h2>
-              <Blocks blocks={v.blocks} />
+              <p>{v.excerpt}</p>
               <p className={styles.researchButton}>
                 <Link href={{ pathname: '/research', query }}>
-                  {t('index.research')}
+                  {t('index.viewAllResearch')}
                 </Link>
               </p>
             </div>
@@ -163,6 +167,25 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, blog, news, projects, qe
               </p>
             </header>
             <BlogList blog={blogPosts} lang={lang} />
+          </div>
+        </div>
+
+        <div className={styles.algorithm}>
+          <div className={styles.algorithmInner}>
+            <div className={styles.algorithmVideo}>
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/zcOjqP40TjA?controls=0"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen
+              ></iframe>
+            </div>
+            <div className={styles.algorithmText}>
+              <h2>{al.title}</h2>
+              <Blocks blocks={al.blocks} />
+            </div>
           </div>
         </div>
 
