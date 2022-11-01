@@ -11,6 +11,7 @@ import {
   QueryDatabaseParameters,
   PageObjectResponseEx,
 } from 'notionate'
+import { buildPlainText } from './member'
 
 type DBPage = DBPageBase & {
   properties: {
@@ -52,11 +53,20 @@ type Content = {
   cover: string
   page: GetPageResponseEx
   blocks: ListBlockChildrenResponseEx
+  excerpt: string
 }
 
 export type ContentBilingual = {
   en: Content
   ja: Content
+}
+
+const buildExcerpt = (b: ListBlockChildrenResponseEx): string => {
+  const max = 400
+  const text = buildPlainText(b)
+  const excerpt = text.substring(0, max)
+  const ellipsis = text.length > max ? '...' : ''
+  return `${excerpt}${ellipsis}`
 }
 
 const query = {
@@ -102,19 +112,23 @@ export const GetContent = async (slug: string): Promise<ContentBilingual|undefin
 
   const propsEn = pageEn as DBPage
   const porEn = pageEn as PageObjectResponseEx
+  const blocksEn = await FetchBlocks(pageEn.id)
   const en = {
     title: propsEn.properties.Name.title.map(v => v.plain_text).join(','), 
     cover: porEn.cover !== null ? porEn.cover.src : '',
     page: await FetchPage(pageEn.id),
-    blocks: await FetchBlocks(pageEn.id),
+    blocks: blocksEn,
+    excerpt: buildExcerpt(blocksEn),
   }
   const propsJa = pageJa as DBPage
   const porJa = pageJa as PageObjectResponseEx
+  const blocksJa = await FetchBlocks(pageJa.id)
   const ja = {
     title: propsJa.properties.Name.title.map(v => v.plain_text).join(','),
     cover: porJa.cover !== null ? porJa.cover.src : '',
     page: await FetchPage(pageJa.id),
-    blocks: await FetchBlocks(pageJa.id),
+    blocks: blocksJa,
+    excerpt: buildExcerpt(blocksJa),
   }
 
   return { en, ja }
