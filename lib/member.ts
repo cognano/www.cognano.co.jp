@@ -86,6 +86,14 @@ export const buildPlainText = (b: ListBlockChildrenResponseEx): string => {
   return text
 }
 
+const buildExcerpt = (b: ListBlockChildrenResponseEx): string => {
+  const max = 60
+  const text = buildPlainText(b)
+  const excerpt = text.substring(0, max)
+  const ellipsis = text.length > max ? '...' : ''
+  return `${excerpt}${ellipsis}`
+}
+
 export const memberQuery = {
   database_id: process.env.NOTION_MEMBER_DB_ID,
   filter: {
