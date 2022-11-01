@@ -7,6 +7,7 @@ import {
   ListBlockChildrenResponseEx,
   FetchBlocks,
   PersonUserObjectResponseEx,
+  PageObjectResponseEx,
 } from 'notionate'
 
 type User = {
@@ -20,6 +21,7 @@ export type LocalizedMember = {
   role: string
   jobs: string[]
   user: User | null
+  cover: string | null
   excerpt: string | null
 }
 
@@ -70,6 +72,8 @@ export type DBPage = DBPageBase & {
 
 const build = (page: DBPage): LocalizedMember => {
   const props = page.properties
+  const p = page as unknown as PageObjectResponseEx
+
   return {
     id: page.id,
     name: props.Name.title.map(v => v.plain_text).join(',') || '',
@@ -78,6 +82,7 @@ const build = (page: DBPage): LocalizedMember => {
     user: props.User.people.length > 0 ? props.User.people.map(v => {
       return { name: v.name, avatar: v.avatar } as User
     })[0] : null,
+    cover: p.cover?.src || null,
     excerpt: null,
   }
 }
