@@ -85,8 +85,8 @@ const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
   return (
     <div className={styles.member}>
       <div className={styles.memberAvatar}>
-        {m.props.user && <img src={m.props.user.avatar} />}
-        {!m.props.user && <img src="/static/hirose.webp" />}
+        {m.props.cover && <img src={m.props.cover} />}
+        {!m.props.cover && m.props.user && <img src={m.props.user.avatar} />}
       </div>
       <h3 className={styles.memberName}>
         {m.props.name}
