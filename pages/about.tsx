@@ -95,7 +95,7 @@ const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
         {m.props.role}
       </p>
       <div className={styles.memberProfile} style={open ? hideIntroStyle : showIntroStyle}>
-        <Blocks blocks={m.blocks} />
+        {m.props.excerpt}
       </div>
       <div className={styles.memberFullProfile} style={open ? showFullStyle : hideFullStyle}>
         <Blocks blocks={m.blocks} />
