@@ -80,6 +80,12 @@ const build = (page: DBPage): LocalizedMember => {
   }
 }
 
+export const buildPlainText = (b: ListBlockChildrenResponseEx): string => {
+  const richText = b.results.map(v => 'type' in v && v.type === 'paragraph' ? v.paragraph.rich_text : [] )
+  const text = richText.map(v => v.map(vv => vv.plain_text)).flat().join('')
+  return text
+}
+
 export const memberQuery = {
   database_id: process.env.NOTION_MEMBER_DB_ID,
   filter: {
