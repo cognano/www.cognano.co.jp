@@ -20,6 +20,7 @@ export type LocalizedMember = {
   role: string
   jobs: string[]
   user: User | null
+  excerpt: string | null
 }
 
 export type LocalizedMemberWithBlocks = {
@@ -77,6 +78,7 @@ const build = (page: DBPage): LocalizedMember => {
     user: props.User.people.length > 0 ? props.User.people.map(v => {
       return { name: v.name, avatar: v.avatar } as User
     })[0] : null,
+    excerpt: null,
   }
 }
 
@@ -132,6 +134,7 @@ export const GetMembers = async (): Promise<Members> => {
   })
   const ja = await Promise.all(jaProps.map(async (v) => {
     const blocks = await FetchBlocks(v.id)
+    v.excerpt = buildExcerpt(blocks)
     return {
       props: v,
       blocks,
@@ -149,6 +152,7 @@ export const GetMembers = async (): Promise<Members> => {
   })
   const en = await Promise.all(enProps.map(async (v) => {
     const blocks = await FetchBlocks(v.id)
+    v.excerpt = buildExcerpt(blocks)
     return {
       props: v,
       blocks,
