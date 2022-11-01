@@ -26,7 +26,7 @@ export default {
     viewAllNews: `お知らせ一覧へ`,
     tnbc: `トリプルネガティブ乳がん`,
     vhh: `VHH抗体`,
-    research: `研究について`,
+    viewAllResearch: `もっと詳しく`,
   },
   about: {
     purpose: `パーパス`,
