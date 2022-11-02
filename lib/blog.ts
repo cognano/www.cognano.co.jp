@@ -6,7 +6,9 @@ import {
   DBPageBase,
   QueryDatabaseParameters,
   PersonUserObjectResponseEx,
+  ListBlockChildrenResponseEx,
 } from 'notionate'
+import { buildPlainText } from './member'
 
 type Writer = {
   name: string
@@ -87,6 +89,14 @@ const build = (page: DBPage): Blog => {
     }) || [],
     language: props.Language.select.name || '',
   }
+}
+
+export const buildExcerpt = (b: ListBlockChildrenResponseEx): string => {
+  const max = 400
+  const text = buildPlainText(b)
+  const excerpt = text.substring(0, max)
+  const ellipsis = text.length > max ? '...' : ''
+  return `${excerpt}${ellipsis}`
 }
 
 export const blogQuery = {
