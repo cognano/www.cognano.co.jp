@@ -5,6 +5,7 @@ import { Blocks } from 'notionate/dist/components'
 import { GetMembers, Members } from '../lib/member'
 import styles from '../styles/Research.module.css'
 import Unsplash from '../components/unsplash'
+import Hed from '../components/hed'
 
 type Props = {
   research: ContentBilingual
@@ -39,6 +40,7 @@ const Research: NextPage<Props> = ({ research, tnbc, vhh, covid }) => {
 
   return (
     <main>
+      <Hed title={r.title} desc="" />
       <div className="container">
         <h1>
           {r.title}

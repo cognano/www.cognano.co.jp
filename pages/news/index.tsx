@@ -8,6 +8,7 @@ import { useSelectedLanguage } from '../../i18n'
 import { newsQuery, BlogEachLangs, GetBlogsEachLangs } from '../../lib/blog'
 import { GetContent, ContentBilingual } from '../../lib/content'
 import styles from '../../styles/News.module.css'
+import Hed from '../../components/hed'
 
 type Props = {
   news: BlogEachLangs
@@ -32,6 +33,7 @@ const NewsIndex: NextPage<Props> = ({ news, desc }) => {
 
   return (
     <main>
+      <Hed title={d.title} desc={d.excerpt} />
       <div className="container">
         <header>
           <h1>

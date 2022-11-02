@@ -1,13 +1,13 @@
 import type { NextPage, GetStaticProps } from 'next'
-import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Blocks } from 'notionate/dist/components'
 import BlogList from '../../components/blog-list'
 import { GetContent, ContentBilingual } from '../../lib/content'
 import { useSelectedLanguage } from '../../i18n'
-import { BlogEachLangs, blogQuery, GetBlogsEachLangs } from '../../lib/blog'
+import { BlogEachLangs, blogQuery, buildExcerpt, GetBlogsEachLangs } from '../../lib/blog'
 import styles from '../../styles/Blog.module.css'
+import Hed from '../../components/hed'
 
 type Props = {
   blog: BlogEachLangs
@@ -33,6 +33,7 @@ const BlogIndex: NextPage<Props> = ({ blog, desc }) => {
 
   return (
     <main>
+      <Hed title={d.title} desc={d.excerpt} />
       <div className="container">
         <header className={styles.blogHeader}>
           <h1>

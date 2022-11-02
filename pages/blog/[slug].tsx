@@ -1,12 +1,13 @@
 import type { NextPage, GetStaticPaths, GetStaticProps } from 'next'
 import Link from 'next/link'
 import { useSelectedLanguage, useLanguageQuery } from '../../i18n'
-import { Blog, blogQuery, GetBlogsEachLangs } from '../../lib/blog'
+import { Blog, blogQuery, buildExcerpt, GetBlogsEachLangs } from '../../lib/blog'
 import { FetchBlocks } from 'notionate'
 import { Blocks, ListBlockChildrenResponseEx } from 'notionate/dist/components'
 import { formatDate } from '../../lib/date'
 import styles from '../../styles/Blog.module.css'
 import { calendarIcon, pensquareIcon } from '../../components/icons'
+import Hed from '../../components/hed'
 
 type Props = {
   blog?: {
@@ -16,6 +17,10 @@ type Props = {
   blocks?: {
     en?: ListBlockChildrenResponseEx
     ja?: ListBlockChildrenResponseEx
+  }
+  excerpt?: {
+    en: string
+    ja: string
   }
 }
 
@@ -44,14 +49,20 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
   const ja = blog.ja.find(v => v.slug === params!.slug)
   if (en && ja) {
     const blocksEn = await FetchBlocks(en.id)
+    const excerptEn = buildExcerpt(blocksEn)
     const blocksJa = await FetchBlocks(ja.id)
+    const excerptJa = buildExcerpt(blocksJa)
     return {
       props: {
         blog: { en, ja },
         blocks: {
           en: blocksEn,
           ja: blocksJa,
-        }
+        },
+        excerpt: {
+          en: excerptEn,
+          ja: excerptJa,
+        },
       },
       revalidate: 60,
     }
@@ -65,13 +76,15 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
   }
 }
 
-const BlogPost: NextPage<Props> = ({ blog, blocks }) => {
+const BlogPost: NextPage<Props> = ({ blog, blocks, excerpt }) => {
   const [query] = useLanguageQuery()
   const { lang } = useSelectedLanguage()
   const post = lang === 'en' ? blog!.en! : blog!.ja!
   const postBlocks = lang === 'en' ? blocks!.en! : blocks!.ja!
+  const postExcerpt = lang === 'en' ? excerpt!.en : excerpt!.ja
   return (
     <article className="container">
+      <Hed title={post.title} desc={postExcerpt} />
       <header className={styles.header}>
         <p className={styles.category}>
           <Link href={{ pathname: '/blog', query }}>Blog</Link>
