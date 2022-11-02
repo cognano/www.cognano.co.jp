@@ -8,6 +8,7 @@ import { Blocks } from 'notionate/dist/components'
 import { List } from 'notionate/dist/components'
 import { GetContent, ContentBilingual } from '../../lib/content'
 import styles from '../../styles/Project.module.css'
+import Hed from '../../components/hed'
 
 type Props = {
   projects: ProjectsOriginal
@@ -32,6 +33,7 @@ const ProjectIndex: NextPage<Props> = ({ projects, desc }) => {
 
   return (
     <main>
+      <Hed title={d.title} desc={d.excerpt} />
       <div className="container">
         <header className={styles.projectsHeader}>
           <h1>

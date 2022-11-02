@@ -7,6 +7,7 @@ import { Blocks } from 'notionate/dist/components'
 import { GetMembers, Members, LocalizedMemberWithBlocks } from '../lib/member'
 import styles from '../styles/About.module.css'
 import Unsplash from '../components/unsplash'
+import Hed from '../components/hed'
 
 type Values = {
   ja: LocalizedMindsetWithBlocks[]
@@ -123,6 +124,7 @@ const About: NextPage<Props> = ({ story, team, mindset, company, purpose, missio
 
   return (
     <main>
+      <Hed title={t('header.about')} desc={p.props.title} />
       <div className={styles.purposeImage}>
         <img src="/static/beautiful.jpg" width="100%" />
         <div className={styles.purposeImageLicense}>
