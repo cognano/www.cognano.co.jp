@@ -17,6 +17,7 @@ type Values = {
 type Props = {
   story: ContentBilingual
   team: ContentBilingual
+  investors: ContentBilingual
   mindset: ContentBilingual
   company: ContentBilingual
   purpose: Mindset
@@ -29,6 +30,7 @@ type Props = {
 export const getStaticProps: GetStaticProps<{}> = async () => {
   const story = await GetContent('story')
   const team = await GetContent('team')
+  const investors = await GetContent('investors')
   const mindset = await GetContent('mindset')
   const company = await GetContent('company-overview')
   const purpose = await GetMindset('purpose')
@@ -56,6 +58,7 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
     props: {
       story,
       team,
+      investors,
       mindset,
       company,
       purpose,
@@ -68,10 +71,13 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
 }
 
 const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
+  if (m.props.roles.includes('Investor')) {
+    return <></>
+  }
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const showIntroStyle = {
-    display: '-webkit-box',
+    display: 'block',
   }
   const hideIntroStyle = {
     display: 'none',
@@ -93,7 +99,7 @@ const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
         {m.props.name}
       </h3>
       <p className={styles.memberRole}>
-        {m.props.role}
+        {m.props.title}
       </p>
       <div className={styles.memberProfile} style={open ? hideIntroStyle : showIntroStyle}>
         {m.props.excerpt}
@@ -108,11 +114,32 @@ const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
   )
 }
 
-const About: NextPage<Props> = ({ story, team, mindset, company, purpose, mission, vision, values, members }) => {
+const Investor: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
+  if (!m.props.roles.includes('Investor')) {
+    return <></>
+  }
+  return (
+    <div className={styles.investor}>
+      <div className={styles.memberAvatar}>
+        {m.props.cover && <img src={m.props.cover} />}
+        {!m.props.cover && m.props.user && <img src={m.props.user.avatar} />}
+      </div>
+      <h3 className={styles.memberName}>
+        {m.props.name}
+      </h3>
+      <p className={styles.memberRole}>
+        {m.props.title}
+      </p>
+    </div>
+  )
+}
+
+const About: NextPage<Props> = ({ story, team, investors, mindset, company, purpose, mission, vision, values, members }) => {
   const { t } = useTranslation()
   const { lang } = useSelectedLanguage()
   const s = lang === 'en' ? story.en : story.ja
   const tt = lang === 'en' ? team.en : team.ja
+  const iv = lang === 'en' ? investors.en : investors.ja
   const p = lang === 'en' ? purpose.en : purpose.ja
   const m = lang === 'en' ? mission.en : mission.ja
   const v = lang === 'en' ? vision.en : vision.ja
@@ -236,6 +263,23 @@ const About: NextPage<Props> = ({ story, team, mindset, company, purpose, missio
         <div className={styles.members}>
           {mm.map((m, i) => (
             <Member key={i} m={m} />
+          ))}
+        </div>
+      </div>
+
+      <div className="container">
+        <header className={styles.advisorsHeader}>
+          <h2 className={styles.advisorsTitle}>
+            {t('about.advisors')}
+          </h2>
+          <div className={styles.teamDesc}>
+            <Blocks blocks={iv.blocks} />
+          </div>
+        </header>
+
+        <div className={styles.members}>
+          {mm.map((m, i) => (
+            <Investor key={i} m={m} />
           ))}
         </div>
       </div>

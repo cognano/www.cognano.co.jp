@@ -32,6 +32,7 @@ export default {
     purpose: `Purpose`,
     story: `Our Story`,
     team: `Our Team`,
+    advisors: `Our Advisors`,
     mission: `Mission`,
     vision: `Vision`,
     values: `Values`,
