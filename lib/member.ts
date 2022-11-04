@@ -18,8 +18,8 @@ type User = {
 export type LocalizedMember = {
   id: string
   name: string
-  role: string
-  jobs: string[]
+  title: string
+  roles: string[]
   user: User | null
   cover: string | null
   excerpt: string | null
@@ -47,12 +47,12 @@ export type DBPage = DBPageBase & {
       select: SelectPropertyResponse
       id: string
     }
-    Role: {
+    Title: {
       type: "rich_text"
       rich_text: RichTextItemResponse[]
       id: string
     }
-    'Job Categories': {
+    Roles: {
       type: "multi_select"
       multi_select: SelectPropertyResponse[]
       id: string
@@ -77,8 +77,8 @@ const build = (page: DBPage): LocalizedMember => {
   return {
     id: page.id,
     name: props.Name.title.map(v => v.plain_text).join(',') || '',
-    jobs: props['Job Categories'].multi_select.map(v => v.name) || [],
-    role: props.Role.rich_text.map(v => v.plain_text).join(',') || '',
+    roles: props.Roles.multi_select.map(v => v.name) || [],
+    title: props.Title.rich_text.map(v => v.plain_text).join(',') || '',
     user: props.User.people.length > 0 ? props.User.people.map(v => {
       return { name: v.name, avatar: v.avatar } as User
     })[0] : null,
