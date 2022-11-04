@@ -32,6 +32,7 @@ export default {
     purpose: `パーパス`,
     story: `ストーリー`,
     team: `チーム`,
+    advisors: `アドバイザーのご紹介`,
     mission: `ミッション`,
     vision: `ビジョン`,
     values: `バリュー`,
