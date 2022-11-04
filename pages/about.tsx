@@ -71,9 +71,6 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
 }
 
 const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
-  if (m.props.roles.includes('Investor')) {
-    return <></>
-  }
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const showIntroStyle = {
@@ -89,6 +86,9 @@ const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
     display: 'none',
   }
   const onClick = () => setOpen(!open)
+  if (m.props.roles.includes('Investor')) {
+    return <></>
+  }
   return (
     <div className={styles.member}>
       <div className={styles.memberAvatar}>
