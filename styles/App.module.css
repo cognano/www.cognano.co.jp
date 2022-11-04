@@ -199,6 +199,7 @@
   bottom: 2.45rem;
   left: .9rem;
   box-shadow: 0 0 10px #ddd;
+  text-align: left;
 }
 .switcher ul {
   list-style: none;
@@ -359,6 +360,9 @@
     margin-top: var(--spacing-2);
     padding: 0 0 var(--spacing-5) var(--spacing-5);
     text-align: center;
+  }
+  .snsnav {
+    margin-right: 20px;
   }
 }
 @media (max-width: 480px) {
