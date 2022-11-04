@@ -185,6 +185,11 @@
   position: relative;
   overflow: hidden;
 }
+.investor {
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
 .memberName {
   font-weight: bold;
   font-size: var(--fontSize-2);
