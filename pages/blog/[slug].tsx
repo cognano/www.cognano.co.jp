@@ -1,6 +1,6 @@
 import type { NextPage, GetStaticPaths, GetStaticProps } from 'next'
 import Link from 'next/link'
-import { useSelectedLanguage, useLanguageQuery } from '../../i18n'
+import { useTranslation, useSelectedLanguage, useLanguageQuery } from '../../i18n'
 import { Blog, blogQuery, buildExcerpt, GetBlogsEachLangs } from '../../lib/blog'
 import { FetchBlocks } from 'notionate'
 import { Blocks, ListBlockChildrenResponseEx } from 'notionate/dist/components'
@@ -8,6 +8,7 @@ import { formatDate } from '../../lib/date'
 import styles from '../../styles/Blog.module.css'
 import { calendarIcon, pensquareIcon } from '../../components/icons'
 import Hed from '../../components/hed'
+import BlogHeader from '../../components/blog-header'
 
 type Props = {
   blog?: {
@@ -77,6 +78,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
 }
 
 const BlogPost: NextPage<Props> = ({ blog, blocks, excerpt }) => {
+  const { t } = useTranslation()
   const [query] = useLanguageQuery()
   const { lang } = useSelectedLanguage()
   const post = lang === 'en' ? blog!.en! : blog!.ja!
@@ -87,24 +89,11 @@ const BlogPost: NextPage<Props> = ({ blog, blocks, excerpt }) => {
       <Hed title={post.title} desc={postExcerpt} />
       <header className={styles.header}>
         <p className={styles.category}>
-          <Link href={{ pathname: '/blog', query }}>Blog</Link>
+          <Link href={{ pathname: '/blog', query }}>
+            {t('header.blog')}
+          </Link>
         </p>
-        <h1 className={styles.title}>{post.title}</h1>
-        <div className={styles.meta}>
-          <p className={styles.publishedAt}>
-            <span className={styles.calendarIcon}>{calendarIcon()}</span>
-            <span className={styles.date}>{formatDate(post.date, lang)}</span>
-          </p>
-          <p className={styles.authors}>
-            <span className={styles.writtenByIcon}>{pensquareIcon()}</span>
-            {post.writers.map((u, i) => (
-              <span className={styles.author} key={i}>
-                {u.name}
-                <img src={u.avatar} />
-              </span>
-            ))}
-          </p>
-        </div>
+        <BlogHeader blog={post} lang={lang} tag="h1" />
       </header>
       <section className={styles.blocks}>
         <Blocks blocks={postBlocks} />

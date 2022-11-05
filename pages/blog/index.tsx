@@ -34,8 +34,9 @@ const BlogIndex: NextPage<Props> = ({ blog, desc }) => {
   return (
     <main>
       <Hed title={d.title} desc={d.excerpt} />
+
       <div className="container">
-        <header className={styles.blogHeader}>
+        <header className={styles.listHeader}>
           <h1>
             {d.title}
           </h1>
