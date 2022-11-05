@@ -216,70 +216,6 @@
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: var(--spacing-10);
 }
-.post a {
-  display: block;
-  height: 260px;
-  padding: 0;
-  text-decoration: none;
-  border: 1px solid #000;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  position: relative;
-  overflow: hidden;
-}
-.post a:hover {
-  border: 1px solid var(--color-primary);
-}
-.postTitle {
-  font-size: var(--fontSize-2);
-  margin: 0 0 var(--spacing-2);
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid var(--color-text);
-  min-height: 11rem;
-  font-family: var(--fontFamily-serif);
-}
-.post a:hover .postTitle {
-  color: var(--color-primary);
-  border-color: var(--color-primary);
-}
-.postMeta {
-  margin-top: var(--spacing-5);
-  color: #000;
-  padding: .5rem 1.5rem;
-  font-size: var(--fontSize-0);
-}
-.postAuthor {
-  display: inline;
-}
-.postAuthor img {
-  width: 30px;
-  height: 30px;
-  border-radius: 30px;
-  vertical-align: middle;
-  margin-right: 5px;
-  margin-top: -2px;
-}
-.postAuthor span {
-  white-space: nowrap;
-  margin-right: 10px;
-}
-.postDate {
-  display: inline-block;
-  padding: 0 var(--spacing-4);
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  background-color: #fff;
-  margin-left: -3.5rem;
-  margin-top: 2.3rem;
-}
-.postExcerpt {
-  color: #000;
-  font-size: var(--fontSize-2);
-  margin-bottom: 0;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
 
 /* ALGORITHM */
 .algorithm {
@@ -409,9 +345,6 @@
   .qeTitle {
     margin: var(--spacing-4) auto var(--spacing-16);
   }
-  .researchIntro {
-    display: block;
-  }
   .algorithmInner {
     display: block;
     padding-top: var(--spacing-12);
@@ -498,5 +431,13 @@
   .blogIndexLink,
   .newsIndexLink {
     font-size: var(--fontSize-0);
+  }
+
+  /* RESEARCH */
+  .researchIntro {
+    display: block;
+  }
+  .researchCover {
+    height: 300px;
   }
 }
