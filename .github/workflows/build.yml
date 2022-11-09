@@ -79,10 +79,17 @@ jobs:
       run: |
         yarn install
         yarn build
-    - name: Deploy to production by FTP
+    - name: Deploy to JP production by FTP
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
         server: ${{ secrets.FTPHOST }}
         username: ${{ secrets.FTPUSERNAME_PROD }}
         password: ${{ secrets.FTPPASSWORD_PROD }}
+        local-dir: ./out/
+    - name: Deploy to US production by FTP
+      uses: SamKirkland/FTP-Deploy-Action@4.3.0
+      with:
+        server: ${{ secrets.FTPHOST }}
+        username: ${{ secrets.FTPUSERNAME_US }}
+        password: ${{ secrets.FTPPASSWORD_US }}
         local-dir: ./out/
