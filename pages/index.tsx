@@ -86,7 +86,7 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, p
                 <Blocks blocks={hero.blocks} />
                 <p className={styles.aboutButton}>
                   <Link href={{ pathname: '/about', query }}>
-                    <a>{t('index.aboutUs')}</a>
+                    {t('index.aboutUs')}
                   </Link>
                 </p>
               </div>
@@ -144,7 +144,7 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, p
               <h2>{t('index.projects')}</h2>
               <p className={styles.projectsIndexLink}>
                 <Link href={{ pathname: '/projects', query }}>
-                  <a>{t('index.viewAllProjects')} &rarr;</a>
+                  {t('index.viewAllProjects')} &rarr;
                 </Link>
               </p>
             </header>
@@ -162,7 +162,7 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, p
               <h2>{t('index.blog')}</h2>
               <p className={styles.blogIndexLink}>
                 <Link href={{ pathname: '/blog', query }}>
-                  <a>{t('index.viewAllBlog')} &rarr;</a>
+                  {t('index.viewAllBlog')} &rarr;
                 </Link>
               </p>
             </header>
@@ -195,7 +195,7 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, p
               <h2>{t('index.news')}</h2>
               <p className={styles.newsIndexLink}>
                 <Link href={{ pathname: '/news', query }}>
-                  <a>{t('index.viewAllNews')} &rarr;</a>
+                  {t('index.viewAllNews')} &rarr;
                 </Link>
               </p>
             </header>

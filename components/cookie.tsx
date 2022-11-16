@@ -76,8 +76,8 @@ const Cookie: React.FC<Props> = ({ children }) => {
       >
         {t('cookie.message')}
         {` `}
-        <Link href="/privacy" className="privacy-link">
-          <a style={privacy}>Privacy Policy</a>
+        <Link style={privacy} href="/privacy" className="privacy-link">
+          Privacy Policy
         </Link>.
       </CookieConsent>
       {initGA}

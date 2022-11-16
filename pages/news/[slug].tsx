@@ -139,14 +139,12 @@ const NewsPost: NextPage<Props> = ({ blog, blocks, excerpt, desc, latestNews }) 
               {ln.map((post, i) => (
                 <li className={styles.latestPost} key={i}>
                   <Link href={{ pathname: `/news/${post.slug}`, query }}>
-                    <a>
-                      <span className={styles.latestPostDate}>
-                        {formatDate(post.date, lang)}
-                      </span>
-                      <span className={styles.latestPostTitle}>
-                        {post.title}
-                      </span>
-                    </a>
+                    <span className={styles.latestPostDate}>
+                      {formatDate(post.date, lang)}
+                    </span>
+                    <span className={styles.latestPostTitle}>
+                      {post.title}
+                    </span>
                   </Link>
                 </li>
               ))}
