@@ -11,7 +11,7 @@ const Logo: React.FC<Props> = ({ children }) => {
   return (
     <span className="logo">
       <Link href={{ pathname: '/', query }}>
-        <a>COGNANO <span role="img" aria-label="alpaca">🦙</span></a>
+        COGNANO <span role="img" aria-label="alpaca">🦙</span>
       </Link>
     </span>
   )

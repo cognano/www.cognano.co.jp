@@ -17,24 +17,22 @@ const BlogHeader: React.FC<Props> = ({ blog, lang, tag }) => {
   return (
     <div className={styles.blog}>
       <Link href={{ pathname: `/blog/${blog.slug}`, query }}>
-        <a>
-          <HeaderTag className={styles.title}>
-            {blog.title}
-          </HeaderTag>
-          <div className={styles.meta}>
-            <span className={styles.date}>
-              {formatDate(blog.date, lang)}
-            </span>
-            <p className={styles.authors}>
-              {blog.writers.map((u, i) => (
-                <span key={i}>
-                  <img src={u.avatar} />
-                  {u.name}
-                </span>
-              ))}
-            </p>
-          </div>
-        </a>
+        <HeaderTag className={styles.title}>
+          {blog.title}
+        </HeaderTag>
+        <div className={styles.meta}>
+          <span className={styles.date}>
+            {formatDate(blog.date, lang)}
+          </span>
+          <p className={styles.authors}>
+            {blog.writers.map((u, i) => (
+              <span key={i}>
+                <img src={u.avatar} />
+                {u.name}
+              </span>
+            ))}
+          </p>
+        </div>
       </Link>
     </div>
   )

@@ -50,14 +50,14 @@ const Privacy: NextPage<Props> = ({ content }) => {
   const title = ('properties' in page && page.properties.Name) ? page.properties.Name.title.map(v => v.text.content).join(',') : ''
 
   return (
-    <>
+    <main className="container">
       <div className={styles.privacy}>
         <h1>{title}</h1>
         <div className={styles.privacyContent}>
           <Blocks blocks={privacy.blocks} />
         </div>
       </div>
-    </>
+    </main>
   )
 }
 

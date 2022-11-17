@@ -26,34 +26,34 @@ const Footer: React.FC<Props> = ({ children }) => {
           <ul>
             <li>
               <Link href={{ pathname: '/about', query }}>
-                <a>{t('header.about')}</a>
+                {t('header.about')}
               </Link>
             </li>
             <li>
               <Link href={{ pathname: '/research', query }}>
-                <a>{t('header.research')}</a>
+                {t('header.research')}
               </Link>
             </li>
             <li>
               <Link href={{ pathname: '/projects', query }}>
-                <a>{t('header.projects')}</a>
+                {t('header.projects')}
               </Link>
             </li>
             <li>
               <Link href={{ pathname: '/blog', query }}>
-                <a>{t('header.blog')}</a>
+                {t('header.blog')}
               </Link>
             </li>
             <li>
               <Link href={{ pathname: '/news', query }}>
-                <a>{t('header.news')}</a>
+                {t('header.news')}
               </Link>
             </li>
           </ul>
         </div>
         <p className={styles.footerinfonav}>
           <Link href={{ pathname: '/contact', query }}>
-            <a>{t('header.contact')}</a>
+            {t('header.contact')}
           </Link>
         </p>
       </div>
@@ -104,42 +104,32 @@ const Footer: React.FC<Props> = ({ children }) => {
       <ul className={styles.mobileNav}>
         <li>
           <Link href={{ pathname: '/about', query }}>
-            <a>
-              {companyIcon()}
-              {t('header.about')}
-            </a>
+            {companyIcon()}
+            {t('header.about')}
           </Link>
         </li>
         <li>
           <Link href={{ pathname: '/research', query }}>
-            <a>
-              {fileIcon()}
-              {t('header.research')}
-            </a>
+            {fileIcon()}
+            {t('header.research')}
           </Link>
         </li>
         <li>
           <Link href={{ pathname: '/projects', query }}>
-            <a>
-              {briefcaseIcon()}
-              {t('header.projects')}
-            </a>
+            {briefcaseIcon()}
+            {t('header.projects')}
           </Link>
         </li>
         <li>
           <Link href={{ pathname: '/blog', query }}>
-            <a>
-              {pensquareIcon()}
-              {t('header.blog')}
-            </a>
+            {pensquareIcon()}
+            {t('header.blog')}
           </Link>
         </li>
         <li>
           <Link href={{ pathname: '/news', query }}>
-            <a>
-              {newsIcon()}
-              {t('header.news')}
-            </a>
+            {newsIcon()}
+            {t('header.news')}
           </Link>
         </li>
       </ul>

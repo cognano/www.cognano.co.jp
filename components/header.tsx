@@ -23,37 +23,35 @@ const Header: React.FC<Props> = ({ children }) => {
           <ul>
             <li>
               <Link href={{ pathname: '/about', query }}>
-                <a>{t('header.about')}</a>
+                {t('header.about')}
               </Link>
             </li>
             <li>
               <Link href={{ pathname: '/research', query }}>
-                <a>{t('header.research')}</a>
+                {t('header.research')}
               </Link>
             </li>
             <li>
               <Link href={{ pathname: '/projects', query }}>
-                <a>{t('header.projects')}</a>
+                {t('header.projects')}
               </Link>
             </li>
             <li>
               <Link href={{ pathname: '/blog', query }}>
-                <a>{t('header.blog')}</a>
+                {t('header.blog')}
               </Link>
             </li>
             <li>
               <Link href={{ pathname: '/news', query }}>
-                <a>{t('header.news')}</a>
+                {t('header.news')}
               </Link>
             </li>
           </ul>
         </nav>
         <div className={styles.infonav}>
           <Link href={{ pathname: '/contact', query }}>
-            <a>
-              <span className={styles.envelopeIcon}>{envelopeIcon()}</span>
-              {t('header.contact')}
-            </a>
+            <span className={styles.envelopeIcon}>{envelopeIcon()}</span>
+            {t('header.contact')}
           </Link>
         </div>
       </div>
