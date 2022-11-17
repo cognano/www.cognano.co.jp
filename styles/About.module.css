@@ -19,7 +19,7 @@
 }
 .purpose {
   line-height: 1.7;
-  text-shadow: 1px 1px 3px #fff;
+  text-shadow: 0 0 2px #fff;
   margin: 0;
   padding: 0;
 }
@@ -38,7 +38,9 @@
 .purposeBody p {
   line-height: 1.8;
   font-family: var(--fontFamily-serif);
-  font-size: var(--fontSize-2);
+  font-size: var(--fontSize-3);
+  font-weight: var(--fontWeight-bold);
+  text-shadow: 0 0 5px #fff;
 }
 .purposeBody {
   margin: 0 auto;
@@ -48,26 +50,6 @@
 .purposeBodyInner {
   max-width: 800px;
   margin: var(--spacing-10) auto 0;
-}
-@media (min-width: 1860px) {
-  .purposeBox {
-    position: absolute;
-    top: 34%;
-    width: 100%;
-  }
-  .purposeBody {
-    max-width: 100%;
-    z-index: 2;
-    position: absolute;
-    left: 0;
-    bottom: 3rem;
-    width: 100%;
-  }
-  .purposeBodyInner {
-    color: #fff;
-    text-shadow: 1px 1px 3px #000;
-    margin: 0 auto;
-  }
 }
 
 /* STORY */
@@ -142,6 +124,7 @@
   padding: var(--spacing-2) var(--spacing-6);
   line-height: 1;
   display: inline-block;
+  background-color: #fff;
 }
 .missionVision,
 .value {
@@ -252,6 +235,14 @@
   padding: 0;
 }
 
+@media (max-width: 1400px) {
+  .purposeBox {
+    position: relative;
+    width: 100%;
+    padding-top: var(--spacing-6);
+  }
+}
+
 @media (max-width: 480px) {
   .purposeImageLicense {
     right: .5rem;
@@ -261,11 +252,6 @@
   }
   .purposeInner {
     padding: 0 var(--spacing-4);
-  }
-  .purposeBox {
-    position: absolute;
-    top: 40px;
-    width: 100%;
   }
   .mindsetLabel {
     font-size: 10px;
@@ -279,7 +265,7 @@
     padding: 0;
   }
   .purposeBody {
-    padding: 0 var(--spacing-5);
+    padding: 0;
   }
   .purposeBodyInner {
     margin: var(--spacing-2) auto 0;
@@ -356,5 +342,8 @@
   }
   .companyOverviewTitle {
     font-size: var(--fontSize-3);
+  }
+  .companyOverviewDesc td:first-of-type {
+    white-space: nowrap;
   }
 }

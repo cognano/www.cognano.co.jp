@@ -165,11 +165,11 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
             <h1 className={styles.purpose}>
               {p.props.title}
             </h1>
-          </div>
-        </div>
-        <div className={styles.purposeBody}>
-          <div className={styles.purposeBodyInner}>
-            <Blocks blocks={p.blocks} />
+            <div className={styles.purposeBody}>
+              <div className={styles.purposeBodyInner}>
+                <Blocks blocks={p.blocks} />
+              </div>
+            </div>
           </div>
         </div>
       </div>
