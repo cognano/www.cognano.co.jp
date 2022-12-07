@@ -434,6 +434,11 @@
   }
 
   /* RESEARCH */
+  .researchBody {
+    padding: var(--spacing-6) var(--spacing-6) var(--spacing-10);
+    margin: 0;
+    font-size: var(--fontSize-1);
+  }
   .researchIntro {
     display: block;
   }
