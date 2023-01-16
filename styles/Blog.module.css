@@ -134,10 +134,13 @@
   padding-bottom: var(--spacing-4);
 }
 .blocks ul {
+  padding-top: var(--spacing-5);
+  padding-bottom: var(--spacing-5);
   padding-left: var(--spacing-2);
 }
 .blocks li {
-  padding: var(--spacing-2) 0;
+  font-size: var(--fontSize-2);
+  padding: var(--spacing-1) 0;
   padding-left: var(--spacing-2);
   line-height: 1.7;
 }
