@@ -33,6 +33,10 @@
   margin-top: 1rem;
   display: block;
 }
+.hero .researchImage p {
+  font-size: var(--fontSize-0);
+  letter-spacing: -0.5px;
+}
 .hero {
   margin: 0 auto var(--spacing-32);
   padding: 0 0 0 var(--spacing-20);
@@ -51,7 +55,7 @@
 }
 .hero p {
   line-height: 1.7;
-  font-weight: bold;
+  font-size: var(--fontSize-2);
 }
 .heroInner {
   padding: var(--spacing-20) 0 var(--spacing-32) var(--spacing-32);
@@ -62,6 +66,7 @@
   margin: var(--spacing-10) 0 0;
   padding: 0;
   text-align: right;
+  font-weight: bold;
 }
 .aboutButton a {
   text-decoration: none;

@@ -5,6 +5,7 @@ import Cookie from '../components/cookie'
 import Header from '../components/header'
 import Footer from '../components/footer'
 import 'notionate/dist/styles/notionate.css'
+import { notosans, notoserif } from '../lib/fonts'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -23,6 +24,12 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Component {...pageProps} />
       <Footer />
       <Cookie />
+      <style jsx global>{`
+        :root {
+          --fontFamily-sans: ${notosans.style.fontFamily};
+          --fontFamily-serif: ${notoserif.style.fontFamily};
+        }
+      `}</style>
     </>
   )
 }
