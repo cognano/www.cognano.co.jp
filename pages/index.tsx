@@ -1,7 +1,7 @@
 import type { NextPage, GetStaticProps } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useTranslation, useSelectedLanguage, useLanguageQuery } from '../i18n'
+import { useTranslation, useSelectedLanguage, useLanguageQuery, getT } from '../i18n'
 import { blogQueryLatest, newsQueryLatest, BlogEachLangs, GetBlogsEachLangs } from '../lib/blog'
 import { GetContent, ContentBilingual } from '../lib/content'
 import { Blocks, List } from 'notionate/dist/components'
@@ -10,7 +10,9 @@ import { GetProjectsOriginal, ProjectsOriginal, projectsQueryLatest } from '../l
 import Unsplash from '../components/unsplash'
 import BlogList from '../components/blog-list'
 import NewsList from '../components/news-list'
+import Hed from '../components/hed'
 import { GetQEs, QE } from '../lib/qe'
+import CreateOgImage from '../lib/ogimage'
 
 type Props = {
   about: ContentBilingual
@@ -21,6 +23,7 @@ type Props = {
   news: BlogEachLangs
   projects: ProjectsOriginal
   qes: QE
+  ogimage: string
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
@@ -42,6 +45,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }
   }
 
+  const ogimage = await CreateOgImage({
+    id: 'home',
+    title: {
+      en: getT('head.title', 'en'),
+      ja: getT('head.title', 'ja'),
+    },
+  })
+
   return {
     props: {
       about,
@@ -52,11 +63,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
       news,
       projects,
       qes,
+      ogimage,
     }
   }
 }
 
-const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, projects, qes }) => {
+const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, projects, qes, ogimage }) => {
   const { t } = useTranslation()
   const { lang } = useSelectedLanguage()
   const hero = lang === 'en' ? about.en : about.ja
@@ -71,6 +83,7 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, p
 
   return (
     <>
+      <Hed title={t('head.title')} desc={t('head.description')} ogimage={ogimage} />
       <main>
         <div className={styles.wrapper}>
           <div className="container">
