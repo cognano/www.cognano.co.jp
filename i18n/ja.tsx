@@ -57,5 +57,9 @@ export default {
   language: {
     ja: `日本語`,
     en: `英語`
+  },
+  head: {
+    title: `COGNANO - コンピューターを利用した創薬を目指すベンチャー`,
+    description: `COGNANOは、コンピューターを利用した創薬を目指すベンチャーです`,
   }
 }
