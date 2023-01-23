@@ -6,16 +6,33 @@ import { Blocks } from 'notionate/dist/components'
 import Link from 'next/link'
 import { GetContent, ContentBilingual } from '../lib/content'
 import styles from '../styles/Contact.module.css'
+import CreateOgImage from '../lib/ogimage'
+import Hed from '../components/hed'
 
 type Props = {
   contact: ContentBilingual
+  ogimage: string
 }
 
 export const getStaticProps: GetStaticProps<{}> = async () => {
   const contact = await GetContent('contact')
+
+  const ogimage = await CreateOgImage({
+    id: 'research',
+    title: {
+      en: contact!.en.title,
+      ja: contact!.ja.title,
+    },
+    desc: {
+      en: contact!.en.excerpt,
+      ja: contact!.ja.excerpt,
+    },
+  })
+
   return {
     props: {
       contact,
+      ogimage,
     }
   }
 }
@@ -26,7 +43,7 @@ const formError = (msg: string) => {
   )
 }
 
-const Contact: NextPage<Props> = ({ contact }) => {
+const Contact: NextPage<Props> = ({ contact, ogimage }) => {
   const { t } = useTranslation()
   const { lang } = useSelectedLanguage()
   const c = lang === 'en' ? contact.en : contact.ja
@@ -114,6 +131,8 @@ const Contact: NextPage<Props> = ({ contact }) => {
 
   return (
     <>
+      <Hed title={c.title} desc={c.excerpt} ogimage={ogimage} />
+
       <header className="container">
         <h1>{c.title}</h1>
         <div className={styles.contactDesc}>

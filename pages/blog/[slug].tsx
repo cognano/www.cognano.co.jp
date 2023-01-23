@@ -9,6 +9,7 @@ import styles from '../../styles/Blog.module.css'
 import { calendarIcon, pensquareIcon } from '../../components/icons'
 import Hed from '../../components/hed'
 import BlogHeader from '../../components/blog-header'
+import CreateOgImage from '../../lib/ogimage'
 
 type Props = {
   blog?: {
@@ -23,6 +24,7 @@ type Props = {
     en: string
     ja: string
   }
+  ogimage?: string
 }
 
 type Params = {
@@ -53,6 +55,17 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
     const excerptEn = buildExcerpt(blocksEn)
     const blocksJa = await FetchBlocks(ja.id)
     const excerptJa = buildExcerpt(blocksJa)
+    const ogimage = await CreateOgImage({
+      id: `blog-${params!.slug}`,
+      title: {
+        en: en.title,
+        ja: ja.title,
+      },
+      desc: {
+        en: `by ${en?.writers.map(u => u.name).join(', ')} at ${formatDate(en?.date, 'en')}`,
+        ja: `${formatDate(en?.date, 'ja')} - ${ja?.writers.map(u => u.name).join(' ')}`,
+      },
+    })
     return {
       props: {
         blog: { en, ja },
@@ -64,6 +77,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
           en: excerptEn,
           ja: excerptJa,
         },
+        ogimage,
       },
       revalidate: 60,
     }
@@ -77,7 +91,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
   }
 }
 
-const BlogPost: NextPage<Props> = ({ blog, blocks, excerpt }) => {
+const BlogPost: NextPage<Props> = ({ blog, blocks, excerpt, ogimage }) => {
   const { t } = useTranslation()
   const [query] = useLanguageQuery()
   const { lang } = useSelectedLanguage()
@@ -86,7 +100,7 @@ const BlogPost: NextPage<Props> = ({ blog, blocks, excerpt }) => {
   const postExcerpt = lang === 'en' ? excerpt!.en : excerpt!.ja
   return (
     <article className="container">
-      <Hed title={post.title} desc={postExcerpt} />
+      <Hed title={post.title} desc={postExcerpt} ogimage={ogimage} />
       <header className={styles.header}>
         <p className={styles.category}>
           <Link href={{ pathname: '/blog', query }}>

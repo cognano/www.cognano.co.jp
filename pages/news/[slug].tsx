@@ -10,6 +10,7 @@ import { tagIcon } from '../../components/news-list'
 import styles from '../../styles/News.module.css'
 import { calendarIcon, pensquareIcon } from '../../components/icons'
 import Hed from '../../components/hed'
+import CreateOgImage from '../../lib/ogimage'
 
 type Props = {
   blog?: {
@@ -26,6 +27,7 @@ type Props = {
   }
   desc: ContentBilingual
   latestNews: BlogEachLangs
+  ogimage: string
 }
 
 type Params = {
@@ -60,6 +62,18 @@ export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
     const excerptJa = buildExcerpt(blocksJa)
     const latestNews = await GetBlogsEachLangs(newsQueryLatest)
 
+    const ogimage = await CreateOgImage({
+      id: `news-${params!.slug}`,
+      title: {
+        en: en.title,
+        ja: ja.title,
+      },
+      desc: {
+        en: `at ${formatDate(en?.date, 'en')}`,
+        ja: formatDate(en?.date, 'ja'),
+      },
+    })
+
     return {
       props: {
         blog: { en, ja },
@@ -73,6 +87,7 @@ export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
         },
         desc,
         latestNews,
+        ogimage,
       },
       revalidate: 60,
     }
@@ -86,7 +101,7 @@ export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
   }
 }
 
-const NewsPost: NextPage<Props> = ({ blog, blocks, excerpt, desc, latestNews }) => {
+const NewsPost: NextPage<Props> = ({ blog, blocks, excerpt, desc, latestNews, ogimage }) => {
   const { t } = useTranslation()
   const [query] = useLanguageQuery()
   const { lang } = useSelectedLanguage()
@@ -98,7 +113,7 @@ const NewsPost: NextPage<Props> = ({ blog, blocks, excerpt, desc, latestNews }) 
 
   return (
     <main>
-      <Hed title={post.title} desc={postExcerpt} />
+      <Hed title={post.title} desc={postExcerpt} ogimage={ogimage} />
       <div className={styles.articleWrapper}>
         <div className={styles.newsHeader}>
           <p className={styles.category}>

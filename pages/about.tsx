@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import type { NextPage, GetStaticProps } from 'next'
-import { useTranslation, useSelectedLanguage, useLanguageQuery } from '../i18n'
+import { useTranslation, useSelectedLanguage, getT } from '../i18n'
 import { GetMindset, LocalizedMindsetWithBlocks, Mindset, mindsetQuery } from '../lib/mindset'
 import { ContentBilingual, GetContent } from '../lib/content'
 import { Blocks } from 'notionate/dist/components'
@@ -8,6 +8,7 @@ import { GetMembers, Members, LocalizedMemberWithBlocks } from '../lib/member'
 import styles from '../styles/About.module.css'
 import Unsplash from '../components/unsplash'
 import Hed from '../components/hed'
+import CreateOgImage from '../lib/ogimage'
 
 type Values = {
   ja: LocalizedMindsetWithBlocks[]
@@ -25,6 +26,7 @@ type Props = {
   vision: Mindset
   values: Values
   members: Members
+  ogimage: string
 }
 
 export const getStaticProps: GetStaticProps<{}> = async () => {
@@ -54,6 +56,18 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
   values.en.push(value5.en)
   const members = await GetMembers()
 
+  const ogimage = await CreateOgImage({
+    id: 'about',
+    title: {
+      en: getT('header.about', 'en'),
+      ja: getT('header.about', 'ja'),
+    },
+    desc: {
+      en: purpose!.en.props.title,
+      ja: purpose!.ja.props.title,
+    },
+  })
+
   return {
     props: {
       story,
@@ -66,6 +80,7 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
       vision,
       values,
       members,
+      ogimage,
     }
   }
 }
@@ -134,7 +149,7 @@ const Investor: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
   )
 }
 
-const About: NextPage<Props> = ({ story, team, investors, mindset, company, purpose, mission, vision, values, members }) => {
+const About: NextPage<Props> = ({ story, team, investors, mindset, company, purpose, mission, vision, values, members, ogimage }) => {
   const { t } = useTranslation()
   const { lang } = useSelectedLanguage()
   const s = lang === 'en' ? story.en : story.ja
@@ -151,7 +166,7 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
 
   return (
     <main>
-      <Hed title={t('header.about')} desc={p.props.title} />
+      <Hed title={t('header.about')} desc={p.props.title} ogimage={ogimage} />
       <div className={styles.purposeImage}>
         <img src="/static/beautiful.jpg" width="100%" />
         <div className={styles.purposeImageLicense}>

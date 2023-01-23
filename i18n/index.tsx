@@ -51,6 +51,13 @@ export const useLanguageQuery = (forceLang?: string) => {
   return [value] as const
 }
 
+export const getT = (key: string, lang: string) => {
+  const i18nObj = i18n() as I18N
+  const translations: Dictionary = i18nObj.translations
+  let value: any = key.split('.').reduce((previous: any, current: string) => (previous && previous[current]) || null, translations[lang])
+  return value || key
+}
+
 export const useTranslation = () => {
   const router = useRouter()
   let i18nObj: I18N

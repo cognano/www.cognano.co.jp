@@ -57,5 +57,9 @@ export default {
   language: {
     ja: `Japanese`,
     en: `English`
+  },
+  head: {
+    title: `COGNANO - Aiming to support drug discovery by computer`,
+    description: `COGNANO is a venture that aims at computer-aided drug discovery.`,
   }
 }
