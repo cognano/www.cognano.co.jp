@@ -76,7 +76,7 @@ const writeOgImage = async ({ id, title, file, lang, desc }: writeOgImageArgs): 
   const svg = await satori(OgImage({ id, title, desc }), opts)
   const png = (new Resvg(svg)).render().asPng()
   await writeFile(path, png)
-  console.log(`saved ogimage -- path: ${path}`)
+  console.log(`saved image -- path: ${path}`)
 }
 
 const CreateOgImage = async ({ id, title, desc }: CreateOgimageArgs): Promise<string> => {
