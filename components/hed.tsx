@@ -16,6 +16,7 @@ const Hed: FC<Props> = ({ title, desc, ogimage, children }) => {
   const t = router.pathname === '/' ? `${title}` : `${title} - COGNANO`
   const defaultUrl = process.env.NODE_ENV === 'development' ? `http://localhost:3000` : `https://www.cognano.co.jp`
   const url = `${defaultUrl}${router.asPath}`
+  const image = `${defaultUrl}/ogimages/${lang}/${ogimage}`
 
   return (
     <Head>
@@ -24,10 +25,15 @@ const Hed: FC<Props> = ({ title, desc, ogimage, children }) => {
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content={t} />
       <meta property="og:description" content={desc} />
-      {ogimage && <meta property="og:image" content={`${defaultUrl}/ogimages/${lang}/${ogimage}`} />}
-      {ogimage && <meta property="og:image:width" content="1600" />}
+      {ogimage && <meta property="og:image" content={image} />}
+      {ogimage && <meta property="og:image:width" content="1200" />}
       {ogimage && <meta property="og:image:height" content="630" />}
       <meta property="og:url" content={url} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@cognano_inc" />
+      <meta name="twitter:title" content={t} />
+      <meta name="twitter:description" content={desc} />
+      <meta name="twitter:image" content={image} />
       <link rel="canonical" href={url} />
       {children}
     </Head>
