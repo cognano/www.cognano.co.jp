@@ -1,10 +1,12 @@
 {
-  "name": "www.cognano.co.jp",
+  "name": "cognano",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
+    "build-en": "rm -rf public/ogimages/*; export APP_LANG=en; next build && next export",
+    "build-ja": "rm -rf public/ogimages/*; export APP_LANG=ja; next build && next export",
     "start": "next start",
     "lint": "next lint"
   },

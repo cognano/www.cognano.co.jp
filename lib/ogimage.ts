@@ -23,21 +23,14 @@ async function getIconBase64(s: string): Promise<string> {
 
 type CreateOgimageArgs = {
   id: string
-  title: {
-    en?: string
-    ja?: string
-  }
-  desc?: {
-    en?: string
-    ja?: string
-  }
+  title: string
+  desc?: string
 }
 
 type writeOgImageArgs = {
   id: string
   title: string
   file: string
-  lang: string
   desc?: string
 }
 
@@ -66,8 +59,8 @@ const satoriOptions = async (): Promise<SatoriOptions> => {
   }
 }
 
-const writeOgImage = async ({ id, title, file, lang, desc }: writeOgImageArgs): Promise<void> => {
-  const dir = `public/ogimages/${lang}`
+const writeOgImage = async ({ id, title, desc, file }: writeOgImageArgs): Promise<void> => {
+  const dir = `public/ogimages`
   const path = `${dir}/${file}`
   if (process.env.NODE_ENV !== 'development' && existsSync(path)) {
     return
@@ -81,12 +74,7 @@ const writeOgImage = async ({ id, title, file, lang, desc }: writeOgImageArgs): 
 
 const CreateOgImage = async ({ id, title, desc }: CreateOgimageArgs): Promise<string> => {
   const file = `${id}.png`
-  if (title.en) {
-    await writeOgImage({ id, title: title.en, file, lang: 'en', desc: desc?.en })
-  }
-  if (title.ja) {
-    await writeOgImage({ id, title: title.ja, file, lang: 'ja', desc: desc?.ja })
-  }
+  await writeOgImage({ id, title, desc, file })
   return file
 }
 

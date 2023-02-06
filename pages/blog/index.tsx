@@ -3,16 +3,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Blocks } from 'notionate/dist/components'
 import BlogList from '../../components/blog-list'
-import { GetContent, ContentBilingual } from '../../lib/content'
-import { useSelectedLanguage } from '../../i18n'
-import { BlogEachLangs, blogQuery, buildExcerpt, GetBlogsEachLangs } from '../../lib/blog'
+import { GetContent, Content } from '../../lib/content'
+import { Blog, blogQuery, GetBlogsEachLangs } from '../../lib/blog'
 import styles from '../../styles/Blog.module.css'
 import Hed from '../../components/hed'
 import CreateOgImage from '../../lib/ogimage'
+import { lang } from '../../i18n'
 
 type Props = {
-  blog: BlogEachLangs
-  desc: ContentBilingual
+  blog: Blog[]
+  desc: Content
   ogimage: string
 }
 
@@ -21,47 +21,37 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
   const desc = await GetContent('blog')
   const ogimage = await CreateOgImage({
     id: 'blog',
-    title: {
-      en: desc!.en.title,
-      ja: desc!.ja.title,
-    },
-    desc: {
-      en: desc!.en.excerpt,
-      ja: desc!.ja.excerpt,
-    },
+    title: desc![lang].title,
+    desc: desc![lang].excerpt,
   })
 
   return {
     props: {
-      blog,
-      desc,
+      blog: blog[lang],
+      desc: desc![lang],
       ogimage,
     }
   }
 }
 
 const BlogIndex: NextPage<Props> = ({ blog, desc, ogimage }) => {
-  const { lang } = useSelectedLanguage()
-  const posts = lang === 'en' ? blog.en : blog.ja
-  const d = lang === 'en' ? desc.en : desc.ja
-
   return (
     <main>
-      <Hed title={d.title} desc={d.excerpt} ogimage={ogimage} />
+      <Hed title={desc.title} desc={desc.excerpt} ogimage={ogimage} />
 
       <div className="container">
         <header className={styles.listHeader}>
           <h1>
-            {d.title}
+            {desc.title}
           </h1>
           <div>
-            <Blocks blocks={d.blocks} />
+            <Blocks blocks={desc.blocks} />
           </div>
         </header>
       </div>
 
       <div className="container">
-        <BlogList blog={posts} lang={lang} />
+        <BlogList blog={blog} />
       </div>
     </main>
   )

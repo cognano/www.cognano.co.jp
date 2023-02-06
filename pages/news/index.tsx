@@ -4,16 +4,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Blocks } from 'notionate/dist/components'
 import NewsList from '../../components/news-list'
-import { useSelectedLanguage } from '../../i18n'
-import { newsQuery, BlogEachLangs, GetBlogsEachLangs } from '../../lib/blog'
-import { GetContent, ContentBilingual } from '../../lib/content'
+import t, { lang } from '../../i18n'
+import { newsQuery, Blog, GetBlogsEachLangs } from '../../lib/blog'
+import { GetContent, Content } from '../../lib/content'
 import styles from '../../styles/News.module.css'
 import Hed from '../../components/hed'
 import CreateOgImage from '../../lib/ogimage'
 
 type Props = {
-  news: BlogEachLangs
-  desc: ContentBilingual
+  news: Blog[]
+  desc: Content
   ogimage: string
 }
 
@@ -23,47 +23,37 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
 
   const ogimage = await CreateOgImage({
     id: 'news',
-    title: {
-      en: desc!.en.title,
-      ja: desc!.ja.title,
-    },
-    desc: {
-      en: desc!.en.excerpt,
-      ja: desc!.ja.excerpt,
-    },
+    title: desc![lang].title,
+    desc: desc![lang].excerpt,
   })
 
   return {
     props: {
-      news,
-      desc,
+      news: news[lang],
+      desc: desc![lang],
       ogimage,
     }
   }
 }
 
 const NewsIndex: NextPage<Props> = ({ news, desc, ogimage }) => {
-  const { lang } = useSelectedLanguage()
-  const posts = lang === 'en' ? news.en : news.ja
-  const d = lang === 'en' ? desc.en : desc.ja
-
   return (
     <main>
-      <Hed title={d.title} desc={d.excerpt} ogimage={ogimage} />
+      <Hed title={desc.title} desc={desc.excerpt} ogimage={ogimage} />
       <div className="container">
         <header>
           <h1>
-            {d.title}
+            {desc.title}
           </h1>
           <div>
-            <Blocks blocks={d.blocks} />
+            <Blocks blocks={desc.blocks} />
           </div>
         </header>
       </div>
 
       <div className="container">
         <div className={styles.newsList}>
-          <NewsList news={posts} lang={lang} />
+          <NewsList news={news} />
         </div>
       </div>
     </main>

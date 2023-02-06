@@ -1,11 +1,11 @@
 import type { NextPage, GetStaticPaths, GetStaticProps } from 'next'
 import Link from 'next/link'
-import { useTranslation, useSelectedLanguage, useLanguageQuery } from '../../i18n'
+import t, { lang } from '../../i18n'
 import { Blog, newsQuery, newsQueryLatest, GetBlogsEachLangs, BlogEachLangs, buildExcerpt } from '../../lib/blog'
 import { FetchBlocks } from 'notionate'
 import { Blocks, ListBlockChildrenResponseEx } from 'notionate/dist/components'
 import { formatDate } from '../../lib/date'
-import { GetContent, ContentBilingual } from '../../lib/content'
+import { GetContent, Content } from '../../lib/content'
 import { tagIcon } from '../../components/news-list'
 import styles from '../../styles/News.module.css'
 import { calendarIcon, pensquareIcon } from '../../components/icons'
@@ -13,20 +13,11 @@ import Hed from '../../components/hed'
 import CreateOgImage from '../../lib/ogimage'
 
 type Props = {
-  blog?: {
-    en?: Blog
-    ja?: Blog
-  }
-  blocks?: {
-    en?: ListBlockChildrenResponseEx
-    ja?: ListBlockChildrenResponseEx
-  }
-  excerpt?: {
-    en: string
-    ja: string
-  }
-  desc: ContentBilingual
-  latestNews: BlogEachLangs
+  news?: Blog
+  blocks?: ListBlockChildrenResponseEx
+  excerpt?: string
+  desc: Content
+  latestNews: Blog[]
   ogimage: string
 }
 
@@ -35,8 +26,8 @@ type Params = {
 }
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-  const blog = await GetBlogsEachLangs(newsQuery)
-  const paths = blog.en.map(v => {
+  const news = await GetBlogsEachLangs(newsQuery)
+  const paths = news[lang].map(v => {
     const slug = v.slug
     return {
       params: { slug },
@@ -52,39 +43,24 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
   const desc = await GetContent('news')
   const blog = await GetBlogsEachLangs(newsQuery)
-  const en = blog.en.find(v => v.slug === params!.slug)
-  const ja = blog.ja.find(v => v.slug === params!.slug)
+  const news = blog[lang].find(v => v.slug === params!.slug)
 
-  if (en && ja) {
-    const blocksEn = await FetchBlocks(en.id)
-    const excerptEn = buildExcerpt(blocksEn)
-    const blocksJa = await FetchBlocks(ja.id)
-    const excerptJa = buildExcerpt(blocksJa)
+  if (news) {
+    const blocks = await FetchBlocks(news.id)
+    const excerpt = buildExcerpt(blocks)
     const latestNews = await GetBlogsEachLangs(newsQueryLatest)
 
     const ogimage = await CreateOgImage({
       id: `news-${params!.slug}`,
-      title: {
-        en: en.title,
-        ja: ja.title,
-      },
-      desc: {
-        en: `at ${formatDate(en?.date, 'en')}`,
-        ja: formatDate(en?.date, 'ja'),
-      },
+      title: news.title,
+      desc: lang === 'en' ? `at ${formatDate(news?.date)}` : formatDate(news?.date),
     })
 
     return {
       props: {
-        blog: { en, ja },
-        blocks: {
-          en: blocksEn,
-          ja: blocksJa,
-        },
-        excerpt: {
-          en: excerptEn,
-          ja: excerptJa,
-        },
+        news,
+        blocks,
+        excerpt,
         desc,
         latestNews,
         ogimage,
@@ -101,36 +77,27 @@ export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
   }
 }
 
-const NewsPost: NextPage<Props> = ({ blog, blocks, excerpt, desc, latestNews, ogimage }) => {
-  const { t } = useTranslation()
-  const [query] = useLanguageQuery()
-  const { lang } = useSelectedLanguage()
-  const post = lang === 'en' ? blog!.en! : blog!.ja!
-  const postBlocks = lang === 'en' ? blocks!.en! : blocks!.ja!
-  const postExcerpt = lang === 'en' ? excerpt!.en : excerpt!.ja
-  const d = lang === 'en' ? desc.en : desc.ja
-  const ln = lang === 'en' ? latestNews.en : latestNews.ja
-
+const NewsPost: NextPage<Props> = ({ news, blocks, excerpt, desc, latestNews, ogimage }) => {
   return (
     <main>
-      <Hed title={post.title} desc={postExcerpt} ogimage={ogimage} />
+      <Hed title={news!.title} desc={excerpt!} ogimage={ogimage} />
       <div className={styles.articleWrapper}>
         <div className={styles.newsHeader}>
           <p className={styles.category}>
-            <Link href={{ pathname: '/news', query }}>
+            <Link href="/news">
               {t('header.news')}
             </Link>
           </p>
           <h1 className={styles.newsTitle}>
-            {post.title}
+            {news!.title}
           </h1>
           <div className={styles.newsMeta}>
             <p className={styles.publishedAt}>
               <span className={styles.calendarIcon}>{calendarIcon()}</span>
-              <span className={styles.date}>{formatDate(post.date, lang)}</span>
+              <span className={styles.date}>{formatDate(news!.date)}</span>
             </p>
             <ul className={styles.newsTags}>
-              {post.tags.map((tag, i) => (
+              {news!.tags.map((tag, i) => (
                 tag !== 'News' && <li key={i}>
                   {tagIcon(tag)}
                 </li>
@@ -141,7 +108,7 @@ const NewsPost: NextPage<Props> = ({ blog, blocks, excerpt, desc, latestNews, og
 
         <article className={styles.newsBody}>
           <section className={styles.blocks}>
-            <Blocks blocks={postBlocks} />
+            <Blocks blocks={blocks!} />
           </section>
         </article>
 
@@ -151,11 +118,11 @@ const NewsPost: NextPage<Props> = ({ blog, blocks, excerpt, desc, latestNews, og
           </p>
           <div className={styles.latestBody}>
             <ul>
-              {ln.map((post, i) => (
+              {latestNews.map((post, i) => (
                 <li className={styles.latestPost} key={i}>
-                  <Link href={{ pathname: `/news/${post.slug}`, query }}>
+                  <Link href={`/news/${post.slug}`}>
                     <span className={styles.latestPostDate}>
-                      {formatDate(post.date, lang)}
+                      {formatDate(post.date)}
                     </span>
                     <span className={styles.latestPostTitle}>
                       {post.title}

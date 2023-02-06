@@ -8,7 +8,6 @@ import { useLanguageQuery } from '../i18n'
 
 type Props = {
   news: Blog[]
-  lang: string
 }
 
 export const tagIcon = (tag: string) => {
@@ -45,9 +44,7 @@ export const tagIcon = (tag: string) => {
   }
 }
 
-const NewsList: React.FC<Props> = ({ news, lang }) => {
-  const [query] = useLanguageQuery()
-
+const NewsList: React.FC<Props> = ({ news }) => {
   return (
     <div className={styles.newsContainer}>
       {news.map((post, i) => (
@@ -61,13 +58,13 @@ const NewsList: React.FC<Props> = ({ news, lang }) => {
           </ul>
           <div>
             <h3 className={styles.newsTitle}>
-              <Link href={{ pathname: `/news/${post.slug}`, query }}>
+              <Link href={`/news/${post.slug}`}>
                 {post.title}
               </Link>
             </h3>
             <p className={styles.newsDate}>
               <span className={styles.newsCalendar}>{calendarIcon()}</span>
-              {formatDate(post.date, lang)}
+              {formatDate(post.date)}
             </p>
           </div>
         </div>

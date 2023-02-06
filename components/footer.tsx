@@ -2,18 +2,15 @@ import React, { ReactNode, useState } from 'react'
 import Link from 'next/link'
 import Logo from './logo'
 import styles from '../styles/App.module.css'
-
-import { useTranslation, LanguageSwitcher, useSelectedLanguage, useLanguageQuery } from '../i18n'
-import { twitterIcon, youtubeIcon, facebookIcon, linkedinIcon, languageIcon, sortdownIcon, githubIcon, companyIcon, fileIcon, briefcaseIcon, pensquareIcon, envelopeIcon, newsIcon } from './icons'
+import t from '../i18n'
+import { twitterIcon, youtubeIcon, facebookIcon, linkedinIcon, githubIcon, companyIcon, fileIcon, briefcaseIcon, pensquareIcon, newsIcon } from './icons'
+import Language from './language'
 
 type Props = {
   children?: ReactNode
 }
 
 const Footer: React.FC<Props> = ({ children }) => {
-  const { t } = useTranslation()
-  const [query] = useLanguageQuery()
-  const { lang } = useSelectedLanguage()
   const nowYear = new Date().getFullYear()
   const [open, setOpen] = useState(false)
   const onClick = () => setOpen(!open)
@@ -25,63 +22,43 @@ const Footer: React.FC<Props> = ({ children }) => {
         <div className={styles.footernav}>
           <ul>
             <li>
-              <Link href={{ pathname: '/about', query }}>
+              <Link href="/about">
                 {t('header.about')}
               </Link>
             </li>
             <li>
-              <Link href={{ pathname: '/research', query }}>
+              <Link href="/research">
                 {t('header.research')}
               </Link>
             </li>
             <li>
-              <Link href={{ pathname: '/projects', query }}>
+              <Link href="/projects">
                 {t('header.projects')}
               </Link>
             </li>
             <li>
-              <Link href={{ pathname: '/blog', query }}>
+              <Link href="/blog">
                 {t('header.blog')}
               </Link>
             </li>
             <li>
-              <Link href={{ pathname: '/news', query }}>
+              <Link href="/news">
                 {t('header.news')}
               </Link>
             </li>
           </ul>
         </div>
         <p className={styles.footerinfonav}>
-          <Link href={{ pathname: '/contact', query }}>
+          <Link href="/contact">
             {t('header.contact')}
           </Link>
         </p>
       </div>
       <div className={styles.siteinfo}>
         <div>
-          <div className={styles.languages} onClick={onClick}>
-            <span className={styles.languageIcon}>{languageIcon()}</span>
-            <span>{t(`language.${lang}`)}</span>
-            <span className={styles.sortdownIcon}>{sortdownIcon()}</span>
-            {open && <div className={styles.switcher}>
-              <ul>
-                <li>
-                  <LanguageSwitcher lang="en">
-                    {t('language.en')}
-                    <span className={styles.langen}>English (US)</span>
-                  </LanguageSwitcher>
-                </li>
-                <li>
-                  <LanguageSwitcher lang="ja">
-                    {t('language.ja')}
-                    <span className={styles.langen}>日本語</span>
-                  </LanguageSwitcher>
-                </li>
-              </ul>
-            </div>}
-          </div>
+          <Language />
           <p className={styles.privacy}>
-            <Link href={{ pathname: '/privacy', query }}>
+            <Link href="/privacy">
               {t('footer.privacy')}
             </Link>
           </p>
@@ -103,31 +80,31 @@ const Footer: React.FC<Props> = ({ children }) => {
 
       <ul className={styles.mobileNav}>
         <li>
-          <Link href={{ pathname: '/about', query }}>
+          <Link href="/about">
             {companyIcon()}
             {t('header.about')}
           </Link>
         </li>
         <li>
-          <Link href={{ pathname: '/research', query }}>
+          <Link href="/research">
             {fileIcon()}
             {t('header.research')}
           </Link>
         </li>
         <li>
-          <Link href={{ pathname: '/projects', query }}>
+          <Link href="/projects">
             {briefcaseIcon()}
             {t('header.projects')}
           </Link>
         </li>
         <li>
-          <Link href={{ pathname: '/blog', query }}>
+          <Link href="/blog">
             {pensquareIcon()}
             {t('header.blog')}
           </Link>
         </li>
         <li>
-          <Link href={{ pathname: '/news', query }}>
+          <Link href="/news">
             {newsIcon()}
             {t('header.news')}
           </Link>

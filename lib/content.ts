@@ -48,7 +48,7 @@ type DBPage = DBPageBase & {
   }
 }
 
-type Content = {
+export type Content = {
   title: string
   cover: string
   page: GetPageResponseEx

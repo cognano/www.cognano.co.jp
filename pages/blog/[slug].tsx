@@ -1,6 +1,6 @@
 import type { NextPage, GetStaticPaths, GetStaticProps } from 'next'
 import Link from 'next/link'
-import { useTranslation, useSelectedLanguage, useLanguageQuery } from '../../i18n'
+import t, { lang } from '../../i18n'
 import { Blog, blogQuery, buildExcerpt, GetBlogsEachLangs } from '../../lib/blog'
 import { FetchBlocks } from 'notionate'
 import { Blocks, ListBlockChildrenResponseEx } from 'notionate/dist/components'
@@ -12,18 +12,9 @@ import BlogHeader from '../../components/blog-header'
 import CreateOgImage from '../../lib/ogimage'
 
 type Props = {
-  blog?: {
-    en?: Blog
-    ja?: Blog
-  }
-  blocks?: {
-    en?: ListBlockChildrenResponseEx
-    ja?: ListBlockChildrenResponseEx
-  }
-  excerpt?: {
-    en: string
-    ja: string
-  }
+  blog?: Blog
+  blocks?: ListBlockChildrenResponseEx
+  excerpt?: string
   ogimage?: string
 }
 
@@ -33,7 +24,7 @@ type Params = {
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
   const blog = await GetBlogsEachLangs(blogQuery)
-  const paths = blog.en.map(v => {
+  const paths = blog[lang].map(v => {
     const slug = v.slug
     return {
       params: { slug },
@@ -47,36 +38,22 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 }
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
-  const blog = await GetBlogsEachLangs(blogQuery)
-  const en = blog.en.find(v => v.slug === params!.slug)
-  const ja = blog.ja.find(v => v.slug === params!.slug)
-  if (en && ja) {
-    const blocksEn = await FetchBlocks(en.id)
-    const excerptEn = buildExcerpt(blocksEn)
-    const blocksJa = await FetchBlocks(ja.id)
-    const excerptJa = buildExcerpt(blocksJa)
+  const blogBilingal = await GetBlogsEachLangs(blogQuery)
+  const blog = blogBilingal[lang].find(v => v.slug === params!.slug)
+  if (blog) {
+    const blocks = await FetchBlocks(blog.id)
+    const excerpt = buildExcerpt(blocks)
     const ogimage = await CreateOgImage({
       id: `blog-${params!.slug}`,
-      title: {
-        en: en.title,
-        ja: ja.title,
-      },
-      desc: {
-        en: `by ${en?.writers.map(u => u.name).join(', ')} at ${formatDate(en?.date, 'en')}`,
-        ja: `${formatDate(en?.date, 'ja')} - ${ja?.writers.map(u => u.name).join(' ')}`,
-      },
+      title: blog.title,
+      desc: lang === 'en' ? `by ${blog?.writers.map(u => u.name).join(', ')} at ${formatDate(blog?.date)}` : `${formatDate(blog?.date)} - ${blog?.writers.map(u => u.name).join(' ')}`,
     })
+
     return {
       props: {
-        blog: { en, ja },
-        blocks: {
-          en: blocksEn,
-          ja: blocksJa,
-        },
-        excerpt: {
-          en: excerptEn,
-          ja: excerptJa,
-        },
+        blog,
+        blocks,
+        excerpt,
         ogimage,
       },
       revalidate: 60,
@@ -92,25 +69,19 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
 }
 
 const BlogPost: NextPage<Props> = ({ blog, blocks, excerpt, ogimage }) => {
-  const { t } = useTranslation()
-  const [query] = useLanguageQuery()
-  const { lang } = useSelectedLanguage()
-  const post = lang === 'en' ? blog!.en! : blog!.ja!
-  const postBlocks = lang === 'en' ? blocks!.en! : blocks!.ja!
-  const postExcerpt = lang === 'en' ? excerpt!.en : excerpt!.ja
   return (
     <article className="container">
-      <Hed title={post.title} desc={postExcerpt} ogimage={ogimage} />
+      <Hed title={blog!.title} desc={excerpt!} ogimage={ogimage} />
       <header className={styles.header}>
         <p className={styles.category}>
-          <Link href={{ pathname: '/blog', query }}>
+          <Link href="/blog">
             {t('header.blog')}
           </Link>
         </p>
-        <BlogHeader blog={post} lang={lang} tag="h1" />
+        <BlogHeader blog={blog!} tag="h1" />
       </header>
       <section className={styles.blocks}>
-        <Blocks blocks={postBlocks} />
+        <Blocks blocks={blocks!} />
       </section>
     </article>
   )

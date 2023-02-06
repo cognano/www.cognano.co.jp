@@ -1,4 +1,6 @@
-export const formatDate = (date: undefined|string, lang: string): string => {
+import { lang } from '../i18n'
+
+export const formatDate = (date: undefined|string): string => {
   if (date === undefined) {
     return ''
   }
