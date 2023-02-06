@@ -59,11 +59,11 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
       investors: investors![lang],
       mindset: mindset![lang],
       company: company![lang],
-      purpose,
-      mission,
-      vision,
-      values,
-      members,
+      purpose: purpose[lang],
+      mission: mission[lang],
+      vision: vision[lang],
+      values: values,
+      members: members[lang],
       ogimage,
     }
   }

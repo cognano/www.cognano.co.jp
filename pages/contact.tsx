@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
 
   return {
     props: {
-      contact,
+      contact: contact![lang],
       ogimage,
     }
   }
