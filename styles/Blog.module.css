@@ -144,9 +144,6 @@
   padding-left: var(--spacing-2);
   line-height: 1.7;
 }
-.blocks img {
-  margin-top: var(--spacing-5);
-}
 
 @media (max-width: 820px) {
 }
