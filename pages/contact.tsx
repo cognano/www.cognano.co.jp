@@ -1,16 +1,16 @@
-import { useTranslation, useSelectedLanguage, useLanguageQuery } from '../i18n'
+import t, { lang } from '../i18n'
 import { MutatingDots } from 'react-loader-spinner'
 import { useState } from 'react'
 import { GetStaticProps, NextPage } from 'next'
 import { Blocks } from 'notionate/dist/components'
 import Link from 'next/link'
-import { GetContent, ContentBilingual } from '../lib/content'
+import { GetContent, Content } from '../lib/content'
 import styles from '../styles/Contact.module.css'
 import CreateOgImage from '../lib/ogimage'
 import Hed from '../components/hed'
 
 type Props = {
-  contact: ContentBilingual
+  contact: Content
   ogimage: string
 }
 
@@ -19,19 +19,13 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
 
   const ogimage = await CreateOgImage({
     id: 'research',
-    title: {
-      en: contact!.en.title,
-      ja: contact!.ja.title,
-    },
-    desc: {
-      en: contact!.en.excerpt,
-      ja: contact!.ja.excerpt,
-    },
+    title: contact![lang].title,
+    desc: contact![lang].excerpt,
   })
 
   return {
     props: {
-      contact,
+      contact: contact![lang],
       ogimage,
     }
   }
@@ -44,10 +38,6 @@ const formError = (msg: string) => {
 }
 
 const Contact: NextPage<Props> = ({ contact, ogimage }) => {
-  const { t } = useTranslation()
-  const { lang } = useSelectedLanguage()
-  const c = lang === 'en' ? contact.en : contact.ja
-
   const endpoint = `https://api.cognano.co.jp/`
   const initQuery = {
     name: ``,
@@ -131,12 +121,12 @@ const Contact: NextPage<Props> = ({ contact, ogimage }) => {
 
   return (
     <>
-      <Hed title={c.title} desc={c.excerpt} ogimage={ogimage} />
+      <Hed title={contact.title} desc={contact.excerpt} ogimage={ogimage} />
 
       <header className="container">
-        <h1>{c.title}</h1>
+        <h1>{contact.title}</h1>
         <div className={styles.contactDesc}>
-          <Blocks blocks={c.blocks} />
+          <Blocks blocks={contact.blocks} />
         </div>
       </header>
 

@@ -1,7 +1,7 @@
 import type { FC, ReactNode } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useSelectedLanguage } from '../i18n' 
+import { lang } from '../i18n' 
 
 type Props = {
   title: string
@@ -12,9 +12,10 @@ type Props = {
 
 const Hed: FC<Props> = ({ title, desc, ogimage, children }) => {
   const router = useRouter()
-  const { lang } = useSelectedLanguage()
   const t = router.pathname === '/' ? `${title}` : `${title} - COGNANO`
-  const defaultUrl = process.env.NODE_ENV === 'development' ? `http://localhost:3000` : `https://www.cognano.co.jp`
+  const usdomain = `cognanous.com`
+  const jpdomain = `www.cognano.co.jp`
+  const defaultUrl = process.env.NODE_ENV === 'development' ? `http://localhost:3000` :  `https://${lang === 'en' ? usdomain : jpdomain}`
   const url = `${defaultUrl}${router.asPath}`
   const image = `${defaultUrl}/ogimages/${lang}/${ogimage}`
 

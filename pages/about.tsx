@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import type { NextPage, GetStaticProps } from 'next'
-import { useTranslation, useSelectedLanguage, getT } from '../i18n'
-import { GetMindset, LocalizedMindsetWithBlocks, Mindset, mindsetQuery } from '../lib/mindset'
-import { ContentBilingual, GetContent } from '../lib/content'
+import t, { lang, useTranslation, useSelectedLanguage, getT } from '../i18n'
+import { GetMindset, LocalizedMindsetWithBlocks, LocalizedMindset, mindsetQuery } from '../lib/mindset'
+import { Content, GetContent } from '../lib/content'
 import { Blocks } from 'notionate/dist/components'
 import { GetMembers, Members, LocalizedMemberWithBlocks } from '../lib/member'
 import styles from '../styles/About.module.css'
@@ -10,22 +10,17 @@ import Unsplash from '../components/unsplash'
 import Hed from '../components/hed'
 import CreateOgImage from '../lib/ogimage'
 
-type Values = {
-  ja: LocalizedMindsetWithBlocks[]
-  en: LocalizedMindsetWithBlocks[]
-}
-
 type Props = {
-  story: ContentBilingual
-  team: ContentBilingual
-  investors: ContentBilingual
-  mindset: ContentBilingual
-  company: ContentBilingual
-  purpose: Mindset
-  mission: Mindset
-  vision: Mindset
-  values: Values
-  members: Members
+  story: Content
+  team: Content
+  investors: Content
+  mindset: Content
+  company: Content
+  purpose: LocalizedMindsetWithBlocks
+  mission: LocalizedMindsetWithBlocks
+  vision: LocalizedMindsetWithBlocks
+  values: LocalizedMindsetWithBlocks[]
+  members: LocalizedMemberWithBlocks[]
   ogimage: string
 }
 
@@ -43,50 +38,38 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
   const value3 = await GetMindset('value-3')
   const value4 = await GetMindset('value-4')
   const value5 = await GetMindset('value-5')
-  let values: Values = { ja: [], en: [] }
-  values.ja.push(value1.ja)
-  values.en.push(value1.en)
-  values.ja.push(value2.ja)
-  values.en.push(value2.en)
-  values.ja.push(value3.ja)
-  values.en.push(value3.en)
-  values.ja.push(value4.ja)
-  values.en.push(value4.en)
-  values.ja.push(value5.ja)
-  values.en.push(value5.en)
+  let values: LocalizedMindsetWithBlocks[] = []
+  values.push(value1[lang])
+  values.push(value2[lang])
+  values.push(value3[lang])
+  values.push(value4[lang])
+  values.push(value5[lang])
   const members = await GetMembers()
 
   const ogimage = await CreateOgImage({
     id: 'about',
-    title: {
-      en: getT('header.about', 'en'),
-      ja: getT('header.about', 'ja'),
-    },
-    desc: {
-      en: purpose!.en.props.title,
-      ja: purpose!.ja.props.title,
-    },
+    title: t('header.about'),
+    desc: purpose![lang].props.title,
   })
 
   return {
     props: {
-      story,
-      team,
-      investors,
-      mindset,
-      company,
-      purpose,
-      mission,
-      vision,
-      values,
-      members,
+      story: story![lang],
+      team: team![lang],
+      investors: investors![lang],
+      mindset: mindset![lang],
+      company: company![lang],
+      purpose: purpose[lang],
+      mission: mission[lang],
+      vision: vision[lang],
+      values: values,
+      members: members[lang],
       ogimage,
     }
   }
 }
 
 const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
-  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const showIntroStyle = {
     display: 'block',
@@ -150,23 +133,9 @@ const Investor: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
 }
 
 const About: NextPage<Props> = ({ story, team, investors, mindset, company, purpose, mission, vision, values, members, ogimage }) => {
-  const { t } = useTranslation()
-  const { lang } = useSelectedLanguage()
-  const s = lang === 'en' ? story.en : story.ja
-  const tt = lang === 'en' ? team.en : team.ja
-  const iv = lang === 'en' ? investors.en : investors.ja
-  const p = lang === 'en' ? purpose.en : purpose.ja
-  const m = lang === 'en' ? mission.en : mission.ja
-  const v = lang === 'en' ? vision.en : vision.ja
-  const vv = lang === 'en' ? values.en : values.ja
-  const mm = lang === 'en' ? members.en : members.ja
-  const mi = lang === 'en' ? mindset.en : mindset.ja
-  const co = lang === 'en' ? company.en : company.ja
-  //const [query] = useLanguageQuery()
-
   return (
     <main>
-      <Hed title={t('header.about')} desc={p.props.title} ogimage={ogimage} />
+      <Hed title={t('header.about')} desc={purpose.props.title} ogimage={ogimage} />
       <div className={styles.purposeImage}>
         <img src="/static/beautiful.jpg" width="100%" />
         <div className={styles.purposeImageLicense}>
@@ -178,11 +147,11 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
               {t('about.purpose')}
             </p>
             <h1 className={styles.purpose}>
-              {p.props.title}
+              {purpose.props.title}
             </h1>
             <div className={styles.purposeBody}>
               <div className={styles.purposeBodyInner}>
-                <Blocks blocks={p.blocks} />
+                <Blocks blocks={purpose.blocks} />
               </div>
             </div>
           </div>
@@ -196,7 +165,7 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
               {t('about.story')}
             </h1>
             <div>
-              <Blocks blocks={s.blocks} />
+              <Blocks blocks={story.blocks} />
             </div>
           </div>
           <div className={styles.storyImage}>
@@ -215,7 +184,7 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
               {t('about.mindset')}
             </h2>
             <div className={styles.mindsetDesc}>
-              <Blocks blocks={mi.blocks} />
+              <Blocks blocks={mindset.blocks} />
             </div>
           </header>
 
@@ -225,10 +194,10 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
                 {t('about.mission')}
               </p>
               <h2 className={styles.missionVision}>
-                {m.props.title}
+                {mission.props.title}
               </h2>
               <div className={styles.missionVisionBody}>
-                <Blocks blocks={m.blocks} />
+                <Blocks blocks={mission.blocks} />
               </div>
             </div>
 
@@ -237,10 +206,10 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
                 {t('about.vision')}
               </p>
               <h2 className={styles.missionVision}>
-                {v.props.title}
+                {vision.props.title}
               </h2>
               <div className={styles.missionVisionBody}>
-                <Blocks blocks={v.blocks} />
+                <Blocks blocks={vision.blocks} />
               </div>
             </div>
           </div>
@@ -250,7 +219,7 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
               {t('about.values')}
             </p>
             <div className={styles.values}>
-              {vv.map((v, i) => (
+              {values.map((v, i) => (
                 <div key={i}>
                   <h3 className={styles.value}>
                     {v.props.title}
@@ -271,12 +240,12 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
             {t('about.team')}
           </h2>
           <div className={styles.teamDesc}>
-            <Blocks blocks={tt.blocks} />
+            <Blocks blocks={team.blocks} />
           </div>
         </header>
 
         <div className={styles.members}>
-          {mm.map((m, i) => (
+          {members.map((m, i) => (
             <Member key={i} m={m} />
           ))}
         </div>
@@ -288,12 +257,12 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
             {t('about.advisors')}
           </h2>
           <div className={styles.teamDesc}>
-            <Blocks blocks={iv.blocks} />
+            <Blocks blocks={investors.blocks} />
           </div>
         </header>
 
         <div className={styles.members}>
-          {mm.map((m, i) => (
+          {members.map((m, i) => (
             <Investor key={i} m={m} />
           ))}
         </div>
@@ -306,7 +275,7 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
           </h2>
         </header>
         <div className={styles.companyOverviewDesc}>
-          <Blocks blocks={co.blocks} />
+          <Blocks blocks={company.blocks} />
         </div>
       </div>
     </main>

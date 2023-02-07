@@ -1,9 +1,9 @@
 import type { NextPage, GetStaticProps } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useTranslation, useSelectedLanguage, useLanguageQuery, getT } from '../i18n'
-import { blogQueryLatest, newsQueryLatest, BlogEachLangs, GetBlogsEachLangs } from '../lib/blog'
-import { GetContent, ContentBilingual } from '../lib/content'
+import t, { lang } from '../i18n'
+import { blogQueryLatest, newsQueryLatest, Blog, GetBlogsEachLangs } from '../lib/blog'
+import { GetContent, Content } from '../lib/content'
 import { Blocks, List } from 'notionate/dist/components'
 import styles from '../styles/Home.module.css'
 import { GetProjectsOriginal, ProjectsOriginal, projectsQueryLatest } from '../lib/project'
@@ -11,18 +11,19 @@ import Unsplash from '../components/unsplash'
 import BlogList from '../components/blog-list'
 import NewsList from '../components/news-list'
 import Hed from '../components/hed'
-import { GetQEs, QE } from '../lib/qe'
+import { GetQEs, LocalizedQE } from '../lib/qe'
 import CreateOgImage from '../lib/ogimage'
+import { QueryDatabaseResponseEx } from 'notionate'
 
 type Props = {
-  about: ContentBilingual
-  pitch: ContentBilingual
-  vhh: ContentBilingual
-  algorithm: ContentBilingual
-  blog: BlogEachLangs
-  news: BlogEachLangs
-  projects: ProjectsOriginal
-  qes: QE
+  about: Content
+  pitch: Content
+  vhh: Content
+  algorithm: Content
+  blog: Blog[]
+  news: Blog[]
+  projects: QueryDatabaseResponseEx
+  qes: LocalizedQE[]
   ogimage: string
 }
 
@@ -47,40 +48,25 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const ogimage = await CreateOgImage({
     id: 'home',
-    title: {
-      en: getT('head.title', 'en'),
-      ja: getT('head.title', 'ja'),
-    },
+    title: t('head.title'),
   })
 
   return {
     props: {
-      about,
-      pitch,
-      vhh,
-      algorithm,
-      blog,
-      news,
-      projects,
-      qes,
+      about: about[lang],
+      pitch: pitch![lang],
+      vhh: vhh![lang],
+      algorithm: algorithm![lang],
+      blog: blog[lang],
+      news: news[lang],
+      projects: projects[lang],
+      qes: qes[lang],
       ogimage,
     }
   }
 }
 
 const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, projects, qes, ogimage }) => {
-  const { t } = useTranslation()
-  const { lang } = useSelectedLanguage()
-  const hero = lang === 'en' ? about.en : about.ja
-  const blogPosts = lang === 'en' ? blog.en : blog.ja
-  const newsPosts = lang === 'en' ? news.en : news.ja
-  const projectList = lang === 'en' ? projects.en : projects.ja
-  const al = lang === 'en' ? algorithm.en : algorithm.ja
-  const p = lang === 'en' ? pitch.en : pitch.ja
-  const q = lang === 'en' ? qes.en : qes.ja
-  const v = lang === 'en' ? vhh.en : vhh.ja
-  const [query] = useLanguageQuery()
-
   return (
     <>
       <Hed title={t('head.title')} desc={t('head.description')} ogimage={ogimage} />
@@ -96,9 +82,9 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, p
                 <Unsplash href="https://unsplash.com/@nci?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" name="National Cancer Institute"/>
               </div>
               <div className={styles.heroInner}>
-                <Blocks blocks={hero.blocks} />
+                <Blocks blocks={about.blocks} />
                 <p className={styles.aboutButton}>
-                  <Link href={{ pathname: '/about', query }}>
+                  <Link href="/about">
                     {t('index.aboutUs')}
                   </Link>
                 </p>
@@ -109,7 +95,7 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, p
 
         <div className={styles.qesWrapper}>
           <div className={styles.qes}>
-            {q.map((v, i) => (
+            {qes.map((v, i) => (
               <div className={styles.qe} key={i}>
                 <p className={styles.qeNumber}>
                   {v.number}
@@ -129,24 +115,24 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, p
         </div>
 
         <div className={styles.pitches}>
-          <h2>{p.title}</h2>
-          <Blocks blocks={p.blocks} />
+          <h2>{pitch.title}</h2>
+          <Blocks blocks={pitch.blocks} />
         </div>
 
         <section>
           <div className={styles.researchIntro}>
             <div className={styles.researchBody}>
               <h2 className={styles.researchTitle}>
-                {v.title}
+                {vhh.title}
               </h2>
-              <p>{v.excerpt}</p>
+              <p>{vhh.excerpt}</p>
               <p className={styles.researchButton}>
-                <Link href={{ pathname: '/research', query }}>
+                <Link href="/research">
                   {t('index.viewAllResearch')}
                 </Link>
               </p>
             </div>
-            <div className={styles.researchCover} style={{backgroundImage: `url(${v.cover})`}}>
+            <div className={styles.researchCover} style={{backgroundImage: `url(${vhh.cover})`}}>
             </div>
           </div>
         </section>
@@ -156,14 +142,14 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, p
             <header className={styles.projectsHeader}>
               <h2>{t('index.projects')}</h2>
               <p className={styles.projectsIndexLink}>
-                <Link href={{ pathname: '/projects', query }}>
+                <Link href="/projects">
                   {t('index.viewAllProjects')} &rarr;
                 </Link>
               </p>
             </header>
             <List
               keys={['Name', 'Host', 'spacer', 'Tags', 'Date']}
-              db={projectList}
+              db={projects}
               href="/projects/[id]"
             />
           </div>
@@ -174,12 +160,12 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, p
             <header className={styles.blogHeader}>
               <h2>{t('index.blog')}</h2>
               <p className={styles.blogIndexLink}>
-                <Link href={{ pathname: '/blog', query }}>
+                <Link href="/blog">
                   {t('index.viewAllBlog')} &rarr;
                 </Link>
               </p>
             </header>
-            <BlogList blog={blogPosts} lang={lang} />
+            <BlogList blog={blog} />
           </div>
         </div>
 
@@ -196,8 +182,8 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, p
               ></iframe>
             </div>
             <div className={styles.algorithmText}>
-              <h2>{al.title}</h2>
-              <Blocks blocks={al.blocks} />
+              <h2>{algorithm.title}</h2>
+              <Blocks blocks={algorithm.blocks} />
             </div>
           </div>
         </div>
@@ -207,12 +193,12 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, p
             <header className={styles.newsHeader}>
               <h2>{t('index.news')}</h2>
               <p className={styles.newsIndexLink}>
-                <Link href={{ pathname: '/news', query }}>
+                <Link href="/news">
                   {t('index.viewAllNews')} &rarr;
                 </Link>
               </p>
             </header>
-            <NewsList news={newsPosts} lang={lang} />
+            <NewsList news={news} />
           </div>
         </div>
       </main>

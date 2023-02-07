@@ -2,17 +2,15 @@ import React, { ReactNode } from 'react'
 import Link from 'next/link'
 import Logo from './logo'
 import styles from '../styles/App.module.css'
-import { useTranslation, useLanguageQuery } from '../i18n'
+import t from '../i18n'
 import { envelopeIcon } from './icons'
+import Language from './language'
 
 type Props = {
   children?: ReactNode
 }
 
 const Header: React.FC<Props> = ({ children }) => {
-  const { t } = useTranslation()
-  const [query] = useLanguageQuery()
-
   return (
     <header className={styles.header}>
       <div className={`${styles.headerinner} container`}>
@@ -22,37 +20,42 @@ const Header: React.FC<Props> = ({ children }) => {
         <nav className={styles.globalnav}>
           <ul>
             <li>
-              <Link href={{ pathname: '/about', query }}>
+              <Link href="/about">
                 {t('header.about')}
               </Link>
             </li>
             <li>
-              <Link href={{ pathname: '/research', query }}>
+              <Link href="/research">
                 {t('header.research')}
               </Link>
             </li>
             <li>
-              <Link href={{ pathname: '/projects', query }}>
+              <Link href="/projects">
                 {t('header.projects')}
               </Link>
             </li>
             <li>
-              <Link href={{ pathname: '/blog', query }}>
+              <Link href="/blog">
                 {t('header.blog')}
               </Link>
             </li>
             <li>
-              <Link href={{ pathname: '/news', query }}>
+              <Link href="/news">
                 {t('header.news')}
               </Link>
             </li>
           </ul>
         </nav>
+        <div className={styles.langnav}>
+          <Language top={true} />
+        </div>
         <div className={styles.infonav}>
-          <Link href={{ pathname: '/contact', query }}>
-            <span className={styles.envelopeIcon}>{envelopeIcon()}</span>
-            {t('header.contact')}
-          </Link>
+          <div className={styles.contact}>
+            <Link href="/contact">
+              <span className={styles.envelopeIcon}>{envelopeIcon()}</span>
+              {t('header.contact')}
+            </Link>
+          </div>
         </div>
       </div>
     </header>

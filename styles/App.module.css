@@ -5,7 +5,7 @@
 }
 .headerinner {
   display: grid;
-  grid-template-columns: 200px 1fr 140px;
+  grid-template-columns: 200px 1fr 160px 120px;
   margin-top: var(--spacing-5);
   padding-bottom: var(--spacing-8);
   font-family: var(--fontFamily-sans);
@@ -56,27 +56,39 @@
 .globalnav span {
   padding-right: var(--spacing-2);
 }
+.langnav {
+  justify-self: end;
+  margin-top: 3px;
+  font-size: var(--fontSize-0);
+  fill: #999;
+  color: #999;
+}
+.langnav:hover {
+  fill: #000;
+  color: #000;
+  z-index: 9999;
+}
 .infonav {
-  text-align: right;
+  text-align: center;
   justify-self: end;
 }
-.infonav a {
+.contact a {
   font-size: var(--fontSize-0);
   text-decoration: none;
   display: block;
   margin: 0;
-  padding: var(--spacing-1) var(--spacing-5);
+  padding: var(--spacing-1) var(--spacing-4);
   line-height: 1.8;
   color: var(--color-text);
   border: 1px solid var(--color-text);
   border-radius: 30px;
   font-weight: bold;
 }
-.infonav a:hover {
+.contact a:hover {
   color: #fff;
   background-color: var(--color-text);
 }
-.infonav a:hover span {
+.contact a:hover span {
   fill: #fff;
 }
 .envelopeIcon {
@@ -162,66 +174,8 @@
 .siteinfo p {
   display: inline;
 }
-.languages {
-  display: inline-block;
-  margin-right: 1rem;
-  font-weight: bold;
-  padding: 0 var(--spacing-2);
-  position: relative;
-}
-.languages:hover {
-  background-color: #eee;
-  cursor: pointer;
-  border-radius: 10px;
-}
 .privacy {
   margin-right: 1rem;
-}
-.languageIcon {
-  width: 34px;
-  height: 30px;
-  display: inline-block;
-  vertical-align: middle;
-  padding-top: 1px;
-  margin-right: var(--spacing-2);
-}
-.sortdownIcon {
-  width: 8px;
-  height: 8px;
-  display: inline-block;
-  margin-left: 5px;
-}
-.switcher {
-  /*display: none;*/
-  background-color: #fff;
-  border-radius: 10px;
-  position: absolute;
-  bottom: 2.45rem;
-  left: .9rem;
-  box-shadow: 0 0 10px #ddd;
-  text-align: left;
-}
-.switcher ul {
-  list-style: none;
-  margin: 0;
-  padding: var(--spacing-1);
-}
-.switcher li {
-  margin: 0;
-  padding: var(--spacing-2) var(--spacing-10);
-}
-.switcher li:hover {
-  background-color: #eee;
-  cursor: pointer;
-  border-radius: 10px;
-}
-.switcher span {
-  display: block;
-}
-.langen {
-  white-space: nowrap;
-  opacity: 0.5;
-  font-weight: normal;
 }
 .copyright {
   margin-right: 1rem;
@@ -298,6 +252,7 @@
   }
   .globalnav,
   .infonav,
+  .langnav,
   .footerinner {
     display: none;
   }
