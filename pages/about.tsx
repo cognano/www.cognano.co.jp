@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import type { NextPage, GetStaticProps } from 'next'
 import t, { lang, useTranslation, useSelectedLanguage, getT } from '../i18n'
-import { GetMindset, LocalizedMindsetWithBlocks, LocalizedMindset, mindsetQuery } from '../lib/mindset'
+import { GetMindset, LocalizedMindsetWithBlocks, GetValues, LocalizedMindset, mindsetQuery } from '../lib/mindset'
 import { Content, GetContent } from '../lib/content'
 import { Blocks } from 'notionate/dist/components'
 import { GetMembers, Members, LocalizedMemberWithBlocks } from '../lib/member'
@@ -33,17 +33,7 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
   const purpose = await GetMindset('purpose')
   const mission = await GetMindset('mission')
   const vision = await GetMindset('vision')
-  const value1 = await GetMindset('value-1')
-  const value2 = await GetMindset('value-2')
-  const value3 = await GetMindset('value-3')
-  const value4 = await GetMindset('value-4')
-  const value5 = await GetMindset('value-5')
-  let values: LocalizedMindsetWithBlocks[] = []
-  values.push(value1[lang])
-  values.push(value2[lang])
-  values.push(value3[lang])
-  values.push(value4[lang])
-  values.push(value5[lang])
+  const values = await GetValues()
   const members = await GetMembers()
 
   const ogimage = await CreateOgImage({
