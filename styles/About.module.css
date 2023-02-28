@@ -198,8 +198,8 @@
   margin: var(--spacing-1) 0 0;
   padding: 0;
   width: 100%;
-  white-space: nowrap;
   /*
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   */
@@ -223,18 +223,20 @@
   margin: var(--spacing-6) 0 0;
   cursor: pointer;
 }
+
 /* MODAL */
 .modal {
-  font-size: var(--fontSize-10);
   padding: var(--spacing-10);
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-gap: var(--spacing-10);
 }
 .modalMemberAvatar {
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   border-radius: 100%;
   overflow: hidden;
   display: flex;
-  float: left;
   margin: 0 var(--spacing-10) var(--spacing-4) 0;
 }
 .modalMemberAvatar img {
@@ -243,13 +245,13 @@
 }
 .modalMemberName {
   font-weight: bold;
-  font-size: var(--fontSize-4);
-  margin: var(--spacing-16) 0 0;
-  padding: var(--spacing-10) 0 0;
+  font-size: var(--fontSize-6);
+  margin: var(--spacing-12) 0 0;
+  padding: 0;
   font-family: var(--fontFamily-serif);
 }
 .modalMemberRole {
-  font-size: var(--fontSize-2);
+  font-size: var(--fontSize-4);
   font-weight: bold;
   color: var(--color-primary);
   margin: var(--spacing-1) 0 0;
@@ -264,14 +266,74 @@
   line-height: 1.8;
 }
 .closeModal {
-  font-size: .7rem;
-  padding: var(--spacing-2) var(--spacing-6);
+  font-size: var(--fontSize-2);
+  padding: var(--spacing-3) var(--spacing-10);
   border: 1px solid var(--color-text);
   display: inline-block;
   line-height: 1;
   border-radius: 30px;
   margin: var(--spacing-6) 0 0;
   cursor: pointer;
+}
+.closeModal:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.reactModal {
+  position: absolute;
+  inset: 40px;
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 30px;
+  outline: none;
+  padding: var(--spacing-12);
+  max-width: 1000px;
+  max-height: 1000px;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+.reactModalOverlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0,0,0,.4);
+}
+@media (max-width: 480px) {
+  .modal {
+    padding: var(--spacing-2);
+    display: block;
+  }
+  .modalText {
+    display: block;
+  }
+  .reactModal {
+    border-radius: 0;
+    padding: var(--spacing-4) var(--spacing-2);
+    width: 100%;
+    height: 100%;
+  }
+  .modalMemberName {
+    font-size: var(--fontSize-4);
+    margin: var(--spacing-12) 0 0;
+  }
+  .modalMemberRole {
+    font-size: var(--fontSize-2);
+    margin: var(--spacing-1) 0 0;
+  }
+  .modalMemberFullProfile {
+    margin: var(--spacing-6) 0;
+    font-size: var(--fontSize-1);
+  }
+  .modalMemberFullProfile p {
+    line-height: 1.8;
+  }
 }
 
 /* COMPANY OVERVIEW */

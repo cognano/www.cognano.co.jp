@@ -74,6 +74,7 @@ const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
   function closeModal() {
     setIsOpen(false)
   }
+
   const customStyles = {
     content: {
       top: '50%',
@@ -105,24 +106,26 @@ const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
       <p className={styles.viewFullProfile} onClick={openModal}>
         {t('about.viewFullProfile')}
       </p>
-      <Modal isOpen={modalIsOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} style={customStyles} contentLabel="Modal">
+      <Modal isOpen={modalIsOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} className={styles.reactModal} overlayClassName={styles.reactModalOverlay} contentLabel="Modal">
         <div className={styles.modal}>
           <div className={styles.modalMemberAvatar}>
             {m.props.cover && <img src={m.props.cover} />}
             {!m.props.cover && m.props.user && <img src={m.props.user.avatar} />}
           </div>
-          <h3 className={styles.modalMemberName}>
-            {m.props.name}
-          </h3>
-          <p className={styles.modalMemberRole}>
-            {m.props.title}
-          </p>
-          <div className={styles.modalMemberFullProfile}>
-            <Blocks blocks={m.blocks} />
+          <div className={styles.modalText}>
+            <h3 className={styles.modalMemberName}>
+              {m.props.name}
+            </h3>
+            <p className={styles.modalMemberRole}>
+              {m.props.title}
+            </p>
+            <div className={styles.modalMemberFullProfile}>
+              <Blocks blocks={m.blocks} />
+            </div>
+            <p className={styles.closeModal} onClick={closeModal}>
+              {t('about.closeFullProfile')}
+            </p>
           </div>
-          <p className={styles.closeModal} onClick={closeModal}>
-            {t('about.closeFullProfile')}
-          </p>
         </div>
       </Modal>
     </div>
