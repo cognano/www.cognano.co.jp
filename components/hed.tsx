@@ -17,7 +17,7 @@ const Hed: FC<Props> = ({ title, desc, ogimage, children }) => {
   const jpdomain = `www.cognano.co.jp`
   const defaultUrl = process.env.NODE_ENV === 'development' ? `http://localhost:3000` :  `https://${lang === 'en' ? usdomain : jpdomain}`
   const url = `${defaultUrl}${router.asPath}`
-  const image = `${defaultUrl}/ogimages/${lang}/${ogimage}`
+  const image = `${defaultUrl}/ogimages/${ogimage}`
 
   return (
     <Head>
