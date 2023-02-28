@@ -181,16 +181,16 @@ const getDefaultLanguage = (i: I18N): string => {
   return i.defaultLang
 }
 
-type Lang = 'en' | 'ja'
+export type Lang = 'en' | 'ja'
 
 const language = () => {
-  return (process.env.APP_LANG || 'en') as Lang
+  return (process.env.NEXT_PUBLIC_LANG || 'en') as Lang
 }
 
 export const lang: Lang = language()
 
 const t = (key: string) => {
-  const lang = process.env.APP_LANG || 'en'
+  const lang = process.env.NEXT_PUBLIC_LANG || 'en'
   const i18nObj = i18n() as I18N
   const translations: Dictionary = i18nObj.translations
   let value: any = key.split('.').reduce((previous: any, current: string) => (previous && previous[current]) || null, translations[lang])
