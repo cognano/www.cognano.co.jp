@@ -199,8 +199,10 @@
   padding: 0;
   width: 100%;
   white-space: nowrap;
+  /*
   overflow: hidden;
   text-overflow: ellipsis;
+  */
 }
 .memberProfile {
   margin: var(--spacing-2) 0 0;
@@ -212,6 +214,56 @@
   font-size: var(--fontSize-0);
 }
 .viewFullProfile {
+  font-size: .7rem;
+  padding: var(--spacing-2) var(--spacing-6);
+  border: 1px solid var(--color-text);
+  display: inline-block;
+  line-height: 1;
+  border-radius: 30px;
+  margin: var(--spacing-6) 0 0;
+  cursor: pointer;
+}
+/* MODAL */
+.modal {
+  font-size: var(--fontSize-10);
+  padding: var(--spacing-10);
+}
+.modalMemberAvatar {
+  width: 300px;
+  height: 300px;
+  border-radius: 100%;
+  overflow: hidden;
+  display: flex;
+  float: left;
+  margin: 0 var(--spacing-10) var(--spacing-4) 0;
+}
+.modalMemberAvatar img {
+  width: 100%;
+  object-fit: cover;
+}
+.modalMemberName {
+  font-weight: bold;
+  font-size: var(--fontSize-4);
+  margin: var(--spacing-16) 0 0;
+  padding: var(--spacing-10) 0 0;
+  font-family: var(--fontFamily-serif);
+}
+.modalMemberRole {
+  font-size: var(--fontSize-2);
+  font-weight: bold;
+  color: var(--color-primary);
+  margin: var(--spacing-1) 0 0;
+  padding: 0;
+  width: 100%;
+}
+.modalMemberFullProfile {
+  margin: var(--spacing-6) 0;
+  font-size: var(--fontSize-2);
+}
+.modalMemberFullProfile p {
+  line-height: 1.8;
+}
+.closeModal {
   font-size: .7rem;
   padding: var(--spacing-2) var(--spacing-6);
   border: 1px solid var(--color-text);

@@ -9,6 +9,7 @@ import styles from '../styles/About.module.css'
 import Unsplash from '../components/unsplash'
 import Hed from '../components/hed'
 import CreateOgImage from '../lib/ogimage'
+import Modal from 'react-modal'
 
 type Props = {
   story: Content
@@ -60,23 +61,32 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
 }
 
 const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
-  const [open, setOpen] = useState(false)
-  const showIntroStyle = {
-    display: 'block',
-  }
-  const hideIntroStyle = {
-    display: 'none',
-  }
-  const showFullStyle = {
-    display: 'block',
-  }
-  const hideFullStyle = {
-    display: 'none',
-  }
-  const onClick = () => setOpen(!open)
   if (m.props.roles.includes('Investor')) {
     return <></>
   }
+
+  const [modalIsOpen, setIsOpen] = useState(false)
+  function openModal() {
+    setIsOpen(true)
+  }
+  function afterOpenModal() {
+  }
+  function closeModal() {
+    setIsOpen(false)
+  }
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      width: '80%',
+      height: '80%',
+    },
+  }
+
   return (
     <div className={styles.member}>
       <div className={styles.memberAvatar}>
@@ -89,15 +99,32 @@ const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
       <p className={styles.memberRole}>
         {m.props.title}
       </p>
-      <div className={styles.memberProfile} style={open ? hideIntroStyle : showIntroStyle}>
+      <div className={styles.memberProfile}>
         {m.props.excerpt}
       </div>
-      <div className={styles.memberFullProfile} style={open ? showFullStyle : hideFullStyle}>
-        <Blocks blocks={m.blocks} />
-      </div>
-      <p className={styles.viewFullProfile} onClick={onClick}>
-        {open ? t('about.closeFullProfile') : t('about.viewFullProfile')}
+      <p className={styles.viewFullProfile} onClick={openModal}>
+        {t('about.viewFullProfile')}
       </p>
+      <Modal isOpen={modalIsOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} style={customStyles} contentLabel="Modal">
+        <div className={styles.modal}>
+          <div className={styles.modalMemberAvatar}>
+            {m.props.cover && <img src={m.props.cover} />}
+            {!m.props.cover && m.props.user && <img src={m.props.user.avatar} />}
+          </div>
+          <h3 className={styles.modalMemberName}>
+            {m.props.name}
+          </h3>
+          <p className={styles.modalMemberRole}>
+            {m.props.title}
+          </p>
+          <div className={styles.modalMemberFullProfile}>
+            <Blocks blocks={m.blocks} />
+          </div>
+          <p className={styles.closeModal} onClick={closeModal}>
+            {t('about.closeFullProfile')}
+          </p>
+        </div>
+      </Modal>
     </div>
   )
 }
