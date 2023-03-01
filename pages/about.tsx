@@ -62,10 +62,6 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
 }
 
 const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
-  if (m.props.roles.includes('Investor')) {
-    return <></>
-  }
-
   const [modalIsOpen, setIsOpen] = useState(false)
   function openModal() {
     setIsOpen(true)
@@ -89,11 +85,15 @@ const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
     },
   }
 
+  if (m.props.roles.includes('Investor')) {
+    return <></>
+  }
+
   return (
     <div className={styles.member}>
       <div className={styles.memberAvatar}>
-        {m.props.cover && <img src={m.props.cover} />}
-        {!m.props.cover && m.props.user && <img src={m.props.user.avatar} />}
+        {m.props.cover && <Image src={m.props.cover} fill={true} alt={m.props.name} />}
+        {!m.props.cover && m.props.user && <Image src={m.props.user.avatar} fill={true} alt={m.props.name} />}
       </div>
       <h3 className={styles.memberName}>
         {m.props.name}
@@ -110,8 +110,8 @@ const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
       <Modal isOpen={modalIsOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} className={styles.reactModal} overlayClassName={styles.reactModalOverlay} contentLabel="Modal">
         <div className={styles.modal}>
           <div className={styles.modalMemberAvatar}>
-            {m.props.cover && <img src={m.props.cover} />}
-            {!m.props.cover && m.props.user && <img src={m.props.user.avatar} />}
+            {m.props.cover && <Image src={m.props.cover} fill={true} alt={m.props.name} />}
+            {!m.props.cover && m.props.user && <Image src={m.props.user.avatar} fill={true} alt={m.props.name} />}
           </div>
           <div className={styles.modalText}>
             <h3 className={styles.modalMemberName}>
@@ -140,8 +140,8 @@ const Investor: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
   return (
     <div className={styles.investor}>
       <div className={styles.memberAvatar}>
-        {m.props.cover && <img src={m.props.cover} />}
-        {!m.props.cover && m.props.user && <img src={m.props.user.avatar} />}
+        {m.props.cover && <Image src={m.props.cover} fill={true} alt={m.props.name} />}
+        {!m.props.cover && m.props.user && <Image src={m.props.user.avatar} fill={true} alt={m.props.name} />}
       </div>
       <h3 className={styles.memberName}>
         {m.props.name}

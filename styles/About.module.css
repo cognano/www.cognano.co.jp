@@ -323,36 +323,6 @@
   left: 0;
   background-color: rgba(0,0,0,.4);
 }
-@media (max-width: 480px) {
-  .modal {
-    padding: var(--spacing-2);
-    display: block;
-  }
-  .modalText {
-    display: block;
-  }
-  .reactModal {
-    border-radius: 0;
-    padding: var(--spacing-4) var(--spacing-2);
-    width: 100%;
-    height: 100%;
-  }
-  .modalMemberName {
-    font-size: var(--fontSize-4);
-    margin: var(--spacing-12) 0 0;
-  }
-  .modalMemberRole {
-    font-size: var(--fontSize-2);
-    margin: var(--spacing-1) 0 0;
-  }
-  .modalMemberFullProfile {
-    margin: var(--spacing-6) 0;
-    font-size: var(--fontSize-1);
-  }
-  .modalMemberFullProfile p {
-    line-height: 1.8;
-  }
-}
 
 /* COMPANY OVERVIEW */
 .companyOverviewHeader {
@@ -367,15 +337,41 @@
   padding: 0;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 900px) {
+  .purposeImageInner {
+    height: 500px;
+  }
   .purposeBox {
-    position: relative;
-    width: 100%;
-    padding-top: var(--spacing-6);
+    position: static;
+    top: auto;
+    left: auto;
+    margin-top: var(--spacing-10);
+    margin-right: 0;
+    transform: translate(0, 0);
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .purpose {
+    font-size: var(--fontSize-4);
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+  }
+  .purposeBody {
+    padding: 0;
+  }
+  .purposeBodyInner {
+    margin: var(--spacing-2) auto 0;
+  }
+  .purposeBody p {
+    font-size: var(--fontSize-1);
+    line-height: 1.8;
   }
 }
-
 @media (max-width: 480px) {
+  .purposeImageInner {
+    height: 300px;
+  }
   .purposeImageLicense {
     right: .5rem;
   }
@@ -462,6 +458,44 @@
   .member {
     height: auto;
     padding: 0 0 var(--spacing-5);
+  }
+
+  /* MODAL */
+  .modal {
+    padding: var(--spacing-2);
+    display: block;
+  }
+  .modalText {
+    display: block;
+  }
+  .reactModal {
+    border-radius: 0;
+    padding: var(--spacing-4) var(--spacing-2);
+    width: 100%;
+    height: 100%;
+  }
+  .modalMemberAvatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    overflow: hidden;
+    display: flex;
+    margin: 0 auto;
+  }
+  .modalMemberName {
+    font-size: var(--fontSize-3);
+    margin: var(--spacing-10) 0 0;
+  }
+  .modalMemberRole {
+    font-size: var(--fontSize-2);
+    margin: var(--spacing-1) 0 0;
+  }
+  .modalMemberFullProfile {
+    margin: 0;
+    font-size: var(--fontSize-1);
+  }
+  .modalMemberFullProfile p {
+    line-height: 1.8;
   }
 
   /* COMPANY OVERVIEW */
