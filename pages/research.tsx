@@ -1,4 +1,5 @@
 import type { NextPage, GetStaticProps } from 'next'
+import Image from 'next/image'
 import { lang } from '../i18n'
 import { Content, GetContent } from '../lib/content'
 import { Blocks } from 'notionate/dist/components'
@@ -59,7 +60,9 @@ const Research: NextPage<Props> = ({ research, tnbc, vhh, covid, ogimage }) => {
               <span></span>
             </div>
             <p className={styles.researchCover}>
-              <img src={vhh.cover} />
+              <span className={styles.vhhCover}>
+                <Image src={vhh.cover} fill={true} alt={vhh.title} />
+              </span>
             </p>
             <div className={styles.researchDesc}>
               <Blocks blocks={vhh.blocks} />
@@ -72,7 +75,7 @@ const Research: NextPage<Props> = ({ research, tnbc, vhh, covid, ogimage }) => {
               <span></span>
             </div>
             <p className={styles.researchCover}>
-              <img src={covid.cover} />
+              <Image src={covid.cover} fill={true} alt={covid.title} />
             </p>
             <div className={styles.researchDesc}>
               <Blocks blocks={covid.blocks} />
@@ -85,7 +88,7 @@ const Research: NextPage<Props> = ({ research, tnbc, vhh, covid, ogimage }) => {
               <span></span>
             </div>
             <p className={styles.researchCover}>
-              <img src={tnbc.cover} />
+              <Image src={tnbc.cover} fill={true} alt={tnbc.title} />
             </p>
             <div className={styles.researchDesc}>
               <Blocks blocks={tnbc.blocks} />

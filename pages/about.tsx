@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import type { NextPage, GetStaticProps } from 'next'
+import Image from 'next/image'
 import t, { lang, useTranslation, useSelectedLanguage, getT } from '../i18n'
 import { GetMindset, LocalizedMindsetWithBlocks, GetValues, LocalizedMindset, mindsetQuery } from '../lib/mindset'
 import { Content, GetContent } from '../lib/content'
@@ -157,7 +158,9 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
     <main>
       <Hed title={t('header.about')} desc={purpose.props.title} ogimage={ogimage} />
       <div className={styles.purposeImage}>
-        <img src="/static/beautiful.jpg" width="100%" />
+        <div className={styles.purposeImageInner}>
+          <Image src="/static/beautiful.jpg" fill={true} alt="beautiful location" />
+        </div>
         <div className={styles.purposeImageLicense}>
           <Unsplash href="https://unsplash.com/@frankiefoto?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" name="frank mckenna"/>
         </div>
@@ -189,7 +192,7 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
             </div>
           </div>
           <div className={styles.storyImage}>
-            <img src="/static/dna.jpg" width="100%" />
+            <Image src="/static/dna.jpg" fill={true} alt="dna" />
             <div className={styles.storyLicense}>
               <Unsplash href="https://unsplash.com/@lanirudhreddy?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" name="ANIRUDH"/>
             </div>
