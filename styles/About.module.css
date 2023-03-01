@@ -3,22 +3,38 @@
   margin-top: -1px;
   position: relative;
 }
+.purposeImageInner {
+  position: relative;
+  width: 100%;
+  height: 1000px;
+}
+.purposeImage img {
+  width: 100%;
+  object-fit: cover;
+}
 .purposeBox {
   position: absolute;
-  top: 24%;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
   width: 100%;
+  transform: translate(-50%, -50%);
+  padding-left: var(--spacing-20);
+  padding-right: var(--spacing-20);
 }
 .purposeInner {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 var(--spacing-32);
+  padding: var(--spacing-16) var(--spacing-20) var(--spacing-20);
+  background-color: rgba(255,255,255,.6);
+  border-radius: 30px;
 }
 .purposeLabel {
   font-weight: var(--fontWeight-black);
   color: var(--color-primary);
 }
 .purpose {
-  line-height: 1.7;
+  line-height: 1.3;
   text-shadow: 0 0 2px #fff;
   margin: 0;
   padding: 0;
@@ -36,11 +52,10 @@
   padding: var(--spacing-10) 0 0;
 }
 .purposeBody p {
-  line-height: 1.8;
+  line-height: 1.6;
   font-family: var(--fontFamily-serif);
   font-size: var(--fontSize-3);
   font-weight: var(--fontWeight-bold);
-  text-shadow: 0 0 5px #fff;
 }
 .purposeBody {
   margin: 0 auto;
@@ -57,7 +72,7 @@
   display: grid;
   grid-template-columns: 58% 38%;
   gap: 4%;
-  padding: var(--spacing-10) 0 0;
+  padding: var(--spacing-20) 0 0;
 }
 .storyText {
   margin: 0;
@@ -70,6 +85,7 @@
 .storyImage {
   padding: var(--spacing-20) 0 0;
   height: 100%;
+  position: relative;
 }
 .storyImage img {
   border-radius: 30px;
@@ -186,6 +202,7 @@
   border-radius: 100%;
   overflow: hidden;
   display: flex;
+  position: relative;
 }
 .memberAvatar img {
   width: 100%;
@@ -198,9 +215,11 @@
   margin: var(--spacing-1) 0 0;
   padding: 0;
   width: 100%;
+  /*
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  */
 }
 .memberProfile {
   margin: var(--spacing-2) 0 0;
@@ -222,6 +241,89 @@
   cursor: pointer;
 }
 
+/* MODAL */
+.modal {
+  padding: var(--spacing-10);
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-gap: var(--spacing-10);
+}
+.modalMemberAvatar {
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  overflow: hidden;
+  display: flex;
+  margin: 0 var(--spacing-10) var(--spacing-4) 0;
+  position: relative;
+}
+.modalMemberAvatar img {
+  width: 100%;
+  object-fit: cover;
+}
+.modalMemberName {
+  font-weight: bold;
+  font-size: var(--fontSize-6);
+  margin: var(--spacing-12) 0 0;
+  padding: 0;
+  font-family: var(--fontFamily-serif);
+}
+.modalMemberRole {
+  font-size: var(--fontSize-4);
+  font-weight: bold;
+  color: var(--color-primary);
+  margin: var(--spacing-1) 0 0;
+  padding: 0;
+  width: 100%;
+}
+.modalMemberFullProfile {
+  margin: var(--spacing-6) 0;
+  font-size: var(--fontSize-2);
+}
+.modalMemberFullProfile p {
+  line-height: 1.8;
+}
+.closeModal {
+  font-size: var(--fontSize-2);
+  padding: var(--spacing-3) var(--spacing-10);
+  border: 1px solid var(--color-text);
+  display: inline-block;
+  line-height: 1;
+  border-radius: 30px;
+  margin: var(--spacing-6) 0 0;
+  cursor: pointer;
+}
+.closeModal:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.reactModal {
+  position: absolute;
+  inset: 40px;
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 30px;
+  outline: none;
+  padding: var(--spacing-12);
+  max-width: 1000px;
+  max-height: 1000px;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+.reactModalOverlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0,0,0,.4);
+}
+
 /* COMPANY OVERVIEW */
 .companyOverviewHeader {
   margin: var(--spacing-32) 0 0;
@@ -235,15 +337,41 @@
   padding: 0;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 900px) {
+  .purposeImageInner {
+    height: 500px;
+  }
   .purposeBox {
-    position: relative;
-    width: 100%;
-    padding-top: var(--spacing-6);
+    position: static;
+    top: auto;
+    left: auto;
+    margin-top: var(--spacing-10);
+    margin-right: 0;
+    transform: translate(0, 0);
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .purpose {
+    font-size: var(--fontSize-4);
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+  }
+  .purposeBody {
+    padding: 0;
+  }
+  .purposeBodyInner {
+    margin: var(--spacing-2) auto 0;
+  }
+  .purposeBody p {
+    font-size: var(--fontSize-1);
+    line-height: 1.8;
   }
 }
-
 @media (max-width: 480px) {
+  .purposeImageInner {
+    height: 300px;
+  }
   .purposeImageLicense {
     right: .5rem;
   }
@@ -259,19 +387,6 @@
   }
   .purpose {
     font-size: var(--fontSize-2);
-    text-shadow: 0 0 2px #fff;
-    line-height: 1.5;
-    margin: 0;
-    padding: 0;
-  }
-  .purposeBody {
-    padding: 0;
-  }
-  .purposeBodyInner {
-    margin: var(--spacing-2) auto 0;
-  }
-  .purposeBody p {
-    font-size: var(--fontSize-1);
   }
 
   /* STORY */
@@ -343,6 +458,44 @@
   .member {
     height: auto;
     padding: 0 0 var(--spacing-5);
+  }
+
+  /* MODAL */
+  .modal {
+    padding: var(--spacing-2);
+    display: block;
+  }
+  .modalText {
+    display: block;
+  }
+  .reactModal {
+    border-radius: 0;
+    padding: var(--spacing-4) var(--spacing-2);
+    width: 100%;
+    height: 100%;
+  }
+  .modalMemberAvatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    overflow: hidden;
+    display: flex;
+    margin: 0 auto;
+  }
+  .modalMemberName {
+    font-size: var(--fontSize-3);
+    margin: var(--spacing-10) 0 0;
+  }
+  .modalMemberRole {
+    font-size: var(--fontSize-2);
+    margin: var(--spacing-1) 0 0;
+  }
+  .modalMemberFullProfile {
+    margin: 0;
+    font-size: var(--fontSize-1);
+  }
+  .modalMemberFullProfile p {
+    line-height: 1.8;
   }
 
   /* COMPANY OVERVIEW */

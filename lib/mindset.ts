@@ -8,6 +8,7 @@ import {
   QueryDatabaseResponseEx,
   FetchBlocks,
 } from 'notionate'
+import { lang } from '../i18n'
 
 export type LocalizedMindset = {
   id: string
@@ -116,4 +117,19 @@ export const GetMindset = async (slug: string): Promise<Mindset> => {
       blocks: enBlocks,
     }
   }
+}
+
+export const GetValues = async (): Promise<LocalizedMindsetWithBlocks[]> => {
+  const value1 = await GetMindset('value-1')
+  const value2 = await GetMindset('value-2')
+  const value3 = await GetMindset('value-3')
+  const value4 = await GetMindset('value-4')
+  const value5 = await GetMindset('value-5')
+  let values: LocalizedMindsetWithBlocks[] = []
+  values.push(value1[lang])
+  values.push(value2[lang])
+  values.push(value3[lang])
+  values.push(value4[lang])
+  values.push(value5[lang])
+  return values
 }

@@ -33,6 +33,10 @@
   margin-top: 1rem;
   display: block;
 }
+.unsplash {
+  position: absolute;
+  top: 300px;
+}
 .hero .researchImage p {
   font-size: var(--fontSize-0);
   letter-spacing: -0.5px;
@@ -363,6 +367,10 @@
     left: -200px;
     animation: 180s linear infinite rotation1;
   }
+  .treeDiagram img {
+    width: 100%;
+    height: 100%;
+  }
   .researchImage {
     width: 110px;
     height: 110px;
@@ -377,6 +385,9 @@
     padding-left: 2.6rem;
     font-size: 8px;
     margin-top: 1px;
+  }
+  .unsplash {
+    display: none;
   }
   .hero {
     margin-bottom: var(--spacing-10);

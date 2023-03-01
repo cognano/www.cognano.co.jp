@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import styles from '../styles/Blog.module.css'
 import { formatDate } from '../lib/date'
 import { Blog } from '../lib/blog'
@@ -24,7 +25,7 @@ const BlogHeader: React.FC<Props> = ({ blog, tag }) => {
           <p className={styles.authors}>
             {blog.writers.map((u, i) => (
               <span key={i}>
-                <img src={u.avatar} />
+                <Image src={u.avatar} width={30} height={30} alt={u.name} />
                 {u.name}
               </span>
             ))}

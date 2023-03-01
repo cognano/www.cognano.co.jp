@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import type { NextPage, GetStaticProps } from 'next'
+import Image from 'next/image'
 import t, { lang, useTranslation, useSelectedLanguage, getT } from '../i18n'
-import { GetMindset, LocalizedMindsetWithBlocks, LocalizedMindset, mindsetQuery } from '../lib/mindset'
+import { GetMindset, LocalizedMindsetWithBlocks, GetValues, LocalizedMindset, mindsetQuery } from '../lib/mindset'
 import { Content, GetContent } from '../lib/content'
 import { Blocks } from 'notionate/dist/components'
 import { GetMembers, Members, LocalizedMemberWithBlocks } from '../lib/member'
@@ -9,6 +10,7 @@ import styles from '../styles/About.module.css'
 import Unsplash from '../components/unsplash'
 import Hed from '../components/hed'
 import CreateOgImage from '../lib/ogimage'
+import Modal from 'react-modal'
 
 type Props = {
   story: Content
@@ -33,17 +35,7 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
   const purpose = await GetMindset('purpose')
   const mission = await GetMindset('mission')
   const vision = await GetMindset('vision')
-  const value1 = await GetMindset('value-1')
-  const value2 = await GetMindset('value-2')
-  const value3 = await GetMindset('value-3')
-  const value4 = await GetMindset('value-4')
-  const value5 = await GetMindset('value-5')
-  let values: LocalizedMindsetWithBlocks[] = []
-  values.push(value1[lang])
-  values.push(value2[lang])
-  values.push(value3[lang])
-  values.push(value4[lang])
-  values.push(value5[lang])
+  const values = await GetValues()
   const members = await GetMembers()
 
   const ogimage = await CreateOgImage({
@@ -70,28 +62,38 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
 }
 
 const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
-  const [open, setOpen] = useState(false)
-  const showIntroStyle = {
-    display: 'block',
+  const [modalIsOpen, setIsOpen] = useState(false)
+  function openModal() {
+    setIsOpen(true)
   }
-  const hideIntroStyle = {
-    display: 'none',
+  function afterOpenModal() {
   }
-  const showFullStyle = {
-    display: 'block',
+  function closeModal() {
+    setIsOpen(false)
   }
-  const hideFullStyle = {
-    display: 'none',
+
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      width: '80%',
+      height: '80%',
+    },
   }
-  const onClick = () => setOpen(!open)
+
   if (m.props.roles.includes('Investor')) {
     return <></>
   }
+
   return (
     <div className={styles.member}>
       <div className={styles.memberAvatar}>
-        {m.props.cover && <img src={m.props.cover} />}
-        {!m.props.cover && m.props.user && <img src={m.props.user.avatar} />}
+        {m.props.cover && <Image src={m.props.cover} fill={true} alt={m.props.name} />}
+        {!m.props.cover && m.props.user && <Image src={m.props.user.avatar} fill={true} alt={m.props.name} />}
       </div>
       <h3 className={styles.memberName}>
         {m.props.name}
@@ -99,15 +101,34 @@ const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
       <p className={styles.memberRole}>
         {m.props.title}
       </p>
-      <div className={styles.memberProfile} style={open ? hideIntroStyle : showIntroStyle}>
+      <div className={styles.memberProfile}>
         {m.props.excerpt}
       </div>
-      <div className={styles.memberFullProfile} style={open ? showFullStyle : hideFullStyle}>
-        <Blocks blocks={m.blocks} />
-      </div>
-      <p className={styles.viewFullProfile} onClick={onClick}>
-        {open ? t('about.closeFullProfile') : t('about.viewFullProfile')}
+      <p className={styles.viewFullProfile} onClick={openModal}>
+        {t('about.viewFullProfile')}
       </p>
+      <Modal isOpen={modalIsOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} className={styles.reactModal} overlayClassName={styles.reactModalOverlay} contentLabel="Modal">
+        <div className={styles.modal}>
+          <div className={styles.modalMemberAvatar}>
+            {m.props.cover && <Image src={m.props.cover} fill={true} alt={m.props.name} />}
+            {!m.props.cover && m.props.user && <Image src={m.props.user.avatar} fill={true} alt={m.props.name} />}
+          </div>
+          <div className={styles.modalText}>
+            <h3 className={styles.modalMemberName}>
+              {m.props.name}
+            </h3>
+            <p className={styles.modalMemberRole}>
+              {m.props.title}
+            </p>
+            <div className={styles.modalMemberFullProfile}>
+              <Blocks blocks={m.blocks} />
+            </div>
+            <p className={styles.closeModal} onClick={closeModal}>
+              {t('about.closeFullProfile')}
+            </p>
+          </div>
+        </div>
+      </Modal>
     </div>
   )
 }
@@ -119,8 +140,8 @@ const Investor: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
   return (
     <div className={styles.investor}>
       <div className={styles.memberAvatar}>
-        {m.props.cover && <img src={m.props.cover} />}
-        {!m.props.cover && m.props.user && <img src={m.props.user.avatar} />}
+        {m.props.cover && <Image src={m.props.cover} fill={true} alt={m.props.name} />}
+        {!m.props.cover && m.props.user && <Image src={m.props.user.avatar} fill={true} alt={m.props.name} />}
       </div>
       <h3 className={styles.memberName}>
         {m.props.name}
@@ -137,7 +158,9 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
     <main>
       <Hed title={t('header.about')} desc={purpose.props.title} ogimage={ogimage} />
       <div className={styles.purposeImage}>
-        <img src="/static/beautiful.jpg" width="100%" />
+        <div className={styles.purposeImageInner}>
+          <Image src="/static/beautiful.jpg" fill={true} alt="beautiful location" />
+        </div>
         <div className={styles.purposeImageLicense}>
           <Unsplash href="https://unsplash.com/@frankiefoto?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" name="frank mckenna"/>
         </div>
@@ -169,7 +192,7 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
             </div>
           </div>
           <div className={styles.storyImage}>
-            <img src="/static/dna.jpg" width="100%" />
+            <Image src="/static/dna.jpg" fill={true} alt="dna" />
             <div className={styles.storyLicense}>
               <Unsplash href="https://unsplash.com/@lanirudhreddy?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" name="ANIRUDH"/>
             </div>
