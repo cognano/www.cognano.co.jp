@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  staticPageGenerationTimeout: 300,
+  staticPageGenerationTimeout: 600,
   images: {
     unoptimized: true
   },
