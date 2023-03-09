@@ -40,6 +40,7 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
   const blogBilingal = await GetBlogsEachLangs(blogQuery)
   const blog = blogBilingal[lang].find(v => v.slug === params!.slug)
+
   if (blog) {
     const blocks = await FetchBlocks(blog.id)
     const excerpt = buildExcerpt(blocks)
