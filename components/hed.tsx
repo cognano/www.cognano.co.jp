@@ -6,13 +6,14 @@ import { lang } from '../i18n'
 type Props = {
   title: string
   desc: string
+  suffix?: string
   ogimage?: string
   children?: ReactNode
 }
 
-const Hed: FC<Props> = ({ title, desc, ogimage, children }) => {
+const Hed: FC<Props> = ({ title, suffix, desc, ogimage, children }) => {
   const router = useRouter()
-  const t = router.pathname === '/' ? `${title}` : `${title} - COGNANO`
+  const t = router.pathname === '/' ? `${title}` : `${title} - COGNANO${suffix ? ` ${suffix}` : ''}`
   const usdomain = `cognanous.com`
   const jpdomain = `www.cognano.co.jp`
   const defaultUrl = process.env.NODE_ENV === 'development' ? `http://localhost:3000` :  `https://${lang === 'en' ? usdomain : jpdomain}`

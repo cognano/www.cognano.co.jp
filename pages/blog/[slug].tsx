@@ -72,7 +72,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
 const BlogPost: NextPage<Props> = ({ blog, blocks, excerpt, ogimage }) => {
   return (
     <article className="container blog">
-      <Hed title={blog!.title} desc={excerpt!} ogimage={ogimage} />
+      <Hed title={blog!.title} desc={excerpt!} suffix={t('header.blog')} ogimage={ogimage} />
       <header className={styles.header}>
         <p className={styles.category}>
           <Link href="/blog">
