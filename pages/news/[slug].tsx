@@ -80,7 +80,7 @@ export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
 const NewsPost: NextPage<Props> = ({ news, blocks, excerpt, desc, latestNews, ogimage }) => {
   return (
     <main>
-      <Hed title={news!.title} desc={excerpt!} ogimage={ogimage} />
+      <Hed title={news!.title} desc={excerpt!} suffix={t('header.news')} ogimage={ogimage} />
       <div className={styles.articleWrapper}>
         <div className={styles.newsHeader}>
           <p className={styles.category}>
