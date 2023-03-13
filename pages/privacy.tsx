@@ -5,7 +5,6 @@ import { formatDate } from '../lib/date'
 import t, { lang } from '../i18n'
 import { GetContent, Content } from '../lib/content'
 import { Blocks } from 'notionate/dist/components'
-import styles from '../styles/Privacy.module.css'
 import CreateOgImage from '../lib/ogimage'
 import Hed from '../components/hed'
 
@@ -53,15 +52,17 @@ const Privacy: NextPage<Props> = ({ content, ogimage }) => {
   const title = ('properties' in page && page.properties.Name) ? page.properties.Name.title.map(v => v.text.content).join(',') : ''
 
   return (
-    <main className="container">
+    <>
       <Hed title={content.title} desc={content.excerpt} ogimage={ogimage} />
-      <div className={styles.privacy}>
+
+      <header className="container">
         <h1>{title}</h1>
-        <div className={styles.privacyContent}>
-          <Blocks blocks={content.blocks} />
-        </div>
-      </div>
-    </main>
+      </header>
+
+      <section className="container">
+        <Blocks blocks={content.blocks} />
+      </section>
+    </>
   )
 }
 
