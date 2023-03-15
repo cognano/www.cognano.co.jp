@@ -61,5 +61,10 @@ export default {
   head: {
     title: `COGNANO - コンピューターを利用した創薬を目指すベンチャー`,
     description: `COGNANOは、コンピューターを利用した創薬を目指すベンチャーです`,
-  }
+  },
+  error404: {
+    title: '404',
+    description: 'お探しのページは見当たらないようです。',
+    gohome: '🏠 にもどる',
+  },
 }

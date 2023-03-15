@@ -61,5 +61,10 @@ export default {
   head: {
     title: `COGNANO - Aiming to support drug discovery by computer`,
     description: `COGNANO is a venture that aims at computer-aided drug discovery.`,
-  }
+  },
+  error404: {
+    title: '404',
+    description: 'Looks like this page is unavailable.',
+    gohome: 'Go back to 🏠',
+  },
 }
