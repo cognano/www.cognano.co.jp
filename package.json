@@ -5,8 +5,6 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
-    "build-en": "rm -rf public/ogimages/*; export NEXT_PUBLIC_LANG=en; next build && next export",
-    "build-ja": "rm -rf public/ogimages/*; export NEXT_PUBLIC_LANG=ja; next build && next export",
     "start": "next start",
     "lint": "next lint"
   },

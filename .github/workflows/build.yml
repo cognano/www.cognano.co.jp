@@ -20,6 +20,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
+    - name: Restore next cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          .next/cache
+        key: nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+        restore-keys: |
+          nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
     - name: Run builds and deploys with ${{ matrix.node-version }}
       run: |
         yarn install
@@ -31,16 +39,36 @@ jobs:
     if: github.ref != 'refs/heads/main'
     env:
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+      NOTIONATE_INCREMENTAL_CACHE: true
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
       with:
         node-version: '16'
         cache: 'yarn'
+    - name: Restore next cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          .next/cache
+        key: nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+        restore-keys: |
+          nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
+    - name: Restore notionate cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          .cache
+          public/images
+        key: notionate
+        restore-keys: notionate
+
     - name: Run next export
       run: |
         yarn install
-        yarn build-ja
+        yarn build
+      env:
+        NEXT_PUBLIC_LANG: ja
     - name: Deploy to staging by FTP
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
@@ -55,16 +83,39 @@ jobs:
     if: github.ref == 'refs/heads/main'
     env:
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+      NOTIONATE_INCREMENTAL_CACHE: true
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
       with:
         node-version: '16'
         cache: 'yarn'
-    - name: Run next export for english
+    - name: Restore next cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          .next/cache
+        key: nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+        restore-keys: |
+          nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
+    - name: Restore notionate cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          .cache
+          public/images
+          public/ogimages
+        key: notionate
+        restore-keys: notionate
+    - name: Install packages
       run: |
         yarn install
-        yarn build-en
+
+    - name: Run next export for english
+      run: |
+        yarn build
+      env:
+        NEXT_PUBLIC_LANG: en
     - name: Deploy to production by FTP
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
@@ -72,10 +123,14 @@ jobs:
         username: ${{ secrets.FTPUSERNAME_PROD_EN }}
         password: ${{ secrets.FTPPASSWORD_PROD_EN }}
         local-dir: ./out/
+        exclude: |
+          ogimages/*-ja.png
+
     - name: Run next export for japanese
       run: |
-        yarn install
-        yarn build-ja
+        yarn build
+      env:
+        NEXT_PUBLIC_LANG: en
     - name: Deploy to production by FTP
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
@@ -83,3 +138,5 @@ jobs:
         username: ${{ secrets.FTPUSERNAME_PROD }}
         password: ${{ secrets.FTPPASSWORD_PROD }}
         local-dir: ./out/
+        exclude: |
+          ogimages/*-en.png
