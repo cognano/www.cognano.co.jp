@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
   const desc = await GetContent('projects')
 
   const ogimage = await CreateOgImage({
-    id: 'projects',
+    id: `projects-${lang}`,
     title: desc![lang].title,
     desc: desc![lang].excerpt,
   })

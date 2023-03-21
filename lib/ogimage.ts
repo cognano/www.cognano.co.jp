@@ -4,6 +4,7 @@ import { existsSync } from 'fs'
 import OgImage from '../components/ogimage'
 import { Resvg } from '@resvg/resvg-js'
 import { readFile, writeFile } from 'node:fs/promises'
+import crypto from 'crypto'
 
 function arrayBufferToBase64(buffer: ArrayBuffer) {
   let binary = ''
@@ -62,7 +63,7 @@ const satoriOptions = async (): Promise<SatoriOptions> => {
 const writeOgImage = async ({ id, title, desc, file }: writeOgImageArgs): Promise<void> => {
   const dir = `public/ogimages`
   const path = `${dir}/${file}`
-  if (process.env.NODE_ENV !== 'development' && existsSync(path)) {
+  if (existsSync(path)) {
     return
   }
   const opts = await satoriOptions()
@@ -72,8 +73,15 @@ const writeOgImage = async ({ id, title, desc, file }: writeOgImageArgs): Promis
   console.log(`saved image -- path: ${path}`)
 }
 
+const atoh = (a: string): string => {
+  const shasum = crypto.createHash('sha1')
+  shasum.update(a)
+  return shasum.digest('hex')
+}
+
 const CreateOgImage = async ({ id, title, desc }: CreateOgimageArgs): Promise<string> => {
-  const file = `${id}.png`
+  const hash = atoh(`${title}${desc}`)
+  const file = `${id}-${hash}.png`
   await writeOgImage({ id, title, desc, file })
   return file
 }

@@ -9,7 +9,6 @@ import {
   GetPageResponseEx,
   ListBlockChildrenResponseEx,
   QueryDatabaseParameters,
-  PageObjectResponseEx,
 } from 'notionate'
 import { buildPlainText } from './member'
 
@@ -92,13 +91,13 @@ export const GetContent = async (slug: string): Promise<ContentBilingual|undefin
     const v = vv as unknown as DBPage
     return v.properties.Slug.select.name === slug
       && v.properties.Language.select.name === 'English'
-  })
+  }) as DBPage
 
   const pageJa = results.find(vv => {
     const v = vv as unknown as DBPage
     return v.properties.Slug.select.name === slug
       && v.properties.Language.select.name === 'Japanese'
-  })
+  }) as DBPage
 
   if (!pageEn || !pageJa) {
     if (!pageEn) {
@@ -110,26 +109,22 @@ export const GetContent = async (slug: string): Promise<ContentBilingual|undefin
     return undefined
   }
 
-  const propsEn = pageEn as DBPage
-  const porEn = pageEn as PageObjectResponseEx
-  const blocksEn = await FetchBlocks(pageEn.id)
+  const blocksEn = await FetchBlocks(pageEn.id, pageEn.last_edited_time)
   const en = {
-    title: propsEn.properties.Name.title.map(v => v.plain_text).join(','), 
-    cover: porEn.cover !== null ? porEn.cover.src : '',
-    page: await FetchPage(pageEn.id),
+    title: pageEn.properties.Name.title.map(v => v.plain_text).join(','),
+    cover: (pageEn.cover && 'src' in pageEn.cover) ? pageEn.cover.src : '',
+    page: await FetchPage(pageEn.id, pageEn.last_edited_time),
     blocks: blocksEn,
     excerpt: buildExcerpt(blocksEn),
-  }
-  const propsJa = pageJa as DBPage
-  const porJa = pageJa as PageObjectResponseEx
-  const blocksJa = await FetchBlocks(pageJa.id)
+  } as Content
+  const blocksJa = await FetchBlocks(pageJa.id, pageJa.last_edited_time)
   const ja = {
-    title: propsJa.properties.Name.title.map(v => v.plain_text).join(','),
-    cover: porJa.cover !== null ? porJa.cover.src : '',
-    page: await FetchPage(pageJa.id),
+    title: pageJa.properties.Name.title.map(v => v.plain_text).join(','),
+    cover: (pageJa.cover && 'src' in pageJa.cover) ? pageJa.cover.src : '',
+    page: await FetchPage(pageJa.id, pageJa.last_edited_time),
     blocks: blocksJa,
     excerpt: buildExcerpt(blocksJa),
-  }
+  } as Content
 
   return { en, ja }
 }

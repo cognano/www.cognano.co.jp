@@ -47,7 +47,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 
   const ogimage = await CreateOgImage({
-    id: 'home',
+    id: `home-${lang}`,
     title: t('head.title'),
   })
 
