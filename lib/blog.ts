@@ -23,6 +23,7 @@ export type Blog = {
   slug: string
   createdTs: number
   lastEditedTs: number
+  last_edited_time: string
   tags: string[]
   writers: Writer[]
   language: string
@@ -83,6 +84,7 @@ const build = (page: DBPage): Blog => {
     edited: page.last_edited_time,
     createdTs: Date.parse(page.created_time),
     lastEditedTs: Date.parse(page.last_edited_time),
+    last_edited_time: page.last_edited_time,
     tags: props.Tags.multi_select.map(v => v.name) || [],
     writers: props.Writers.people.map(v => {
       return { name: v.name, avatar: v.avatar } as Writer

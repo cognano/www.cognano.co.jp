@@ -23,7 +23,7 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
   const covid = await GetContent('covid-19')
 
   const ogimage = await CreateOgImage({
-    id: 'research',
+    id: `research-${lang}`,
     title: research![lang].title,
     desc: research![lang].excerpt,
   })

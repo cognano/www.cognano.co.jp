@@ -5,7 +5,6 @@ import {
   DBPageBase,
   QueryDatabaseParameters,
   ListBlockChildrenResponseEx,
-  QueryDatabaseResponseEx,
   FetchBlocks,
 } from 'notionate'
 import { lang } from '../i18n'
@@ -14,6 +13,7 @@ export type LocalizedMindset = {
   id: string
   title: string
   slug: string
+  last_edited_time: string
 }
 
 export type LocalizedMindsetWithBlocks = {
@@ -57,6 +57,7 @@ const build = (page: DBPage): LocalizedMindset => {
     id: page.id,
     title: props.Name.title.map(v => v.plain_text).join(',') || '',
     slug: props.Slug.select.name || '',
+    last_edited_time: page.last_edited_time,
   }
 }
 
@@ -104,16 +105,19 @@ export const GetMindset = async (slug: string): Promise<Mindset> => {
   const { ja, en } = await GetMindsets()
   const jaM = ja.find(m => m.slug === slug)
   const enM = en.find(m => m.slug === slug)
-  const jaBlocks = await FetchBlocks(jaM!.id)
-  const enBlocks = await FetchBlocks(enM!.id)
+  if (!jaM || !enM) {
+    throw new Error(`mindset not found: ${slug}`)
+  }
+  const jaBlocks = await FetchBlocks(jaM.id, jaM.last_edited_time)
+  const enBlocks = await FetchBlocks(enM.id, enM.last_edited_time)
 
   return {
     ja: {
-      props: jaM!,
+      props: jaM,
       blocks: jaBlocks,
     },
     en: {
-      props: enM!,
+      props: enM,
       blocks: enBlocks,
     }
   }

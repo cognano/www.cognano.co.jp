@@ -23,6 +23,7 @@ export type LocalizedMember = {
   user: User | null
   cover: string | null
   excerpt: string | null
+  last_edited_time: string
 }
 
 export type LocalizedMemberWithBlocks = {
@@ -84,6 +85,7 @@ const build = (page: DBPage): LocalizedMember => {
     })[0] : null,
     cover: p.cover?.src || null,
     excerpt: null,
+    last_edited_time: page.last_edited_time,
   }
 }
 
@@ -137,8 +139,9 @@ export const GetMembers = async (): Promise<Members> => {
     const p = v as DBPage
     return build(p)
   })
-  const ja = await Promise.all(jaProps.map(async (v) => {
-    const blocks = await FetchBlocks(v.id)
+
+  const ja = await Promise.all(jaProps.map(async (v: LocalizedMember) => {
+    const blocks = await FetchBlocks(v.id, v.last_edited_time)
     v.excerpt = buildExcerpt(blocks)
     return {
       props: v,
@@ -155,8 +158,9 @@ export const GetMembers = async (): Promise<Members> => {
     const p = v as DBPage
     return build(p)
   })
-  const en = await Promise.all(enProps.map(async (v) => {
-    const blocks = await FetchBlocks(v.id)
+
+  const en = await Promise.all(enProps.map(async (v: LocalizedMember) => {
+    const blocks = await FetchBlocks(v.id, v.last_edited_time)
     v.excerpt = buildExcerpt(blocks)
     return {
       props: v,

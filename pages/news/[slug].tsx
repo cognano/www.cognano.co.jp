@@ -46,12 +46,12 @@ export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
   const news = blog[lang].find(v => v.slug === params!.slug)
 
   if (news) {
-    const blocks = await FetchBlocks(news.id)
+    const blocks = await FetchBlocks(news.id, news.last_edited_time)
     const excerpt = buildExcerpt(blocks)
     const latestNews = await GetBlogsEachLangs(newsQueryLatest)
 
     const ogimage = await CreateOgImage({
-      id: `news-${params!.slug}`,
+      id: `news-${params!.slug}-${lang}`,
       title: news.title,
       desc: lang === 'en' ? `at ${formatDate(news?.date)}` : formatDate(news?.date),
     })

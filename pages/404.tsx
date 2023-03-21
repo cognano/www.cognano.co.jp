@@ -6,6 +6,7 @@ import t from '../i18n'
 import CreateOgImage from '../lib/ogimage'
 import styles from '../styles/Home.module.css'
 import Unsplash from '../components/unsplash'
+import { lang } from '../i18n'
 
 type Props = {
   title: string
@@ -15,7 +16,7 @@ type Props = {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const ogimage = await CreateOgImage({
-    id: '404',
+    id: `404-${lang}`,
     title: t('404.title'),
   })
   return {

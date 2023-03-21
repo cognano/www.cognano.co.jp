@@ -42,10 +42,10 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
   const blog = blogBilingal[lang].find(v => v.slug === params!.slug)
 
   if (blog) {
-    const blocks = await FetchBlocks(blog.id)
+    const blocks = await FetchBlocks(blog.id, blog.last_edited_time)
     const excerpt = buildExcerpt(blocks)
     const ogimage = await CreateOgImage({
-      id: `blog-${params!.slug}`,
+      id: `blog-${params!.slug}-${lang}`,
       title: blog.title,
       desc: lang === 'en' ? `by ${blog?.writers.map(u => u.name).join(', ')} at ${formatDate(blog?.date)}` : `${formatDate(blog?.date)} - ${blog?.writers.map(u => u.name).join(' ')}`,
     })
