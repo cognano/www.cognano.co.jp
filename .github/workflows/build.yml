@@ -124,7 +124,7 @@ jobs:
         password: ${{ secrets.FTPPASSWORD_PROD_EN }}
         local-dir: ./out/
         exclude: |
-          ogimages/*-ja.png
+          ogimages/*-ja-*.png
 
     - name: Run next export for japanese
       run: |
@@ -139,4 +139,4 @@ jobs:
         password: ${{ secrets.FTPPASSWORD_PROD }}
         local-dir: ./out/
         exclude: |
-          ogimages/*-en.png
+          ogimages/*-en-*.png
