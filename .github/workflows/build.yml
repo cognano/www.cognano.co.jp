@@ -130,7 +130,7 @@ jobs:
       run: |
         yarn build
       env:
-        NEXT_PUBLIC_LANG: en
+        NEXT_PUBLIC_LANG: ja
     - name: Deploy to production by FTP
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
