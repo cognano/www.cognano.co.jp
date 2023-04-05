@@ -60,8 +60,8 @@ jobs:
         path: |
           .cache
           public/images
-        key: notionate
-        restore-keys: notionate
+        key: notionate-stag
+        restore-keys: notionate-stag
     - name: Install packages
       run: |
         yarn install
