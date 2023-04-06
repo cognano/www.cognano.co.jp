@@ -275,6 +275,27 @@ a:focus {
   padding: 0 var(--spacing-10);
   max-width: 1800px;
 }
+
+.button a {
+  text-decoration: none;
+  display: block;
+  margin: 0;
+  padding: var(--spacing-1) var(--spacing-4);
+  line-height: 1.8;
+  color: var(--color-text);
+  border: 1px solid var(--color-text);
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.button a:hover {
+  color: #fff;
+  background-color: var(--color-text);
+}
+.button a:hover span {
+  fill: #fff;
+}
+
 @media (max-width: 480px) {
   .container {
     padding: 0 var(--spacing-5);
@@ -387,4 +408,8 @@ a:focus {
     margin-left: -25%;
     margin-right: -25%;
   }
+}
+.il6-footer .notionate-blocks-image-img {
+  margin-left: 0;
+  width: auto;
 }

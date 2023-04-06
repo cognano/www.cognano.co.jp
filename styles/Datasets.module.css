@@ -1,0 +1,47 @@
+.il6Title {
+  max-width: 800px;
+  margin-top: var(--spacing-20);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.il6Abstract {
+  font-size: var(--fontSize-3);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.il6Scripts {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.il6Footer {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.il6AllDownloadButton {
+  font-size: var(--fontSize-3);
+  text-align: center;
+}
+.il6AllDownloadButton a {
+  display: inline-block;
+  padding-left: var(--spacing-10);
+  padding-right: var(--spacing-10);
+  margin: var(--spacing-10) auto;
+}
+
+.il6ScriptDownloadButtons {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--spacing-10);
+  margin: var(--spacing-10) 0;
+}
+.il6ScriptDownloadButton {
+  text-align: center;
+}
+.il6ScriptDownloadButton p {
+  margin: 0;
+  padding: 0 0 var(--spacing-1);
+}

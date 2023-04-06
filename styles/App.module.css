@@ -31,9 +31,9 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   justify-items: end;
-  gap: var(--spacing-6);
+  gap: var(--spacing-2);
 }
 .globalnav li {
   font-size: var(--fontSize-1);

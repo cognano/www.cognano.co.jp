@@ -4,6 +4,7 @@ export default {
     news: `News`,
     research: `Research`,
     projects: `Projects`,
+    datasets: 'Datasets',
     blog: `Blog`,
     about: `About`,
     contact: `Contact`,
@@ -61,6 +62,9 @@ export default {
   head: {
     title: `COGNANO - Aiming to support drug discovery by computer`,
     description: `COGNANO is a venture that aims at computer-aided drug discovery.`,
+  },
+  datasets: {
+    download: `Download`,
   },
   error404: {
     title: '404',
