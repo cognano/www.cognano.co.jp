@@ -67,7 +67,6 @@ jobs:
         yarn install
     - name: Run next export
       run: |
-        yarn install
         yarn build
       env:
         NEXT_PUBLIC_LANG: en
