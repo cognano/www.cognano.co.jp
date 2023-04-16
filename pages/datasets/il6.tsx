@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import type { NextPage, GetStaticProps } from 'next'
 import Image from 'next/image'
 import t, { lang } from '../../i18n'
@@ -7,6 +8,8 @@ import styles from '../../styles/Datasets.module.css'
 import Unsplash from '../../components/unsplash'
 import Hed from '../../components/hed'
 import CreateOgImage from '../../lib/ogimage'
+import mermaid from 'mermaid'
+//import prism from 'prismjs'
 
 type Props = {
   abstract: Content
@@ -37,6 +40,9 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
 }
 
 const Il6: NextPage<Props> = ({ abstract, scripts, info, ogimage }) => {
+  mermaid.initialize({ theme: 'neutral' })
+  const exModules = { mermaid }
+
   return (
     <main>
       <Hed title={abstract.title} desc={abstract.excerpt} ogimage={ogimage} />
@@ -56,7 +62,7 @@ const Il6: NextPage<Props> = ({ abstract, scripts, info, ogimage }) => {
 
       <div className="container">
         <div className={styles.il6Scripts}>
-          <Blocks blocks={scripts.blocks} />
+          <Blocks blocks={scripts.blocks} modules={exModules} />
           <div className={styles.il6ScriptDownloadButtons}>
             <div className={`button ${styles.il6ScriptDownloadButton}`}>
               <p>Script#1</p>
