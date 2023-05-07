@@ -1,47 +1,94 @@
-.il6Title {
+/* Abstract */
+.abstract {
+  font-size: var(--fontSize-3);
+  max-width: 800px;
+  margin: 0 auto;
+}
+.title {
   max-width: 800px;
   margin-top: var(--spacing-20);
   margin-left: auto;
   margin-right: auto;
 }
 
-.il6Abstract {
-  font-size: var(--fontSize-3);
+/* Pipeline */
+.pipeline {
   max-width: 800px;
   margin: 0 auto;
+  padding-top: var(--spacing-10);
 }
-
-.il6Scripts {
-  max-width: 800px;
-  margin: 0 auto;
+.pipelineTitle {
+  margin-top: var(--spacing-10);
 }
-
-.il6Footer {
-  max-width: 800px;
-  margin: 0 auto;
+.pipelineDesc {
+  margin-bottom: var(--spacing-10);
 }
-
-.il6AllDownloadButton {
+.pipelineDesc img {
+  width: 120%;
+}
+.allDownloadButton {
   font-size: var(--fontSize-3);
   text-align: center;
 }
-.il6AllDownloadButton a {
+.allDownloadButton a {
   display: inline-block;
   padding-left: var(--spacing-10);
   padding-right: var(--spacing-10);
   margin: var(--spacing-10) auto;
 }
-
-.il6ScriptDownloadButtons {
+.downloadButtons {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: var(--spacing-10);
   margin: var(--spacing-10) 0;
 }
-.il6ScriptDownloadButton {
+.downloadButton {
   text-align: center;
 }
-.il6ScriptDownloadButton p {
+.downloadButton p {
   margin: 0;
   padding: 0 0 var(--spacing-1);
+}
+
+/* Mother Libraries */
+.momlibs {
+  max-width: 800px;
+  margin: 0 auto;
+  padding-top: var(--spacing-10);
+}
+.momlibsTitle {
+  margin-top: var(--spacing-20);
+  margin-bottom: var(--spacing-4);
+  font-size: var(--fontSize-3);
+}
+.momlibsDesc {
+  margin-bottom: var(--spacing-10);
+}
+.momlibsDb {
+  margin-bottom: var(--spacing-10);
+}
+
+/* Sub-Libraries */
+.sublibs {
+  max-width: 800px;
+  margin: 0 auto;
+  padding-top: var(--spacing-10);
+}
+.sublibsTitle {
+  margin-top: var(--spacing-20);
+  margin-bottom: var(--spacing-4);
+  font-size: var(--fontSize-3);
+}
+.sublibsDesc {
+  margin-bottom: var(--spacing-10);
+}
+.sublibsDb {
+  margin-bottom: var(--spacing-10);
+}
+
+/* License */
+.license {
+  max-width: 800px;
+  margin: 0 auto;
+  padding-top: var(--spacing-10);
 }
