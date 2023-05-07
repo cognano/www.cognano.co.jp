@@ -25,7 +25,6 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       title: t('error404.title'),
       desc: t('error404.description'),
     },
-    revalidate: 10
   }
 }
 

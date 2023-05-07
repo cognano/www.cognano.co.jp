@@ -65,7 +65,6 @@ export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
         latestNews: latestNews[lang],
         ogimage,
       },
-      revalidate: 60,
     }
   }
 
