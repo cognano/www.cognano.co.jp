@@ -1997,10 +1997,10 @@ non-layered-tidy-tree-layout@^2.0.2:
   resolved "https://registry.npmjs.org/non-layered-tidy-tree-layout/-/non-layered-tidy-tree-layout-2.0.2.tgz"
   integrity sha512-gkXMxRzUH+PB0ax9dUN0yYF0S25BqeAYqhgMaLUFmpXLEk7Fcu8f4emJuOAY0V8kjDICxROIKsTAKsV/v355xw==
 
-notionate@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/notionate/-/notionate-9.0.0.tgz#c1094f7f64b6a9f32ec6117a55212c3f368d9ea3"
-  integrity sha512-L6YAXPguCCuHHawwt5b2Pa6k4+a57vsGMnglsSh1zK81TmJZI8KsTZqawrqBrVM9sLjzlini2nbd3Sfwb5tcNQ==
+notionate@^9.1.0:
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/notionate/-/notionate-9.1.0.tgz#a7d562ddda8128d37f5fe7a1142b09906bd4f1a3"
+  integrity sha512-vLsDpR/EgkhpesZhvv5tOawVMNGn8QmsICEcTfOdMqZUsMXKJsMBK/s0piHyn9zVvJ4CnpkHV5yyj6ZZN3VCRg==
   dependencies:
     "@notionhq/client" "^2.1.1"
 
