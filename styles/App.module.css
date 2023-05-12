@@ -33,7 +33,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   justify-items: end;
-  gap: var(--spacing-2);
+  gap: var(--spacing-5);
 }
 .globalnav li {
   font-size: var(--fontSize-1);

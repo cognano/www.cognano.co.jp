@@ -10,7 +10,7 @@ import styles from '../../styles/Datasets.module.css'
 import Unsplash from '../../components/unsplash'
 import Hed from '../../components/hed'
 import CreateOgImage from '../../lib/ogimage'
-import mermaid from 'mermaid'
+//import mermaid from 'mermaid'
 import { QueryDatabaseResponseEx } from 'notionate'
 import { Table } from 'notionate/dist/components'
 //import prism from 'prismjs'
@@ -18,6 +18,7 @@ import { Table } from 'notionate/dist/components'
 type Props = {
   abstract: Content
   pipeline: Content
+  statistics: Content
   license: Content
   momlibs: Content
   sublibs: Content
@@ -29,6 +30,7 @@ type Props = {
 export const getStaticProps: GetStaticProps<{}> = async () => {
   const abstract = await GetContent('abstract')
   const pipeline = await GetContent('pipeline')
+  const statistics = await GetContent('statistics')
   const momlibs = await GetContent('mother-libraries')
   const sublibs = await GetContent('sublibraries')
   const license = await GetContent('license')
@@ -43,6 +45,7 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
     props: {
       abstract: abstract![lang],
       pipeline: pipeline![lang],
+      statistics: statistics![lang],
       momlibs: momlibs![lang],
       sublibs: sublibs![lang],
       momlibsDb: await GetMomLibs(),
@@ -53,9 +56,9 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
   }
 }
 
-const Il6: NextPage<Props> = ({ abstract, pipeline, momlibs, sublibs, momlibsDb, sublibsDb, license, ogimage }) => {
-  mermaid.initialize({ theme: 'neutral' })
-  const exModules = { mermaid }
+const Il6: NextPage<Props> = ({ abstract, pipeline, statistics, momlibs, sublibs, momlibsDb, sublibsDb, license, ogimage }) => {
+  //mermaid.initialize({ theme: 'neutral' })
+  //const exModules = { mermaid }
 
   return (
     <main>
@@ -80,7 +83,7 @@ const Il6: NextPage<Props> = ({ abstract, pipeline, momlibs, sublibs, momlibsDb,
             {pipeline.title}
           </h2>
           <div className={styles.pipelineDesc}>
-            <Blocks blocks={pipeline.blocks} modules={exModules} />
+            <Blocks blocks={pipeline.blocks} />
           </div>
           <div className={styles.downloadButtons}>
             <div className={`button ${styles.downloadButton}`}>
@@ -103,6 +106,17 @@ const Il6: NextPage<Props> = ({ abstract, pipeline, momlibs, sublibs, momlibsDb,
               <p>Learning Data</p>
               <a>{t('datasets.download')}</a>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container">
+        <div className={styles.statistics}>
+          <h2 className={styles.statisticsTitle}>
+            {statistics.title}
+          </h2>
+          <div className={styles.statisticsDesc}>
+            <Blocks blocks={statistics.blocks} />
           </div>
         </div>
       </div>

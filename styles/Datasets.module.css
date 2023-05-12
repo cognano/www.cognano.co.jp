@@ -15,16 +15,12 @@
 .pipeline {
   max-width: 800px;
   margin: 0 auto;
-  padding-top: var(--spacing-10);
 }
 .pipelineTitle {
   margin-top: var(--spacing-10);
 }
 .pipelineDesc {
   margin-bottom: var(--spacing-10);
-}
-.pipelineDesc img {
-  width: 120%;
 }
 .allDownloadButton {
   font-size: var(--fontSize-3);
@@ -50,11 +46,23 @@
   padding: 0 0 var(--spacing-1);
 }
 
+/* Statistics */
+.statistics {
+  max-width: 800px;
+  margin: 0 auto;
+  padding-top: var(--spacing-10);
+}
+.statisticsTitle {
+  margin-top: var(--spacing-10);
+}
+.statisticsDesc {
+  margin-bottom: var(--spacing-10);
+}
+
 /* Mother Libraries */
 .momlibs {
   max-width: 800px;
   margin: 0 auto;
-  padding-top: var(--spacing-10);
 }
 .momlibsTitle {
   margin-top: var(--spacing-20);
@@ -72,7 +80,6 @@
 .sublibs {
   max-width: 800px;
   margin: 0 auto;
-  padding-top: var(--spacing-10);
 }
 .sublibsTitle {
   margin-top: var(--spacing-20);
@@ -90,5 +97,4 @@
 .license {
   max-width: 800px;
   margin: 0 auto;
-  padding-top: var(--spacing-10);
 }
