@@ -87,24 +87,20 @@ const Il6: NextPage<Props> = ({ abstract, pipeline, statistics, momlibs, sublibs
           </div>
           <div className={styles.downloadButtons}>
             <div className={`button ${styles.downloadButton}`}>
-              <p>Script#1</p>
-              <a>{t('datasets.download')}</a>
+              <p>FASTQ, FASTA Files</p>
+              <a>{t("datasets.download")}</a>
             </div>
             <div className={`button ${styles.downloadButton}`}>
-              <p>Script#2</p>
-              <a>{t('datasets.download')}</a>
+              <p>Library Tables, Labeled Dataset</p>
+              <Link href="https://doi.org/10.5281/zenodo.7935862">
+                {t("datasets.download")}
+              </Link>
             </div>
             <div className={`button ${styles.downloadButton}`}>
-              <p>OTU Table</p>
-              <a>{t('datasets.download')}</a>
-            </div>
-            <div className={`button ${styles.downloadButton}`}>
-              <p>Script#3</p>
-              <a>{t('datasets.download')}</a>
-            </div>
-            <div className={`button ${styles.downloadButton}`}>
-              <p>Learning Data</p>
-              <a>{t('datasets.download')}</a>
+              <p>Scripts</p>
+              <Link href="https://github.com/cognano/AVIDa-hIL6">
+                {t("datasets.download")}
+              </Link>
             </div>
           </div>
         </div>
