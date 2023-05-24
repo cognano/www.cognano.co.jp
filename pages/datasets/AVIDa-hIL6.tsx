@@ -14,6 +14,7 @@ import CreateOgImage from '../../lib/ogimage'
 import { QueryDatabaseResponseEx } from 'notionate'
 import { Table } from 'notionate/dist/components'
 import { Dataset, WithContext } from 'schema-dts'
+import Script from 'next/script'
 //import prism from 'prismjs'
 
 type Props = {
@@ -98,7 +99,7 @@ const Il6: NextPage<Props> = ({ abstract, columnDesc, pipeline, statistics, moml
   return (
     <main>
       <Hed title={abstract.title} desc={abstract.excerpt} ogimage={ogimage} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <Script id="https://schema.org" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <div className="container">
         <h1 className={styles.title}>
           {abstract.title}
