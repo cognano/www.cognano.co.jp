@@ -22,26 +22,32 @@
 .pipelineDesc {
   margin-bottom: var(--spacing-10);
 }
-.allDownloadButton {
+
+.download {
+  margin: var(--spacing-10) auto;
+}
+.downloadButton {
   font-size: var(--fontSize-3);
   text-align: center;
 }
-.allDownloadButton a {
+.downloadButton a {
   display: inline-block;
   padding-left: var(--spacing-10);
   padding-right: var(--spacing-10);
-  margin: var(--spacing-10) auto;
 }
-.downloadButtons {
+.downloadSize {
+  text-align: center;
+}
+.externalLinks {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--spacing-10);
   margin: var(--spacing-10) 0;
 }
-.downloadButton {
+.externalLink {
   text-align: center;
 }
-.downloadButton p {
+.externalLink p {
   margin: 0;
   padding: 0 0 var(--spacing-1);
 }

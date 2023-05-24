@@ -70,10 +70,15 @@ const Il6: NextPage<Props> = ({ abstract, pipeline, statistics, momlibs, sublibs
         <div className={styles.abstract}>
           <Blocks blocks={abstract.blocks} />
         </div>
-        <div className={`button ${styles.allDownloadButton}`}>
-          <a>
-            {t('datasets.download')}
-          </a>
+        <div className={styles.download}>
+          <div className={`button ${styles.downloadButton}`}>
+            <a>
+              {t('datasets.download')}
+            </a>
+          </div>
+          <div className={styles.downloadSize}>
+            <span>Size: 209MB</span>
+          </div>
         </div>
       </div>
 
@@ -85,21 +90,21 @@ const Il6: NextPage<Props> = ({ abstract, pipeline, statistics, momlibs, sublibs
           <div className={styles.pipelineDesc}>
             <Blocks blocks={pipeline.blocks} />
           </div>
-          <div className={styles.downloadButtons}>
-            <div className={`button ${styles.downloadButton}`}>
+          <div className={styles.externalLinks}>
+            <div className={`button ${styles.externalLink}`}>
               <p>FASTQ, FASTA Files</p>
-              <a>{t("datasets.download")}</a>
+              <a>Open Google Drive</a>
             </div>
-            <div className={`button ${styles.downloadButton}`}>
+            <div className={`button ${styles.externalLink}`}>
               <p>Library Tables, Labeled Dataset</p>
               <Link href="https://doi.org/10.5281/zenodo.7935862">
-                {t("datasets.download")}
+                Open Zenodo
               </Link>
             </div>
-            <div className={`button ${styles.downloadButton}`}>
+            <div className={`button ${styles.externalLink}`}>
               <p>Scripts</p>
               <Link href="https://github.com/cognano/AVIDa-hIL6">
-                {t("datasets.download")}
+                Open GitHub
               </Link>
             </div>
           </div>
