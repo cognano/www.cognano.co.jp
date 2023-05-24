@@ -11,6 +11,18 @@
   margin-right: auto;
 }
 
+/* Column Description */
+.columnDesc {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.columnDescTitle {
+  margin-top: var(--spacing-10);
+}
+.columnDescContent {
+  margin-bottom: var(--spacing-10);
+}
+
 /* Pipeline */
 .pipeline {
   max-width: 800px;

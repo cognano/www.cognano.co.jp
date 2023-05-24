@@ -17,6 +17,7 @@ import { Table } from 'notionate/dist/components'
 
 type Props = {
   abstract: Content
+  columnDesc: Content
   pipeline: Content
   statistics: Content
   license: Content
@@ -29,6 +30,7 @@ type Props = {
 
 export const getStaticProps: GetStaticProps<{}> = async () => {
   const abstract = await GetContent('abstract')
+  const columnDesc = await GetContent('column-descriptions')
   const pipeline = await GetContent('pipeline')
   const statistics = await GetContent('statistics')
   const momlibs = await GetContent('mother-libraries')
@@ -44,6 +46,7 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
   return {
     props: {
       abstract: abstract![lang],
+      columnDesc: columnDesc![lang],
       pipeline: pipeline![lang],
       statistics: statistics![lang],
       momlibs: momlibs![lang],
@@ -56,7 +59,7 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
   }
 }
 
-const Il6: NextPage<Props> = ({ abstract, pipeline, statistics, momlibs, sublibs, momlibsDb, sublibsDb, license, ogimage }) => {
+const Il6: NextPage<Props> = ({ abstract, columnDesc, pipeline, statistics, momlibs, sublibs, momlibsDb, sublibsDb, license, ogimage }) => {
   //mermaid.initialize({ theme: 'neutral' })
   //const exModules = { mermaid }
 
@@ -78,6 +81,17 @@ const Il6: NextPage<Props> = ({ abstract, pipeline, statistics, momlibs, sublibs
           </div>
           <div className={styles.downloadSize}>
             <span>Size: 209MB</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="container">
+        <div className={styles.columnDesc}>
+          <h2 className={styles.columnDescTitle}>
+            {columnDesc.title}
+          </h2>
+          <div className={styles.columnDescContent}>
+            <Blocks blocks={columnDesc.blocks} />
           </div>
         </div>
       </div>
