@@ -30,7 +30,7 @@ type Props = {
 
 export const getStaticProps: GetStaticProps<{}> = async () => {
   const abstract = await GetContent('abstract')
-  const columnDesc = await GetContent('column-descriptions')
+  const columnDesc = await GetContent('column-description')
   const pipeline = await GetContent('pipeline')
   const statistics = await GetContent('statistics')
   const momlibs = await GetContent('mother-libraries')
