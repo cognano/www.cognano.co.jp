@@ -223,7 +223,9 @@ const Il6: NextPage<Props> = ({ abstract, columns, pipeline, statistics, momlibs
       </div>
 
       <div className="container">
-        <h2 className={styles.metadataTitle}>Metadata</h2>
+        <div className={styles.metadata}>
+          <h2 className={styles.metadataTitle}>Metadata</h2>
+        </div>
 
         <div className={styles.momlibs}>
           <h3 className={styles.momlibsTitle}>

@@ -12,14 +12,14 @@
 }
 
 /* Column Description */
-.columnDesc {
+.columns {
   max-width: 800px;
   margin: 0 auto;
 }
-.columnDescTitle {
+.columnsTitle {
   margin-top: var(--spacing-10);
 }
-.columnDescContent {
+.columnsContent {
   margin-bottom: var(--spacing-10);
 }
 
@@ -78,6 +78,10 @@
 }
 
 /* Metadata */
+.metadata {
+  max-width: 800px;
+  margin: 0 auto;
+}
 .metadataTitle {
   margin-top: var(--spacing-10);
 }
