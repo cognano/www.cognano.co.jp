@@ -107,7 +107,7 @@ const Il6: NextPage<Props> = ({ abstract, columnDesc, pipeline, statistics, moml
     <main>
       <Hed title={abstract.title} desc={abstract.excerpt} ogimage={ogimage} />
       <Script
-        id="https://schema.org"
+        id="schema.org"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
