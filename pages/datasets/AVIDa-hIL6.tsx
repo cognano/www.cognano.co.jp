@@ -19,7 +19,7 @@ import Script from 'next/script'
 
 type Props = {
   abstract: Content
-  columnDesc: Content
+  columns: Content
   pipeline: Content
   statistics: Content
   license: Content
@@ -32,7 +32,7 @@ type Props = {
 
 export const getStaticProps: GetStaticProps<{}> = async () => {
   const abstract = await GetContent('abstract')
-  const columnDesc = await GetContent('column-description')
+  const columns = await GetContent('columns')
   const pipeline = await GetContent('pipeline')
   const statistics = await GetContent('statistics')
   const momlibs = await GetContent('mother-libraries')
@@ -48,7 +48,7 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
   return {
     props: {
       abstract: abstract![lang],
-      columnDesc: columnDesc![lang],
+      columns: columns![lang],
       pipeline: pipeline![lang],
       statistics: statistics![lang],
       momlibs: momlibs![lang],
@@ -61,7 +61,7 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
   }
 }
 
-const Il6: NextPage<Props> = ({ abstract, columnDesc, pipeline, statistics, momlibs, sublibs, momlibsDb, sublibsDb, license, ogimage }) => {
+const Il6: NextPage<Props> = ({ abstract, columns, pipeline, statistics, momlibs, sublibs, momlibsDb, sublibsDb, license, ogimage }) => {
   //mermaid.initialize({ theme: 'neutral' })
   //const exModules = { mermaid }
   const schema: WithContext<Dataset> = {
@@ -86,17 +86,56 @@ const Il6: NextPage<Props> = ({ abstract, columnDesc, pipeline, statistics, moml
       "https://github.com/cognano/AVIDa-hIL6",
     ],
     datePublished: "2023-06-01",
-    creator: {
-      "@type": "Organization",
-      name: "COGNANO, Inc.",
-      url: "https://cognanous.com",
-    },
+    creator: [
+      {
+        "@type": "Person",
+        name: "Hirofumi Tsuruta",
+        affiliation: "COGNANO, Inc.",
+      },
+      {
+        "@type": "Person",
+        name: "Hiroyuki Yamazaki",
+        affiliation: "COGNANO, Inc.",
+      },
+      {
+        "@type": "Person",
+        name: "Ryota Maeda",
+        affiliation: "COGNANO, Inc.",
+      },
+      {
+        "@type": "Person",
+        name: "Akihiro Imura",
+        affiliation: "COGNANO, Inc.",
+      },
+      {
+        "@type": "Organization",
+        name: "COGNANO, Inc.",
+        url: "https://cognanous.com",
+      },
+    ],
+    contributor: [
+      {
+        "@type": "Person",
+        name: "Ryotaro Tamura",
+        affiliation: "COGNANO, Inc.",
+      },
+      {
+        "@type": "Person",
+        name: "Tomohida Oda",
+      },
+    ],
     distribution: [
       {
         "@type": "DataDownload",
         encodingFormat: "CSV",
         contentUrl:
-          "https://zenodo.org/record/7935862/files/il6_aai_dataset.csv",
+          "https://zenodo.org/api/files/050d4762-defa-41ef-b61d-f71b8aa7b3e4/il6_aai_dataset.csv",
+      },
+      {
+        "@type": "DataDownload",
+        encodingFormat: "gz",
+        contentUrl:
+          "https://zenodo.org/api/files/050d4762-defa-41ef-b61d-f71b8aa7b3e4/libtable.tar.gz",
       },
     ],
     license: "https://creativecommons.org/licenses/by-nc/4.0/",
@@ -125,18 +164,18 @@ const Il6: NextPage<Props> = ({ abstract, columnDesc, pipeline, statistics, moml
             </a>
           </div>
           <div className={styles.downloadSize}>
-            <span>Size: 209MB</span>
+            <span>Size: 220MB</span>
           </div>
         </div>
       </div>
 
       <div className="container">
-        <div className={styles.columnDesc}>
-          <h2 className={styles.columnDescTitle}>
-            {columnDesc.title}
+        <div className={styles.columns}>
+          <h2 className={styles.columnsTitle}>
+            {columns.title}
           </h2>
-          <div className={styles.columnDescContent}>
-            <Blocks blocks={columnDesc.blocks} />
+          <div className={styles.columnsContent}>
+            <Blocks blocks={columns.blocks} />
           </div>
         </div>
       </div>
@@ -152,7 +191,9 @@ const Il6: NextPage<Props> = ({ abstract, columnDesc, pipeline, statistics, moml
           <div className={styles.externalLinks}>
             <div className={`button ${styles.externalLink}`}>
               <p>FASTQ, FASTA Files</p>
-              <a>Open Google Drive</a>
+              <Link href="https://drive.google.com/drive/folders/1-Sd5Rdl0-WJSuhsTpIHN-ud3SwSR1WP-">
+                Open Google Drive
+              </Link>
             </div>
             <div className={`button ${styles.externalLink}`}>
               <p>Library Tables, Labeled Dataset</p>
@@ -182,10 +223,12 @@ const Il6: NextPage<Props> = ({ abstract, columnDesc, pipeline, statistics, moml
       </div>
 
       <div className="container">
+        <h2 className={styles.metadataTitle}>Metadata</h2>
+
         <div className={styles.momlibs}>
-          <h2 className={styles.momlibsTitle}>
+          <h3 className={styles.momlibsTitle}>
             {momlibs.title}
-          </h2>
+          </h3>
           <div className={styles.momlibsDesc}>
             <Blocks blocks={momlibs.blocks} />
           </div>
@@ -198,9 +241,9 @@ const Il6: NextPage<Props> = ({ abstract, columnDesc, pipeline, statistics, moml
         </div>
 
         <div className={styles.sublibs}>
-          <h2 className={styles.sublibsTitle}>
+          <h3 className={styles.sublibsTitle}>
             {sublibs.title}
-          </h2>
+          </h3>
           <div className={styles.sublibsDesc}>
             <Blocks blocks={sublibs.blocks} />
           </div>

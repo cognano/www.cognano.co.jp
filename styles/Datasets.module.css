@@ -77,6 +77,11 @@
   margin-bottom: var(--spacing-10);
 }
 
+/* Metadata */
+.metadataTitle {
+  margin-top: var(--spacing-10);
+}
+
 /* Mother Libraries */
 .momlibs {
   max-width: 800px;
