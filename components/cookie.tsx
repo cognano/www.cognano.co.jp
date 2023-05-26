@@ -4,7 +4,7 @@ import CookieConsent, {
   getCookieConsentValue,
   Cookies,
 } from 'react-cookie-consent'
-import { useTranslation } from '../i18n'
+import t from '../i18n'
 import GA from './ga'
 
 type Props = {
@@ -12,8 +12,6 @@ type Props = {
 }
 
 const Cookie: React.FC<Props> = ({ children }) => {
-  const { t } = useTranslation()
-
   const handleAcceptCookie = () => {
     setGA(<GA />)
   }
