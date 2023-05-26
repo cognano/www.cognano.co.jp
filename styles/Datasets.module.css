@@ -1,14 +1,61 @@
-/* Abstract */
-.abstract {
-  font-size: var(--fontSize-3);
-  max-width: 800px;
+/* Page Header */
+.pageHeader {
   margin: 0 auto;
+  padding: 0 var(--spacing-10);
+  max-width: 1800px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: var(--spacing-10);
+  margin-bottom: var(--spacing-20);
+}
+.cover {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  position: relative;
+}
+.cover img {
+  width: 100%;
+  object-fit: cover;
+}
+.unsplash {
+  position: absolute;
+  bottom: -0.9rem;
+  right: 1rem;
+  color: #eee;
+}
+.unsplash a {
+  color: #fff;
+  border-color: #eee;
+}
+.abstract {
+  width: 100%;
+  padding-bottom: var(--spacing-10);
 }
 .title {
-  max-width: 800px;
   margin-top: var(--spacing-20);
-  margin-left: auto;
-  margin-right: auto;
+  padding-top: var(--spacing-10);
+}
+.description {
+  font-size: var(--fontSize-3);
+}
+
+/* Download Button */
+.download {
+  margin: var(--spacing-10) auto;
+}
+.downloadButton {
+  font-size: var(--fontSize-3);
+  text-align: center;
+}
+.downloadButton a {
+  display: inline-block;
+  padding-left: var(--spacing-10);
+  padding-right: var(--spacing-10);
+}
+.downloadSize {
+  text-align: center;
+  padding-top: var(--spacing-2);
 }
 
 /* Column Description */
@@ -33,22 +80,6 @@
 }
 .pipelineDesc {
   margin-bottom: var(--spacing-10);
-}
-
-.download {
-  margin: var(--spacing-10) auto;
-}
-.downloadButton {
-  font-size: var(--fontSize-3);
-  text-align: center;
-}
-.downloadButton a {
-  display: inline-block;
-  padding-left: var(--spacing-10);
-  padding-right: var(--spacing-10);
-}
-.downloadSize {
-  text-align: center;
 }
 .externalLinks {
   display: grid;
@@ -122,4 +153,29 @@
 .license {
   max-width: 800px;
   margin: 0 auto;
+}
+
+@media (max-width: 1200px) {
+  .pageHeader {
+    display: block;
+    margin-bottom: 0;
+    padding: 0;
+  }
+  .cover {
+    height: 300px;
+    top: -1px;
+  }
+  .cover img {
+    width: 100%;
+  }
+  .abstract {
+    padding: 0 var(--spacing-10);
+  }
+  .title {
+    margin-top: var(--spacing-10);
+    padding-top: 0;
+  }
+  .description {
+    font-size: var(--fontSize-2);
+  }
 }

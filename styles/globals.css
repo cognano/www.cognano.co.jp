@@ -397,7 +397,13 @@ a:focus {
     background-color: rgb(255, 226, 221);
   }
 }
-
+.il6-sublibs .notionate-table-header {
+  width: 100%;
+}
+.il6-sublibs .notionate-table-column-2 .notionate-table-cell-inner {
+  width: 100%;
+  border-right: none;
+}
 .blog .notionate-blocks-image-img {
   margin-top: var(--spacing-5);
   border-radius: 10px;
