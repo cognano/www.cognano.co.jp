@@ -67,7 +67,7 @@ const Il6: NextPage<Props> = ({ abstract, columns, pipeline, statistics, momlibs
   const schema: WithContext<Dataset> = {
     "@context": "https://schema.org",
     "@type": "Dataset",
-    name: "Alpaca derived Antigen-VHH Interaction Dataset for IL-6 protein",
+    name: "An antigen-VHH interaction dataset produced by an alpaca immunized with the human IL-6 protein.",
     alternateName: ["AVIDa-hIL6"],
     identifier: {
       "@id": "https://doi.org/10.5281/zenodo.7935862",
@@ -139,7 +139,7 @@ const Il6: NextPage<Props> = ({ abstract, columns, pipeline, statistics, momlibs
       },
     ],
     license: "https://creativecommons.org/licenses/by-nc/4.0/",
-    keywords: ["VHH", "Antigen-antibody interaction"],
+    keywords: ["VHH", "Antigen-antibody interaction", "Drug discovery"],
   };
 
   return (
