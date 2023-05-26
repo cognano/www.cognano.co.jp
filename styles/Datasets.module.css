@@ -11,6 +11,18 @@
   margin-right: auto;
 }
 
+/* Column Description */
+.columns {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.columnsTitle {
+  margin-top: var(--spacing-10);
+}
+.columnsContent {
+  margin-bottom: var(--spacing-10);
+}
+
 /* Pipeline */
 .pipeline {
   max-width: 800px;
@@ -22,26 +34,32 @@
 .pipelineDesc {
   margin-bottom: var(--spacing-10);
 }
-.allDownloadButton {
+
+.download {
+  margin: var(--spacing-10) auto;
+}
+.downloadButton {
   font-size: var(--fontSize-3);
   text-align: center;
 }
-.allDownloadButton a {
+.downloadButton a {
   display: inline-block;
   padding-left: var(--spacing-10);
   padding-right: var(--spacing-10);
-  margin: var(--spacing-10) auto;
 }
-.downloadButtons {
+.downloadSize {
+  text-align: center;
+}
+.externalLinks {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--spacing-10);
   margin: var(--spacing-10) 0;
 }
-.downloadButton {
+.externalLink {
   text-align: center;
 }
-.downloadButton p {
+.externalLink p {
   margin: 0;
   padding: 0 0 var(--spacing-1);
 }
@@ -59,13 +77,21 @@
   margin-bottom: var(--spacing-10);
 }
 
+/* Metadata */
+.metadata {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.metadataTitle {
+  margin-top: var(--spacing-10);
+}
+
 /* Mother Libraries */
 .momlibs {
   max-width: 800px;
   margin: 0 auto;
 }
 .momlibsTitle {
-  margin-top: var(--spacing-20);
   margin-bottom: var(--spacing-4);
   font-size: var(--fontSize-3);
 }
@@ -82,7 +108,6 @@
   margin: 0 auto;
 }
 .sublibsTitle {
-  margin-top: var(--spacing-20);
   margin-bottom: var(--spacing-4);
   font-size: var(--fontSize-3);
 }
