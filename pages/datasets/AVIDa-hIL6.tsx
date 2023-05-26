@@ -1,20 +1,19 @@
-import { useState, useEffect } from 'react'
 import type { NextPage, GetStaticProps } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import t, { lang } from '../../i18n'
 import { Content, GetContent } from '../../lib/content'
-import { GetMomLibs, GetSubLibs } from '../../lib/il6'
+import { GetMomLibs, GetSubLibs } from '../../lib/avida-hil6'
 import { Blocks } from 'notionate/dist/components'
 import styles from '../../styles/Datasets.module.css'
 import Unsplash from '../../components/unsplash'
 import Hed from '../../components/hed'
 import CreateOgImage from '../../lib/ogimage'
-//import mermaid from 'mermaid'
 import { QueryDatabaseResponseEx } from 'notionate'
 import { Table } from 'notionate/dist/components'
-import { Dataset, WithContext } from 'schema-dts'
 import Script from 'next/script'
+import { Dataset, WithContext } from 'schema-dts'
+//import mermaid from 'mermaid'
 //import prism from 'prismjs'
 
 type Props = {
@@ -64,6 +63,7 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
 const Il6: NextPage<Props> = ({ abstract, columns, pipeline, statistics, momlibs, sublibs, momlibsDb, sublibsDb, license, ogimage }) => {
   //mermaid.initialize({ theme: 'neutral' })
   //const exModules = { mermaid }
+
   const schema: WithContext<Dataset> = {
     "@context": "https://schema.org",
     "@type": "Dataset",
@@ -140,7 +140,7 @@ const Il6: NextPage<Props> = ({ abstract, columns, pipeline, statistics, momlibs
     ],
     license: "https://creativecommons.org/licenses/by-nc/4.0/",
     keywords: ["VHH", "Antigen-antibody interaction", "Drug discovery"],
-  };
+  }
 
   return (
     <main>
@@ -150,21 +150,30 @@ const Il6: NextPage<Props> = ({ abstract, columns, pipeline, statistics, momlibs
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <div className="container">
-        <h1 className={styles.title}>
-          {abstract.title}
-        </h1>
-        <div className={styles.abstract}>
-          <Blocks blocks={abstract.blocks} />
-        </div>
-        <div className={styles.download}>
-          <div className={`button ${styles.downloadButton}`}>
-            <Link href="https://zenodo.org/api/files/050d4762-defa-41ef-b61d-f71b8aa7b3e4/il6_aai_dataset.csv">
-              {t('datasets.download')}
-            </Link>
+
+      <div className={styles.pageHeader}>
+        <div className={styles.cover}>
+          <Image src="/static/alpaca-with-leash.jpg" fill={true} alt="Alpaca with leash" />
+          <div className={styles.unsplash}>
+            <Unsplash href="https://unsplash.com/ja/%E5%86%99%E7%9C%9F/XPkpuavtZkc?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" name="Ka Long Li"/>
           </div>
-          <div className={styles.downloadSize}>
-            <span>Size: 220MB</span>
+        </div>
+        <div className={styles.abstract}>
+          <h1 className={styles.title}>
+            {abstract.title}
+          </h1>
+          <div className={styles.description}>
+            <Blocks blocks={abstract.blocks} />
+          </div>
+          <div className={styles.download}>
+            <div className={`button ${styles.downloadButton}`}>
+              <Link href="https://zenodo.org/api/files/050d4762-defa-41ef-b61d-f71b8aa7b3e4/il6_aai_dataset.csv">
+                {t('datasets.download')}
+              </Link>
+            </div>
+            <div className={styles.downloadSize}>
+              <span>Size: 220MB</span>
+            </div>
           </div>
         </div>
       </div>
@@ -249,7 +258,7 @@ const Il6: NextPage<Props> = ({ abstract, columns, pipeline, statistics, momlibs
           <div className={styles.sublibsDesc}>
             <Blocks blocks={sublibs.blocks} />
           </div>
-          <div className={styles.sublibsDb}>
+          <div className={`il6-sublibs ${styles.sublibsDb}`}>
             <Table
               db={sublibsDb}
               keys={['Name', 'Type', 'Antigen']}
