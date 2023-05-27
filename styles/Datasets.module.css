@@ -1,0 +1,188 @@
+/* Page Header */
+.pageHeader {
+  margin: 0 auto;
+  padding: 0 var(--spacing-10);
+  max-width: 1800px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: var(--spacing-10);
+  margin-bottom: var(--spacing-20);
+}
+.cover {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  position: relative;
+}
+.cover img {
+  width: 100%;
+  object-fit: cover;
+}
+.unsplash {
+  position: absolute;
+  bottom: -0.9rem;
+  right: 1rem;
+  color: #eee;
+}
+.unsplash a {
+  color: #fff;
+  border-color: #eee;
+}
+.abstract {
+  width: 100%;
+  padding-bottom: var(--spacing-10);
+}
+.title {
+  margin-top: var(--spacing-20);
+  padding-top: var(--spacing-10);
+}
+.description {
+  font-size: var(--fontSize-3);
+}
+
+/* Download Button */
+.download {
+  margin: var(--spacing-10) auto;
+}
+.downloadButton {
+  font-size: var(--fontSize-3);
+  text-align: center;
+}
+.downloadButton a {
+  display: inline-block;
+  padding-left: var(--spacing-10);
+  padding-right: var(--spacing-10);
+}
+.downloadSize {
+  text-align: center;
+  padding-top: var(--spacing-2);
+}
+
+/* Column Description */
+.columns {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.columnsTitle {
+  margin-top: var(--spacing-10);
+}
+.columnsContent {
+  margin-bottom: var(--spacing-10);
+}
+
+/* Pipeline */
+.pipeline {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.pipelineTitle {
+  margin-top: var(--spacing-10);
+}
+.pipelineDesc {
+  margin-bottom: var(--spacing-10);
+}
+.externalLinks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-10);
+  margin: var(--spacing-10) 0;
+}
+.externalLink {
+  text-align: center;
+}
+.externalLink p {
+  margin: 0;
+  padding: 0 0 var(--spacing-1);
+}
+
+/* Statistics */
+.statistics {
+  max-width: 800px;
+  margin: 0 auto;
+  padding-top: var(--spacing-10);
+}
+.statisticsTitle {
+  margin-top: var(--spacing-10);
+}
+.statisticsDesc {
+  margin-bottom: var(--spacing-10);
+}
+
+/* Metadata */
+.metadata {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.metadataTitle {
+  margin-top: var(--spacing-10);
+}
+
+/* Mother Libraries */
+.momlibs {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.momlibsTitle {
+  margin-bottom: var(--spacing-4);
+  font-size: var(--fontSize-3);
+}
+.momlibsDesc {
+  margin-bottom: var(--spacing-10);
+}
+.momlibsDb {
+  margin-bottom: var(--spacing-10);
+}
+
+/* Sub-Libraries */
+.sublibs {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.sublibsTitle {
+  margin-bottom: var(--spacing-4);
+  font-size: var(--fontSize-3);
+}
+.sublibsDesc {
+  margin-bottom: var(--spacing-10);
+}
+.sublibsDb {
+  margin-bottom: var(--spacing-10);
+}
+
+/* License */
+.license {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1200px) {
+  .pageHeader {
+    display: block;
+    margin-bottom: 0;
+    padding: 0;
+  }
+  .cover {
+    height: 300px;
+    top: -1px;
+  }
+  .cover img {
+    width: 100%;
+  }
+  .abstract {
+    padding: 0 var(--spacing-5);
+  }
+  .title {
+    margin-top: var(--spacing-5);
+    padding-top: 0;
+  }
+  .description {
+    font-size: var(--fontSize-2);
+  }
+  .externalLinks {
+    display: block;
+    margin: 0;
+  }
+  .externalLink {
+    margin: var(--spacing-5) auto;
+  }
+}

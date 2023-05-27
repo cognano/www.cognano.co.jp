@@ -3,7 +3,19 @@ import Link from 'next/link'
 import Logo from './logo'
 import styles from '../styles/App.module.css'
 import t from '../i18n'
-import { twitterIcon, youtubeIcon, facebookIcon, linkedinIcon, githubIcon, companyIcon, fileIcon, briefcaseIcon, pensquareIcon, newsIcon } from './icons'
+import {
+  twitterIcon,
+  youtubeIcon,
+  facebookIcon,
+  linkedinIcon,
+  githubIcon,
+  companyIcon,
+  fileIcon,
+  briefcaseIcon,
+  pensquareIcon,
+  newsIcon,
+  databaseIcon,
+} from './icons'
 import Language from './language'
 
 type Props = {
@@ -95,6 +107,12 @@ const Footer: React.FC<Props> = ({ children }) => {
           <Link href="/projects">
             {briefcaseIcon()}
             {t('header.projects')}
+          </Link>
+        </li>
+        <li>
+          <Link href="/datasets/avida-hil6">
+            {databaseIcon()}
+            {t('header.datasets')}
           </Link>
         </li>
         <li>

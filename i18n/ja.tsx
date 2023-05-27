@@ -4,6 +4,7 @@ export default {
     news: `お知らせ`,
     research: `研究`,
     projects: `プロジェクト`,
+    datasets: 'データセット',
     blog: `ブログ`,
     about: `私たち`,
     contact: `お問合せ`,
@@ -57,6 +58,9 @@ export default {
   language: {
     ja: `日本語`,
     en: `英語`
+  },
+  datasets: {
+    download: `ダウンロード`,
   },
   head: {
     title: `COGNANO - コンピューターを利用した創薬を目指すベンチャー`,

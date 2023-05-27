@@ -25,7 +25,6 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       title: t('error404.title'),
       desc: t('error404.description'),
     },
-    revalidate: 10
   }
 }
 
@@ -40,7 +39,7 @@ const Notfound: NextPage<Props> = ({ ogimage, title, desc }) => {
 
       <section className={styles.error404}>
         <div className={styles.error404Image}>
-          <Image src="images/shark-crossing.jpg" fill={true} alt="shark crossing" />
+          <Image src="/static/shark-crossing.jpg" fill={true} alt="shark crossing" />
           <div className={styles.error404ImageCopy}>
             <Unsplash href="https://unsplash.com/@nerikaren?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" name="Karen Neri"/>
           </div>

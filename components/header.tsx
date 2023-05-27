@@ -35,6 +35,11 @@ const Header: React.FC<Props> = ({ children }) => {
               </Link>
             </li>
             <li>
+              <Link href="/datasets/avida-hil6">
+                {t('header.datasets')}
+              </Link>
+            </li>
+            <li>
               <Link href="/blog">
                 {t('header.blog')}
               </Link>
