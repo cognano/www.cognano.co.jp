@@ -30,10 +30,10 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  justify-items: end;
-  gap: var(--spacing-5);
+  display: flex;
+  column-gap: var(--spacing-12);
+  justify-content: flex-start;
+  list-style: none;
 }
 .globalnav li {
   font-size: var(--fontSize-1);
@@ -48,7 +48,6 @@
   padding: 0;
   color: var(--color-text);
   font-weight: bold;
-  width: 100px;
 }
 .globalnav a:hover {
   color: var(--color-primary);
