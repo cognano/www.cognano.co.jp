@@ -404,6 +404,9 @@ a:focus {
   width: 100%;
   border-right: none;
 }
+.il6-footer .notionate-blocks-text-blockquote {
+  font-size: var(--fontSize-0);
+}
 .blog .notionate-blocks-image-img {
   margin-top: var(--spacing-5);
   border-radius: 10px;

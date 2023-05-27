@@ -169,13 +169,20 @@
     width: 100%;
   }
   .abstract {
-    padding: 0 var(--spacing-10);
+    padding: 0 var(--spacing-5);
   }
   .title {
-    margin-top: var(--spacing-10);
+    margin-top: var(--spacing-5);
     padding-top: 0;
   }
   .description {
     font-size: var(--fontSize-2);
+  }
+  .externalLinks {
+    display: block;
+    margin: 0;
+  }
+  .externalLink {
+    margin: var(--spacing-5) auto;
   }
 }
