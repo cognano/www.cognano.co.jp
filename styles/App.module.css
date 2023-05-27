@@ -270,7 +270,7 @@
   /* MOBILE NAV */
   .mobileNav {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     position: fixed;
     bottom: 0;
     left: 0;
