@@ -75,10 +75,10 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, p
           <div className="container">
             <div className={styles.hero}>
               <div className={styles.treeDiagram}>
-                <Image src="/images/tree.svg" width={1000} height={1000} alt="Tree Diagram" />
+                <Image src="/static/tree.svg" width={1000} height={1000} alt="Tree Diagram" />
               </div>
               <div className={styles.researchImage}>
-                <Image src="/images/research2.jpg" fill={true} alt="Research" />
+                <Image src="/static/chromosomes.webp" fill={true} alt="Chromosomes" />
                 <div className={styles.unsplash}>
                   <Unsplash href="https://unsplash.com/@nci?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" name="National Cancer Institute"/>
                 </div>

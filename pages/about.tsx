@@ -159,7 +159,7 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
       <Hed title={t('header.about')} desc={purpose.props.title} ogimage={ogimage} />
       <div className={styles.purposeImage}>
         <div className={styles.purposeImageInner}>
-          <Image src="/static/beautiful.jpg" fill={true} alt="beautiful location" />
+          <Image src="/static/beautiful.webp" fill={true} alt="beautiful location" />
         </div>
         <div className={styles.purposeImageLicense}>
           <Unsplash href="https://unsplash.com/@frankiefoto?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" name="frank mckenna"/>
@@ -192,7 +192,7 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
             </div>
           </div>
           <div className={styles.storyImage}>
-            <Image src="/static/dna.jpg" fill={true} alt="dna" />
+            <Image src="/static/dna.webp" fill={true} alt="dna" />
             <div className={styles.storyLicense}>
               <Unsplash href="https://unsplash.com/@lanirudhreddy?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" name="ANIRUDH"/>
             </div>

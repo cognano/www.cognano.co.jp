@@ -153,7 +153,7 @@ const Il6: NextPage<Props> = ({ abstract, columns, pipeline, statistics, momlibs
 
       <div className={styles.pageHeader}>
         <div className={styles.cover}>
-          <Image src="/static/alpaca-with-leash.jpg" fill={true} alt="Alpaca with leash" />
+          <Image src="/static/alpaca-with-leash.webp" fill={true} alt="Alpaca with leash" />
           <div className={styles.unsplash}>
             <Unsplash href="https://unsplash.com/ja/%E5%86%99%E7%9C%9F/XPkpuavtZkc?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" name="Ka Long Li"/>
           </div>
