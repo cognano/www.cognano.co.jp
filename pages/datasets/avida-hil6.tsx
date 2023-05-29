@@ -167,7 +167,7 @@ const Il6: NextPage<Props> = ({ abstract, columns, pipeline, statistics, momlibs
           </div>
           <div className={styles.download}>
             <div className={`button ${styles.downloadButton}`}>
-              <Link href="https://zenodo.org/api/files/050d4762-defa-41ef-b61d-f71b8aa7b3e4/il6_aai_dataset.csv">
+              <Link href="https://zenodo.org/record/7935862/files/il6_aai_dataset.csv">
                 {t('datasets.download')}
               </Link>
             </div>
