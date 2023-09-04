@@ -417,6 +417,11 @@ a:focus {
     margin-left: -25%;
     margin-right: -25%;
   }
+  .blog .notionate-blocks-columnlist .notionate-blocks-image-img {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 .il6-footer .notionate-blocks-image-img {
   margin-left: 0;
