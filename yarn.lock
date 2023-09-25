@@ -2756,10 +2756,10 @@ normalize-url@2.0.1:
     query-string "^5.0.1"
     sort-keys "^2.0.0"
 
-notionate@^10.0.1:
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/notionate/-/notionate-10.0.1.tgz#838137a321a2908caf9b014c46e341cee80a8fa5"
-  integrity sha512-OsfmT2ljdWk+5NJ4LFIEevkE/uddpLzKKTEMObtOcRTBX4FsOraiOzFXlI6jW4pTH4UH9eL85Tvxaa2IWz4C2w==
+notionate@^10.0.2:
+  version "10.0.2"
+  resolved "https://registry.yarnpkg.com/notionate/-/notionate-10.0.2.tgz#39a2765297120ef514bd3d9e3d9ee6f2373cd2a2"
+  integrity sha512-70Gi70MJ2zDnc5qiwK4NksOtdCb+Z+BmTV9tVlB8gnYncXtvBGi7wwxQMXJnY3K8ogm0DmjET1tE2+0hijmqeQ==
   dependencies:
     "@notionhq/client" "^2.1.1"
     "@types/imagemin" "^8.0.1"
