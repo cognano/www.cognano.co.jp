@@ -78,7 +78,7 @@ const build = (page: DBPage): Blog => {
   const props = page.properties
   return {
     id: page.id,
-    title: props.Name.title.map(v => v.plain_text).join(',') || '',
+    title: props.Name.title.map(v => v.plain_text).filter(v => v).join(',') || '',
     slug: props.Slug.select.name || '',
     date: props.Date.date?.start || '',
     edited: page.last_edited_time,
