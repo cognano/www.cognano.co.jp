@@ -69,7 +69,7 @@ jobs:
         yarn build
       env:
         NEXT_PUBLIC_LANG: en
-        NODE_ENV: staging
+        BUILD_ENV: staging
     - name: Deploy to staging by FTP
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
@@ -84,7 +84,7 @@ jobs:
         yarn build
       env:
         NEXT_PUBLIC_LANG: ja
-        NODE_ENV: staging
+        BUILD_ENV: staging
     - name: Deploy to staging by FTP
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:

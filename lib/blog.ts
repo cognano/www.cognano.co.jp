@@ -102,7 +102,7 @@ export const buildExcerpt = (b: ListBlockChildrenResponseEx): string => {
 }
 
 // YYYY-MM-DD
-const today = ['development', 'staging'].includes(process.env.NODE_ENV) ? '2123-01-01' : new Date().toLocaleString('sv-SE')
+const today = process.env.BUILD_ENV as string === 'staging' || process.env.NODE_ENV as string === 'development' ? '2123-01-01' : new Date().toLocaleString('sv-SE')
 
 export const blogQuery = {
   database_id: process.env.NOTION_BLOG_DB_ID,
