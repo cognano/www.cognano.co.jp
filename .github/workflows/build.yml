@@ -39,7 +39,6 @@ jobs:
     env:
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
       NOTIONATE_INCREMENTAL_CACHE: true
-      NODE_ENV: staging
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
@@ -70,6 +69,7 @@ jobs:
         yarn build
       env:
         NEXT_PUBLIC_LANG: en
+        NODE_ENV: staging
     - name: Deploy to staging by FTP
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
@@ -84,6 +84,7 @@ jobs:
         yarn build
       env:
         NEXT_PUBLIC_LANG: ja
+        NODE_ENV: staging
     - name: Deploy to staging by FTP
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
