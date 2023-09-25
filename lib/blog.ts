@@ -101,10 +101,19 @@ export const buildExcerpt = (b: ListBlockChildrenResponseEx): string => {
   return `${excerpt}${ellipsis}`
 }
 
+// YYYY-MM-DD
+const today = ['development', 'staging'].includes(process.env.NODE_ENV) ? '2123-01-01' : new Date().toLocaleString('sv-SE')
+
 export const blogQuery = {
   database_id: process.env.NOTION_BLOG_DB_ID,
   filter: {
     and: [
+      {
+        property: 'Date',
+        date: {
+          before: today,
+        }
+      },
       {
         property: 'Published',
         checkbox: {
@@ -134,6 +143,12 @@ export const newsQuery = {
   database_id: process.env.NOTION_BLOG_DB_ID,
   filter: {
     and: [
+      {
+        property: 'Date',
+        date: {
+          before: today,
+        }
+      },
       {
         property: 'Published',
         checkbox: {

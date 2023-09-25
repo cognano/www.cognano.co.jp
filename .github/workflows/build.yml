@@ -36,10 +36,10 @@ jobs:
   staging:
     runs-on: ubuntu-latest
     needs: [build]
-    if: github.ref != 'refs/heads/main'
     env:
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
       NOTIONATE_INCREMENTAL_CACHE: true
+      NODE_ENV: staging
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
