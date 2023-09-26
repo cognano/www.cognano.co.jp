@@ -2987,10 +2987,10 @@ normalize-url@2.0.1:
     query-string "^5.0.1"
     sort-keys "^2.0.0"
 
-notionate@^10.0.2:
-  version "10.0.2"
-  resolved "https://registry.yarnpkg.com/notionate/-/notionate-10.0.2.tgz#39a2765297120ef514bd3d9e3d9ee6f2373cd2a2"
-  integrity sha512-70Gi70MJ2zDnc5qiwK4NksOtdCb+Z+BmTV9tVlB8gnYncXtvBGi7wwxQMXJnY3K8ogm0DmjET1tE2+0hijmqeQ==
+notionate@^10.1.0:
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/notionate/-/notionate-10.1.0.tgz#f0ab6153e800ffa87c6a09449716c97c928fb5a8"
+  integrity sha512-iv2R+7y9OiRnHfH+TvGaE9ptujvL7BDTIWdABPkeWSbU24doqBDjgfQ2Hco2POw2g6cSfF1woSmcLahyAcGs4Q==
   dependencies:
     "@notionhq/client" "^2.1.1"
     "@types/imagemin" "^8.0.1"
