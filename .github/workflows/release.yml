@@ -69,15 +69,15 @@ jobs:
         yarn build
       env:
         NEXT_PUBLIC_LANG: en
-    - name: Deploy to production by FTP
-      uses: SamKirkland/FTP-Deploy-Action@4.3.0
-      with:
-        server: ${{ secrets.FTPHOST }}
-        username: ${{ secrets.FTPUSERNAME_PROD_EN }}
-        password: ${{ secrets.FTPPASSWORD_PROD_EN }}
-        local-dir: ./out/
-        exclude: |
-          ogimages/*-ja-*.png
+        #    - name: Deploy to production by FTP
+        #      uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        #      with:
+        #        server: ${{ secrets.FTPHOST }}
+        #        username: ${{ secrets.FTPUSERNAME_PROD_EN }}
+        #        password: ${{ secrets.FTPPASSWORD_PROD_EN }}
+        #        local-dir: ./out/
+        #        exclude: |
+        #          ogimages/*-ja-*.png
     - name: Run next export for japanese
       run: |
         yarn build
