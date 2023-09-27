@@ -78,7 +78,7 @@ const build = (page: DBPage): Blog => {
   const props = page.properties
   return {
     id: page.id,
-    title: props.Name.title.map(v => v.plain_text).join(',') || '',
+    title: props.Name.title.map(v => v.plain_text).filter(v => v).join(',') || '',
     slug: props.Slug.select.name || '',
     date: props.Date.date?.start || '',
     edited: page.last_edited_time,
@@ -101,10 +101,19 @@ export const buildExcerpt = (b: ListBlockChildrenResponseEx): string => {
   return `${excerpt}${ellipsis}`
 }
 
+// YYYY-MM-DD
+const today = process.env.BUILD_ENV as string === 'staging' || process.env.NODE_ENV as string === 'development' ? '2123-01-01' : new Date().toLocaleString('sv-SE')
+
 export const blogQuery = {
   database_id: process.env.NOTION_BLOG_DB_ID,
   filter: {
     and: [
+      {
+        property: 'Date',
+        date: {
+          before: today,
+        }
+      },
       {
         property: 'Published',
         checkbox: {
@@ -134,6 +143,12 @@ export const newsQuery = {
   database_id: process.env.NOTION_BLOG_DB_ID,
   filter: {
     and: [
+      {
+        property: 'Date',
+        date: {
+          before: today,
+        }
+      },
       {
         property: 'Published',
         checkbox: {

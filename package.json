@@ -14,7 +14,7 @@
     "@types/react-modal": "^3.13.1",
     "mermaid": "^10.1.0",
     "next": "^13.2.4",
-    "notionate": "^10.0.1",
+    "notionate": "^10.1.0",
     "prismjs": "^1.29.0",
     "react": "^18.2.0",
     "react-cookie-consent": "^8.0.1",
@@ -31,6 +31,7 @@
     "eslint": "^8.16.0",
     "eslint-config-next": "^13.0.3",
     "satori": "^0.1.1",
+    "serve": "^14.2.1",
     "twemoji": "^14.0.2",
     "typescript": "^4.9.3"
   }
