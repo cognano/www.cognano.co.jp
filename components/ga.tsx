@@ -7,13 +7,14 @@
 import React, { ReactNode, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
+import { lang } from '../i18n'
 
 type Props = {
   children?: ReactNode
 }
 declare global { interface Window { gtag: any } }
 
-const GAID = process.env.NEXT_PUBLIC_GA_ID
+const GAID = lang === 'en' ? process.env.NEXT_PUBLIC_EN_GA_ID : process.env.NEXT_PUBLIC_JA_GA_ID
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/pages
 export const pageview = (url: string) => {
