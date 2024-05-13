@@ -17,7 +17,7 @@ const linkschemaid = process.env.NOTION_EXTERNALLINKS_AND_SCHEMA_DB_ID
 
 export const Pages = [
   { slug: 'avida-hil6' },
-  { slug: 'avida-sars-cov2' },
+  { slug: 'avida-sars-cov-2' },
   { slug: 'vhh-corpus' },
 ]
 
