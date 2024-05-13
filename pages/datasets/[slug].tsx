@@ -1,5 +1,4 @@
 import type { NextPage, GetStaticProps, GetStaticPaths } from 'next'
-import Head from 'next/head'
 import Script from 'next/script'
 import Image from 'next/image'
 import t, { lang } from '../../i18n'
@@ -90,9 +89,7 @@ const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, me
   return (
     <main>
       <Hed title={abstract.title} desc={abstract.excerpt} ogimage={ogimage} />
-      <Head>
-        <Script id="schema.org" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(meta.schema) }} />
-      </Head>
+      <Script id="schema.org" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(meta.schema) }} />
 
       <div className={styles.pageHeader}>
         <div className={styles.cover}>
