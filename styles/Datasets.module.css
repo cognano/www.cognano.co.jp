@@ -1,3 +1,71 @@
+/* Index */
+.indexHeader {
+  margin-top: -1px;
+  position: relative;
+}
+.indexHeaderImage {
+  position: relative;
+  width: 100%;
+  height: 600px;
+}
+.indexHeaderImage img {
+  width: 100%;
+  object-fit: cover;
+}
+.indexHeaderText {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 500px;
+  z-index: 10;
+}
+.indexHeaderTextInner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-10);
+}
+.indexTitle {
+  color: #fff;
+}
+.indexDesc {
+  color: #fff;
+  font-size: var(--fontSize-3);
+}
+.list {
+  padding: var(--spacing-20) 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  grid-gap: 2rem;
+}
+.dataset {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  grid-gap: 2rem;
+  max-width: 500px;
+  overflow: hidden;
+}
+.datasetThumbnail {
+  display: block;
+  width: 180px;
+  height: auto;
+  overflow: hidden;
+}
+.datasetThumbnailInner {
+  display: block;
+  width: 400px;
+  height: 400px;
+  position: relative;
+}
+.datasetTitle {
+  margin: 0;
+  padding: 0 0 1rem;
+}
+.learnMoreButton a {
+  display: inline-block;
+  padding: var(--spacing-2) var(--spacing-10);
+}
+
 /* Page Header */
 .pageHeader {
   margin: 0 auto;
@@ -20,13 +88,10 @@
 }
 .unsplash {
   position: absolute;
-  bottom: -0.9rem;
+  bottom: -1rem;
   right: 1rem;
-  color: #eee;
-}
-.unsplash a {
-  color: #fff;
-  border-color: #eee;
+  background-color: #fff;
+  padding: .7rem .5rem 0;
 }
 .abstract {
   width: 100%;
