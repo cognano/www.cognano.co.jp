@@ -2,7 +2,7 @@
 import type { NextPage, GetStaticProps } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import t, { lang } from '../../i18n'
+import { lang } from '../../i18n'
 import { Content, GetContent } from '../../lib/content'
 import { Pages } from '../../lib/dataset'
 import { Blocks } from 'notionate/dist/components'

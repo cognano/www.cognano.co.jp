@@ -1,6 +1,4 @@
 import type { NextPage, GetStaticProps } from 'next'
-import Image from 'next/image'
-import Link from 'next/link'
 import { Blocks } from 'notionate/dist/components'
 import BlogList from '../../components/blog-list'
 import { GetContent, Content } from '../../lib/content'
@@ -21,8 +19,8 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
   const desc = await GetContent('blog')
   const ogimage = await CreateOgImage({
     id: `blog-${lang}`,
-    title: desc![lang].title,
-    desc: desc![lang].excerpt,
+    title: desc![lang]!.title,
+    desc: desc![lang]!.excerpt,
   })
 
   return {

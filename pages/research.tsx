@@ -4,7 +4,6 @@ import { lang } from '../i18n'
 import { Content, GetContent } from '../lib/content'
 import { Blocks } from 'notionate/dist/components'
 import styles from '../styles/Research.module.css'
-import Unsplash from '../components/unsplash'
 import Hed from '../components/hed'
 import CreateOgImage from '../lib/ogimage'
 
@@ -24,8 +23,8 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
 
   const ogimage = await CreateOgImage({
     id: `research-${lang}`,
-    title: research![lang].title,
-    desc: research![lang].excerpt,
+    title: research![lang]!.title,
+    desc: research![lang]!.excerpt,
   })
 
   return {
