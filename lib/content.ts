@@ -68,8 +68,8 @@ export type Content = {
 }
 
 export type ContentBilingual = {
-  en: Content
-  ja: Content
+  en: Content | null
+  ja: Content | null
 }
 
 const buildExcerpt = (b: ListBlockChildrenResponseEx): string => {
