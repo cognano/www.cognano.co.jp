@@ -65,6 +65,12 @@ export default {
   },
   datasets: {
     download: `Download`,
+    fasta: 'FASTQ, FASTA Files',
+    table: 'Library Tables, Labeled Dataset',
+    scripts: 'Scripts',
+    googleDrive: 'Open Google Drive',
+    zenodo: 'Open Zenodo',
+    github: 'Open GitHub',
   },
   error404: {
     title: '404',
