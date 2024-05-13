@@ -96,47 +96,62 @@ const query = {
   ]
 } as QueryDatabaseParameters
 
-export const GetContent = async (slug: string): Promise<ContentBilingual|undefined> => {
+export const GetContent = async (slug: string, category?: string): Promise<ContentBilingual|undefined> => {
   const { results } = await FetchDatabase(query)
 
   const pageEn = results.find(vv => {
     const v = vv as unknown as DBPage
-    return v.properties.Slug.select.name === slug
-      && v.properties.Language.select.name === 'English'
+    if (category) {
+      return v.properties.Slug.select.name === slug && v.properties.Language.select.name === 'English' && v.properties.Category.select.name === category
+    } else {
+      return v.properties.Slug.select.name === slug && v.properties.Language.select.name === 'English'
+    }
   }) as DBPage
 
   const pageJa = results.find(vv => {
     const v = vv as unknown as DBPage
-    return v.properties.Slug.select.name === slug
-      && v.properties.Language.select.name === 'Japanese'
+    if (category) {
+      return v.properties.Slug.select.name === slug && v.properties.Language.select.name === 'Japanese' && v.properties.Category.select.name === category
+    } else {
+      return v.properties.Slug.select.name === slug && v.properties.Language.select.name === 'Japanese'
+    }
   }) as DBPage
 
-  if (!pageEn || !pageJa) {
-    if (!pageEn) {
-      console.log(`english page with slug "${slug}" not found`)
-    }
-    if (!pageJa) {
-      console.log(`japanese page with slug "${slug}" not found`)
-    }
-    return undefined
+  if (!pageEn) {
+    console.log(`english page with slug "${slug}" not found`)
+  }
+  if (!pageJa) {
+    console.log(`japanese page with slug "${slug}" not found`)
   }
 
-  const blocksEn = await FetchBlocks(pageEn.id, pageEn.last_edited_time)
-  const en = {
-    title: pageEn.properties.Name.title.map(v => v.plain_text).join(','),
-    cover: (pageEn.cover && 'src' in pageEn.cover) ? pageEn.cover.src : '',
-    page: await FetchPage(pageEn.id, pageEn.last_edited_time),
-    blocks: blocksEn,
-    excerpt: buildExcerpt(blocksEn),
-  } as Content
-  const blocksJa = await FetchBlocks(pageJa.id, pageJa.last_edited_time)
-  const ja = {
-    title: pageJa.properties.Name.title.map(v => v.plain_text).join(','),
-    cover: (pageJa.cover && 'src' in pageJa.cover) ? pageJa.cover.src : '',
-    page: await FetchPage(pageJa.id, pageJa.last_edited_time),
-    blocks: blocksJa,
-    excerpt: buildExcerpt(blocksJa),
-  } as Content
+  let en = null
+  let ja = null
+
+  if (pageEn) {
+    const blocksEn = await FetchBlocks(pageEn.id, pageEn.last_edited_time)
+    en = {
+      id: pageEn.id,
+      title: pageEn.properties.Name.title.map(v => v.plain_text).join(','),
+      cover: (pageEn.cover && 'src' in pageEn.cover) ? pageEn.cover.src : '',
+      page: await FetchPage(pageEn.id, pageEn.last_edited_time),
+      blocks: blocksEn,
+      excerpt: buildExcerpt(blocksEn),
+      last_edited_time: pageEn.last_edited_time,
+    } as Content
+  }
+
+  if (pageJa) {
+    const blocksJa = await FetchBlocks(pageJa.id, pageJa.last_edited_time)
+    ja = {
+      id: pageJa.id,
+      title: pageJa.properties.Name.title.map(v => v.plain_text).join(','),
+      cover: (pageJa.cover && 'src' in pageJa.cover) ? pageJa.cover.src : '',
+      page: await FetchPage(pageJa.id, pageJa.last_edited_time),
+      blocks: blocksJa,
+      excerpt: buildExcerpt(blocksJa),
+      last_edited_time: pageJa.last_edited_time,
+    } as Content
+  }
 
   return { en, ja }
 }
