@@ -19,6 +19,11 @@ type DBPage = DBPageBase & {
       title: RichTextItemResponse[]
       id: string
     }
+    Category: {
+      type: "select"
+      select: SelectPropertyResponse
+      id: string
+    }
     Slug: {
       type: "select"
       select: SelectPropertyResponse
@@ -44,15 +49,22 @@ type DBPage = DBPageBase & {
       checkbox: boolean
       id: string
     }
+    'Last updated at': {
+      type: "date"
+      date: DateResponse | null
+      id: string
+    }
   }
 }
 
 export type Content = {
+  id: string
   title: string
   cover: string
   page: GetPageResponseEx
   blocks: ListBlockChildrenResponseEx
   excerpt: string
+  last_edited_time: string
 }
 
 export type ContentBilingual = {
