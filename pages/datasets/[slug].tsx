@@ -171,7 +171,7 @@ const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, me
             {statistics.title}
           </h2>
           <div className={styles.statisticsDesc}>
-            <Blocks blocks={metadata.blocks} />
+            <Blocks blocks={statistics.blocks} />
           </div>
         </div>
       </div>
