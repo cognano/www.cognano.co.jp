@@ -21,6 +21,8 @@ type Props = {
   license: Content
   momlibs: Content
   sublibs: Content
+  subjects: Content
+  antigens: Content
   metadata: Content
   momlibsDb: QueryDatabaseResponseEx
   sublibsDb: QueryDatabaseResponseEx
@@ -56,6 +58,8 @@ export const getStaticProps: GetStaticProps<Props|{}, Params> = async ({ params 
   const metadata = await GetContent('metadata', category)
   const momlibs = await GetContent('mother-libraries', category)
   const sublibs = await GetContent('sublibraries', category)
+  const subjects = await GetContent('subjects', category)
+  const antigens = await GetContent('immunized-antigens', category)
   const license = await GetContent('license', category)
   const momlibsDb = await GetMomLibs(slug)
   const sublibsDb = await GetSubLibs(slug)
@@ -76,6 +80,8 @@ export const getStaticProps: GetStaticProps<Props|{}, Params> = async ({ params 
       metadata: metadata![lang],
       momlibs: momlibs![lang],
       sublibs: sublibs![lang],
+      subjects: subjects![lang],
+      antigens: antigens![lang],
       license: license![lang],
       momlibsDb,
       sublibsDb,
@@ -85,7 +91,7 @@ export const getStaticProps: GetStaticProps<Props|{}, Params> = async ({ params 
   }
 }
 
-const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, metadata, momlibs, sublibs, license, momlibsDb, sublibsDb, meta, ogimage }) => {
+const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, metadata, momlibs, sublibs, subjects, antigens, license, momlibsDb, sublibsDb, meta, ogimage }) => {
   return (
     <main>
       <Hed title={abstract.title} desc={abstract.excerpt} ogimage={ogimage} />
@@ -165,53 +171,79 @@ const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, me
       )}
 
       {statistics && (
-      <div className="container">
-        <div className={styles.statistics}>
-          <h2 className={styles.statisticsTitle}>
-            {statistics.title}
-          </h2>
-          <div className={styles.statisticsDesc}>
-            <Blocks blocks={statistics.blocks} />
-          </div>
+      <div className={styles.statistics}>
+        <h2 className={styles.statisticsTitle}>
+          {statistics.title}
+        </h2>
+        <div className={styles.statisticsDesc}>
+          <Blocks blocks={statistics.blocks} />
+        </div>
+      </div>
+      )}
+
+      {metadata && (
+      <div className={styles.metadata}>
+        <h2 className={styles.metadataTitle}>
+          Metadata
+        </h2>
+        <div className={styles.metadataDesc}>
+          <Blocks blocks={metadata.blocks} />
         </div>
       </div>
       )}
 
       {momlibs && (
+      <div className={styles.momlibs}>
+        <h3 className={styles.momlibsTitle}>
+          {momlibs.title}
+        </h3>
+        <div className={styles.momlibsDesc}>
+          <Blocks blocks={momlibs.blocks} />
+        </div>
+        <div className={styles.momlibsDb}>
+          <Table db={momlibsDb} keys={['Name', 'Sampling site', 'Collection Timing', 'Subject Species', 'Subject Name', 'Subject Sex']} />
+        </div>
+      </div>
+      )}
+
+      {sublibs && (
+      <div className={styles.sublibs}>
+        <h3 className={styles.sublibsTitle}>
+          {sublibs.title}
+        </h3>
+        <div className={styles.sublibsDesc}>
+          <Blocks blocks={sublibs.blocks} />
+        </div>
+        <div className={`il6-sublibs ${styles.sublibsDb}`}>
+          <Table db={sublibsDb} keys={['Name', 'Type', 'Antigen']} />
+        </div>
+      </div>
+      )}
+
+      {subjects && (
+      <div className={styles.subjects}>
+        <h3 className={styles.subjectsTitle}>
+          {subjects.title}
+        </h3>
+        <div className={styles.subjectsDesc}>
+          <Blocks blocks={subjects.blocks} />
+        </div>
+      </div>
+      )}
+
+      {antigens && (
+      <div className={styles.antigens}>
+        <h3 className={styles.antigensTitle}>
+          {antigens.title}
+        </h3>
+        <div className={styles.antigensDesc}>
+          <Blocks blocks={antigens.blocks} />
+        </div>
+      </div>
+      )}
+
+      {license && (
       <div className="container">
-        <div className={styles.metadata}>
-          <h2 className={styles.metadataTitle}>
-            Metadata
-          </h2>
-          <div className={styles.metadataDesc}>
-            <Blocks blocks={momlibs.blocks} />
-          </div>
-        </div>
-
-        <div className={styles.momlibs}>
-          <h3 className={styles.momlibsTitle}>
-            {momlibs.title}
-          </h3>
-          <div className={styles.momlibsDesc}>
-            <Blocks blocks={momlibs.blocks} />
-          </div>
-          <div className={styles.momlibsDb}>
-            <Table db={momlibsDb} keys={['Name', 'Sampling site', 'Collection Timing', 'Subject Species', 'Subject Name', 'Subject Sex']} />
-          </div>
-        </div>
-
-        <div className={styles.sublibs}>
-          <h3 className={styles.sublibsTitle}>
-            {sublibs.title}
-          </h3>
-          <div className={styles.sublibsDesc}>
-            <Blocks blocks={sublibs.blocks} />
-          </div>
-          <div className={`il6-sublibs ${styles.sublibsDb}`}>
-            <Table db={sublibsDb} keys={['Name', 'Type', 'Antigen']} />
-          </div>
-        </div>
-
         <div className={`il6-footer ${styles.license}`}>
           <h2>
             {license.title}

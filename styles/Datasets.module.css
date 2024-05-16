@@ -214,6 +214,30 @@
   margin-bottom: var(--spacing-10);
 }
 
+.antigens {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.antigensTitle {
+  margin-bottom: var(--spacing-4);
+  font-size: var(--fontSize-3);
+}
+.antigensDesc {
+  margin-bottom: var(--spacing-10);
+}
+
+.subjects {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.subjectsTitle {
+  margin-bottom: var(--spacing-4);
+  font-size: var(--fontSize-3);
+}
+.subjectsDesc {
+  margin-bottom: var(--spacing-10);
+}
+
 /* License */
 .license {
   max-width: 800px;
