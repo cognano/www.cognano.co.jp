@@ -98,6 +98,11 @@ type DBProps = DBPageBase & {
       select: SelectPropertyResponse | null
       id: string
     }
+    Dataset: {
+      type: "select"
+      select: SelectPropertyResponse | null
+      id: string
+    }
   }
 }
 
@@ -122,13 +127,16 @@ const GetSchema = async (block_id: string, last_edited_time: string): Promise<st
     .replaceAll(/: ("|\[)/g, ':"')
 }
 
-export const GetDatasetMetas = async (name: string): Promise<DatasetMetas> => {
-  const { results } = await GetExternalLinksAndSchemas(name)
+export const GetDatasetMetas = async (dataset_name: string): Promise<DatasetMetas> => {
+  const { results } = await GetExternalLinksAndSchemas(dataset_name)
   let schema = ''
   let links = {} as ExtLinks
 
   for (const vv of results) {
     const v = vv as unknown as DBProps
+    const dataset = v.properties.Dataset.select?.name || ''
+    if(dataset !== dataset_name) continue
+
     const slug = v.properties.Slug.select?.name || ''
     if (slug === 'schema') {
       schema = await GetSchema(v.id, v.last_edited_time)
