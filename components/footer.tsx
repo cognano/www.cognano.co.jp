@@ -49,6 +49,11 @@ const Footer: React.FC<Props> = ({ children }) => {
               </Link>
             </li>
             <li>
+              <Link href="/datasets">
+                {t('header.datasets')}
+              </Link>
+            </li>
+            <li>
               <Link href="/blog">
                 {t('header.blog')}
               </Link>
@@ -110,7 +115,7 @@ const Footer: React.FC<Props> = ({ children }) => {
           </Link>
         </li>
         <li>
-          <Link href="/datasets/avida-hil6">
+          <Link href="/datasets">
             {databaseIcon()}
             {t('header.datasets')}
           </Link>
