@@ -66,6 +66,7 @@ type ExtLink = {
   name: string
   url: string
   size: string
+  text: string
   slug: ExtLinkSlugs
 }
 
@@ -89,6 +90,11 @@ type DBProps = DBPageBase & {
       id: string
     }
     Size: {
+      type: "rich_text"
+      rich_text: RichTextItemResponse[]
+      id: string
+    }
+    Text: {
       type: "rich_text"
       rich_text: RichTextItemResponse[]
       id: string
@@ -145,8 +151,10 @@ export const GetDatasetMetas = async (dataset_name: string): Promise<DatasetMeta
     const name = v.properties.Name.title.map(v => v.plain_text).join('')
     const url = v.properties.URL.url
     const size = v.properties.Size.rich_text.map(v => v.plain_text).join('')
+    const text = v.properties.Text.rich_text.map(v => v.plain_text).join('')
+
     // @ts-ignore
-    links[slug] = { name, url, size, slug }
+    links[slug] = { name: name, url, size, slug, text }
   }
 
   return {

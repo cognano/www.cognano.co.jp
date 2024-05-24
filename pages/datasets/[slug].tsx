@@ -114,7 +114,7 @@ const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, me
           <div className={styles.download}>
             <div className={`button ${styles.downloadButton}`}>
               <a href={meta.links.dataset.url}>
-                {t('datasets.download')}
+                {meta.links.dataset.text}
               </a>
             </div>
             <div className={styles.downloadSize}>
@@ -148,21 +148,21 @@ const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, me
           </div>
           <div className={styles.externalLinks}>
             <div className={`button ${styles.externalLink}`}>
-              <p>{t('datasets.fasta')}</p>
+                <p>{meta.links.fasta.name}</p>
               <a href={meta.links.fasta.url}>
-                {t('datasets.googleDrive')}
+                  {meta.links.fasta.text}
               </a>
             </div>
             <div className={`button ${styles.externalLink}`}>
-              <p>{t('datasets.table')}</p>
+                <p>{meta.links.tables.name}</p>
               <a href={meta.links.tables.url}>
-                {t('datasets.zenodo')}
+                  {meta.links.tables.text}
               </a>
             </div>
             <div className={`button ${styles.externalLink}`}>
-              <p>{t('datasets.scripts')}</p>
+                <p>{meta.links.scripts.name}</p>
               <a href={meta.links.scripts.url}>
-                {t('datasets.github')}
+                  {meta.links.scripts.text}
               </a>
             </div>
           </div>
