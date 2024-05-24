@@ -95,7 +95,9 @@ const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, me
   return (
     <main>
       <Hed title={abstract.title} desc={abstract.excerpt} ogimage={ogimage} />
-      <Script id="schema.org" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(meta.schema) }} />
+      {meta.schema && (
+        <Script id="schema.org" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(meta.schema) }} />
+      )}
 
       <div className={styles.pageHeader}>
         <div className={styles.cover}>
@@ -117,9 +119,11 @@ const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, me
                 {meta.links.dataset.text}
               </a>
             </div>
-            <div className={styles.downloadSize}>
-              <span>Size: {meta.links.dataset.size}</span>
-            </div>
+            {meta.links.dataset.size !== '' && (
+              <div className={styles.downloadSize}>
+                <span>Size: {meta.links.dataset.size}</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -147,24 +151,30 @@ const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, me
             <Blocks blocks={pipeline.blocks} />
           </div>
           <div className={styles.externalLinks}>
-            <div className={`button ${styles.externalLink}`}>
+            {meta.links.fasta && (
+              <div className={`button ${styles.externalLink}`}>
                 <p>{meta.links.fasta.name}</p>
-              <a href={meta.links.fasta.url}>
+                <a href={meta.links.fasta.url}>
                   {meta.links.fasta.text}
-              </a>
-            </div>
-            <div className={`button ${styles.externalLink}`}>
+                </a>
+              </div>
+            )}
+            {meta.links.tables && (
+              <div className={`button ${styles.externalLink}`}>
                 <p>{meta.links.tables.name}</p>
-              <a href={meta.links.tables.url}>
+                <a href={meta.links.tables.url}>
                   {meta.links.tables.text}
-              </a>
-            </div>
-            <div className={`button ${styles.externalLink}`}>
+                </a>
+              </div>
+            )}
+            {meta.links.scripts && (
+              <div className={`button ${styles.externalLink}`}>
                 <p>{meta.links.scripts.name}</p>
-              <a href={meta.links.scripts.url}>
+                <a href={meta.links.scripts.url}>
                   {meta.links.scripts.text}
-              </a>
-            </div>
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </div>
