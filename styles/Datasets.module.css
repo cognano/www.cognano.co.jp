@@ -131,6 +131,11 @@
 .columnsTitle {
   margin-top: var(--spacing-10);
 }
+/* subtitle */
+.columns h3 {
+  margin-bottom: var(--spacing-4);
+  font-size: var(--fontSize-3);
+}
 .columnsContent {
   margin-bottom: var(--spacing-10);
 }
