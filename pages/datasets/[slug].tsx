@@ -1,4 +1,5 @@
 import type { NextPage, GetStaticProps, GetStaticPaths } from 'next'
+import Link from 'next/link'
 import Script from 'next/script'
 import Image from 'next/image'
 import t, { lang } from '../../i18n'
@@ -107,6 +108,11 @@ const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, me
           </div>
         </div>
         <div className={styles.abstract}>
+          <p className={styles.categoryLabel}>
+            <Link href="/datasets">
+              {t('datasets.datasets')}
+            </Link>
+          </p>
           <h1 className={styles.title}>
             {abstract.title}
           </h1>

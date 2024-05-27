@@ -60,6 +60,7 @@ export default {
     en: `英語`
   },
   datasets: {
+    datasets: `データセット`,
     download: `ダウンロード`,
     fasta: 'FASTQ, FASTA ファイル',
     table: 'Library テーブル, Labeled データセット',

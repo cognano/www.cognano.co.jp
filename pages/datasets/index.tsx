@@ -22,7 +22,9 @@ export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
   const datasets: Content[] = []
   for (const p of Pages) {
     const d = await GetContent('abstract', p.slug)
-    datasets.push(d![lang]!)
+    if (d && d[lang]) {
+      datasets.push(d[lang]!)
+    }
   }
 
   const ogimage = await CreateOgImage({
@@ -48,8 +50,8 @@ const DatasetsIndex: NextPage<Props> = ({ desc, datasets, ogimage }) => {
       <div className={styles.indexHeader}>
         <div className={styles.indexHeaderImage}>
           <Image src={desc.cover} fill={true} alt={`${desc.title} image`} />
-          <div className={styles.unsplash}>
-            <Unsplash />
+          <div className={styles.indexUnsplash}>
+            <Unsplash name="Transly Translation Agency" href="https://unsplash.com/@translytranslations" />
           </div>
         </div>
         <div className={styles.indexHeaderText}>
