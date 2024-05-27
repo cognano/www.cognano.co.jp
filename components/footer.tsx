@@ -83,12 +83,12 @@ const Footer: React.FC<Props> = ({ children }) => {
             &copy; {nowYear} COGNANO, Inc.
           </p>
           <p className={styles.sitelicense}>
-            Powered by <a href="https://nextjs.org" target="_blank" rel="noopener noreferrer">Next.js</a> and <a href="https://github.com/linyows/notionate" target="_blank" rel="noopener noreferrer">Notionate</a>.
+            Powered by Next.js and <a href="https://rotion.linyo.ws" target="_blank" rel="noopener noreferrer">Rotion</a>.
           </p>
         </div>
         <p className={styles.snsnav}>
           <a className={styles.youtube} href="https://www.youtube.com/channel/UCffw3_nn9m_nJhOED6QS0vQ" target="_blank" rel="noopener noreferrer">{youtubeIcon()}</a>
-          <a className={styles.twitter} href="https://twitter.com/cognano_inc" target="_blank" rel="noopener noreferrer">{twitterIcon()}</a>
+          <a className={styles.twitter} href="https://x.com/cognano_inc" target="_blank" rel="noopener noreferrer">{twitterIcon()}</a>
           <a className={styles.facebook} href="https://www.facebook.com/profile.php?id=100057515646298" target="_blank" rel="noopener noreferrer">{facebookIcon()}</a>
           <a className={styles.linkedin} href="https://jp.linkedin.com/company/cognano" target="_blank" rel="noopener noreferrer">{linkedinIcon()}</a>
           <a className={styles.github} href="https://github.com/cognano" target="_blank" rel="noopener noreferrer">{githubIcon()}</a>
