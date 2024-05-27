@@ -181,73 +181,85 @@ const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, me
       )}
 
       {statistics && (
-      <div className={styles.statistics}>
-        <h2 className={styles.statisticsTitle}>
-          {statistics.title}
-        </h2>
-        <div className={styles.statisticsDesc}>
-          <Blocks blocks={statistics.blocks} />
+      <div className="container">
+        <div className={styles.statistics}>
+          <h2 className={styles.statisticsTitle}>
+            {statistics.title}
+          </h2>
+          <div className={styles.statisticsDesc}>
+            <Blocks blocks={statistics.blocks} />
+          </div>
         </div>
       </div>
       )}
 
       {metadata && (
-      <div className={styles.metadata}>
-        <h2 className={styles.metadataTitle}>
-          Metadata
-        </h2>
-        <div className={styles.metadataDesc}>
-          <Blocks blocks={metadata.blocks} />
+      <div className="container">
+        <div className={styles.metadata}>
+          <h2 className={styles.metadataTitle}>
+            Metadata
+          </h2>
+          <div className={styles.metadataDesc}>
+            <Blocks blocks={metadata.blocks} />
+          </div>
         </div>
       </div>
       )}
 
       {momlibs && (
-      <div className={styles.momlibs}>
-        <h3 className={styles.momlibsTitle}>
-          {momlibs.title}
-        </h3>
-        <div className={styles.momlibsDesc}>
-          <Blocks blocks={momlibs.blocks} />
-        </div>
-        <div className={styles.momlibsDb}>
-          <Table db={momlibsDb} keys={['Name', 'Sampling site', 'Collection Timing', 'Subject Species', 'Subject Name', 'Subject Sex']} />
+      <div className="container">
+        <div className={styles.momlibs}>
+          <h3 className={styles.momlibsTitle}>
+            {momlibs.title}
+          </h3>
+          <div className={styles.momlibsDesc}>
+            <Blocks blocks={momlibs.blocks} />
+          </div>
+          <div className={styles.momlibsDb}>
+            <Table db={momlibsDb} keys={['Name', 'Sampling site', 'Collection Timing', 'Subject Species', 'Subject Name', 'Subject Sex']} />
+          </div>
         </div>
       </div>
       )}
 
       {sublibs && (
-      <div className={styles.sublibs}>
-        <h3 className={styles.sublibsTitle}>
-          {sublibs.title}
-        </h3>
-        <div className={styles.sublibsDesc}>
-          <Blocks blocks={sublibs.blocks} />
-        </div>
-        <div className={`il6-sublibs ${styles.sublibsDb}`}>
-          <Table db={sublibsDb} keys={['Name', 'Type', 'Antigen']} />
+      <div className="container">
+        <div className={styles.sublibs}>
+          <h3 className={styles.sublibsTitle}>
+            {sublibs.title}
+          </h3>
+          <div className={styles.sublibsDesc}>
+            <Blocks blocks={sublibs.blocks} />
+          </div>
+          <div className={`il6-sublibs ${styles.sublibsDb}`}>
+            <Table db={sublibsDb} keys={['Name', 'Type', 'Antigen']} />
+          </div>
         </div>
       </div>
       )}
 
       {subjects && (
-      <div className={styles.subjects}>
-        <h3 className={styles.subjectsTitle}>
-          {subjects.title}
-        </h3>
-        <div className={styles.subjectsDesc}>
-          <Blocks blocks={subjects.blocks} />
+      <div className="container">
+        <div className={styles.subjects}>
+          <h3 className={styles.subjectsTitle}>
+            {subjects.title}
+          </h3>
+          <div className={styles.subjectsDesc}>
+            <Blocks blocks={subjects.blocks} />
+          </div>
         </div>
       </div>
       )}
 
       {antigens && (
-      <div className={styles.antigens}>
-        <h3 className={styles.antigensTitle}>
-          {antigens.title}
-        </h3>
-        <div className={styles.antigensDesc}>
-          <Blocks blocks={antigens.blocks} />
+      <div className="container">
+        <div className={styles.antigens}>
+          <h3 className={styles.antigensTitle}>
+            {antigens.title}
+          </h3>
+          <div className={styles.antigensDesc}>
+            <Blocks blocks={antigens.blocks} />
+          </div>
         </div>
       </div>
       )}
