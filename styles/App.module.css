@@ -210,11 +210,11 @@
 .youtube:hover {
   fill: #FF0000;
 }
-.twitter {
-  width: 25px;
+.x {
+  width: 21px;
 }
-.twitter:hover {
-  fill: #00acee;
+.x:hover {
+  fill: #000;
 }
 .facebook,
 .linkedin {

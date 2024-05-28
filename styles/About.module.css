@@ -26,7 +26,8 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: var(--spacing-16) var(--spacing-20) var(--spacing-20);
-  background-color: rgba(255,255,255,.6);
+  background-color: rgba(255,255,255,.2);
+  backdrop-filter: blur(5px);
   border-radius: 30px;
 }
 .purposeLabel {
@@ -52,10 +53,9 @@
   padding: var(--spacing-10) 0 0;
 }
 .purposeBody p {
-  line-height: 1.6;
+  line-height: 1.8;
   font-family: var(--fontFamily-serif);
   font-size: var(--fontSize-3);
-  font-weight: var(--fontWeight-bold);
 }
 .purposeBody {
   margin: 0 auto;
