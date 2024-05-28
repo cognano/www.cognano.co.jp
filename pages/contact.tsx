@@ -3,7 +3,6 @@ import { MutatingDots } from 'react-loader-spinner'
 import { useState } from 'react'
 import { GetStaticProps, NextPage } from 'next'
 import { Blocks } from 'notionate/dist/components'
-import Link from 'next/link'
 import { GetContent, Content } from '../lib/content'
 import styles from '../styles/Contact.module.css'
 import CreateOgImage from '../lib/ogimage'
@@ -19,8 +18,8 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
 
   const ogimage = await CreateOgImage({
     id: `contact-${lang}`,
-    title: contact![lang].title,
-    desc: contact![lang].excerpt,
+    title: contact![lang]!.title,
+    desc: contact![lang]!.excerpt,
   })
 
   return {

@@ -1,7 +1,5 @@
 import type { NextPage, GetStaticProps } from 'next'
-import Image from 'next/image'
-import Link from 'next/link'
-import t, { lang } from '../../i18n'
+import { lang } from '../../i18n'
 import { GetProjectsOriginal, projectsQuery } from '../../lib/project'
 import { QueryDatabaseResponseEx } from 'notionate'
 import { Blocks } from 'notionate/dist/components'
@@ -23,8 +21,8 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
 
   const ogimage = await CreateOgImage({
     id: `projects-${lang}`,
-    title: desc![lang].title,
-    desc: desc![lang].excerpt,
+    title: desc![lang]!.title,
+    desc: desc![lang]!.excerpt,
   })
 
   return {

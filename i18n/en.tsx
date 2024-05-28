@@ -64,7 +64,14 @@ export default {
     description: `COGNANO is a venture that aims at computer-aided drug discovery.`,
   },
   datasets: {
+    datasets: `Datasets`,
     download: `Download`,
+    fasta: 'FASTQ, FASTA Files',
+    table: 'Library Tables, Labeled Dataset',
+    scripts: 'Scripts',
+    googleDrive: 'Open Google Drive',
+    zenodo: 'Open Zenodo',
+    github: 'Open GitHub',
   },
   error404: {
     title: '404',

@@ -1,10 +1,7 @@
 import type { NextPage, GetStaticProps } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
 import { Blocks } from 'notionate/dist/components'
 import NewsList from '../../components/news-list'
-import t, { lang } from '../../i18n'
+import { lang } from '../../i18n'
 import { newsQuery, Blog, GetBlogsEachLangs } from '../../lib/blog'
 import { GetContent, Content } from '../../lib/content'
 import styles from '../../styles/News.module.css'
@@ -23,8 +20,8 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
 
   const ogimage = await CreateOgImage({
     id: `news-${lang}`,
-    title: desc![lang].title,
-    desc: desc![lang].excerpt,
+    title: desc![lang]!.title,
+    desc: desc![lang]!.excerpt,
   })
 
   return {

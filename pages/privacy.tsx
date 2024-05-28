@@ -1,6 +1,4 @@
-import type { NextPage, GetStaticPaths, GetStaticProps } from 'next'
-import Image from 'next/image'
-import Link from 'next/link'
+import type { NextPage, GetStaticProps } from 'next'
 import { formatDate } from '../lib/date'
 import t, { lang } from '../i18n'
 import { GetContent, Content } from '../lib/content'
@@ -22,8 +20,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const ogimage = await CreateOgImage({
     id: `privacy-${lang}`,
-    title: content![lang].title,
-    desc: content![lang].excerpt,
+    title: content![lang]!.title,
+    desc: content![lang]!.excerpt,
   })
 
   if (!content) {

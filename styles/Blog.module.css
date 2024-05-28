@@ -48,6 +48,7 @@
 }
 .authors {
   display: inline;
+  overflow: hidden;
 }
 .authors img {
   width: 30px;
@@ -56,10 +57,21 @@
   vertical-align: middle;
   margin-right: 10px;
   margin-top: -2px;
+  object-fit: cover;
 }
-.authors span {
+.author {
   white-space: nowrap;
   margin-right: 10px;
+  width: 140px;
+  display: inline;
+  overflow: hidden;
+}
+.nofirstAuthor {
+  display: inline-block;
+  margin-bottom: -8px;
+  width: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .date {
   display: inline-block;
@@ -151,7 +163,6 @@
   .blog h1,
   .title {
     padding-top: .8rem;
-    line-height: 1.6;
     font-size: var(--fontSize-3);
   }
   .blocks p {

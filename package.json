@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@next/font": "^13.1.2",
     "@types/prismjs": "^1.26.0",
     "@types/react-modal": "^3.13.1",
     "mermaid": "^10.1.0",

@@ -60,7 +60,14 @@ export default {
     en: `英語`
   },
   datasets: {
+    datasets: `データセット`,
     download: `ダウンロード`,
+    fasta: 'FASTQ, FASTA ファイル',
+    table: 'Library テーブル, Labeled データセット',
+    scripts: 'スクリプト',
+    googleDrive: 'Google Drive を開く',
+    zenodo: 'Zenodo を開く',
+    github: 'GitHub を開く',
   },
   head: {
     title: `COGNANO - コンピューターを利用した創薬を目指すベンチャー`,
