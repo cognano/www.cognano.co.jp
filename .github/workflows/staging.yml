@@ -3,12 +3,14 @@ name: Staging
 on:
   repository_dispatch:
   workflow_dispatch:
+  pull_request:
   workflow_run:
     workflows: ["Build"]
+    branches: [main]
     types: [completed]
 
 jobs:
-  staging:
+  build_and_deployment:
     runs-on: ubuntu-latest
     env:
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
@@ -40,6 +42,7 @@ jobs:
       run: |
         yarn install
         yarn add sharp --ignore-engines
+
     - name: Run next build for english
       run: |
         yarn build
@@ -55,6 +58,7 @@ jobs:
         local-dir: ./out/
         exclude: |
           ogimages/*-ja-*.png
+
     - name: Run next build for japanese
       run: |
         yarn build
@@ -64,7 +68,7 @@ jobs:
     - name: Deploy to stag.cognano.co.jp by FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        server: ${{ secrets.FTPHOST }}
+        server: ${{ secrets.FTP_HOST }}
         username: ${{ secrets.FTP_USER_STAG_JA }}
         password: ${{ secrets.FTP_PASS_STAG_JA }}
         local-dir: ./out/

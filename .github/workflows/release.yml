@@ -9,7 +9,7 @@ on:
     types: [completed]
 
 jobs:
-  release:
+  build_and_deployment:
     runs-on: ubuntu-latest
     env:
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
@@ -41,6 +41,7 @@ jobs:
       run: |
         yarn install
         yarn add sharp --ignore-engines
+
     - name: Run next build for english
       run: |
         yarn build
@@ -55,6 +56,7 @@ jobs:
         local-dir: ./out/
         exclude: |
           ogimages/*-ja-*.png
+
     - name: Run next build for japanese
       run: |
         yarn build
