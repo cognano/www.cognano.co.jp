@@ -2,7 +2,7 @@ import type { NextPage, GetStaticProps } from 'next'
 import Image from 'next/image'
 import { lang } from '../i18n'
 import { Content, GetContent } from '../lib/content'
-import { Blocks } from 'notionate/dist/components'
+import { Page } from 'rotion/ui'
 import styles from '../styles/Research.module.css'
 import Hed from '../components/hed'
 import CreateOgImage from '../lib/ogimage'
@@ -47,7 +47,7 @@ const Research: NextPage<Props> = ({ research, tnbc, vhh, covid, ogimage }) => {
           {research.title}
         </h1>
         <div>
-          <Blocks blocks={research.blocks} />
+          <Page blocks={research.blocks} />
         </div>
       </div>
 
@@ -64,7 +64,7 @@ const Research: NextPage<Props> = ({ research, tnbc, vhh, covid, ogimage }) => {
               </span>
             </p>
             <div className={styles.researchDesc}>
-              <Blocks blocks={vhh.blocks} />
+              <Page blocks={vhh.blocks} />
             </div>
           </div>
 
@@ -77,7 +77,7 @@ const Research: NextPage<Props> = ({ research, tnbc, vhh, covid, ogimage }) => {
               <Image src={covid.cover} fill={true} alt={covid.title} />
             </p>
             <div className={styles.researchDesc}>
-              <Blocks blocks={covid.blocks} />
+              <Page blocks={covid.blocks} />
             </div>
           </div>
 
@@ -90,7 +90,7 @@ const Research: NextPage<Props> = ({ research, tnbc, vhh, covid, ogimage }) => {
               <Image src={tnbc.cover} fill={true} alt={tnbc.title} />
             </p>
             <div className={styles.researchDesc}>
-              <Blocks blocks={tnbc.blocks} />
+              <Page blocks={tnbc.blocks} />
             </div>
           </div>
         </div>

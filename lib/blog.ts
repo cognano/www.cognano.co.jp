@@ -7,7 +7,7 @@ import {
   QueryDatabaseParameters,
   PersonUserObjectResponseEx,
   ListBlockChildrenResponseEx,
-} from 'notionate'
+} from 'rotion'
 import { buildPlainText } from './member'
 
 type Writer = {

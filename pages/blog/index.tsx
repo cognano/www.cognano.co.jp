@@ -1,5 +1,5 @@
 import type { NextPage, GetStaticProps } from 'next'
-import { Blocks } from 'notionate/dist/components'
+import { Page } from 'rotion/ui'
 import BlogList from '../../components/blog-list'
 import { GetContent, Content } from '../../lib/content'
 import { Blog, blogQuery, GetBlogsEachLangs } from '../../lib/blog'
@@ -43,7 +43,7 @@ const BlogIndex: NextPage<Props> = ({ blog, desc, ogimage }) => {
             {desc.title}
           </h1>
           <div>
-            <Blocks blocks={desc.blocks} />
+            <Page blocks={desc.blocks} />
           </div>
         </header>
       </div>

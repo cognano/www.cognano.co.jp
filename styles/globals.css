@@ -78,6 +78,9 @@ a {
   --color-heading: #1a202c;
   --color-heading-black: black;
   --color-accent: #d1dce5;
+
+  --rotion-font-family: var(--fontFamily-sans);
+  --rotion-tertiary-text: var(--color-text-light);
 }
 
 /* HTML elements */
@@ -328,102 +331,103 @@ a:focus {
   }
 }
 
-/* NOTIONATE */
-.container .notionate-list {
+/* rotion */
+.container .rotion-list {
   font-size: var(--fontSize-2);
 }
-.container .notionate-list-record {
+.container .rotion-list-record {
   margin: 8px 0;
   padding: 8px 0;
 }
-.container .notionate-list-spacer {
+.container .rotion-list-spacer {
   border-top: 1px dashed var(--color-text);
 }
-.container .notionate-list-title {
+.container .rotion-list-title {
   font-weight: bold;
 }
-.container .notionate-list-title-a:hover {
+.container .rotion-list-title-a:hover {
   color: var(--color-primary);
 }
-.container .notionate-list-date {
+.container .rotion-list-date {
   color: var(--color-text);
   font-weight: bold;
 }
-.container .notionate-list-record:hover {
+.container .rotion-list-record:hover {
   background-color: #eee;
 }
 @media (prefers-color-scheme: dark) {
-  .container .notionate-list-record:hover {
+  .container .rotion-list-record:hover {
     background-color: #eee;
   }
-  .container .notionate-select-default {
+  .container .rotion-select-default {
     color: rgb(50, 48, 44);
     background-color: rgba(227, 226, 224, 0.5);
   }
-  .container .notionate-select-gray {
+  .container .rotion-select-gray {
     color: rgb(50, 48, 44);
     background-color: rgb(227, 226, 224);
   }
-  .container .notionate-select-brown {
+  .container .rotion-select-brown {
     color: rgb(68, 42, 30);
     background-color: rgb(238, 224, 218);
   }
-  .container .notionate-select-orange {
+  .container .rotion-select-orange {
     color: rgb(73, 41, 14);
     background-color: rgb(250, 222, 201);
   }
-  .container .notionate-select-yellow {
+  .container .rotion-select-yellow {
     color: rgb(64, 44, 27);
     background-color: rgb(253, 236, 200);
   }
-  .container .notionate-select-green {
+  .container .rotion-select-green {
     color: rgb(28, 56, 41);
     background-color: rgb(219, 237, 219);
   }
-  .container .notionate-select-blue {
+  .container .rotion-select-blue {
     color: rgb(24, 51, 71);
     background-color: rgb(211, 229, 239);
   }
-  .container .notionate-select-purple {
+  .container .rotion-select-purple {
     color: rgb(65, 36, 84);
     background-color: rgb(232, 222, 238);
   }
-  .container .notionate-select-pink {
+  .container .rotion-select-pink {
     color: rgb(76, 35, 55);
     background-color: rgb(245, 224, 233);
   }
-  .container .notionate-select-red {
+  .container .rotion-select-red {
     color: rgb(93, 23, 21);
     background-color: rgb(255, 226, 221);
   }
 }
-.il6-sublibs .notionate-table-header {
+.il6-sublibs .rotion-table-header {
   width: 100%;
 }
-.il6-sublibs .notionate-table-column-2 .notionate-table-cell-inner {
+.il6-sublibs .rotion-table-column-2 .rotion-table-cell-inner {
   width: 100%;
   border-right: none;
 }
-.il6-footer .notionate-blocks-text-blockquote {
+.il6-footer .rotion-text-blockquote {
   font-size: var(--fontSize-0);
 }
-.blog .notionate-blocks-image-img {
+.blog .rotion-image-img {
   margin-top: var(--spacing-5);
   border-radius: 10px;
 }
 @media (min-width: 1200px) {
-  .blog .notionate-blocks-image-img {
+  .blog .rotion-image-img {
     width: 150%;
     margin-left: -25%;
     margin-right: -25%;
   }
-  .blog .notionate-blocks-columnlist .notionate-blocks-image-img {
+  .blog .rotion-columnlist .rotion-image-img {
     width: 100%;
     margin-left: 0;
     margin-right: 0;
+    margin-bottom: 1rem;
   }
 }
-.il6-footer .notionate-blocks-image-img {
+.il6-footer .rotion-image-img {
   margin-left: 0;
   width: auto;
 }

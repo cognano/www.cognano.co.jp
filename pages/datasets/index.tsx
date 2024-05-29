@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { lang } from '../../i18n'
 import { Content, GetContent } from '../../lib/content'
 import { Pages } from '../../lib/dataset'
-import { Blocks } from 'notionate/dist/components'
+import { Page } from 'rotion/ui'
 import styles from '../../styles/Datasets.module.css'
 import Unsplash from '../../components/unsplash'
 import Hed from '../../components/hed'
@@ -60,7 +60,7 @@ const DatasetsIndex: NextPage<Props> = ({ desc, datasets, ogimage }) => {
               {desc.title}
             </h1>
             <div className={styles.indexDesc}>
-              <Blocks blocks={desc.blocks} />
+              <Page blocks={desc.blocks} />
             </div>
           </div>
         </div>

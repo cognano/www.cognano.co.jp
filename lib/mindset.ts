@@ -6,7 +6,7 @@ import {
   QueryDatabaseParameters,
   ListBlockChildrenResponseEx,
   FetchBlocks,
-} from 'notionate'
+} from 'rotion'
 import { lang } from '../i18n'
 
 export type LocalizedMindset = {
@@ -108,8 +108,8 @@ export const GetMindset = async (slug: string): Promise<Mindset> => {
   if (!jaM || !enM) {
     throw new Error(`mindset not found: ${slug}`)
   }
-  const jaBlocks = await FetchBlocks(jaM.id, jaM.last_edited_time)
-  const enBlocks = await FetchBlocks(enM.id, enM.last_edited_time)
+  const jaBlocks = await FetchBlocks({ block_id: jaM.id, last_edited_time: jaM.last_edited_time })
+  const enBlocks = await FetchBlocks({ block_id: enM.id, last_edited_time: enM.last_edited_time })
 
   return {
     ja: {

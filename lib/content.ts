@@ -9,10 +9,10 @@ import {
   GetPageResponseEx,
   ListBlockChildrenResponseEx,
   QueryDatabaseParameters,
-} from 'notionate'
+} from 'rotion'
 import { buildPlainText } from './member'
 
-type DBPage = DBPageBase & {
+export type DBPage = DBPageBase & {
   properties: {
     Name: {
       type: "title"
@@ -128,12 +128,12 @@ export const GetContent = async (slug: string, category?: string): Promise<Conte
   let ja = null
 
   if (pageEn) {
-    const blocksEn = await FetchBlocks(pageEn.id, pageEn.last_edited_time)
+    const blocksEn = await FetchBlocks({ block_id: pageEn.id, last_edited_time: pageEn.last_edited_time })
     en = {
       id: pageEn.id,
       title: pageEn.properties.Name.title.map(v => v.plain_text).join(','),
       cover: (pageEn.cover && 'src' in pageEn.cover) ? pageEn.cover.src : '',
-      page: await FetchPage(pageEn.id, pageEn.last_edited_time),
+      page: await FetchPage({ page_id: pageEn.id, last_edited_time: pageEn.last_edited_time }),
       blocks: blocksEn,
       excerpt: buildExcerpt(blocksEn),
       last_edited_time: pageEn.last_edited_time,
@@ -141,12 +141,12 @@ export const GetContent = async (slug: string, category?: string): Promise<Conte
   }
 
   if (pageJa) {
-    const blocksJa = await FetchBlocks(pageJa.id, pageJa.last_edited_time)
+    const blocksJa = await FetchBlocks({ block_id: pageJa.id, last_edited_time: pageJa.last_edited_time })
     ja = {
       id: pageJa.id,
       title: pageJa.properties.Name.title.map(v => v.plain_text).join(','),
       cover: (pageJa.cover && 'src' in pageJa.cover) ? pageJa.cover.src : '',
-      page: await FetchPage(pageJa.id, pageJa.last_edited_time),
+      page: await FetchPage({ page_id: pageJa.id, last_edited_time: pageJa.last_edited_time }),
       blocks: blocksJa,
       excerpt: buildExcerpt(blocksJa),
       last_edited_time: pageJa.last_edited_time,

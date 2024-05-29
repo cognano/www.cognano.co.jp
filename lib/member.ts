@@ -8,7 +8,7 @@ import {
   FetchBlocks,
   PersonUserObjectResponseEx,
   PageObjectResponseEx,
-} from 'notionate'
+} from 'rotion'
 
 type User = {
   name: string
@@ -141,7 +141,7 @@ export const GetMembers = async (): Promise<Members> => {
   })
 
   const ja = await Promise.all(jaProps.map(async (v: LocalizedMember) => {
-    const blocks = await FetchBlocks(v.id, v.last_edited_time)
+    const blocks = await FetchBlocks({ block_id: v.id, last_edited_time: v.last_edited_time })
     v.excerpt = buildExcerpt(blocks)
     return {
       props: v,
@@ -160,7 +160,7 @@ export const GetMembers = async (): Promise<Members> => {
   })
 
   const en = await Promise.all(enProps.map(async (v: LocalizedMember) => {
-    const blocks = await FetchBlocks(v.id, v.last_edited_time)
+    const blocks = await FetchBlocks({ block_id: v.id, last_edited_time: v.last_edited_time })
     v.excerpt = buildExcerpt(blocks)
     return {
       props: v,

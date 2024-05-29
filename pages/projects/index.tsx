@@ -1,9 +1,8 @@
 import type { NextPage, GetStaticProps } from 'next'
 import { lang } from '../../i18n'
 import { GetProjectsOriginal, projectsQuery } from '../../lib/project'
-import { QueryDatabaseResponseEx } from 'notionate'
-import { Blocks } from 'notionate/dist/components'
-import { List } from 'notionate/dist/components'
+import { QueryDatabaseResponseEx } from 'rotion'
+import { Page, List } from 'rotion/ui'
 import { GetContent, Content } from '../../lib/content'
 import styles from '../../styles/Project.module.css'
 import Hed from '../../components/hed'
@@ -44,7 +43,7 @@ const ProjectIndex: NextPage<Props> = ({ projects, desc, ogimage }) => {
             {desc.title}
           </h1>
           <div>
-            <Blocks blocks={desc.blocks} />
+            <Page blocks={desc.blocks} />
           </div>
         </header>
       </div>
@@ -53,7 +52,6 @@ const ProjectIndex: NextPage<Props> = ({ projects, desc, ogimage }) => {
         <List
           keys={['Name', 'Host', 'spacer', 'Tags', 'Date']}
           db={projects}
-          href="/projects/[id]"
         />
       </div>
     </main>

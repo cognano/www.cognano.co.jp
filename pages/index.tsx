@@ -4,7 +4,7 @@ import Link from 'next/link'
 import t, { lang } from '../i18n'
 import { blogQueryLatest, newsQueryLatest, Blog, GetBlogsEachLangs } from '../lib/blog'
 import { GetContent, Content } from '../lib/content'
-import { Blocks, List } from 'notionate/dist/components'
+import { Page, List } from 'rotion/ui'
 import styles from '../styles/Home.module.css'
 import { GetProjectsOriginal, ProjectsOriginal, projectsQueryLatest } from '../lib/project'
 import Unsplash from '../components/unsplash'
@@ -13,7 +13,7 @@ import NewsList from '../components/news-list'
 import Hed from '../components/hed'
 import { GetQEs, LocalizedQE } from '../lib/qe'
 import CreateOgImage from '../lib/ogimage'
-import { QueryDatabaseResponseEx } from 'notionate'
+import { QueryDatabaseResponseEx } from 'rotion'
 
 type Props = {
   about: Content
@@ -84,7 +84,7 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, p
                 </div>
               </div>
               <div className={styles.heroInner}>
-                <Blocks blocks={about.blocks} />
+                <Page blocks={about.blocks} />
                 <p className={styles.aboutButton}>
                   <Link href="/about">
                     {t('index.aboutUs')}
@@ -118,7 +118,7 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, p
 
         <div className={styles.pitches}>
           <h2>{pitch.title}</h2>
-          <Blocks blocks={pitch.blocks} />
+          <Page blocks={pitch.blocks} />
         </div>
 
         <section>
@@ -152,7 +152,6 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, p
             <List
               keys={['Name', 'Host', 'spacer', 'Tags', 'Date']}
               db={projects}
-              href="/projects/[id]"
             />
           </div>
         </div>
@@ -185,7 +184,7 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, p
             </div>
             <div className={styles.algorithmText}>
               <h2>{algorithm.title}</h2>
-              <Blocks blocks={algorithm.blocks} />
+              <Page blocks={algorithm.blocks} />
             </div>
           </div>
         </div>
