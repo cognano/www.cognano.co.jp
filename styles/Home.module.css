@@ -49,7 +49,7 @@
   position: relative;
   font-size: var(--fontSize-3);
 }
-.hero h1 {
+.hero h2 {
   font-size: 3.8rem;
   line-height: 1.5;
   color: transparent;

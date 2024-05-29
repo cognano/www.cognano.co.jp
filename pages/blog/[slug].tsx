@@ -2,8 +2,8 @@ import type { NextPage, GetStaticPaths, GetStaticProps } from 'next'
 import Link from 'next/link'
 import t, { lang } from '../../i18n'
 import { Blog, blogQuery, buildExcerpt, GetBlogsEachLangs } from '../../lib/blog'
-import { FetchBlocks } from 'notionate'
-import { Blocks, ListBlockChildrenResponseEx } from 'notionate/dist/components'
+import { FetchBlocks, ListBlockChildrenResponseEx } from 'rotion'
+import { Page } from 'rotion/ui'
 import { formatDate } from '../../lib/date'
 import styles from '../../styles/Blog.module.css'
 import Hed from '../../components/hed'
@@ -41,7 +41,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
   const blog = blogBilingal[lang].find(v => v.slug === params!.slug)
 
   if (blog) {
-    const blocks = await FetchBlocks(blog.id, blog.last_edited_time)
+    const blocks = await FetchBlocks({ block_id: blog.id, last_edited_time: blog.last_edited_time })
     const excerpt = buildExcerpt(blocks)
     const ogimage = await CreateOgImage({
       id: `blog-${params!.slug}-${lang}`,
@@ -80,7 +80,7 @@ const BlogPost: NextPage<Props> = ({ blog, blocks, excerpt, ogimage }) => {
         <BlogHeader blog={blog!} tag="h1" />
       </header>
       <section className={styles.blocks}>
-        <Blocks blocks={blocks!} />
+        <Page blocks={blocks!} />
       </section>
     </article>
   )

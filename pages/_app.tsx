@@ -1,10 +1,10 @@
+import 'rotion/style-without-dark.css'
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import Cookie from '../components/cookie'
 import Header from '../components/header'
 import Footer from '../components/footer'
-import 'notionate/dist/styles/notionate.css'
 import { notosans, notoserif } from '../lib/fonts'
 
 function MyApp({ Component, pageProps }: AppProps) {

@@ -1,4 +1,4 @@
-name: Build and Deploy to staging
+name: Build
 
 on:
   repository_dispatch:
@@ -12,16 +12,16 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [22.x]
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: yarn
     - name: Restore next cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: |
           .next/cache
@@ -31,66 +31,5 @@ jobs:
     - name: Run builds and deploys with ${{ matrix.node-version }}
       run: |
         yarn install
+        yarn add sharp --ignore-engines
         yarn lint
-
-  staging:
-    runs-on: ubuntu-latest
-    needs: [build]
-    env:
-      NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-      NOTIONATE_INCREMENTAL_CACHE: true
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 18
-        cache: yarn
-    - name: Restore next cache
-      uses: actions/cache@v3
-      with:
-        path: |
-          .next/cache
-        key: nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-        restore-keys: |
-          nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
-    - name: Restore notionate cache
-      uses: actions/cache@v3
-      with:
-        path: |
-          .cache
-          public/images
-        key: notionate-stag
-        restore-keys: notionate-stag
-    - name: Install packages
-      run: |
-        yarn install
-    - name: Run next export
-      run: |
-        yarn build
-      env:
-        NEXT_PUBLIC_LANG: en
-        BUILD_ENV: staging
-    - name: Deploy to staging by FTP
-      uses: SamKirkland/FTP-Deploy-Action@4.3.0
-      with:
-        server: ${{ secrets.FTPHOST }}
-        username: ${{ secrets.FTPUSERNAME_STAG_EN }}
-        password: ${{ secrets.FTPPASSWORD_STAG_EN }}
-        local-dir: ./out/
-        exclude: |
-          ogimages/*-ja-*.png
-    - name: Run next export for japanese
-      run: |
-        yarn build
-      env:
-        NEXT_PUBLIC_LANG: ja
-        BUILD_ENV: staging
-    - name: Deploy to staging by FTP
-      uses: SamKirkland/FTP-Deploy-Action@4.3.0
-      with:
-        server: ${{ secrets.FTPHOST }}
-        username: ${{ secrets.FTPUSERNAME_STAG }}
-        password: ${{ secrets.FTPPASSWORD_STAG }}
-        local-dir: ./out/
-        exclude: |
-          ogimages/*-en-*.png

@@ -5,11 +5,9 @@ import {
   SelectPropertyResponse,
   DBPageBase,
   QueryDatabaseParameters,
-  PersonUserObjectResponse,
-  PageObjectResponse,
   QueryDatabaseResponseEx,
   PageObjectResponseEx,
-} from 'notionate'
+} from 'rotion'
 
 export type LocalizedProject = {
   id: string

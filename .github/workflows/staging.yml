@@ -1,15 +1,14 @@
-name: Release
+name: Staging
 
 on:
   repository_dispatch:
   workflow_dispatch:
   workflow_run:
     workflows: ["Build"]
-    branches: [main]
     types: [completed]
 
 jobs:
-  release:
+  staging:
     runs-on: ubuntu-latest
     env:
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
@@ -35,8 +34,8 @@ jobs:
           .cache
           public/images
           public/ogimages
-        key: rotion-prod
-        restore-keys: rotion-prod
+        key: rotion-stag
+        restore-keys: rotion-stag
     - name: Install packages
       run: |
         yarn install
@@ -46,12 +45,13 @@ jobs:
         yarn build
       env:
         NEXT_PUBLIC_LANG: en
-    - name: Deploy to prod.cognanous.com by FTP
+        BUILD_ENV: staging
+    - name: Deploy to stag.cognanous.com by FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: ${{ secrets.FTP_HOST }}
-        username: ${{ secrets.FTP_USER_PROD_EN }}
-        password: ${{ secrets.FTP_PASS_PROD_EN }}
+        username: ${{ secrets.FTP_USER_STAG_EN }}
+        password: ${{ secrets.FTP_PASS_STAG_EN }}
         local-dir: ./out/
         exclude: |
           ogimages/*-ja-*.png
@@ -60,12 +60,13 @@ jobs:
         yarn build
       env:
         NEXT_PUBLIC_LANG: ja
-    - name: Deploy to prod.cognano.co.jp by FTP
+        BUILD_ENV: staging
+    - name: Deploy to stag.cognano.co.jp by FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        server: ${{ secrets.FTP_HOST }}
-        username: ${{ secrets.FTP_USER_PROD_JA }}
-        password: ${{ secrets.FTP_PASS_PROD_JA }}
+        server: ${{ secrets.FTPHOST }}
+        username: ${{ secrets.FTP_USER_STAG_JA }}
+        password: ${{ secrets.FTP_PASS_STAG_JA }}
         local-dir: ./out/
         exclude: |
           ogimages/*-en-*.png

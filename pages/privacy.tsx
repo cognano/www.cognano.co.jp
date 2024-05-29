@@ -1,8 +1,8 @@
 import type { NextPage, GetStaticProps } from 'next'
-import { formatDate } from '../lib/date'
+// import { formatDate } from '../lib/date'
 import t, { lang } from '../i18n'
-import { GetContent, Content } from '../lib/content'
-import { Blocks } from 'notionate/dist/components'
+import { GetContent, Content, DBPage } from '../lib/content'
+import { Page } from 'rotion/ui'
 import CreateOgImage from '../lib/ogimage'
 import Hed from '../components/hed'
 
@@ -41,13 +41,13 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
+
 const Privacy: NextPage<Props> = ({ content, ogimage }) => {
-  const page = content.page
-  // @ts-ignore
-  const date = formatDate(page.last_edited_time)
-  const modifiedDate = t('privacy.modified').replace('%s', date)
-  // @ts-ignore
-  const title = ('properties' in page && page.properties.Name) ? page.properties.Name.title.map(v => v.text.content).join(',') : ''
+  const { page } = content
+  const { properties } = page as unknown as DBPage
+  // const date = formatDate(page.last_edited_time)
+  // const modifiedDate = t('privacy.modified').replace('%s', date)
+  const title = (properties.Name.title) ? properties.Name.title.map(v => v.plain_text).join(' ') : ''
 
   return (
     <>
@@ -58,7 +58,7 @@ const Privacy: NextPage<Props> = ({ content, ogimage }) => {
       </header>
 
       <section className="container">
-        <Blocks blocks={content.blocks} />
+        <Page blocks={content.blocks} />
       </section>
     </>
   )

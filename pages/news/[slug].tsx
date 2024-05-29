@@ -2,8 +2,8 @@ import type { NextPage, GetStaticPaths, GetStaticProps } from 'next'
 import Link from 'next/link'
 import t, { lang } from '../../i18n'
 import { Blog, newsQuery, newsQueryLatest, GetBlogsEachLangs, buildExcerpt } from '../../lib/blog'
-import { FetchBlocks } from 'notionate'
-import { Blocks, ListBlockChildrenResponseEx } from 'notionate/dist/components'
+import { FetchBlocks, ListBlockChildrenResponseEx } from 'rotion'
+import { Page } from 'rotion/ui'
 import { formatDate } from '../../lib/date'
 import { GetContent, Content } from '../../lib/content'
 import { tagIcon } from '../../components/news-list'
@@ -46,7 +46,7 @@ export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
   const news = blog[lang].find(v => v.slug === params!.slug)
 
   if (news) {
-    const blocks = await FetchBlocks(news.id, news.last_edited_time)
+    const blocks = await FetchBlocks({ block_id: news.id, last_edited_time: news.last_edited_time })
     const excerpt = buildExcerpt(blocks)
     const latestNews = await GetBlogsEachLangs(newsQueryLatest)
 
@@ -107,7 +107,7 @@ const NewsPost: NextPage<Props> = ({ news, blocks, excerpt, desc, latestNews, og
 
         <article className={styles.newsBody}>
           <section className={styles.blocks}>
-            <Blocks blocks={blocks!} />
+            <Page blocks={blocks!} />
           </section>
         </article>
 

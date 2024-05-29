@@ -2,7 +2,7 @@ import t, { lang } from '../i18n'
 import { MutatingDots } from 'react-loader-spinner'
 import { useState } from 'react'
 import { GetStaticProps, NextPage } from 'next'
-import { Blocks } from 'notionate/dist/components'
+import { Page } from 'rotion/ui'
 import { GetContent, Content } from '../lib/content'
 import styles from '../styles/Contact.module.css'
 import CreateOgImage from '../lib/ogimage'
@@ -125,67 +125,71 @@ const Contact: NextPage<Props> = ({ contact, ogimage }) => {
       <header className="container">
         <h1>{contact.title}</h1>
         <div className={styles.contactDesc}>
-          <Blocks blocks={contact.blocks} />
+          <Page blocks={contact.blocks} />
         </div>
       </header>
 
       <section className="container">
         <form className={styles.form} onSubmit={handleSubmit}>
 
-          <div className={styles.line}>
-            <label htmlFor="name" className={styles.label}>
-              {t('contact.name')}
-            </label>
-            <div className={styles.input}>
-              <input
-                type="text"
-                id="name"
-                placeholder="Your Name"
-                name="name"
-                value={query.name}
-                onChange={handleChange()}
-              />
-              {errors.name && formError(errors.name)}
+          <div>
+            <div className={styles.line}>
+              <label htmlFor="name" className={styles.label}>
+                {t('contact.name')}
+              </label>
+              <div className={styles.input}>
+                <input
+                  type="text"
+                  id="name"
+                  placeholder="Your Name"
+                  name="name"
+                  value={query.name}
+                  onChange={handleChange()}
+                />
+                {errors.name && formError(errors.name)}
+              </div>
+            </div>
+
+            <div className={styles.line}>
+              <label htmlFor="email" className={styles.label}>
+                {t('contact.email')}
+              </label>
+              <div className={styles.input}>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="youremail@example.com"
+                  name="email"
+                  value={query.email}
+                  onChange={handleChange()}
+                />
+                {errors.email && formError(errors.email)}
+              </div>
             </div>
           </div>
 
-          <div className={styles.line}>
-            <label htmlFor="email" className={styles.label}>
-              {t('contact.email')}
-            </label>
-            <div className={styles.input}>
-              <input
-                type="email"
-                id="email"
-                placeholder="youremail@example.com"
-                name="email"
-                value={query.email}
-                onChange={handleChange()}
-              />
-              {errors.email && formError(errors.email)}
+          <div>
+            <div className={styles.line}>
+              <label htmlFor="message" className={styles.label}>
+                {t('contact.message')}
+              </label>
+              <div className={styles.input}>
+                <textarea
+                  name="message"
+                  id="message"
+                  rows={5}
+                  value={query.message}
+                  onChange={handleChange()}
+                />
+                {errors.message && formError(errors.message)}
+              </div>
             </div>
-          </div>
 
-          <div className={styles.line}>
-            <label htmlFor="message" className={styles.label}>
-              {t('contact.message')}
-            </label>
-            <div className={styles.input}>
-              <textarea
-                name="message"
-                id="message"
-                rows={5}
-                value={query.message}
-                onChange={handleChange()}
-              />
-              {errors.message && formError(errors.message)}
-            </div>
-          </div>
-
-          <div className={styles.line}>
-            <span></span>
-            <div className={styles.input}>
-              {formStatus ? (<p>{t('contact.thanks')}</p>) : lockStatus ? (<MutatingDots color="#666" secondaryColor="#000" height={100} width={100} />) : (<button className={styles.button} type="submit" disabled={lockStatus}>{t('contact.submit')}</button>)}
+            <div className={styles.line}>
+              <span></span>
+              <div className={styles.input}>
+                {formStatus ? (<p>{t('contact.thanks')}</p>) : lockStatus ? (<MutatingDots color="#666" secondaryColor="#000" height={100} width={100} />) : (<button className={styles.button} type="submit" disabled={lockStatus}>{t('contact.submit')}</button>)}
+              </div>
             </div>
           </div>
 

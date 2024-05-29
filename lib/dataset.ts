@@ -8,7 +8,7 @@ import {
   FetchBlocks,
   BlockObjectResponse,
   CodeBlockObjectResponse,
-} from 'notionate'
+} from 'rotion'
 import { Dataset, WithContext } from 'schema-dts'
 
 const momlibid = process.env.NOTION_MOTHERLIBRARIES_DB_ID
@@ -113,7 +113,7 @@ type DBProps = DBPageBase & {
 }
 
 const GetSchema = async (block_id: string, last_edited_time: string): Promise<string> => {
-  const blocks = await FetchBlocks(block_id, last_edited_time)
+  const blocks = await FetchBlocks({ block_id, last_edited_time })
   const { results } = blocks
 
   const b = results.find(vv => {

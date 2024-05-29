@@ -5,7 +5,7 @@ import {
   DBPageBase,
   QueryDatabaseParameters,
   ListBlockChildrenResponseEx,
-} from 'notionate'
+} from 'rotion'
 
 export type LocalizedQE = {
   id: string

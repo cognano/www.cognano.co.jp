@@ -4,7 +4,7 @@ import Image from 'next/image'
 import t, { lang } from '../i18n'
 import { GetMindset, LocalizedMindsetWithBlocks, GetValues } from '../lib/mindset'
 import { Content, GetContent } from '../lib/content'
-import { Blocks } from 'notionate/dist/components'
+import { Page } from 'rotion/ui'
 import { GetMembers, LocalizedMemberWithBlocks } from '../lib/member'
 import styles from '../styles/About.module.css'
 import Unsplash from '../components/unsplash'
@@ -121,7 +121,7 @@ const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
               {m.props.title}
             </p>
             <div className={styles.modalMemberFullProfile}>
-              <Blocks blocks={m.blocks} />
+              <Page blocks={m.blocks} />
             </div>
             <p className={styles.closeModal} onClick={closeModal}>
               {t('about.closeFullProfile')}
@@ -174,7 +174,7 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
             </h1>
             <div className={styles.purposeBody}>
               <div className={styles.purposeBodyInner}>
-                <Blocks blocks={purpose.blocks} />
+                <Page blocks={purpose.blocks} />
               </div>
             </div>
           </div>
@@ -188,7 +188,7 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
               {t('about.story')}
             </h1>
             <div>
-              <Blocks blocks={story.blocks} />
+              <Page blocks={story.blocks} />
             </div>
           </div>
           <div className={styles.storyImage}>
@@ -207,7 +207,7 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
               {t('about.mindset')}
             </h2>
             <div className={styles.mindsetDesc}>
-              <Blocks blocks={mindset.blocks} />
+              <Page blocks={mindset.blocks} />
             </div>
           </header>
 
@@ -220,7 +220,7 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
                 {mission.props.title}
               </h2>
               <div className={styles.missionVisionBody}>
-                <Blocks blocks={mission.blocks} />
+                <Page blocks={mission.blocks} />
               </div>
             </div>
 
@@ -232,7 +232,7 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
                 {vision.props.title}
               </h2>
               <div className={styles.missionVisionBody}>
-                <Blocks blocks={vision.blocks} />
+                <Page blocks={vision.blocks} />
               </div>
             </div>
           </div>
@@ -248,7 +248,7 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
                     {v.props.title}
                   </h3>
                   <div className={styles.valueBody}>
-                    <Blocks blocks={v.blocks} />
+                    <Page blocks={v.blocks} />
                   </div>
                 </div>
               ))}
@@ -263,7 +263,7 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
             {t('about.team')}
           </h2>
           <div className={styles.teamDesc}>
-            <Blocks blocks={team.blocks} />
+            <Page blocks={team.blocks} />
           </div>
         </header>
 
@@ -280,7 +280,7 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
             {t('about.advisors')}
           </h2>
           <div className={styles.teamDesc}>
-            <Blocks blocks={investors.blocks} />
+            <Page blocks={investors.blocks} />
           </div>
         </header>
 
@@ -298,7 +298,7 @@ const About: NextPage<Props> = ({ story, team, investors, mindset, company, purp
           </h2>
         </header>
         <div className={styles.companyOverviewDesc}>
-          <Blocks blocks={company.blocks} />
+          <Page blocks={company.blocks} />
         </div>
       </div>
     </main>

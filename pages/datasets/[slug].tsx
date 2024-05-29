@@ -5,13 +5,12 @@ import Image from 'next/image'
 import t, { lang } from '../../i18n'
 import { Content, GetContent } from '../../lib/content'
 import { GetMomLibs, GetSubLibs, GetDatasetMetas, DatasetMetas, Pages } from '../../lib/dataset'
-import { Blocks } from 'notionate/dist/components'
+import { Page, Table } from 'rotion/ui'
+import { QueryDatabaseResponseEx } from 'rotion'
 import styles from '../../styles/Datasets.module.css'
 import Unsplash from '../../components/unsplash'
 import Hed from '../../components/hed'
 import CreateOgImage from '../../lib/ogimage'
-import { QueryDatabaseResponseEx } from 'notionate'
-import { Table } from 'notionate/dist/components'
 import { notfound } from '../../lib/page-error'
 
 type Props = {
@@ -117,7 +116,7 @@ const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, me
             {abstract.title}
           </h1>
           <div className={styles.description}>
-            <Blocks blocks={abstract.blocks} />
+            <Page blocks={abstract.blocks} />
           </div>
           <div className={styles.download}>
             <div className={`button ${styles.downloadButton}`}>
@@ -141,7 +140,7 @@ const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, me
             {columns.title}
           </h2>
           <div className={styles.columnsContent}>
-            <Blocks blocks={columns.blocks} />
+            <Page blocks={columns.blocks} />
           </div>
         </div>
       </div>
@@ -154,7 +153,7 @@ const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, me
             {pipeline.title}
           </h2>
           <div className={styles.pipelineDesc}>
-            <Blocks blocks={pipeline.blocks} />
+            <Page blocks={pipeline.blocks} />
           </div>
           <div className={styles.externalLinks}>
             {meta.links.fasta && (
@@ -193,7 +192,7 @@ const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, me
             {statistics.title}
           </h2>
           <div className={styles.statisticsDesc}>
-            <Blocks blocks={statistics.blocks} />
+            <Page blocks={statistics.blocks} />
           </div>
         </div>
       </div>
@@ -206,7 +205,7 @@ const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, me
             Metadata
           </h2>
           <div className={styles.metadataDesc}>
-            <Blocks blocks={metadata.blocks} />
+            <Page blocks={metadata.blocks} />
           </div>
         </div>
       </div>
@@ -219,7 +218,7 @@ const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, me
             {momlibs.title}
           </h3>
           <div className={styles.momlibsDesc}>
-            <Blocks blocks={momlibs.blocks} />
+            <Page blocks={momlibs.blocks} />
           </div>
           <div className={styles.momlibsDb}>
             <Table db={momlibsDb} keys={['Name', 'Sampling site', 'Collection Timing', 'Subject Species', 'Subject Name', 'Subject Sex']} />
@@ -235,7 +234,7 @@ const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, me
             {sublibs.title}
           </h3>
           <div className={styles.sublibsDesc}>
-            <Blocks blocks={sublibs.blocks} />
+            <Page blocks={sublibs.blocks} />
           </div>
           <div className={`il6-sublibs ${styles.sublibsDb}`}>
             <Table db={sublibsDb} keys={['Name', 'Type', 'Antigen']} />
@@ -251,7 +250,7 @@ const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, me
             {subjects.title}
           </h3>
           <div className={styles.subjectsDesc}>
-            <Blocks blocks={subjects.blocks} />
+            <Page blocks={subjects.blocks} />
           </div>
         </div>
       </div>
@@ -264,7 +263,7 @@ const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, me
             {antigens.title}
           </h3>
           <div className={styles.antigensDesc}>
-            <Blocks blocks={antigens.blocks} />
+            <Page blocks={antigens.blocks} />
           </div>
         </div>
       </div>
@@ -276,7 +275,7 @@ const Datasets: NextPage<Props> = ({ abstract, columns, pipeline, statistics, me
           <h2>
             {license.title}
           </h2>
-          <Blocks blocks={license.blocks} />
+          <Page blocks={license.blocks} />
         </div>
       </div>
       )}
