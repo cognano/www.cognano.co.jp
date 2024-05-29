@@ -389,6 +389,7 @@
   }
   .datasetExcerpt {
     height: auto;
+    min-height: auto;
     padding-right: var(--spacing-5);
   }
   .learnMoreButton {
@@ -400,7 +401,7 @@
   .indexHeaderText {
     margin-bottom: 0;
   }
-  .indexDesc {
+  .indexDesc p {
     font-size: var(--fontSize-1);
   }
   .indexHeaderTextInner {
