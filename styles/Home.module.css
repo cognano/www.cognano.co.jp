@@ -384,7 +384,7 @@
   .heroInner {
     padding: 0 0 var(--spacing-20) var(--spacing-24);
   }
-  .hero h1 {
+  .hero h2 {
     line-height: 1;
     padding: var(--spacing-32) 0 var(--spacing-10);
   }
@@ -444,7 +444,7 @@
   .heroInner {
     padding: 0 0 var(--spacing-10);
   }
-  .hero h1 {
+  .hero h2 {
     font-size: var(--fontSize-4);
     line-height: 1.2;
     padding: var(--spacing-16) 0 var(--spacing-6);
