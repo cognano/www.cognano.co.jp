@@ -112,7 +112,7 @@ type DBProps = DBPageBase & {
   }
 }
 
-const GetSchema = async (block_id: string, last_edited_time: string): Promise<string> => {
+const GetSchema = async (block_id: string, last_edited_time: string): Promise<WithContext<Dataset>> => {
   const blocks = await FetchBlocks({ block_id, last_edited_time })
   const { results } = blocks
 
@@ -122,20 +122,22 @@ const GetSchema = async (block_id: string, last_edited_time: string): Promise<st
   }) as CodeBlockObjectResponse | undefined
 
   if (!b) {
-    return ''
+    return {} as WithContext<Dataset>
   }
 
-  return b.code.rich_text.map(v => v.plain_text).join('')
+  const str = b.code.rich_text.map(v => v.plain_text).join('')
     .replaceAll('\n', '')
     .replaceAll(/\s{2,}/g, '')
     .replaceAll(/,}/g, '}')
     .replaceAll(/,]/g, ']')
-    .replaceAll(/: ("|\[)/g, ':"')
+    .replaceAll(/([a-z][A-z]+):([A-z0-9\s"])/g, '"$1":$2')
+
+  return JSON.parse(str)
 }
 
 export const GetDatasetMetas = async (dataset_name: string): Promise<DatasetMetas> => {
   const { results } = await GetExternalLinksAndSchemas(dataset_name)
-  let schema = ''
+  let schema = {} as WithContext<Dataset>
   let links = {} as ExtLinks
 
   for (const vv of results) {
@@ -159,6 +161,6 @@ export const GetDatasetMetas = async (dataset_name: string): Promise<DatasetMeta
 
   return {
     links,
-    schema: schema as unknown as WithContext<Dataset>,
+    schema,
   }
 }
