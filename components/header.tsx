@@ -58,7 +58,7 @@ const Header: React.FC<Props> = ({ children }) => {
           <div className={styles.contact}>
             <Link href="/contact">
               <span className={styles.envelopeIcon}>{envelopeIcon()}</span>
-              {t('header.contact')}
+              <span className={styles.contactText}>{t('header.contact')}</span>
             </Link>
           </div>
         </div>

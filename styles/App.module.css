@@ -250,7 +250,6 @@
     display: block;
   }
   .globalnav,
-  .infonav,
   .langnav,
   .footerinner {
     display: none;
@@ -264,6 +263,28 @@
   }
   .siteinfo p {
     display: inline-block;
+  }
+
+  .infonav {
+    position: absolute;
+    right: .2rem;
+    top: 1rem;
+  }
+  .envelopeIcon {
+    fill: #888;
+  }
+  .contact a {
+    border: none;
+  }
+  .contactText {
+    display: none;
+  }
+  .contact a:hover {
+    color: inherit;
+    background-color: inherit;
+  }
+  .contact a:hover span {
+    fill: #888;
   }
 
   /* MOBILE NAV */
