@@ -3402,10 +3402,10 @@ robust-predicates@^3.0.2:
   resolved "https://registry.yarnpkg.com/robust-predicates/-/robust-predicates-3.0.2.tgz#d5b28528c4824d20fc48df1928d41d9efa1ad771"
   integrity sha512-IXgzBWvWQwE6PrDI05OvmXUIruQTcoMDzRsOd5CDvHCVLcLHMTSYvOK5Cm46kWqlV3yAbuSpBZdJ5oP5OUoStg==
 
-rotion@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/rotion/-/rotion-1.0.0.tgz#676cb7fc4d6f0044e6b9394a6d7d36da52357998"
-  integrity sha512-Cm4X1q6c9VSAeijoTiADSs4CPzkHevdh8Tx1KnLqOy7/nO1ry52ARatsJdK1pQdUOzL7+IYtvjjoJp+yGuaasg==
+rotion@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/rotion/-/rotion-1.0.1.tgz#f05f3e2943fa3005407d59d04783250c2d105e59"
+  integrity sha512-GaJlfsfMd7SoUH5fmdsZx8vuYaft7t0N6RoQlmST483/RBz1xYn3fhKIKjVlkjeOnKFqACvksurgqw2kKID//A==
   dependencies:
     "@notionhq/client" "^2.2.14"
     cdate "^0.0.7"

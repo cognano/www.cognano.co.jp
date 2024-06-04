@@ -19,7 +19,7 @@
     "react-dom": "^18.1.0",
     "react-loader-spinner": "^6.1.6",
     "react-modal": "^3.16.1",
-    "rotion": "^1.0.0",
+    "rotion": "^1.0.1",
     "schema-dts": "^1.1.2",
     "sharp": "^0.33.4"
   },
