@@ -61,6 +61,12 @@
   line-height: 1.7;
   font-size: var(--fontSize-2);
 }
+.hero ul {
+  margin: var(--spacing-2) 0;
+}
+.hero li {
+  font-size: var(--fontSize-2);
+}
 .heroInner {
   padding: var(--spacing-20) 0 var(--spacing-32) var(--spacing-32);
   width: 100%;
@@ -448,6 +454,9 @@
     font-size: var(--fontSize-4);
     line-height: 1.2;
     padding: var(--spacing-16) 0 var(--spacing-6);
+  }
+  .hero li {
+    font-size: var(--fontSize-0);
   }
   .heroInner p {
     line-height: 1.5;
