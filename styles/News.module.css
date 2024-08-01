@@ -85,6 +85,11 @@
   font-size: var(--fontSize-1);
   margin: var(--spacing-3) 0 0;
 }
+.newsBody li p {
+  font-size: var(--fontSize-1);
+  margin: 0;
+  padding: .2rem 0 0;
+}
 
 /* LATEST */
 .latestNews {
