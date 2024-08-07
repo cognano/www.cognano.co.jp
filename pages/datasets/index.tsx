@@ -2,7 +2,7 @@
 import type { NextPage, GetStaticProps } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import { lang } from '../../i18n'
+import t, { lang } from '../../i18n'
 import { Content, GetContent } from '../../lib/content'
 import { Pages } from '../../lib/dataset'
 import { Page } from 'rotion/ui'
@@ -80,7 +80,9 @@ const DatasetsIndex: NextPage<Props> = ({ desc, datasets, ogimage }) => {
                 <p className={styles.datasetExcerpt}>{v.excerpt}</p>
                 <div className={`button ${styles.learnMoreButton}`}>
                   {/* @ts-ignore */}
-                  <Link href={`/datasets/${v.page.properties.Category.select.name}`}>Lean more</Link>
+                  <Link href={`/datasets/${v.page.properties.Category.select.name}`}>
+                    {t('datasets.learnmore')}
+                  </Link>
                 </div>
               </div>
             </div>
