@@ -77,6 +77,6 @@ export default {
   error404: {
     title: '404',
     description: 'お探しのページは見当たらないようです。',
-    gohome: '🏠 にもどる',
+    gohome: 'ホームにもどる',
   },
 }
