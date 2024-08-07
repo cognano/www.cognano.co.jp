@@ -72,6 +72,7 @@ export default {
     googleDrive: 'Open Google Drive',
     zenodo: 'Open Zenodo',
     github: 'Open GitHub',
+    learnmore: 'Learn more',
   },
   error404: {
     title: '404',
