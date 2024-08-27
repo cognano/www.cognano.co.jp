@@ -9,7 +9,7 @@ on:
     types: [completed]
 
 jobs:
-  build_and_deployment:
+  release:
     runs-on: ubuntu-latest
     env:
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
@@ -35,12 +35,11 @@ jobs:
           .cache
           public/images
           public/ogimages
-        key: rotion-prod
-        restore-keys: rotion-prod
+        key: rotion-release
+        restore-keys: rotion-release
     - name: Install packages
       run: |
         yarn install
-        yarn add sharp --ignore-engines
 
     - name: Run next build for english
       run: |
