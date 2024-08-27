@@ -36,8 +36,8 @@ jobs:
           .cache
           public/images
           public/ogimages
-        key: rotion-stag
-        restore-keys: rotion-stag
+        key: rotion-staging
+        restore-keys: rotion-staging
     - name: Install packages
       run: |
         yarn install
