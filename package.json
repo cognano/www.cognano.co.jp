@@ -34,5 +34,6 @@
     "serve": "^14.2.1",
     "twemoji": "^14.0.2",
     "typescript": "^5.0.0"
-  }
+  },
+  "packageManager": "yarn@4.4.1"
 }
