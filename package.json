@@ -19,7 +19,7 @@
     "react-dom": "^18.1.0",
     "react-loader-spinner": "^6.1.6",
     "react-modal": "^3.16.1",
-    "rotion": "^1.6.2",
+    "rotion": "^1.7.0",
     "schema-dts": "^1.1.2",
     "sharp": "^0.33.4"
   },
@@ -31,7 +31,6 @@
     "eslint": "^8.16.0",
     "eslint-config-next": "^13.0.3",
     "satori": "^0.1.1",
-    "serve": "^14.2.1",
     "twemoji": "^14.0.2",
     "typescript": "^5.0.0"
   },

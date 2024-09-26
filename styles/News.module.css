@@ -78,7 +78,7 @@
 }
 .newsBody p {
   font-size: var(--fontSize-2);
-  margin: var(--spacing-2) 0 var(--spacing-5);
+  margin: var(--spacing-2) 0;
   line-height: 1.8;
 }
 .newsBody li {
@@ -89,6 +89,14 @@
   font-size: var(--fontSize-1);
   margin: 0;
   padding: .2rem 0 0;
+}
+.newsBody a {
+  color: #777;
+  border-bottom: 1px solid #bbb;
+}
+.newsBody a:hover {
+  color: var(--color-text);
+  border-bottom: 1px solid #777;
 }
 
 /* LATEST */

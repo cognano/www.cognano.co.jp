@@ -106,7 +106,7 @@ const NewsPost: NextPage<Props> = ({ news, blocks, excerpt, desc, latestNews, og
         </div>
 
         <article className={styles.newsBody}>
-          <section className={styles.blocks}>
+          <section className={`news-body ${styles.blocks}`}>
             <Page blocks={blocks!} />
           </section>
         </article>
