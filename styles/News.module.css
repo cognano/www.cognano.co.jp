@@ -90,6 +90,14 @@
   margin: 0;
   padding: .2rem 0 0;
 }
+.newsBody a {
+  color: #777;
+  border-bottom: 1px solid #bbb;
+}
+.newsBody a:hover {
+  color: var(--color-text);
+  border-bottom: 1px solid #777;
+}
 
 /* LATEST */
 .latestNews {
