@@ -436,6 +436,9 @@ a:focus {
 .news-body .rotion-richtext-red {
   color: rgb(93, 23, 21);
 }
+.news-body .rotion-richtext-gray {
+  color: rgba(100, 100, 100, 0.8);
+}
 .news-body .rotion-richtext-bold {
   font-weight: bold;
 }
@@ -448,4 +451,12 @@ a:focus {
   border: 1px solid var(--color-accent);
   margin: var(--spacing-5) 0;
   padding-bottom: var(--spacing-4);
+}
+.news-body .rotion-richtext-link {
+  color: #777;
+  border-bottom: 1px solid #bbb;
+}
+.news-body .rotion-richtext-link:hover {
+  color: #333;
+  border-bottom: 1px solid #777;
 }
