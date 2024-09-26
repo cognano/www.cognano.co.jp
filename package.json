@@ -31,7 +31,6 @@
     "eslint": "^8.16.0",
     "eslint-config-next": "^13.0.3",
     "satori": "^0.1.1",
-    "serve": "^14.2.1",
     "twemoji": "^14.0.2",
     "typescript": "^5.0.0"
   },
