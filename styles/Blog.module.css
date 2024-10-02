@@ -163,6 +163,9 @@
   .blocks p {
     font-size: var(--fontSize-1);
   }
+  .blocks li {
+    font-size: 1rem;
+  }
   .blog a {
     height: auto;
     padding-bottom: 4rem;
