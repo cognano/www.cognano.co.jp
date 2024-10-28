@@ -9,57 +9,40 @@ on:
     types: [completed]
 
 jobs:
-  setup:
+  install-packages:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 22
-        cache: yarn
-    - name: Cache node modules
-      uses: actions/cache@v4
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+    - uses: ./.github/workflows/setups.yml
     - name: Install packages
       run: yarn install
 
-  english:
-    needs: setup
+  build-english:
+    needs: install-packages
     runs-on: ubuntu-latest
     env:
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
       ROTION_INCREMENTAL_CACHE: true
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 22
-        cache: yarn
-    - name: Restore node modules from cache
-      uses: actions/cache@v4
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-    - name: Cache next
-      uses: actions/cache@v4
-      with:
-        path: .next/cache
-        key: nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-    - name: Cache rotion
-      uses: actions/cache@v4
-      with:
-        path: |
-          .cache
-          public/images
-          public/ogimages
-        key: rotion-release
-
+    - uses: ./.github/workflows/setups.yml
     - name: Run next build for english
       run: yarn build
       env:
         NEXT_PUBLIC_LANG: en
+    - name: Save html
+      uses: actions/upload-artifact@v4
+      with:
+        name: english-out
+        path: out
+
+  deploy-english:
+    needs: build-english
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download html
+      uses: actions/download-artifact@v4
+      with:
+        name: english-out
+        path: out
     - name: Deploy to prod.cognanous.com by FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
@@ -67,44 +50,35 @@ jobs:
         username: ${{ secrets.FTP_USER_PROD_EN }}
         password: ${{ secrets.FTP_PASS_PROD_EN }}
         local-dir: ./out/
-        exclude: |
-          ogimages/*-ja-*.png
+        exclude: ogimages/*-ja-*.png
 
-  japanese:
-    needs: [setup, english]
+  build-japanese:
+    needs: build-english
     runs-on: ubuntu-latest
     env:
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
       ROTION_INCREMENTAL_CACHE: true
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 22
-        cache: yarn
-    - name: Restore node modules from cache
-      uses: actions/cache@v4
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-    - name: Cache next
-      uses: actions/cache@v4
-      with:
-        path: .next/cache
-        key: nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-    - name: Cache rotion
-      uses: actions/cache@v4
-      with:
-        path: |
-          .cache
-          public/images
-          public/ogimages
-        key: rotion-release
-
+    - uses: ./.github/workflows/setups.yml
     - name: Run next build for japanese
       run: yarn build
       env:
         NEXT_PUBLIC_LANG: ja
+    - name: Save html
+      uses: actions/upload-artifact@v4
+      with:
+        name: japanese-out
+        path: out
+
+  deploy-japanese:
+    needs: build-japanese
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download html
+      uses: actions/download-artifact@v4
+      with:
+        name: japanese-out
+        path: out
     - name: Deploy to prod.cognano.co.jp by FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
@@ -112,5 +86,4 @@ jobs:
         username: ${{ secrets.FTP_USER_PROD_JA }}
         password: ${{ secrets.FTP_PASS_PROD_JA }}
         local-dir: ./out/
-        exclude: |
-          ogimages/*-en-*.png
+        exclude: ogimages/*-en-*.png
