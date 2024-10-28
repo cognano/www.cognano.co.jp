@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: .github/actions/setups
+    - uses: ./.github/actions/setups
     - name: Install packages
       run: yarn install
 
@@ -25,7 +25,7 @@ jobs:
       ROTION_INCREMENTAL_CACHE: true
     steps:
     - uses: actions/checkout@v4
-    - uses: .github/actions/setups
+    - uses: ./.github/actions/setups
     - name: Run next build for english
       run: yarn build
       env:
@@ -62,7 +62,7 @@ jobs:
       ROTION_INCREMENTAL_CACHE: true
     steps:
     - uses: actions/checkout@v4
-    - uses: .github/actions/setups
+    - uses: ./.github/actions/setups
     - name: Run next build for japanese
       run: yarn build
       env:
