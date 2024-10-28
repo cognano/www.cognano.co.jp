@@ -11,19 +11,19 @@ on:
 jobs:
   install-packages:
     runs-on: ubuntu-latest
+    uses: ./.github/workflows/setups.yml
     steps:
-    - uses: ./.github/workflows/setups.yml
     - name: Install packages
       run: yarn install
 
   build-english:
     needs: install-packages
     runs-on: ubuntu-latest
+    uses: ./.github/workflows/setups.yml
     env:
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
       ROTION_INCREMENTAL_CACHE: true
     steps:
-    - uses: ./.github/workflows/setups.yml
     - name: Run next build for english
       run: yarn build
       env:
@@ -55,11 +55,11 @@ jobs:
   build-japanese:
     needs: build-english
     runs-on: ubuntu-latest
+    uses: ./.github/workflows/setups.yml
     env:
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
       ROTION_INCREMENTAL_CACHE: true
     steps:
-    - uses: ./.github/workflows/setups.yml
     - name: Run next build for japanese
       run: yarn build
       env:
