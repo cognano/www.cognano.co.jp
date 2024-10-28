@@ -9,7 +9,24 @@ on:
     types: [completed]
 
 jobs:
-  release:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: yarn
+    - name: Cache node modules
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+    - name: Install packages
+      run: yarn install
+
+  english:
+    needs: setup
     runs-on: ubuntu-latest
     env:
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
@@ -20,15 +37,17 @@ jobs:
       with:
         node-version: 22
         cache: yarn
-    - name: Restore next cache
+    - name: Restore node modules from cache
       uses: actions/cache@v4
       with:
-        path: |
-          .next/cache
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+    - name: Cache next
+      uses: actions/cache@v4
+      with:
+        path: .next/cache
         key: nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-        restore-keys: |
-          nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
-    - name: Restore rotion cache
+    - name: Cache rotion
       uses: actions/cache@v4
       with:
         path: |
@@ -36,14 +55,9 @@ jobs:
           public/images
           public/ogimages
         key: rotion-release
-        restore-keys: rotion-release
-    - name: Install packages
-      run: |
-        yarn install
 
     - name: Run next build for english
-      run: |
-        yarn build
+      run: yarn build
       env:
         NEXT_PUBLIC_LANG: en
     - name: Deploy to prod.cognanous.com by FTP
@@ -56,9 +70,39 @@ jobs:
         exclude: |
           ogimages/*-ja-*.png
 
+  japanese:
+    needs: [setup, english]
+    runs-on: ubuntu-latest
+    env:
+      NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+      ROTION_INCREMENTAL_CACHE: true
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: yarn
+    - name: Restore node modules from cache
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+    - name: Cache next
+      uses: actions/cache@v4
+      with:
+        path: .next/cache
+        key: nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+    - name: Cache rotion
+      uses: actions/cache@v4
+      with:
+        path: |
+          .cache
+          public/images
+          public/ogimages
+        key: rotion-release
+
     - name: Run next build for japanese
-      run: |
-        yarn build
+      run: yarn build
       env:
         NEXT_PUBLIC_LANG: ja
     - name: Deploy to prod.cognano.co.jp by FTP
