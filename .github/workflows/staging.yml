@@ -16,7 +16,7 @@ jobs:
       run: yarn install
 
   build-english:
-    needs: install-package
+    needs: install-packages
     runs-on: ubuntu-latest
     env:
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
@@ -75,7 +75,7 @@ jobs:
         path: out
 
   deploy-japanese:
-    needs: build-english
+    needs: build-japanese
     runs-on: ubuntu-latest
     steps:
     - name: Download html
