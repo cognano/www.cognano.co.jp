@@ -1,8 +1,10 @@
 name: Staging
 
 on:
+  workflow_dispatch:
   workflow_run:
-    workflows: ["Build"]
+    workflows:
+      - 'Build'
     types: [completed]
     branches:
       - '!main'
