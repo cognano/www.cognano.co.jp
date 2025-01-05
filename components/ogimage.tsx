@@ -57,7 +57,7 @@ const descStyle = {
 }
 
 const OgImage: FC<Props> = ({ title, desc, id }) => {
-  const sitename = `COGNANO 🦙`
+  const sitename = `COGNANO`
   const nonAscii = /[^\x01-\x7E\uFF61-\uFF9F]+/
   const titleMaxLength = title.match(nonAscii) ? 80 : 110
   const descMaxLength = title.match(nonAscii) ? 80 : 120
