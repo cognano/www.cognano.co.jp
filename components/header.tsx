@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Logo from './logo'
 import styles from '../styles/App.module.css'
 import t from '../i18n'
+import { useRouter } from 'next/router'
 import { envelopeIcon } from './icons'
 import Language from './language'
 
@@ -11,9 +12,11 @@ type Props = {
 }
 
 const Header: React.FC<Props> = ({ children }) => {
+  const router = useRouter()
+  const border = router.pathname === '/' ? "" : styles.borderHeader
   return (
     <header className={styles.header}>
-      <div className={`${styles.headerinner} container`}>
+      <div className={`${styles.headerinner} ${border} container`}>
         <h1 className={styles.sitename}>
           <Logo />
         </h1>
