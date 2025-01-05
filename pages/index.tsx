@@ -12,14 +12,19 @@ import BlogList from '../components/blog-list'
 import NewsList from '../components/news-list'
 import Hed from '../components/hed'
 import { GetQEs, LocalizedQE } from '../lib/qe'
+import { GetFAQs, LocalizedFAQWithBlocks } from '../lib/faq'
 import CreateOgImage from '../lib/ogimage'
 import { QueryDatabaseResponseEx } from 'rotion'
 
 type Props = {
-  about: Content
-  pitch: Content
   vhh: Content
-  algorithm: Content
+  hero: Content
+  problem: Content
+  solution: Content
+  proof: Content
+  faq: Content
+  faqs: LocalizedFAQWithBlocks[]
+  video: Content
   blog: Blog[]
   news: Blog[]
   projects: QueryDatabaseResponseEx
@@ -28,16 +33,21 @@ type Props = {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const about = await GetContent('about')
-  const pitch = await GetContent('pitch')
+  const hero = await GetContent('hero')
+  const pitchProblem = await GetContent('pitch-problem')
+  const pitchSolution = await GetContent('pitch-solution')
+  const pitchProof = await GetContent('pitch-proof')
+  const faq = await GetContent('faq')
+
   const vhh = await GetContent('vhh-antibody')
-  const algorithm = await GetContent('algorithm')
+  const video = await GetContent('video')
   const qes = await GetQEs()
+  const faqs = await GetFAQs()
   const blog = await GetBlogsEachLangs(blogQueryLatest)
   const news = await GetBlogsEachLangs(newsQueryLatest)
   const projects = await GetProjectsOriginal(projectsQueryLatest)
 
-  if (about === undefined) {
+  if (hero === undefined) {
     return {
       props: {},
       redirect: {
@@ -53,10 +63,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
-      about: about[lang],
-      pitch: pitch![lang],
+      hero: hero![lang],
+      problem: pitchProblem![lang],
+      solution: pitchSolution![lang],
+      proof: pitchProof![lang],
+      faq: faq![lang],
+      faqs: faqs![lang],
       vhh: vhh![lang],
-      algorithm: algorithm![lang],
+      video: video![lang],
       blog: blog[lang],
       news: news[lang],
       projects: projects[lang],
@@ -66,7 +80,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, projects, qes, ogimage }) => {
+const HomePage: NextPage<Props> = ({ video, hero, solution, problem, proof, faq, faqs, vhh, blog, news, projects, qes, ogimage }) => {
   return (
     <>
       <Hed title={t('head.title')} desc={t('head.description')} ogimage={ogimage} />
@@ -74,23 +88,50 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, p
         <div className={styles.wrapper}>
           <div className="container">
             <div className={styles.hero}>
-              <div className={styles.treeDiagram}>
-                <Image src="/static/tree.svg" width={1000} height={1000} alt="Tree Diagram" />
-              </div>
-              <div className={styles.researchImage}>
-                <Image src="/static/chromosomes.webp" fill={true} alt="Chromosomes" />
-                <div className={styles.unsplash}>
-                  <Unsplash href="https://unsplash.com/@nci?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" name="National Cancer Institute"/>
-                </div>
-              </div>
-              <div className={styles.heroInner}>
-                <Page blocks={about.blocks} />
-                <p className={styles.aboutButton}>
+              <div className={styles.heroText}>
+                <Page blocks={hero.blocks} />
+                <p className={styles.button}>
                   <Link href="/about">
                     {t('index.aboutUs')}
                   </Link>
                 </p>
               </div>
+              <div className={styles.heroImage}>
+                <div className={styles.ibmet}>
+                  <Image src="/static/ibmet.webp" width={625} height={750} alt="IBMET" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.elevatorPitch}>
+          <div className={styles.problemAndSolution}>
+            <div className={styles.problem}>
+              <div className={styles.halfcontainerL}>
+                <div className={styles.problemImage}>
+                  <Image src="/static/problem.webp" width={200} height={200} alt="Telescope" />
+                </div>
+                <Page blocks={problem.blocks} />
+              </div>
+            </div>
+            <div className={styles.solution}>
+              <div className={styles.halfcontainerR}>
+                <div className={styles.solutionImage}>
+                  <Image src="/static/solution.webp" width={200} height={200} alt="AI" />
+                </div>
+                <Page blocks={solution.blocks} />
+              </div>
+            </div>
+          </div>
+          <div className={styles.proof}>
+            <div className={styles.halfcontainerC}>
+              <Page blocks={proof.blocks} />
+              <p className={styles.button}>
+                <Link href="/datasets">
+                  {t('index.datasets')}
+                </Link>
+              </p>
             </div>
           </div>
         </div>
@@ -99,42 +140,75 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, p
           <div className={styles.qes}>
             {qes.map((v, i) => (
               <div className={styles.qe} key={i}>
+                <p className={styles.qeTitle}>
+                  {v.title}
+                </p>
                 <p className={styles.qeNumber}>
                   {v.number}
                   <span className={styles.qeUnit}>
                     {v.unit}
                   </span>
                 </p>
-                <p className={styles.qeTitle}>
-                  {v.title}
-                </p>
               </div>
             ))}
           </div>
-          <div className={styles.qesBackgroundImageLicense}>
-            <Unsplash href="https://unsplash.com/@whoisdenilo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" name="Who’s Denilo ?"/>
+        </div>
+
+        <div className={styles.faqsWrapper}>
+          <h2 className={styles.faqTitle}>
+            {faq.title}
+          </h2>
+          <div className={styles.faqDesc}>
+            <Page blocks={faq.blocks} />
+          </div>
+          <div className={styles.faqs}>
+            {faqs.map((v, i) => (
+              <div className={styles.faq} key={i}>
+                <h3 className={styles.faqQ}>
+                  {v.question}
+                </h3>
+                <div className={styles.faqA}>
+                  <Page blocks={v.blocks} />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className={styles.pitches}>
-          <h2>{pitch.title}</h2>
-          <Page blocks={pitch.blocks} />
-        </div>
-
-        <section>
-          <div className={styles.researchIntro}>
-            <div className={styles.researchBody}>
-              <h2 className={styles.researchTitle}>
-                {vhh.title}
-              </h2>
-              <p>{vhh.excerpt}</p>
-              <p className={styles.researchButton}>
-                <Link href="/research">
-                  {t('index.viewAllResearch')}
-                </Link>
+        <section className={styles.office}>
+          <h2 className={styles.officeTitle}>
+            {t('index.office')}
+          </h2>
+          <div className={styles.officeInner}>
+            <div className={styles.kyoto}>
+              <div className={styles.officeImage}>
+                <Image src="/static/kyoto.webp" width={600} height={300} alt="Kyoto" />
+                <div className={styles.officeImageLicense}>
+                  <Unsplash href="https://unsplash.com/@blackodc?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" name="Su San Lee"/>
+                </div>
+              </div>
+              <h3 className={styles.officeName}>
+                {t('index.kyoto')}
+              </h3>
+              <p className={styles.officeAddress}>
+                {t('index.kyotoAddress')} {` `}
+                Headquarter
               </p>
             </div>
-            <div className={styles.researchCover} style={{backgroundImage: `url(${vhh.cover})`}}>
+            <div className={styles.somerville}>
+              <div className={styles.officeImage}>
+                <Image src="/static/davis-square.webp" width={600} height={300} alt="Davis Square" />
+                <div className={styles.officeImageLicense}>
+                  <Unsplash href="https://commons.wikimedia.org/wiki/File:Davis_Square_looking_north_down_Holland_Street_2.jpg" name="4300streetcar" host="wikipedia" hostUrl="https://en.wikipedia.org/wiki/Somerville,_Massachusetts"/>
+                </div>
+              </div>
+              <h3 className={styles.officeName}>
+                {t('index.somerville')}
+              </h3>
+              <p className={styles.officeAddress}>
+                {t('index.somervilleAddress')} {` `}
+                COGNANOUS, Inc.
+              </p>
             </div>
           </div>
         </section>
@@ -170,22 +244,9 @@ const HomePage: NextPage<Props> = ({ about, pitch, vhh, algorithm, blog, news, p
           </div>
         </div>
 
-        <div className={styles.algorithm}>
-          <div className={styles.algorithmInner}>
-            <div className={styles.algorithmVideo}>
-              <iframe
-                width="100%"
-                height="100%"
-                src="https://www.youtube.com/embed/zcOjqP40TjA?controls=0"
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen
-              ></iframe>
-            </div>
-            <div className={styles.algorithmText}>
-              <h2>{algorithm.title}</h2>
-              <Page blocks={algorithm.blocks} />
-            </div>
+        <div className={styles.video}>
+          <div className={styles.videoInner}>
+            <Page blocks={video.blocks} />
           </div>
         </div>
 
