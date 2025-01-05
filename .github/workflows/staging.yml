@@ -1,51 +1,49 @@
 name: Staging
 
 on:
-  repository_dispatch:
   workflow_dispatch:
   pull_request:
     workflows: ["Build"]
     types: [completed]
 
 jobs:
-  deployment:
+  install-packages:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ./.github/actions/setups
+    - name: Install packages
+      run: yarn install
+
+  build-english:
+    needs: install-package
     runs-on: ubuntu-latest
     env:
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
       ROTION_INCREMENTAL_CACHE: true
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 22
-        cache: yarn
-    - name: Restore next cache
-      uses: actions/cache@v4
-      with:
-        path: |
-          .next/cache
-        key: nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-        restore-keys: |
-          nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
-    - name: Restore rotion cache
-      uses: actions/cache@v4
-      with:
-        path: |
-          .cache
-          public/images
-          public/ogimages
-        key: rotion-staging
-        restore-keys: rotion-staging
-    - name: Install packages
-      run: |
-        yarn install
-
+    - uses: ./.github/actions/setups
     - name: Run next build for english
-      run: |
-        yarn build
+      run: yarn build
       env:
         NEXT_PUBLIC_LANG: en
         BUILD_ENV: staging
+    - name: Save html
+      uses: actions/upload-artifact@v4
+      with:
+        name: english-out-stag
+        path: out
+
+  deploy-english:
+    needs: build-english
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download html
+      uses: actions/download-artifact@v4
+      with:
+        name: english-out-stag
+        path: out
     - name: Deploy to stag.cognanous.com by FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
@@ -56,12 +54,35 @@ jobs:
         exclude: |
           ogimages/*-ja-*.png
 
+  build-japanese:
+    needs: build-english
+    runs-on: ubuntu-latest
+    env:
+      NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+      ROTION_INCREMENTAL_CACHE: true
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ./.github/actions/setups
     - name: Run next build for japanese
-      run: |
-        yarn build
+      run: yarn build
       env:
         NEXT_PUBLIC_LANG: ja
         BUILD_ENV: staging
+    - name: Save html
+      uses: actions/upload-artifact@v4
+      with:
+        name: japanese-out-stag
+        path: out
+
+  deploy-japanese:
+    needs: build-english
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download html
+      uses: actions/download-artifact@v4
+      with:
+        name: japanese-out-stag
+        path: out
     - name: Deploy to stag.cognano.co.jp by FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
