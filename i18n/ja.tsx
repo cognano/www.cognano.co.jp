@@ -28,6 +28,13 @@ export default {
     tnbc: `トリプルネガティブ乳がん`,
     vhh: `VHH抗体`,
     viewAllResearch: `もっと詳しく`,
+    datasets: `データセットを見る`,
+    faqTitle: `よくある質問`,
+    office: `Office`,
+    kyoto: `京都`,
+    kyotoAddress: `〒601-1255 京都府京都市左京区上高野東山 64-101`,
+    somerville: `Somerville, USA`,
+    somervilleAddress: `Spaces Davis Square 240 Elm Street, 2nd Floor, Somerville, MA, 02144`,
   },
   about: {
     purpose: `パーパス`,
@@ -71,8 +78,8 @@ export default {
     learnmore: 'もっと詳しく',
   },
   head: {
-    title: `COGNANO - コンピューターを利用した創薬を目指すベンチャー`,
-    description: `COGNANOは、コンピューターを利用した創薬を目指すベンチャーです`,
+    title: `COGNANO - 創薬開始判断に必要な新規バイオマーカーを提供する`,
+    description: `私たちは、抗体データと最先端のAI技術を活用し、精度の高い創薬シーズや検査薬を開発しています。`,
   },
   error404: {
     title: '404',
