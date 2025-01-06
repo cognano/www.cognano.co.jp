@@ -99,7 +99,7 @@
 }
 .problem,
 .solution {
-  background-image: url("/static/antibodies.png");
+  background-image: url("/static/antibodies.webp");
   background-repeat: repeat;
   background-size: 260px;
 }
