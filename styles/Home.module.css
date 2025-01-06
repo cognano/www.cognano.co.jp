@@ -54,8 +54,8 @@
   width: 70%;
   height: 70%;
   position: absolute;
-  top: 20%;
-  left: 10%;
+  top: 22%;
+  left: 12%;
   opacity: .9;
 }
 
@@ -200,8 +200,8 @@
   margin: 0 auto;
 }
 .faqs {
-  margin: 0 0 var(--spacing-10);
-  padding: 0 0 var(--spacing-10);
+  margin: 0 0 var(--spacing-20);
+  padding: 0 0 var(--spacing-20);
 }
 .faq {
   margin: 0;
