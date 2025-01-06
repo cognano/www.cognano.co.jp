@@ -33,8 +33,10 @@ export default {
     office: `Office`,
     kyoto: `Kyoto, Japan`,
     kyotoAddress: `#101, 64 Higashiyama, Kamitakano, Sakyo-ku, Kyoto, 6011255`,
+    kyotoCorpName: `COGNANO, Inc.`,
     somerville: `Somerville, USA`,
     somervilleAddress: `Spaces Davis Square 240 Elm Street, 2nd Floor, Somerville, MA, 02144`,
+    somervilleCorpName: `COGNANOUS, Inc.`,
   },
   about: {
     purpose: `Purpose`,

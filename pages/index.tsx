@@ -191,8 +191,8 @@ const HomePage: NextPage<Props> = ({ video, hero, solution, problem, proof, faq,
                 {t('index.kyoto')}
               </h3>
               <p className={styles.officeAddress}>
-                {t('index.kyotoAddress')} {` `}
-                Headquarter
+                {t('index.kyotoAddress')}<br />
+                {t('index.kyotoCorpName')}
               </p>
             </div>
             <div className={styles.somerville}>
@@ -206,8 +206,8 @@ const HomePage: NextPage<Props> = ({ video, hero, solution, problem, proof, faq,
                 {t('index.somerville')}
               </h3>
               <p className={styles.officeAddress}>
-                {t('index.somervilleAddress')} {` `}
-                COGNANOUS, Inc.
+                {t('index.somervilleAddress')}<br />
+                {t('index.somervilleCorpName')}
               </p>
             </div>
           </div>
