@@ -28,6 +28,15 @@ export default {
     tnbc: `Triple-negative Breast Cancer`,
     vhh: `VHH Antibody`,
     viewAllResearch: `Learn more`,
+    datasets: `View datasets`,
+    faqTitle: `Frequently Asked Questions`,
+    office: `Office`,
+    kyoto: `Kyoto, Japan`,
+    kyotoAddress: `#101, 64 Higashiyama, Kamitakano, Sakyo-ku, Kyoto, 6011255`,
+    kyotoCorpName: `COGNANO, Inc.`,
+    somerville: `Somerville, USA`,
+    somervilleAddress: `Spaces Davis Square 240 Elm Street, 2nd Floor, Somerville, MA, 02144`,
+    somervilleCorpName: `COGNANOUS, Inc.`,
   },
   about: {
     purpose: `Purpose`,
@@ -60,8 +69,8 @@ export default {
     en: `English`
   },
   head: {
-    title: `COGNANO - Aiming to support drug discovery by computer`,
-    description: `COGNANO is a venture that aims at computer-aided drug discovery.`,
+    title: `COGNANO - Providing Novel Biomarkers for Drug Discovery Decision-Making`,
+    description: `We leverage antibody data and cutting-edge AI technology to develop highly accurate drug discovery seeds and diagnostic tools.`,
   },
   datasets: {
     datasets: `Datasets`,

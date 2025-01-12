@@ -9,7 +9,7 @@ const Logo: React.FC<Props> = ({ children }) => {
   return (
     <span className="logo">
       <Link href="/">
-        COGNANO <span role="img" aria-label="alpaca">🦙</span>
+        COGNANO
       </Link>
     </span>
   )
