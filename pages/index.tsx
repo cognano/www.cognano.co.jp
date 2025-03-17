@@ -6,7 +6,7 @@ import { blogQueryLatest, newsQueryLatest, Blog, GetBlogsEachLangs } from '../li
 import { GetContent, Content } from '../lib/content'
 import { Page, List } from 'rotion/ui'
 import styles from '../styles/Home.module.css'
-import { GetProjectsOriginal, ProjectsOriginal, projectsQueryLatest } from '../lib/project'
+import { GetProjectsOriginal, projectsQueryLatest } from '../lib/project'
 import Unsplash from '../components/unsplash'
 import BlogList from '../components/blog-list'
 import NewsList from '../components/news-list'
@@ -208,6 +208,26 @@ const HomePage: NextPage<Props> = ({ video, hero, solution, problem, proof, faq,
               <p className={styles.officeAddress}>
                 {t('index.somervilleAddress')}<br />
                 {t('index.somervilleCorpName')}
+              </p>
+            </div>
+          </div>
+          <h2 className={styles.officeTitle}>
+            {t('index.lab')}
+          </h2>
+          <div className={styles.labInner}>
+            <div className={styles.kyoto}>
+              <div className={styles.officeImage}>
+                <Image src="/static/biolab.webp" width={600} height={300} alt="Kyoto Lab" />
+                <div className={styles.officeImageLicense}>
+                  <Unsplash href="https://unsplash.com/photos/black-and-silver-coffee-maker-on-white-wooden-table-_9xRHrMOjeg" name="Trnava University"/>
+                </div>
+              </div>
+              <h3 className={styles.officeName}>
+                {t('index.kyoto')}
+              </h3>
+              <p className={styles.officeAddress}>
+                {t('index.kyotogoshaLabAddress')}<br />
+                {t('index.kyotogoshaLabName')}
               </p>
             </div>
           </div>
