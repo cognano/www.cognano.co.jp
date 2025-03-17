@@ -280,6 +280,13 @@
   right: 1rem;
   display: block;
 }
+.labInner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-10);
+  max-width: 650px;
+  margin: 0 auto;
+}
 
 /* PROJECTS */
 .projectsWrapper {

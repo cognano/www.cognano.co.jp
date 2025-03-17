@@ -37,6 +37,9 @@ export default {
     somerville: `Somerville, USA`,
     somervilleAddress: `Spaces Davis Square 240 Elm Street, 2nd Floor, Somerville, MA, 02144`,
     somervilleCorpName: `COGNANOUS, Inc.`,
+    lab: `Lab`,
+    kyotogoshaLabAddress: `448-5 Imadegawa-Sagaru-Kajii-cho, Kamigyo-ku, Kyoto, 602-0841`,
+    kyotogoshaLabName: `Creation Core Kyoto Imperial Palace`,
   },
   about: {
     purpose: `Purpose`,
