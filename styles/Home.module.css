@@ -499,7 +499,8 @@
   .proof p {
     font-size: var(--fontSize-2);
   }
-  .officeInner {
+  .officeInner,
+  .labInner {
     display: block;
     max-width: 100%;
     text-align: center;
