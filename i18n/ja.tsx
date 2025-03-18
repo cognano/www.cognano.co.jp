@@ -37,7 +37,7 @@ export default {
     somerville: `Somerville, USA`,
     somervilleAddress: `Spaces Davis Square 240 Elm Street, 2nd Floor, Somerville, MA, 02144`,
     somervilleCorpName: `COGNANOUS, Inc.`,
-    lab: `研究室`,
+    lab: `Lab`,
     kyotogoshaLabAddress: `〒602-0841 京都府京都市上京区河原町通今出川下る梶井町448-5`,
     kyotogoshaLabName: `クリエイション・コア京都御車`,
   },
