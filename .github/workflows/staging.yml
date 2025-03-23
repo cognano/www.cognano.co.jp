@@ -9,6 +9,13 @@ on:
     types: [completed]
     branches:
       - '!main'
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: "staging"
+  cancel-in-progress: false
 
 jobs:
   install-packages:
