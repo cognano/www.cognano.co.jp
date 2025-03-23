@@ -17,12 +17,12 @@ import CreateOgImage from '../lib/ogimage'
 import { QueryDatabaseResponseEx } from 'rotion'
 
 type Props = {
-  vhh: Content
   hero: Content
   problem: Content
   solution: Content
   proof: Content
   faq: Content
+  openfold: Content
   faqs: LocalizedFAQWithBlocks[]
   video: Content
   blog: Blog[]
@@ -33,19 +33,20 @@ type Props = {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const hero = await GetContent('hero')
-  const pitchProblem = await GetContent('pitch-problem')
-  const pitchSolution = await GetContent('pitch-solution')
-  const pitchProof = await GetContent('pitch-proof')
-  const faq = await GetContent('faq')
-
-  const vhh = await GetContent('vhh-antibody')
-  const video = await GetContent('video')
-  const qes = await GetQEs()
-  const faqs = await GetFAQs()
-  const blog = await GetBlogsEachLangs(blogQueryLatest)
-  const news = await GetBlogsEachLangs(newsQueryLatest)
-  const projects = await GetProjectsOriginal(projectsQueryLatest)
+  const [hero, pitchProblem, pitchSolution, pitchProof, faq, video, openfold, qes, faqs, blog, news, projects] = await Promise.all([
+    GetContent('hero'),
+    GetContent('pitch-problem'),
+    GetContent('pitch-solution'),
+    GetContent('pitch-proof'),
+    GetContent('faq'),
+    GetContent('video'),
+    GetContent('openfold'),
+    GetQEs(),
+    GetFAQs(),
+    GetBlogsEachLangs(blogQueryLatest),
+    GetBlogsEachLangs(newsQueryLatest),
+    GetProjectsOriginal(projectsQueryLatest),
+  ])
 
   if (hero === undefined) {
     return {
@@ -69,18 +70,18 @@ export const getStaticProps: GetStaticProps = async (context) => {
       proof: pitchProof![lang],
       faq: faq![lang],
       faqs: faqs![lang],
-      vhh: vhh![lang],
       video: video![lang],
       blog: blog[lang],
       news: news[lang],
       projects: projects[lang],
       qes: qes[lang],
+      openfold: openfold![lang],
       ogimage,
     }
   }
 }
 
-const HomePage: NextPage<Props> = ({ video, hero, solution, problem, proof, faq, faqs, vhh, blog, news, projects, qes, ogimage }) => {
+const HomePage: NextPage<Props> = ({ video, hero, solution, problem, proof, faq, faqs, openfold, blog, news, projects, qes, ogimage }) => {
   return (
     <>
       <Hed title={t('head.title')} desc={t('head.description')} ogimage={ogimage} />
@@ -247,6 +248,18 @@ const HomePage: NextPage<Props> = ({ video, hero, solution, problem, proof, faq,
               keys={['Name', 'Host', 'spacer', 'Tags', 'Date']}
               db={projects}
             />
+          </div>
+        </div>
+
+        <div className={styles.openfold}>
+          <div className={styles.openfoldInner}>
+            <div className={styles.openfoldMember}>
+              <Page blocks={openfold.blocks} />
+            </div>
+            <div className={styles.openfoldAbout}>
+              <Image src="/static/openfold.png" width={455} height={112} alt="OpenFold" />
+              <p>{t('index.openfold')}</p>
+            </div>
           </div>
         </div>
 

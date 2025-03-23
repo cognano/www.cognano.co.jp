@@ -40,6 +40,7 @@ export default {
     lab: `Lab`,
     kyotogoshaLabAddress: `448-5 Imadegawa-Sagaru-Kajii-cho, Kamigyo-ku, Kyoto, 602-0841`,
     kyotogoshaLabName: `Creation Core Kyoto Imperial Palace`,
+    openfold: `OpenFold is a non-profit consortium dedicated to advancing AI-driven research in computational structural biology. By developing free and open-source software, OpenFold seeks to democratize protein structure prediction and accelerate drug discovery. Collaborating with academic and industry leaders, the consortium builds cutting-edge technologies that enable the discovery of transformative treatments through the power of AI.`,
   },
   about: {
     purpose: `Purpose`,
