@@ -1775,7 +1775,7 @@ __metadata:
     react-cookie-consent: "npm:^8.0.1"
     react-dom: "npm:^19.0.0"
     react-loader-spinner: "npm:^6.1.6"
-    react-modal: "npm:^3.16.1"
+    react-modal: "npm:^3.16.3"
     rotion: "npm:^1.13.0"
     satori: "npm:^0.1.1"
     schema-dts: "npm:^1.1.2"
@@ -4892,7 +4892,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-modal@npm:^3.16.1":
+"react-modal@npm:^3.16.3":
   version: 3.16.3
   resolution: "react-modal@npm:3.16.3"
   dependencies:
