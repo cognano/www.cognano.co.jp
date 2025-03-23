@@ -74,6 +74,18 @@ export type DBPage = DBPageBase & {
   }
 }
 
+function buildNodataWriter(id: string): Writer {
+  switch (id) {
+    case '00cbdd3b-51b3-433d-b94d-74154df128cd':
+      return { name: 'Soichiro Noda', avatar: '/static/sonod.webp' } as Writer
+    case '893bb908-9d1a-45a4-9f1c-3b9530e69c78':
+      return { name: 'Ryosuke Matsumoto', avatar: '/static/matsumotory.webp' } as Writer
+    default:
+      console.log(`Unknown writer -- Id: ${id}`)
+      return { name: 'Unknown', avatar: '' } as Writer
+  }
+}
+
 const build = (page: DBPage): Blog => {
   const props = page.properties
   return {
@@ -87,10 +99,10 @@ const build = (page: DBPage): Blog => {
     last_edited_time: page.last_edited_time,
     tags: props.Tags.multi_select.map(v => v.name) || [],
     writers: props.Writers.people.map(v => {
-      return { name: v.name, avatar: v.avatar } as Writer
+      return (v.name) ? { name: v.name, avatar: v.avatar } as Writer : buildNodataWriter(v.id)
     }) || [],
     language: props.Language.select.name || '',
-  }
+  } 
 }
 
 export const buildExcerpt = (b: ListBlockChildrenResponseEx): string => {
