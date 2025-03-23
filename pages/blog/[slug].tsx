@@ -37,7 +37,6 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 }
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
-  console.log('params', params)
   const blogBilingal = await GetBlogsEachLangs(blogQuery)
   const blog = blogBilingal[lang].find(v => v.slug === params!.slug)
 
