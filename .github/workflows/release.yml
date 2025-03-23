@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@v4
     - uses: ./.github/actions/setups
     - name: Install packages
-      run: yarn install
+      run: bun install
 
   build-english:
     needs: install-packages
@@ -27,7 +27,7 @@ jobs:
     - uses: actions/checkout@v4
     - uses: ./.github/actions/setups
     - name: Run next build for english
-      run: yarn build
+      run: bun build
       env:
         NEXT_PUBLIC_LANG: en
     - name: Save html
@@ -64,7 +64,7 @@ jobs:
     - uses: actions/checkout@v4
     - uses: ./.github/actions/setups
     - name: Run next build for japanese
-      run: yarn build
+      run: bun build
       env:
         NEXT_PUBLIC_LANG: ja
     - name: Save html
