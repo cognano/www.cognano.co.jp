@@ -5,6 +5,14 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  webpack(config, { isServer }) {
+    console.log('Webpack build config:', config)
+    return config
+  },
+  images: {
+    dangerouslyAllowSVG: true,
+  },
+  productionBrowserSourceMaps: true,
 }
 
 module.exports = nextConfig
