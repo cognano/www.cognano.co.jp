@@ -38,6 +38,10 @@ jobs:
     - name: Run next build for english
       run: |
         rm -rf .next
+        rm -rf public/images
+        rm -rf public/ogimages
+        mkdir public/images
+        mkdir public/ogimages
         yarn run build
       env:
         NEXT_PUBLIC_LANG: en
@@ -79,6 +83,10 @@ jobs:
     - name: Run next build for japanese
       run: |
         rm -rf .next
+        rm -rf public/images
+        rm -rf public/ogimages
+        mkdir public/images
+        mkdir public/ogimages
         yarn run build
       env:
         NEXT_PUBLIC_LANG: ja
