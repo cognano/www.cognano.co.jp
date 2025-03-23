@@ -27,16 +27,18 @@ type Props = {
 }
 
 export const getStaticProps: GetStaticProps<{}> = async () => {
-  const story = await GetContent('story')
-  const team = await GetContent('team')
-  const investors = await GetContent('investors')
-  const mindset = await GetContent('mindset')
-  const company = await GetContent('company-overview')
-  const purpose = await GetMindset('purpose')
-  const mission = await GetMindset('mission')
-  const vision = await GetMindset('vision')
-  const values = await GetValues()
-  const members = await GetMembers()
+  const [story, team, investors, mindset, company, purpose, mission, vision, values, members] = await Promise.all([
+    GetContent('story'),
+    GetContent('team'),
+    GetContent('investors'),
+    GetContent('mindset'),
+    GetContent('company-overview'),
+    GetMindset('purpose'),
+    GetMindset('mission'),
+    GetMindset('vision'),
+    GetValues(),
+    GetMembers(),
+  ])
 
   const ogimage = await CreateOgImage({
     id: `about-${lang}`,
