@@ -82,7 +82,11 @@ const atoh = (a: string): string => {
 const CreateOgImage = async ({ id, title, desc }: CreateOgimageArgs): Promise<string> => {
   const hash = atoh(`${title}${desc}`)
   const file = `${id}-${hash}.png`
-  await writeOgImage({ id, title, desc, file })
+  try {
+    await writeOgImage({ id, title, desc, file })
+  } catch (e) {
+    console.error('Failed to generate og:image', id, e)
+  }
   return file
 }
 

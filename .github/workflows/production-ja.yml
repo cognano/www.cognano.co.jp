@@ -1,0 +1,61 @@
+name: Production for Japanese
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Build"]
+    branches: [main]
+    types: [completed]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: "production-japanese"
+  cancel-in-progress: false
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ./.github/actions/setups
+    - name: Install packages
+      run: bun install
+
+  build:
+    needs: install
+    runs-on: ubuntu-latest
+    env:
+      NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+      ROTION_INCREMENTAL_CACHE: true
+      NEXT_PUBLIC_LANG: ja
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ./.github/actions/setups
+    - name: Run next build for japanese
+      run: bun run build
+    - name: Save artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: japanese-out
+        path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: japanese-out
+        path: out
+    - name: Deploy to prod.cognano.co.jp by FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ${{ secrets.FTP_HOST }}
+        username: ${{ secrets.FTP_USER_PROD_JA }}
+        password: ${{ secrets.FTP_PASS_PROD_JA }}
+        local-dir: ./out/
+        exclude: ogimages/*-en-*.png

@@ -27,16 +27,18 @@ type Props = {
 }
 
 export const getStaticProps: GetStaticProps<{}> = async () => {
-  const story = await GetContent('story')
-  const team = await GetContent('team')
-  const investors = await GetContent('investors')
-  const mindset = await GetContent('mindset')
-  const company = await GetContent('company-overview')
-  const purpose = await GetMindset('purpose')
-  const mission = await GetMindset('mission')
-  const vision = await GetMindset('vision')
-  const values = await GetValues()
-  const members = await GetMembers()
+  const [story, team, investors, mindset, company, purpose, mission, vision, values, members] = await Promise.all([
+    GetContent('story'),
+    GetContent('team'),
+    GetContent('investors'),
+    GetContent('mindset'),
+    GetContent('company-overview'),
+    GetMindset('purpose'),
+    GetMindset('mission'),
+    GetMindset('vision'),
+    GetValues(),
+    GetMembers(),
+  ])
 
   const ogimage = await CreateOgImage({
     id: `about-${lang}`,
@@ -89,6 +91,10 @@ const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
     return <></>
   }
 
+  // workaround for react-modal with react 18
+  // https://github.com/reactjs/react-modal/issues/960
+  const ModalForReact18 = Modal as unknown as React.ComponentType<ReactModal['props']>
+
   return (
     <div className={styles.member}>
       <div className={styles.memberAvatar}>
@@ -107,7 +113,7 @@ const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
       <p className={styles.viewFullProfile} onClick={openModal}>
         {t('about.viewFullProfile')}
       </p>
-      <Modal isOpen={modalIsOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} className={styles.reactModal} overlayClassName={styles.reactModalOverlay} contentLabel="Modal">
+      <ModalForReact18 isOpen={modalIsOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} className={styles.reactModal} overlayClassName={styles.reactModalOverlay} contentLabel="Modal">
         <div className={styles.modal}>
           <div className={styles.modalMemberAvatar}>
             {m.props.cover && <Image src={m.props.cover} fill={true} alt={m.props.name} />}
@@ -128,7 +134,7 @@ const Member: React.FC<{ m: LocalizedMemberWithBlocks }> = ({ m }) => {
             </p>
           </div>
         </div>
-      </Modal>
+      </ModalForReact18>
     </div>
   )
 }

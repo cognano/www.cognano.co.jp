@@ -10,23 +10,26 @@ runs:
     uses: oven-sh/setup-bun@v2
     with:
       bun-version: 1.2.0
+
   - name: Restore node modules from cache
     uses: actions/cache@v4
     with:
       path: node_modules
       key: ${{ runner.os }}-node-${{ hashFiles('**/bun.lock') }}
-  - name: Restore package cache
+
+  - name: Restore nextjs cache
     uses: actions/cache@v4
     with:
       path: .next/cache
-      key: ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+      key: ${{ runner.os }}-nextjs-${{ github.run_id }}
       restore-keys: ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lock') }}-
+
   - name: Restore rotion cache
     uses: actions/cache@v4
     with:
       path: |
         .cache
         public/images
-        public/files
+        public/ogimages
       key: rotion
       restore-keys: rotion
