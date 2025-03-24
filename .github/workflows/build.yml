@@ -16,5 +16,5 @@ jobs:
     - uses: ./.github/actions/setups
     - name: Install dependencies
       run: |
-        yarn install
-        yarn lint
+        bun install
+        bun lint
