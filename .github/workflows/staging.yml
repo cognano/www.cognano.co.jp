@@ -3,6 +3,12 @@ name: Staging
 on:
   pull_request:
   workflow_dispatch:
+    inputs:
+      rotionDebug:
+        description: 'Rotion Debug Flag'
+        required: false
+        default: false
+        type: boolean
   workflow_run:
     workflows:
       - 'Build'
@@ -32,6 +38,7 @@ jobs:
     env:
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
       ROTION_INCREMENTAL_CACHE: true
+      ROTION_DEBUG: ${{ inputs.rotionDebug }}
     steps:
     - uses: actions/checkout@v4
     - uses: ./.github/actions/setups
@@ -77,6 +84,7 @@ jobs:
     env:
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
       ROTION_INCREMENTAL_CACHE: true
+      ROTION_DEBUG: ${{ inputs.rotionDebug }}
     steps:
     - uses: actions/checkout@v4
     - uses: ./.github/actions/setups
