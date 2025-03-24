@@ -6,24 +6,25 @@ on:
 runs:
   using: "composite"
   steps:
-  - uses: actions/setup-node@v4
+  - name: Setup Bun
+    uses: oven-sh/setup-bun@v2
     with:
-      node-version: 22
-      cache: yarn
+      bun-version: 1.2.0
 
   - name: Restore node modules from cache
     uses: actions/cache@v4
     with:
       path: node_modules
-      key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+      key: ${{ runner.os }}-node-${{ hashFiles('**/bun.lock') }}
 
-  - name: Cache next
+  - name: Restore nextjs cache
     uses: actions/cache@v4
     with:
       path: .next/cache
-      key: nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+      key: ${{ runner.os }}-nextjs-${{ github.run_id }}
+      restore-keys: ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lock') }}-
 
-  - name: Cache rotion
+  - name: Restore rotion cache
     uses: actions/cache@v4
     with:
       path: |
@@ -31,3 +32,4 @@ runs:
         public/images
         public/ogimages
       key: rotion
+      restore-keys: rotion
