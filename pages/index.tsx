@@ -257,8 +257,10 @@ const HomePage: NextPage<Props> = ({ video, hero, solution, problem, proof, faq,
               <Page blocks={openfold.blocks} />
             </div>
             <div className={styles.openfoldAbout}>
-              <Image src="/static/openfold.png" width={455} height={112} alt="OpenFold" />
-              <p>{t('index.openfold')}</p>
+              <a href="https://openfold.io/" target="_blank" rel="noreferrer noopener">
+                <Image src="/static/openfold.png" width={455} height={112} alt="OpenFold" />
+                <p>{t('index.openfold')}</p>
+              </a>
             </div>
           </div>
         </div>
