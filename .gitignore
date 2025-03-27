@@ -34,8 +34,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-# notionate
+# rotion
 /public/images
+/public/files
 
 # satori
 /public/ogimages

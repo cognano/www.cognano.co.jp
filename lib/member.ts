@@ -83,7 +83,7 @@ const build = (page: DBPage): LocalizedMember => {
     user: props.User.people.length > 0 ? props.User.people.map(v => {
       return { name: v.name, avatar: v.avatar } as User
     })[0] : null,
-    cover: p.cover?.src || null,
+    cover: (p.icon?.type === 'file' && 'src' in p.icon ? p.icon.src as string : null) || null,
     excerpt: null,
     last_edited_time: page.last_edited_time,
   }
