@@ -99,7 +99,7 @@ const HomePage: NextPage<Props> = ({ video, hero, solution, problem, proof, faq,
               </div>
               <div className={styles.heroImage}>
                 <div className={styles.ibmet}>
-                  <Image src="/static/ibmet.webp" width={625} height={750} alt="IBMET" />
+                  <Image src="/static/ibmet-flow.webp" width={625} height={750} alt="IBMET" />
                 </div>
               </div>
             </div>

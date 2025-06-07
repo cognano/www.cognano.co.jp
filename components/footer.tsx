@@ -30,7 +30,7 @@ const Footer: React.FC<Props> = ({ children }) => {
   return (
     <footer className={`${styles.footer} container`}>
       <div className={styles.footerinner}>
-        <Logo />
+        <Logo invert={`100%`} width={124} height={20} />
         <div className={styles.footernav}>
           <ul>
             <li>
