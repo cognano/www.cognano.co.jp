@@ -80,15 +80,21 @@ export const getStaticProps: GetStaticProps<Props|{}, Params> = async ({ params 
     GetDatasetMetas(slug),
   ])
 
+  if (!abstract || !abstract[lang]) {
+    return { props: notfoundProps }
+  }
+
+  const content = abstract[lang]!
+
   const ogimage = await CreateOgImage({
     id: `datasets-${params?.slug}-${lang}`,
-    title: abstract![lang]!.title,
-    desc: abstract![lang]!.excerpt,
+    title: content.title,
+    desc: content.excerpt,
   })
 
   return {
     props: {
-      abstract: abstract![lang],
+      abstract: content,
       columns: columns![lang],
       pipeline: pipeline![lang],
       statistics: statistics![lang],
