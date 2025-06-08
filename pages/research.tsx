@@ -16,10 +16,12 @@ type Props = {
 }
 
 export const getStaticProps: GetStaticProps<{}> = async () => {
-  const research = await GetContent('research')
-  const tnbc = await GetContent('tnbc')
-  const vhh = await GetContent('vhh-antibody')
-  const covid = await GetContent('covid-19')
+  const [research, tnbc, vhh, covid] = await Promise.all([
+    GetContent('research'),
+    GetContent('tnbc'),
+    GetContent('vhh-antibody'),
+    GetContent('covid-19'),
+  ])
 
   const ogimage = await CreateOgImage({
     id: `research-${lang}`,

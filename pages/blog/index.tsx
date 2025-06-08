@@ -15,8 +15,11 @@ type Props = {
 }
 
 export const getStaticProps: GetStaticProps<{}> = async () => {
-  const blog = await GetBlogsEachLangs(blogQuery)
-  const desc = await GetContent('blog')
+  const [blog, desc] = await Promise.all([
+    GetBlogsEachLangs(blogQuery),
+    GetContent('blog'),
+  ])
+
   const ogimage = await CreateOgImage({
     id: `blog-${lang}`,
     title: desc![lang]!.title,
