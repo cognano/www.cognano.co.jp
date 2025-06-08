@@ -117,12 +117,14 @@ export const GetContent = async (slug: string, category?: string): Promise<Conte
     }
   }) as DBPage
 
+  /*
   if (!pageEn) {
-    console.log(`english page with slug "${slug}" not found`)
+    console.log(`not found: english page with slug "${slug}, category: ${category}"`)
   }
   if (!pageJa) {
-    console.log(`japanese page with slug "${slug}" not found`)
+    console.log(`not found: japanese page with slug "${slug}, category: ${category}"`)
   }
+  */
 
   let en = null
   let ja = null
