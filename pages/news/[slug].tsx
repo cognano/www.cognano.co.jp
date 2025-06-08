@@ -42,7 +42,7 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 
 export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
   const [desc, blog] = await Promise.all([
-    GetContentWithRetry('news'),
+    GetContent('news'),
     GetBlogsEachLangs(newsQuery),
   ])
   const news = blog[lang].find(v => v.slug === params!.slug)
