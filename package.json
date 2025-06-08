@@ -9,30 +9,28 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@types/prismjs": "^1.26.0",
-    "@types/react-modal": "^3.13.1",
-    "mermaid": "^10.1.0",
-    "next": "^15.2.2",
-    "prismjs": "^1.29.0",
-    "react": "^19.0.0",
+    "next": "^15.3.3",
+    "react": "^19.1.0",
     "react-cookie-consent": "^8.0.1",
-    "react-dom": "^19.0.0",
+    "react-dom": "^19.1.0",
     "react-loader-spinner": "^6.1.6",
     "react-modal": "^3.16.3",
-    "rotion": "^1.13.0",
-    "schema-dts": "^1.1.2",
-    "sharp": "^0.33.4"
+    "rotion": "^1.14.0",
+    "schema-dts": "^1.1.2"
   },
   "devDependencies": {
+    "@types/prismjs": "^1.26.0",
+    "@types/react-modal": "^3.13.1",
+    "@biomejs/biome": "^1.9.4",
     "@resvg/resvg-js": "^2.2.0",
-    "@types/node": "^18.11.0",
-    "@types/react": "^18.0.21",
-    "@types/react-dom": "^18.0.5",
+    "@types/react": "^19.1.6",
+    "@types/bun": "^1.2.15",
+    "@types/react-dom": "^19.1.5",
     "eslint": "^8.16.0",
     "eslint-config-next": "^13.0.3",
-    "satori": "^0.1.1",
+    "satori": "^0.13.1",
     "twemoji": "^14.0.2",
-    "typescript": "^5.0.0"
+    "typescript": "^5.8.3"
   },
   "packageManager": "yarn@4.4.1"
 }
