@@ -15,18 +15,27 @@ type Props = {
 }
 
 export const getStaticProps: GetStaticProps<{}> = async () => {
-  const blog = await GetBlogsEachLangs(blogQuery)
-  const desc = await GetContent('blog')
+  const [blog, desc] = await Promise.all([
+    GetBlogsEachLangs(blogQuery),
+    GetContent('blog'),
+  ])
+
+  if (!desc || !desc[lang]) {
+    throw new Error(`Blog content not found for language: ${lang}`)
+  }
+
+  const content = desc[lang]!
+
   const ogimage = await CreateOgImage({
     id: `blog-${lang}`,
-    title: desc![lang]!.title,
-    desc: desc![lang]!.excerpt,
+    title: content.title,
+    desc: content.excerpt,
   })
 
   return {
     props: {
       blog: blog[lang],
-      desc: desc![lang],
+      desc: content,
       ogimage,
     }
   }

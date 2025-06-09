@@ -117,11 +117,19 @@ export const GetContent = async (slug: string, category?: string): Promise<Conte
     }
   }) as DBPage
 
-  if (!pageEn) {
-    console.log(`english page with slug "${slug}" not found`)
+  if (!pageEn && (!category || (category && (category.includes('vhh-') || category.includes('avida-'))))) {
+    console.log(`not found: english page with slug "${slug}", category: "${category}"`)
+    /*for (const vv of results) {
+      const v = vv as unknown as DBPage
+      console.log(v.properties.Slug.select.name, v.properties.Language.select.name, v.properties.Category.select.name)
+    }*/
   }
-  if (!pageJa) {
-    console.log(`japanese page with slug "${slug}" not found`)
+  if (!pageJa && (!category || (category && (category.includes('vhh-') || category.includes('avida-'))))) {
+    console.log(`not found: japanese page with slug "${slug}", category: "${category}"`)
+    /*for (const vv of results) {
+      const v = vv as unknown as DBPage
+      console.log(v.properties.Slug.select.name, v.properties.Language.select.name, v.properties.Category.select.name)
+    }*/
   }
 
   let en = null

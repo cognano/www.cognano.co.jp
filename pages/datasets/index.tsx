@@ -27,10 +27,16 @@ export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
     }
   }
 
+  if (!desc || !desc[lang]) {
+    throw new Error(`Datasets content not found for language: ${lang}`)
+  }
+
+  const content = desc[lang]!
+
   const ogimage = await CreateOgImage({
     id: `datasets-${lang}`,
-    title: desc![lang]!.title,
-    desc: desc![lang]!.excerpt,
+    title: content.title,
+    desc: content.excerpt,
   })
 
   return {

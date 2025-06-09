@@ -1,5 +1,5 @@
 import { ParsedUrlQueryInput, ParsedUrlQuery } from 'node:querystring'
-import React, { useEffect, useState, ReactNode } from 'react'
+import React, { useEffect, useState, ReactNode, ReactElement, MouseEventHandler } from 'react'
 import { useRouter } from 'next/router'
 
 import en from './en'
@@ -93,14 +93,21 @@ export const LanguageSwitcher = ({ lang, children, shallow=false }: Props) => {
     router.push(arg, undefined, { shallow })
   }
 
+  const handleClick: MouseEventHandler = (event) => {
+    event.preventDefault()
+    updateRouter()
+  }
+
   if (React.isValidElement(children)) {
-    return React.cloneElement(children, {
-      // @ts-ignore
-      onClick: () => {
-        if (children && children.props && typeof children.props.onClick === 'function') {
-          children.props.onClick()
+    const childElement = children as ReactElement<any>
+    const originalOnClick = childElement.props?.onClick
+
+    return React.cloneElement(childElement, {
+      onClick: (event: React.MouseEvent) => {
+        if (originalOnClick && typeof originalOnClick === 'function') {
+          originalOnClick(event)
         }
-        updateRouter()
+        handleClick(event)
       },
       'data-language-switcher': 'true',
       'data-is-current': languageSwitcherIsActive,
@@ -115,9 +122,7 @@ export const LanguageSwitcher = ({ lang, children, shallow=false }: Props) => {
       aria-label={`set language to ${lang}`}
       data-language-switcher='true'
       data-is-current={languageSwitcherIsActive}
-      onClick={() => {
-        updateRouter()
-      }}
+      onClick={handleClick}
     >
       {children}
     </span>

@@ -11,7 +11,6 @@ import styles from '../../styles/Datasets.module.css'
 import Unsplash from '../../components/unsplash'
 import Hed from '../../components/hed'
 import CreateOgImage from '../../lib/ogimage'
-import { notfound } from '../../lib/page-error'
 
 type Props = {
   abstract: Content
@@ -41,39 +40,61 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
+const notfoundProps = {
+  abstract: null,
+  columns: null,
+  pipeline: null,
+  statistics: null,
+  metadata: null,
+  momlibs: null,
+  sublibs: null,
+  subjects: null,
+  antigens: null,
+  license: null,
+  momlibsDb: null,
+  sublibsDb: null,
+  meta: null,
+  ogimage: ''
+}
+
 export const getStaticProps: GetStaticProps<Props|{}, Params> = async ({ params }) => {
   if (!params?.slug) {
-    return notfound
+    return { props: notfoundProps }
   }
   const { slug } = params
   const category = slug
 
-  const abstract = await GetContent('abstract', category)
-  if (!abstract || !abstract.en) {
-    return notfound
+  const [abstract,columns, pipeline, statistics, metadata, momlibs, sublibs, subjects, antigens, license, momlibsDb, sublibsDb, meta] = await Promise.all([
+    GetContent('abstract', category),
+    GetContent('columns', category),
+    GetContent('pipeline', category),
+    GetContent('statistics', category),
+    GetContent('metadata', category),
+    GetContent('mother-libraries', category),
+    GetContent('sublibraries', category),
+    GetContent('subjects', category),
+    GetContent('immunized-antigens', category),
+    GetContent('license', category),
+    GetMomLibs(slug),
+    GetSubLibs(slug),
+    GetDatasetMetas(slug),
+  ])
+
+  if (!abstract || !abstract[lang]) {
+    return { props: notfoundProps }
   }
-  const columns = await GetContent('columns', category)
-  const pipeline = await GetContent('pipeline', category)
-  const statistics = await GetContent('statistics', category)
-  const metadata = await GetContent('metadata', category)
-  const momlibs = await GetContent('mother-libraries', category)
-  const sublibs = await GetContent('sublibraries', category)
-  const subjects = await GetContent('subjects', category)
-  const antigens = await GetContent('immunized-antigens', category)
-  const license = await GetContent('license', category)
-  const momlibsDb = await GetMomLibs(slug)
-  const sublibsDb = await GetSubLibs(slug)
-  const meta = await GetDatasetMetas(slug)
+
+  const content = abstract[lang]!
 
   const ogimage = await CreateOgImage({
     id: `datasets-${params?.slug}-${lang}`,
-    title: abstract![lang]!.title,
-    desc: abstract![lang]!.excerpt,
+    title: content.title,
+    desc: content.excerpt,
   })
 
   return {
     props: {
-      abstract: abstract![lang],
+      abstract: content,
       columns: columns![lang],
       pipeline: pipeline![lang],
       statistics: statistics![lang],
