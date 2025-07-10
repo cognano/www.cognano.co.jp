@@ -16,6 +16,7 @@ const sublibid = process.env.NOTION_SUBLIBRARIES_DB_ID
 const linkschemaid = process.env.NOTION_EXTERNALLINKS_AND_SCHEMA_DB_ID
 
 export const Pages = [
+  { slug: 'avida-htnfa' },
   { slug: 'avida-hil6' },
   { slug: 'avida-sars-cov-2' },
   { slug: 'vhh-corpus' },
