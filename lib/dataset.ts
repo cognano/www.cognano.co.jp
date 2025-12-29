@@ -1,6 +1,6 @@
 import {
   FetchDatabase,
-  QueryDatabaseParameters,
+  GetDatabaseParameters,
   QueryDatabaseResponseEx,
   RichTextItemResponse,
   SelectPropertyResponse,
@@ -31,7 +31,7 @@ export const GetMomLibs = async (name: string): Promise<QueryDatabaseResponseEx>
     sorts: [
       { property: 'Name', direction: 'ascending' },
     ]
-  } as QueryDatabaseParameters
+  } as GetDatabaseParameters
   return FetchDatabase(q)
 }
 
@@ -44,7 +44,7 @@ export const GetSubLibs = async (name: string): Promise<QueryDatabaseResponseEx>
     sorts: [
       { property: 'Name', direction: 'ascending' },
     ]
-  } as QueryDatabaseParameters
+  } as GetDatabaseParameters
   return FetchDatabase(q)
 }
 
@@ -57,7 +57,7 @@ const GetExternalLinksAndSchemas = async (name: string): Promise<QueryDatabaseRe
     sorts: [
       { property: 'Name', direction: 'ascending' },
     ]
-  } as QueryDatabaseParameters
+  } as GetDatabaseParameters
   return FetchDatabase(q)
 }
 

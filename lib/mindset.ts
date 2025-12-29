@@ -3,7 +3,7 @@ import {
   RichTextItemResponse,
   SelectPropertyResponse,
   DBPageBase,
-  QueryDatabaseParameters,
+  GetDatabaseParameters,
   ListBlockChildrenResponseEx,
   FetchBlocks,
 } from 'rotion'
@@ -73,7 +73,7 @@ export const mindsetQuery = {
       direction: 'descending'
     },
   ]
-} as QueryDatabaseParameters
+} as GetDatabaseParameters
 
 export const GetMindsets = async (): Promise<Mindsets> => {
   const { results } = await FetchDatabase(mindsetQuery)

@@ -4,7 +4,7 @@ import {
   RichTextItemResponse,
   SelectPropertyResponse,
   DBPageBase,
-  QueryDatabaseParameters,
+  GetDatabaseParameters,
   ListBlockChildrenResponseEx,
 } from 'rotion'
 
@@ -66,7 +66,7 @@ export const faqQuery = {
       direction: 'ascending'
     },
   ]
-} as QueryDatabaseParameters
+} as GetDatabaseParameters
 
 export const GetFAQs = async (): Promise<FAQ> => {
   const { results } = await FetchDatabase(faqQuery)

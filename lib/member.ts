@@ -3,7 +3,7 @@ import {
   RichTextItemResponse,
   SelectPropertyResponse,
   DBPageBase,
-  QueryDatabaseParameters,
+  GetDatabaseParameters,
   ListBlockChildrenResponseEx,
   FetchBlocks,
   PersonUserObjectResponseEx,
@@ -125,7 +125,7 @@ export const memberQuery = {
       direction: 'descending'
     },
   ]
-} as QueryDatabaseParameters
+} as GetDatabaseParameters
 
 export const GetMembers = async (): Promise<Members> => {
   const { results } = await FetchDatabase(memberQuery)

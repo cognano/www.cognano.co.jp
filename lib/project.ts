@@ -4,7 +4,7 @@ import {
   RichTextItemResponse,
   SelectPropertyResponse,
   DBPageBase,
-  QueryDatabaseParameters,
+  GetDatabaseParameters,
   QueryDatabaseResponseEx,
   PageObjectResponseEx,
 } from 'rotion'
@@ -103,12 +103,12 @@ export const projectsQuery = {
       direction: 'descending'
     },
   ]
-} as QueryDatabaseParameters
+} as GetDatabaseParameters
 
 // Double value because it is bilingual, Actually 5
 export const projectsQueryLatest = { ...projectsQuery, page_size: 10 }
 
-export const GetProjects = async (q: QueryDatabaseParameters): Promise<Projects> => {
+export const GetProjects = async (q: GetDatabaseParameters): Promise<Projects> => {
   const { results } = await FetchDatabase(q)
 
   const ja = results.filter(v => {
@@ -134,7 +134,7 @@ export const GetProjects = async (q: QueryDatabaseParameters): Promise<Projects>
   return { ja, en }
 }
 
-export const GetProjectsOriginal = async (q: QueryDatabaseParameters): Promise<ProjectsOriginal> => {
+export const GetProjectsOriginal = async (q: GetDatabaseParameters): Promise<ProjectsOriginal> => {
   let jadb = await FetchDatabase(q)
   let endb = await FetchDatabase(q)
 

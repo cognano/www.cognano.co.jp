@@ -3,7 +3,7 @@ import {
   RichTextItemResponse,
   SelectPropertyResponse,
   DBPageBase,
-  QueryDatabaseParameters,
+  GetDatabaseParameters,
   ListBlockChildrenResponseEx,
 } from 'rotion'
 
@@ -83,7 +83,7 @@ export const qeQuery = {
       direction: 'ascending'
     },
   ]
-} as QueryDatabaseParameters
+} as GetDatabaseParameters
 
 export const GetQEs = async (): Promise<QE> => {
   const { results } = await FetchDatabase(qeQuery)

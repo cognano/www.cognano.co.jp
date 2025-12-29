@@ -8,7 +8,7 @@ import {
   DBPageBase,
   GetPageResponseEx,
   ListBlockChildrenResponseEx,
-  QueryDatabaseParameters,
+  GetDatabaseParameters,
 } from 'rotion'
 import { buildPlainText } from './member'
 
@@ -94,7 +94,7 @@ const query = {
       direction: 'descending'
     },
   ]
-} as QueryDatabaseParameters
+} as GetDatabaseParameters
 
 export const GetContent = async (slug: string, category?: string): Promise<ContentBilingual|undefined> => {
   const { results } = await FetchDatabase(query)

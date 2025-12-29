@@ -4,7 +4,7 @@ import {
   RichTextItemResponse,
   SelectPropertyResponse,
   DBPageBase,
-  QueryDatabaseParameters,
+  GetDatabaseParameters,
   PersonUserObjectResponseEx,
   ListBlockChildrenResponseEx,
 } from 'rotion'
@@ -146,7 +146,7 @@ export const blogQuery = {
       direction: 'descending'
     },
   ]
-} as QueryDatabaseParameters
+} as GetDatabaseParameters
 
 // Double value because it is bilingual, Actually 5
 export const blogQueryLatest = { ...blogQuery, page_size: 10 }
@@ -181,12 +181,12 @@ export const newsQuery = {
       direction: 'descending'
     },
   ]
-} as QueryDatabaseParameters
+} as GetDatabaseParameters
 
 // Double value because it is bilingual, Actually 5
 export const newsQueryLatest = { ...newsQuery, page_size: 10 }
 
-export const GetBlogsEachLangs = async (q: QueryDatabaseParameters): Promise<BlogEachLangs> => {
+export const GetBlogsEachLangs = async (q: GetDatabaseParameters): Promise<BlogEachLangs> => {
   const { results } = await FetchDatabase(q)
 
   const ja = results.filter(v => {
@@ -212,7 +212,7 @@ export const GetBlogsEachLangs = async (q: QueryDatabaseParameters): Promise<Blo
   return { ja, en }
 }
 
-export const GetBlogs = async (q: QueryDatabaseParameters): Promise<Blog[]> => {
+export const GetBlogs = async (q: GetDatabaseParameters): Promise<Blog[]> => {
   const { results } = await FetchDatabase(q)
   return results.map(v => {
     const p = v as DBPage
