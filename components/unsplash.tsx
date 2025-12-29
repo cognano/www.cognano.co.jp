@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react'
+import type React from 'react'
+import type { ReactNode } from 'react'
 import styles from '../styles/App.module.css'
 
 type Props = {
@@ -10,11 +11,18 @@ type Props = {
 }
 
 const Unsplash: React.FC<Props> = ({ children, href, name, host, hostUrl }) => {
-  const unsplashUrl = `https://unsplash.com`
+  const unsplashUrl = 'https://unsplash.com'
   if (host && hostUrl) {
     return (
       <p className={styles.unsplash}>
-        Photo by <a href={href} target="_blank" rel="noopener noreferrer">{name}</a> on <a href={hostUrl} target="_blank" rel="noopener noreferrer">{host}</a>
+        Photo by{' '}
+        <a href={href} target='_blank' rel='noopener noreferrer'>
+          {name}
+        </a>{' '}
+        on{' '}
+        <a href={hostUrl} target='_blank' rel='noopener noreferrer'>
+          {host}
+        </a>
       </p>
     )
   }
@@ -22,14 +30,24 @@ const Unsplash: React.FC<Props> = ({ children, href, name, host, hostUrl }) => {
   if (href && name) {
     return (
       <p className={styles.unsplash}>
-        Photo by <a href={href} target="_blank" rel="noopener noreferrer">{name}</a> on <a href={unsplashUrl} target="_blank" rel="noopener noreferrer">Unsplash</a>
+        Photo by{' '}
+        <a href={href} target='_blank' rel='noopener noreferrer'>
+          {name}
+        </a>{' '}
+        on{' '}
+        <a href={unsplashUrl} target='_blank' rel='noopener noreferrer'>
+          Unsplash
+        </a>
       </p>
     )
   }
 
   return (
     <p className={styles.unsplash}>
-      Photo by <a href={unsplashUrl} target="_blank" rel="noopener noreferrer">Unsplash</a>
+      Photo by{' '}
+      <a href={unsplashUrl} target='_blank' rel='noopener noreferrer'>
+        Unsplash
+      </a>
     </p>
   )
 }

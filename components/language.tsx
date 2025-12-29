@@ -1,8 +1,9 @@
-import React, { ReactNode, useState } from 'react'
-import { languageIcon, sortdownIcon } from './icons'
 import { useRouter } from 'next/router'
-import styles from '../styles/Language.module.css'
+import type React from 'react'
+import { type ReactNode, useState } from 'react'
 import t, { lang } from '../i18n'
+import styles from '../styles/Language.module.css'
+import { languageIcon, sortdownIcon } from './icons'
 
 type Props = {
   children?: ReactNode
@@ -32,22 +33,26 @@ const Language: React.FC<Props> = ({ children, top }) => {
       <span className={styles.languageIcon}>{languageIcon()}</span>
       <span>{t(`language.${lang}`)}</span>
       <span className={styles.sortdownIcon}>{sortdownIcon()}</span>
-      {open && <div className={`${styles.switcher} ${top ? styles.switcherTop : null}`}>
-        <ul>
-          <li onClick={toEnglish}>
-            <div>
-              {t('language.en')}
-              <span className={styles.langen}>English (US)</span>
-            </div>
-          </li>
-          <li onClick={toJapanese}>
-            <div>
-              {t('language.ja')}
-              <span className={styles.langen}>日本語</span>
-            </div>
-          </li>
-        </ul>
-      </div>}
+      {open && (
+        <div
+          className={`${styles.switcher} ${top ? styles.switcherTop : null}`}
+        >
+          <ul>
+            <li onClick={toEnglish}>
+              <div>
+                {t('language.en')}
+                <span className={styles.langen}>English (US)</span>
+              </div>
+            </li>
+            <li onClick={toJapanese}>
+              <div>
+                {t('language.ja')}
+                <span className={styles.langen}>日本語</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      )}
     </div>
   )
 }

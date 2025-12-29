@@ -2,11 +2,11 @@ import type { GetStaticProps, NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import Hed from '../components/hed'
+import Unsplash from '../components/unsplash'
 import t from '../i18n'
+import { lang } from '../i18n'
 import CreateOgImage from '../lib/ogimage'
 import styles from '../styles/Home.module.css'
-import Unsplash from '../components/unsplash'
-import { lang } from '../i18n'
 
 type Props = {
   title: string
@@ -32,22 +32,27 @@ const Notfound: NextPage<Props> = ({ ogimage, title, desc }) => {
   return (
     <>
       <Hed title={title} desc={desc} ogimage={ogimage} />
-      <header className="container">
+      <header className='container'>
         <h1>{title}</h1>
         <p>{desc}</p>
       </header>
 
       <section className={styles.error404}>
         <div className={styles.error404Image}>
-          <Image src="/static/shark-crossing.webp" fill={true} alt="shark crossing" />
+          <Image
+            src='/static/shark-crossing.webp'
+            fill={true}
+            alt='shark crossing'
+          />
           <div className={styles.error404ImageCopy}>
-            <Unsplash href="https://unsplash.com/@nerikaren?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" name="Karen Neri"/>
+            <Unsplash
+              href='https://unsplash.com/@nerikaren?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'
+              name='Karen Neri'
+            />
           </div>
         </div>
         <p className={styles.error404BackHome}>
-          <Link href="/">
-            {t('error404.gohome')}
-          </Link>
+          <Link href='/'>{t('error404.gohome')}</Link>
         </p>
       </section>
     </>

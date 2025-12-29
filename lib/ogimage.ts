@@ -1,10 +1,10 @@
-import satori, { SatoriOptions } from 'satori'
-import twemoji from 'twemoji'
-import { existsSync } from 'fs'
-import OgImage from '../components/ogimage'
-import { Resvg } from '@resvg/resvg-js'
+import crypto from 'node:crypto'
+import { existsSync } from 'node:fs'
 import { readFile, writeFile } from 'node:fs/promises'
-import crypto from 'crypto'
+import { Resvg } from '@resvg/resvg-js'
+import satori, { type SatoriOptions } from 'satori'
+import twemoji from 'twemoji'
+import OgImage from '../components/ogimage'
 
 function arrayBufferToBase64(buffer: ArrayBuffer) {
   let binary = ''
@@ -18,7 +18,9 @@ function arrayBufferToBase64(buffer: ArrayBuffer) {
 // use https://github.com/iamcal/emoji-data
 async function getIconBase64(s: string): Promise<string> {
   const codePoint = twemoji.convert.toCodePoint(s)
-  const res = await fetch(`https://raw.githubusercontent.com/iamcal/emoji-data/master/img-apple-160/${codePoint}.png`)
+  const res = await fetch(
+    `https://raw.githubusercontent.com/iamcal/emoji-data/master/img-apple-160/${codePoint}.png`,
+  )
   return `data:image/png;base64,${arrayBufferToBase64(await res.arrayBuffer())}`
 }
 
@@ -54,21 +56,29 @@ const satoriOptions = async (): Promise<SatoriOptions> => {
         weight: 900,
       },
     ],
-    loadAdditionalAsset: async (code: string, segment: string): Promise<string> => {
-      return (code === 'emoji') ? getIconBase64(segment) : segment
+    loadAdditionalAsset: async (
+      code: string,
+      segment: string,
+    ): Promise<string> => {
+      return code === 'emoji' ? getIconBase64(segment) : segment
     },
   }
 }
 
-const writeOgImage = async ({ id, title, desc, file }: writeOgImageArgs): Promise<void> => {
-  const dir = `public/ogimages`
+const writeOgImage = async ({
+  id,
+  title,
+  desc,
+  file,
+}: writeOgImageArgs): Promise<void> => {
+  const dir = 'public/ogimages'
   const path = `${dir}/${file}`
   if (existsSync(path)) {
     return
   }
   const opts = await satoriOptions()
   const svg = await satori(await OgImage({ id, title, desc }), opts)
-  const png = (new Resvg(svg)).render().asPng()
+  const png = new Resvg(svg).render().asPng()
   await writeFile(path, png)
   console.log(`saved image -- path: ${path}`)
 }
@@ -79,7 +89,11 @@ const atoh = (a: string): string => {
   return shasum.digest('hex')
 }
 
-const CreateOgImage = async ({ id, title, desc }: CreateOgimageArgs): Promise<string> => {
+const CreateOgImage = async ({
+  id,
+  title,
+  desc,
+}: CreateOgimageArgs): Promise<string> => {
   const hash = atoh(`${title}${desc}`)
   const file = `${id}-${hash}.png`
   try {

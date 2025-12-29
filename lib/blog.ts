@@ -1,12 +1,12 @@
 import {
+  type DBPageBase,
+  type DateResponse,
   FetchDatabase,
-  DateResponse,
-  RichTextItemResponse,
-  SelectPropertyResponse,
-  DBPageBase,
-  QueryDatabaseParameters,
-  PersonUserObjectResponseEx,
-  ListBlockChildrenResponseEx,
+  type GetDatabaseParameters,
+  type ListBlockChildrenResponseEx,
+  type PersonUserObjectResponseEx,
+  type RichTextItemResponse,
+  type SelectPropertyResponse,
 } from 'rotion'
 import { buildPlainText } from './member'
 
@@ -37,37 +37,37 @@ export type BlogEachLangs = {
 export type DBPage = DBPageBase & {
   properties: {
     Name: {
-      type: "title"
+      type: 'title'
       title: RichTextItemResponse[]
       id: string
     }
     Slug: {
-      type: "select"
+      type: 'select'
       select: SelectPropertyResponse
       id: string
     }
     Language: {
-      type: "select"
+      type: 'select'
       select: SelectPropertyResponse
       id: string
     }
     Date: {
-      type: "date"
+      type: 'date'
       date: DateResponse | null
       id: string
     }
     Tags: {
-      type: "multi_select"
+      type: 'multi_select'
       multi_select: SelectPropertyResponse[]
       id: string
     }
     Writers: {
-      type: "people"
+      type: 'people'
       people: PersonUserObjectResponseEx[]
       id: string
     }
     Published: {
-      type: "checkbox"
+      type: 'checkbox'
       checkbox: boolean
       id: string
     }
@@ -79,7 +79,10 @@ function buildNodataWriter(id: string): Writer {
     case '00cbdd3b-51b3-433d-b94d-74154df128cd':
       return { name: 'Soichiro Noda', avatar: '/static/sonod.webp' } as Writer
     case '893bb908-9d1a-45a4-9f1c-3b9530e69c78':
-      return { name: 'Ryosuke Matsumoto', avatar: '/static/matsumotory.webp' } as Writer
+      return {
+        name: 'Ryosuke Matsumoto',
+        avatar: '/static/matsumotory.webp',
+      } as Writer
     default:
       console.log(`Unknown writer -- Id: ${id}`)
       return { name: 'Unknown', avatar: '' } as Writer
@@ -90,19 +93,26 @@ const build = (page: DBPage): Blog => {
   const props = page.properties
   return {
     id: page.id,
-    title: props.Name.title.map(v => v.plain_text).filter(v => v).join(',') || '',
+    title:
+      props.Name.title
+        .map((v) => v.plain_text)
+        .filter((v) => v)
+        .join(',') || '',
     slug: props.Slug.select.name || '',
     date: props.Date.date?.start || '',
     edited: page.last_edited_time,
     createdTs: Date.parse(page.created_time),
     lastEditedTs: Date.parse(page.last_edited_time),
     last_edited_time: page.last_edited_time,
-    tags: props.Tags.multi_select.map(v => v.name) || [],
-    writers: props.Writers.people.map(v => {
-      return (v.name) ? { name: v.name, avatar: v.avatar } as Writer : buildNodataWriter(v.id)
-    }) || [],
+    tags: props.Tags.multi_select.map((v) => v.name) || [],
+    writers:
+      props.Writers.people.map((v) => {
+        return v.name
+          ? ({ name: v.name, avatar: v.avatar } as Writer)
+          : buildNodataWriter(v.id)
+      }) || [],
     language: props.Language.select.name || '',
-  } 
+  }
 }
 
 export const buildExcerpt = (b: ListBlockChildrenResponseEx): string => {
@@ -114,7 +124,11 @@ export const buildExcerpt = (b: ListBlockChildrenResponseEx): string => {
 }
 
 // YYYY-MM-DD
-const today = process.env.BUILD_ENV as string === 'staging' || process.env.NODE_ENV as string === 'development' ? '2123-01-01' : new Date().toLocaleString('sv-SE')
+const today =
+  (process.env.BUILD_ENV as string) === 'staging' ||
+  (process.env.NODE_ENV as string) === 'development'
+    ? '2123-01-01'
+    : new Date().toLocaleString('sv-SE')
 
 export const blogQuery = {
   database_id: process.env.NOTION_BLOG_DB_ID,
@@ -124,29 +138,29 @@ export const blogQuery = {
         property: 'Date',
         date: {
           before: today,
-        }
+        },
       },
       {
         property: 'Published',
         checkbox: {
-          equals: true
-        }
+          equals: true,
+        },
       },
       {
         property: 'Tags',
         multi_select: {
-          does_not_contain: 'News'
-        }
-      }
-    ]
+          does_not_contain: 'News',
+        },
+      },
+    ],
   },
   sorts: [
     {
       property: 'Date',
-      direction: 'descending'
+      direction: 'descending',
     },
-  ]
-} as QueryDatabaseParameters
+  ],
+} as GetDatabaseParameters
 
 // Double value because it is bilingual, Actually 5
 export const blogQueryLatest = { ...blogQuery, page_size: 10 }
@@ -159,62 +173,68 @@ export const newsQuery = {
         property: 'Date',
         date: {
           before: today,
-        }
+        },
       },
       {
         property: 'Published',
         checkbox: {
-          equals: true
-        }
+          equals: true,
+        },
       },
       {
         property: 'Tags',
         multi_select: {
-          contains: 'News'
-        }
-      }
-    ]
+          contains: 'News',
+        },
+      },
+    ],
   },
   sorts: [
     {
       property: 'Date',
-      direction: 'descending'
+      direction: 'descending',
     },
-  ]
-} as QueryDatabaseParameters
+  ],
+} as GetDatabaseParameters
 
 // Double value because it is bilingual, Actually 5
 export const newsQueryLatest = { ...newsQuery, page_size: 10 }
 
-export const GetBlogsEachLangs = async (q: QueryDatabaseParameters): Promise<BlogEachLangs> => {
+export const GetBlogsEachLangs = async (
+  q: GetDatabaseParameters,
+): Promise<BlogEachLangs> => {
   const { results } = await FetchDatabase(q)
 
-  const ja = results.filter(v => {
-    const p = v as DBPage
-    if (p.properties.Language.select.name === 'Japanese') {
-      return v
-    }
-  }).map(v => {
-    const p = v as DBPage
-    return build(p)
-  })
+  const ja = results
+    .filter((v) => {
+      const p = v as DBPage
+      if (p.properties.Language.select.name === 'Japanese') {
+        return v
+      }
+    })
+    .map((v) => {
+      const p = v as DBPage
+      return build(p)
+    })
 
-  const en = results.filter(v => {
-    const p = v as DBPage
-    if (p.properties.Language.select.name === 'English') {
-      return v
-    }
-  }).map(v => {
-    const p = v as DBPage
-    return build(p)
-  })
+  const en = results
+    .filter((v) => {
+      const p = v as DBPage
+      if (p.properties.Language.select.name === 'English') {
+        return v
+      }
+    })
+    .map((v) => {
+      const p = v as DBPage
+      return build(p)
+    })
 
   return { ja, en }
 }
 
-export const GetBlogs = async (q: QueryDatabaseParameters): Promise<Blog[]> => {
+export const GetBlogs = async (q: GetDatabaseParameters): Promise<Blog[]> => {
   const { results } = await FetchDatabase(q)
-  return results.map(v => {
+  return results.map((v) => {
     const p = v as DBPage
     return build(p)
   })

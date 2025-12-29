@@ -1,78 +1,78 @@
 .error {
-  color: var(--color-primary);
-  font-size: var(--fontSize-1);
-  margin: 0;
+	color: var(--color-primary);
+	font-size: var(--fontSize-1);
+	margin: 0;
 }
 
 .form {
-  margin: var(--spacing-20) 0 0;
-  display: grid;
-  grid-template-columns: minmax(300px,736px) minmax(600px,936px);
-  gap: 3rem;
+	margin: var(--spacing-20) 0 0;
+	display: grid;
+	grid-template-columns: minmax(300px, 736px) minmax(600px, 936px);
+	gap: 3rem;
 }
 
 .line {
-  display: grid;
-  grid-template-columns: 6rem 1fr;
-  gap: 2rem;
-  margin: var(--spacing-10) 0 0;
+	display: grid;
+	grid-template-columns: 6rem 1fr;
+	gap: 2rem;
+	margin: var(--spacing-10) 0 0;
 }
 
 .label {
-  font-size: var(--fontSize-3);
-  font-family: var(--fontFamily-serif);
-  font-weight: bold;
-  padding-top: var(--spacing-1);
+	font-size: var(--fontSize-3);
+	font-family: var(--fontFamily-serif);
+	font-weight: bold;
+	padding-top: var(--spacing-1);
 }
 
 .input {
-  font-size: var(--fontSize-3);
+	font-size: var(--fontSize-3);
 }
 
 .input input {
-  font-size: var(--fontSize-3);
-  width: 100%;
-  padding: var(--spacing-2);
+	font-size: var(--fontSize-3);
+	width: 100%;
+	padding: var(--spacing-2);
 }
 
 .input textarea {
-  font-family: var(--fontFamily-sans);
-  font-size: var(--fontSize-3);
-  padding: var(--spacing-2);
-  width: 100%;
-  min-height: 20rem;
+	font-family: var(--fontFamily-sans);
+	font-size: var(--fontSize-3);
+	padding: var(--spacing-2);
+	width: 100%;
+	min-height: 20rem;
 }
 .button {
-  padding: var(--spacing-3) var(--spacing-10);
-  font-size: var(--fontSize-1);
-  font-weight: var(--fontWeight-black);
-  cursor: pointer;
-  border: 1px solid var(--color-text);
-  border-radius: 30px;
-  background-color: inherit;
-  color: #000;
+	padding: var(--spacing-3) var(--spacing-10);
+	font-size: var(--fontSize-1);
+	font-weight: var(--fontWeight-black);
+	cursor: pointer;
+	border: 1px solid var(--color-text);
+	border-radius: 30px;
+	background-color: inherit;
+	color: #000;
 }
 .button:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
+	border-color: var(--color-primary);
+	color: var(--color-primary);
 }
 
 @media (max-width: 1200px) {
-  .form {
-    display: block;
-  }
+	.form {
+		display: block;
+	}
 }
 @media (max-width: 600px) {
-  .form {
-    margin-top: var(--spacing-10);
-  }
-  .line {
-    display: block;
-    margin-top: var(--spacing-5);
-  }
-  .button {
-    display: block;
-    width: 10rem;
-    margin: 0 auto;
-  }
+	.form {
+		margin-top: var(--spacing-10);
+	}
+	.line {
+		display: block;
+		margin-top: var(--spacing-5);
+	}
+	.button {
+		display: block;
+		width: 10rem;
+		margin: 0 auto;
+	}
 }

@@ -1,11 +1,11 @@
 import {
-  FetchDatabase,
+  type DBPageBase,
   FetchBlocks,
-  RichTextItemResponse,
-  SelectPropertyResponse,
-  DBPageBase,
-  QueryDatabaseParameters,
-  ListBlockChildrenResponseEx,
+  FetchDatabase,
+  type GetDatabaseParameters,
+  type ListBlockChildrenResponseEx,
+  type RichTextItemResponse,
+  type SelectPropertyResponse,
 } from 'rotion'
 
 export type LocalizedFAQ = {
@@ -27,17 +27,17 @@ export type FAQ = {
 export type DBPage = DBPageBase & {
   properties: {
     Question: {
-      type: "title"
+      type: 'title'
       title: RichTextItemResponse[]
       id: string
     }
     Language: {
-      type: "select"
+      type: 'select'
       select: SelectPropertyResponse
       id: string
     }
     Slug: {
-      type: "select"
+      type: 'select'
       select: SelectPropertyResponse
       id: string
     }
@@ -48,7 +48,7 @@ const build = (page: DBPage): LocalizedFAQ => {
   const props = page.properties
   return {
     id: page.id,
-    question: props.Question.title.map(v => v.plain_text).join(',') || '',
+    question: props.Question.title.map((v) => v.plain_text).join(',') || '',
     slug: props.Slug.select.name || '',
     last_edited_time: page.last_edited_time,
   }
@@ -59,48 +59,58 @@ export const faqQuery = {
   sorts: [
     {
       property: 'Slug',
-      direction: 'ascending'
+      direction: 'ascending',
     },
     {
       property: 'Language',
-      direction: 'ascending'
+      direction: 'ascending',
     },
-  ]
-} as QueryDatabaseParameters
+  ],
+} as GetDatabaseParameters
 
 export const GetFAQs = async (): Promise<FAQ> => {
   const { results } = await FetchDatabase(faqQuery)
 
-  const jaP = results.filter(v => {
-    const p = v as DBPage
-    if (p.properties.Language.select.name === 'Japanese') {
-      return v
-    }
-  }).map(v => {
-    const p = v as DBPage
-    return build(p)
-  })
+  const jaP = results
+    .filter((v) => {
+      const p = v as DBPage
+      if (p.properties.Language.select.name === 'Japanese') {
+        return v
+      }
+    })
+    .map((v) => {
+      const p = v as DBPage
+      return build(p)
+    })
 
   const ja: LocalizedFAQWithBlocks[] = []
   for (const p of jaP) {
-    const blocks = await FetchBlocks({ block_id: p.id, last_edited_time: p.last_edited_time })
-    ja.push({ ...p, ...{ blocks }})
+    const blocks = await FetchBlocks({
+      block_id: p.id,
+      last_edited_time: p.last_edited_time,
+    })
+    ja.push({ ...p, ...{ blocks } })
   }
 
-  const enP = results.filter(v => {
-    const p = v as DBPage
-    if (p.properties.Language.select.name === 'English') {
-      return v
-    }
-  }).map(v => {
-    const p = v as DBPage
-    return build(p)
-  })
+  const enP = results
+    .filter((v) => {
+      const p = v as DBPage
+      if (p.properties.Language.select.name === 'English') {
+        return v
+      }
+    })
+    .map((v) => {
+      const p = v as DBPage
+      return build(p)
+    })
 
   const en: LocalizedFAQWithBlocks[] = []
   for (const p of enP) {
-    const blocks = await FetchBlocks({ block_id: p.id, last_edited_time: p.last_edited_time })
-    en.push({ ...p, ...{ blocks }})
+    const blocks = await FetchBlocks({
+      block_id: p.id,
+      last_edited_time: p.last_edited_time,
+    })
+    en.push({ ...p, ...{ blocks } })
   }
 
   return { ja, en }

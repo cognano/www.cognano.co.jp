@@ -1,11 +1,11 @@
 import {
-  FetchDatabase,
-  RichTextItemResponse,
-  SelectPropertyResponse,
-  DBPageBase,
-  QueryDatabaseParameters,
-  ListBlockChildrenResponseEx,
+  type DBPageBase,
   FetchBlocks,
+  FetchDatabase,
+  type GetDatabaseParameters,
+  type ListBlockChildrenResponseEx,
+  type RichTextItemResponse,
+  type SelectPropertyResponse,
 } from 'rotion'
 import { lang } from '../i18n'
 
@@ -34,17 +34,17 @@ export type Mindset = {
 export type DBPage = DBPageBase & {
   properties: {
     Name: {
-      type: "title"
+      type: 'title'
       title: RichTextItemResponse[]
       id: string
     }
     Language: {
-      type: "select"
+      type: 'select'
       select: SelectPropertyResponse
       id: string
     }
     Slug: {
-      type: "select"
+      type: 'select'
       select: SelectPropertyResponse
       id: string
     }
@@ -55,7 +55,7 @@ const build = (page: DBPage): LocalizedMindset => {
   const props = page.properties
   return {
     id: page.id,
-    title: props.Name.title.map(v => v.plain_text).join(',') || '',
+    title: props.Name.title.map((v) => v.plain_text).join(',') || '',
     slug: props.Slug.select.name || '',
     last_edited_time: page.last_edited_time,
   }
@@ -66,50 +66,60 @@ export const mindsetQuery = {
   sorts: [
     {
       property: 'Slug',
-      direction: 'ascending'
+      direction: 'ascending',
     },
     {
       property: 'Language',
-      direction: 'descending'
+      direction: 'descending',
     },
-  ]
-} as QueryDatabaseParameters
+  ],
+} as GetDatabaseParameters
 
 export const GetMindsets = async (): Promise<Mindsets> => {
   const { results } = await FetchDatabase(mindsetQuery)
 
-  const ja = results.filter(v => {
-    const p = v as DBPage
-    if (p.properties.Language.select.name === 'Japanese') {
-      return v
-    }
-  }).map(v => {
-    const p = v as DBPage
-    return build(p)
-  })
+  const ja = results
+    .filter((v) => {
+      const p = v as DBPage
+      if (p.properties.Language.select.name === 'Japanese') {
+        return v
+      }
+    })
+    .map((v) => {
+      const p = v as DBPage
+      return build(p)
+    })
 
-  const en = results.filter(v => {
-    const p = v as DBPage
-    if (p.properties.Language.select.name === 'English') {
-      return v
-    }
-  }).map(v => {
-    const p = v as DBPage
-    return build(p)
-  })
+  const en = results
+    .filter((v) => {
+      const p = v as DBPage
+      if (p.properties.Language.select.name === 'English') {
+        return v
+      }
+    })
+    .map((v) => {
+      const p = v as DBPage
+      return build(p)
+    })
 
   return { ja, en }
 }
 
 export const GetMindset = async (slug: string): Promise<Mindset> => {
   const { ja, en } = await GetMindsets()
-  const jaM = ja.find(m => m.slug === slug)
-  const enM = en.find(m => m.slug === slug)
+  const jaM = ja.find((m) => m.slug === slug)
+  const enM = en.find((m) => m.slug === slug)
   if (!jaM || !enM) {
     throw new Error(`mindset not found: ${slug}`)
   }
-  const jaBlocks = await FetchBlocks({ block_id: jaM.id, last_edited_time: jaM.last_edited_time })
-  const enBlocks = await FetchBlocks({ block_id: enM.id, last_edited_time: enM.last_edited_time })
+  const jaBlocks = await FetchBlocks({
+    block_id: jaM.id,
+    last_edited_time: jaM.last_edited_time,
+  })
+  const enBlocks = await FetchBlocks({
+    block_id: enM.id,
+    last_edited_time: enM.last_edited_time,
+  })
 
   return {
     ja: {
@@ -119,7 +129,7 @@ export const GetMindset = async (slug: string): Promise<Mindset> => {
     en: {
       props: enM,
       blocks: enBlocks,
-    }
+    },
   }
 }
 
@@ -129,7 +139,7 @@ export const GetValues = async (): Promise<LocalizedMindsetWithBlocks[]> => {
   const value3 = await GetMindset('value-3')
   const value4 = await GetMindset('value-4')
   const value5 = await GetMindset('value-5')
-  let values: LocalizedMindsetWithBlocks[] = []
+  const values: LocalizedMindsetWithBlocks[] = []
   values.push(value1[lang])
   values.push(value2[lang])
   values.push(value3[lang])

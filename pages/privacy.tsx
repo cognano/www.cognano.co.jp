@@ -1,10 +1,10 @@
-import type { NextPage, GetStaticProps } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
+import { Page } from 'rotion/ui'
+import Hed from '../components/hed'
 // import { formatDate } from '../lib/date'
 import t, { lang } from '../i18n'
-import { GetContent, Content, DBPage } from '../lib/content'
-import { Page } from 'rotion/ui'
+import { type Content, type DBPage, GetContent } from '../lib/content'
 import CreateOgImage from '../lib/ogimage'
-import Hed from '../components/hed'
 
 type Props = {
   content: Content
@@ -15,49 +15,52 @@ type Privacy = {
   Name: string
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const content = await GetContent('privacy')
+
+  if (!content || !content[lang]) {
+    return {
+      redirect: {
+        destination: '/404',
+        permanent: false,
+      },
+    }
+  }
+
+  const pageContent = content[lang]!
 
   const ogimage = await CreateOgImage({
     id: `privacy-${lang}`,
-    title: content![lang]!.title,
-    desc: content![lang]!.excerpt,
+    title: pageContent.title,
+    desc: pageContent.excerpt,
   })
-
-  if (!content) {
-    return {
-      props: {},
-      redirect: {
-        destination: '/404'
-      }
-    }
-  }
 
   return {
     props: {
-      content: content![lang],
+      content: pageContent,
       ogimage,
-    }
+    },
   }
 }
-
 
 const Privacy: NextPage<Props> = ({ content, ogimage }) => {
   const { page } = content
   const { properties } = page as unknown as DBPage
   // const date = formatDate(page.last_edited_time)
   // const modifiedDate = t('privacy.modified').replace('%s', date)
-  const title = (properties.Name.title) ? properties.Name.title.map(v => v.plain_text).join(' ') : ''
+  const title = properties.Name.title
+    ? properties.Name.title.map((v) => v.plain_text).join(' ')
+    : ''
 
   return (
     <>
       <Hed title={content.title} desc={content.excerpt} ogimage={ogimage} />
 
-      <header className="container">
+      <header className='container'>
         <h1>{title}</h1>
       </header>
 
-      <section className="container">
+      <section className='container'>
         <Page blocks={content.blocks} />
       </section>
     </>

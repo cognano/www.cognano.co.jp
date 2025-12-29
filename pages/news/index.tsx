@@ -1,12 +1,12 @@
-import type { NextPage, GetStaticProps } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import { Page } from 'rotion/ui'
+import Hed from '../../components/hed'
 import NewsList from '../../components/news-list'
 import { lang } from '../../i18n'
-import { newsQuery, Blog, GetBlogsEachLangs } from '../../lib/blog'
-import { GetContent, Content } from '../../lib/content'
-import styles from '../../styles/News.module.css'
-import Hed from '../../components/hed'
+import { type Blog, GetBlogsEachLangs, newsQuery } from '../../lib/blog'
+import { type Content, GetContent } from '../../lib/content'
 import CreateOgImage from '../../lib/ogimage'
+import styles from '../../styles/News.module.css'
 
 type Props = {
   news: Blog[]
@@ -37,7 +37,7 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
       news: news[lang],
       desc: content,
       ogimage,
-    }
+    },
   }
 }
 
@@ -45,18 +45,16 @@ const NewsIndex: NextPage<Props> = ({ news, desc, ogimage }) => {
   return (
     <main>
       <Hed title={desc.title} desc={desc.excerpt} ogimage={ogimage} />
-      <div className="container">
+      <div className='container'>
         <header>
-          <h1>
-            {desc.title}
-          </h1>
+          <h1>{desc.title}</h1>
           <div>
             <Page blocks={desc.blocks} />
           </div>
         </header>
       </div>
 
-      <div className="container">
+      <div className='container'>
         <div className={styles.newsList}>
           <NewsList news={news} />
         </div>

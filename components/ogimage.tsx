@@ -57,50 +57,42 @@ const descStyle = {
 }
 
 const OgImage: FC<Props> = ({ title, desc, id }) => {
-  const sitename = `COGNANO`
+  const sitename = 'COGNANO'
   const nonAscii = /[^\x01-\x7E\uFF61-\uFF9F]+/
   const titleMaxLength = title.match(nonAscii) ? 80 : 110
   const descMaxLength = title.match(nonAscii) ? 80 : 120
-  const trimedTitle = title.length > titleMaxLength ? `${title.substring(0, titleMaxLength)}...` : title
+  const trimedTitle =
+    title.length > titleMaxLength
+      ? `${title.substring(0, titleMaxLength)}...`
+      : title
 
   if (id === 'home') {
     return (
-      <div style={divStyle} >
-        <p style={sitenameStyle}>
-          {sitename}
-        </p>
-        <p style={sitedescStyle}>
-          {trimedTitle}
-        </p>
+      <div style={divStyle}>
+        <p style={sitenameStyle}>{sitename}</p>
+        <p style={sitedescStyle}>{trimedTitle}</p>
       </div>
     )
   }
 
   if (desc) {
-    const trimedDesc = desc.length > descMaxLength ? `${desc.substring(0, descMaxLength)}...` : desc
+    const trimedDesc =
+      desc.length > descMaxLength
+        ? `${desc.substring(0, descMaxLength)}...`
+        : desc
     return (
-      <div style={divStyle} >
-        <p style={logoStyle} >
-            {sitename}
-        </p>
-        <p style={titleStyle} >
-            {trimedTitle}
-        </p>
-        <p style={sitedescStyle}>
-          {trimedDesc}
-        </p>
+      <div style={divStyle}>
+        <p style={logoStyle}>{sitename}</p>
+        <p style={titleStyle}>{trimedTitle}</p>
+        <p style={sitedescStyle}>{trimedDesc}</p>
       </div>
     )
   }
 
   return (
-    <div style={divStyle} >
-      <p style={logoStyle} >
-        {sitename}
-      </p>
-      <p style={titleStyle} >
-        {trimedTitle}
-      </p>
+    <div style={divStyle}>
+      <p style={logoStyle}>{sitename}</p>
+      <p style={titleStyle}>{trimedTitle}</p>
     </div>
   )
 }

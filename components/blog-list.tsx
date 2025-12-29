@@ -1,7 +1,7 @@
-import React from 'react'
-import BlogHeader from './blog-header'
+import type React from 'react'
+import type { Blog } from '../lib/blog'
 import styles from '../styles/Home.module.css'
-import { Blog } from '../lib/blog'
+import BlogHeader from './blog-header'
 
 type Props = {
   blog: Blog[]

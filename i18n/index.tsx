@@ -1,6 +1,12 @@
-import { ParsedUrlQueryInput, ParsedUrlQuery } from 'node:querystring'
-import React, { useEffect, useState, ReactNode, ReactElement, MouseEventHandler } from 'react'
+import type { ParsedUrlQuery, ParsedUrlQueryInput } from 'node:querystring'
 import { useRouter } from 'next/router'
+import React, {
+  useEffect,
+  useState,
+  type ReactNode,
+  type ReactElement,
+  type MouseEventHandler,
+} from 'react'
 
 import en from './en'
 import ja from './ja'
@@ -32,7 +38,7 @@ export const useLanguageQuery = (forceLang?: string) => {
   passedQuery = {}
 
   if (router.query) {
-    let query: ParsedUrlQuery = router.query
+    const query: ParsedUrlQuery = router.query
     const keys = Object.keys(query)
     keys.forEach((key: string, index: number) => {
       passedQuery[key] = query[key] as string
@@ -40,7 +46,10 @@ export const useLanguageQuery = (forceLang?: string) => {
   }
 
   useEffect(() => {
-    setValue({ ...passedQuery, lang: forceLang || (lang as string) || (passedQuery['lang'] as string) })
+    setValue({
+      ...passedQuery,
+      lang: forceLang || (lang as string) || (passedQuery.lang as string),
+    })
   }, [forceLang, lang])
 
   // remove query string when default language
@@ -54,7 +63,12 @@ export const useLanguageQuery = (forceLang?: string) => {
 export const getT = (key: string, lang: string) => {
   const i18nObj = i18n() as I18N
   const translations: Dictionary = i18nObj.translations
-  let value: any = key.split('.').reduce((previous: any, current: string) => (previous && previous[current]) || null, translations[lang])
+  const value: any = key
+    .split('.')
+    .reduce(
+      (previous: any, current: string) => previous?.[current] || null,
+      translations[lang],
+    )
   return value || key
 }
 
@@ -69,10 +83,15 @@ export const useTranslation = () => {
 
   return {
     t: (key: string, view?: object): any => {
-      let value: any = key.split('.').reduce((previous: any, current: string) => (previous && previous[current]) || null, translations[lang])
-      let translation: any = value || key
+      const value: any = key
+        .split('.')
+        .reduce(
+          (previous: any, current: string) => previous?.[current] || null,
+          translations[lang],
+        )
+      const translation: any = value || key
       return translation
-    }
+    },
   }
 }
 
@@ -82,14 +101,20 @@ type Props = {
   shallow?: boolean
 }
 
-export const LanguageSwitcher = ({ lang, children, shallow=false }: Props) => {
-  const { isActive: languageSwitcherIsActive } = useLanguageSwitcherIsActive(lang)
+export const LanguageSwitcher = ({
+  lang,
+  children,
+  shallow = false,
+}: Props) => {
+  const { isActive: languageSwitcherIsActive } =
+    useLanguageSwitcherIsActive(lang)
   const router = useRouter()
   const [query] = useLanguageQuery(lang)
 
   const updateRouter = () => {
     const pathname = router.pathname
-    const arg = (lang === userI18n.defaultLang) ? { pathname } : { pathname, query }
+    const arg =
+      lang === userI18n.defaultLang ? { pathname } : { pathname, query }
     router.push(arg, undefined, { shallow })
   }
 
@@ -111,8 +136,8 @@ export const LanguageSwitcher = ({ lang, children, shallow=false }: Props) => {
       },
       'data-language-switcher': 'true',
       'data-is-current': languageSwitcherIsActive,
-      'role': 'button',
-      'aria-label': `set language to ${lang}`
+      role: 'button',
+      'aria-label': `set language to ${lang}`,
     })
   }
 
@@ -141,7 +166,10 @@ const useLanguageSwitcherIsActive = (currentLang: string) => {
     if (router.query.lang === undefined) {
       router.query = { lang: defaultLang }
     }
-    const current = (!router.query || !router.query.lang) ? defaultLang === currentLang : router.query.lang === currentLang
+    const current =
+      !router.query || !router.query.lang
+        ? defaultLang === currentLang
+        : router.query.lang === currentLang
     setIsActive(current)
   }, [currentLang, defaultLang, router.query])
 
@@ -158,8 +186,13 @@ export const useSelectedLanguage = () => {
   const [lang, setLang] = useState<string>(defaultLang)
 
   useEffect(() => {
-    if (router.query.lang && router.query.lang !== lang && translations && translations[router.query.lang as string]) {
-      let lang: string = router.query.lang as string
+    if (
+      router.query.lang &&
+      router.query.lang !== lang &&
+      translations &&
+      translations[router.query.lang as string]
+    ) {
+      const lang: string = router.query.lang as string
       setLang(lang)
     }
   }, [lang, router.query.lang])
@@ -173,10 +206,18 @@ const i18n = (): I18N | Error => {
 }
 
 const getDefaultLanguage = (i: I18N): string => {
-  let browserLang: string = ''
+  let browserLang = ''
 
-  if (i.useBrowserDefault && typeof window !== 'undefined' && window && window.navigator && (window.navigator.languages || window.navigator.language)) {
-    browserLang = ((window.navigator.languages && window.navigator.languages[0]) || window.navigator.language).split('-')[0].toLowerCase()
+  if (
+    i.useBrowserDefault &&
+    typeof window !== 'undefined' &&
+    window &&
+    window.navigator &&
+    (window.navigator.languages || window.navigator.language)
+  ) {
+    browserLang = (window.navigator.languages?.[0] || window.navigator.language)
+      .split('-')[0]
+      .toLowerCase()
   }
 
   if (i.useBrowserDefault && browserLang && i.translations[browserLang]) {
@@ -198,7 +239,12 @@ const t = (key: string) => {
   const lang = process.env.NEXT_PUBLIC_LANG || 'en'
   const i18nObj = i18n() as I18N
   const translations: Dictionary = i18nObj.translations
-  let value: any = key.split('.').reduce((previous: any, current: string) => (previous && previous[current]) || null, translations[lang])
+  const value: any = key
+    .split('.')
+    .reduce(
+      (previous: any, current: string) => previous?.[current] || null,
+      translations[lang],
+    )
   return value || key
 }
 
