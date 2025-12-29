@@ -1,16 +1,22 @@
-import type { NextPage, GetStaticPaths, GetStaticProps } from 'next'
+import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Link from 'next/link'
-import t, { lang } from '../../i18n'
-import { Blog, newsQuery, newsQueryLatest, GetBlogsEachLangs, buildExcerpt } from '../../lib/blog'
-import { FetchBlocks, ListBlockChildrenResponseEx } from 'rotion'
+import { FetchBlocks, type ListBlockChildrenResponseEx } from 'rotion'
 import { Page } from 'rotion/ui'
-import { formatDate } from '../../lib/date'
-import { GetContent, Content } from '../../lib/content'
-import { tagIcon } from '../../components/news-list'
-import styles from '../../styles/News.module.css'
-import { calendarIcon } from '../../components/icons'
 import Hed from '../../components/hed'
+import { calendarIcon } from '../../components/icons'
+import { tagIcon } from '../../components/news-list'
+import t, { lang } from '../../i18n'
+import {
+  type Blog,
+  GetBlogsEachLangs,
+  buildExcerpt,
+  newsQuery,
+  newsQueryLatest,
+} from '../../lib/blog'
+import { type Content, GetContent } from '../../lib/content'
+import { formatDate } from '../../lib/date'
 import CreateOgImage from '../../lib/ogimage'
+import styles from '../../styles/News.module.css'
 
 type Props = {
   news?: Blog
@@ -27,7 +33,7 @@ type Params = {
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
   const news = await GetBlogsEachLangs(newsQuery)
-  const paths = news[lang].map(v => {
+  const paths = news[lang].map((v) => {
     const slug = v.slug
     return {
       params: { slug },
@@ -45,17 +51,21 @@ export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
     GetContent('news'),
     GetBlogsEachLangs(newsQuery),
   ])
-  const news = blog[lang].find(v => v.slug === params!.slug)
+  const news = blog[lang].find((v) => v.slug === params?.slug)
 
   if (news) {
-    const blocks = await FetchBlocks({ block_id: news.id, last_edited_time: news.last_edited_time })
+    const blocks = await FetchBlocks({
+      block_id: news.id,
+      last_edited_time: news.last_edited_time,
+    })
     const excerpt = buildExcerpt(blocks)
     const latestNews = await GetBlogsEachLangs(newsQueryLatest)
 
     const ogimage = await CreateOgImage({
-      id: `news-${params!.slug}-${lang}`,
+      id: `news-${params?.slug}-${lang}`,
       title: news.title,
-      desc: lang === 'en' ? `at ${formatDate(news?.date)}` : formatDate(news?.date),
+      desc:
+        lang === 'en' ? `at ${formatDate(news?.date)}` : formatDate(news?.date),
     })
 
     return {
@@ -73,36 +83,42 @@ export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
   return {
     props: {},
     redirect: {
-      destination: '/404'
-    }
+      destination: '/404',
+    },
   }
 }
 
-const NewsPost: NextPage<Props> = ({ news, blocks, excerpt, desc, latestNews, ogimage }) => {
+const NewsPost: NextPage<Props> = ({
+  news,
+  blocks,
+  excerpt,
+  desc,
+  latestNews,
+  ogimage,
+}) => {
   return (
     <main>
-      <Hed title={news!.title} desc={excerpt!} suffix={t('header.news')} ogimage={ogimage} />
+      <Hed
+        title={news?.title}
+        desc={excerpt!}
+        suffix={t('header.news')}
+        ogimage={ogimage}
+      />
       <div className={styles.articleWrapper}>
         <div className={styles.newsHeader}>
           <p className={styles.category}>
-            <Link href="/news">
-              {t('header.news')}
-            </Link>
+            <Link href='/news'>{t('header.news')}</Link>
           </p>
-          <h1 className={styles.newsTitle}>
-            {news!.title}
-          </h1>
+          <h1 className={styles.newsTitle}>{news?.title}</h1>
           <div className={styles.newsMeta}>
             <p className={styles.publishedAt}>
               <span className={styles.calendarIcon}>{calendarIcon()}</span>
-              <span className={styles.date}>{formatDate(news!.date)}</span>
+              <span className={styles.date}>{formatDate(news?.date)}</span>
             </p>
             <ul className={styles.newsTags}>
-              {news!.tags.map((tag, i) => (
-                tag !== 'News' && <li key={i}>
-                  {tagIcon(tag)}
-                </li>
-              ))}
+              {news?.tags.map(
+                (tag, i) => tag !== 'News' && <li key={i}>{tagIcon(tag)}</li>,
+              )}
             </ul>
           </div>
         </div>
@@ -114,9 +130,7 @@ const NewsPost: NextPage<Props> = ({ news, blocks, excerpt, desc, latestNews, og
         </article>
 
         <div className={styles.latestNews}>
-          <p className={styles.latestNewsHead}>
-            {t('news.latestNews')}
-          </p>
+          <p className={styles.latestNewsHead}>{t('news.latestNews')}</p>
           <div className={styles.latestBody}>
             <ul>
               {latestNews.map((post, i) => (
@@ -125,9 +139,7 @@ const NewsPost: NextPage<Props> = ({ news, blocks, excerpt, desc, latestNews, og
                     <span className={styles.latestPostDate}>
                       {formatDate(post.date)}
                     </span>
-                    <span className={styles.latestPostTitle}>
-                      {post.title}
-                    </span>
+                    <span className={styles.latestPostTitle}>{post.title}</span>
                   </Link>
                 </li>
               ))}

@@ -1,12 +1,12 @@
-import type { NextPage, GetStaticProps } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import { Page } from 'rotion/ui'
 import BlogList from '../../components/blog-list'
-import { GetContent, Content } from '../../lib/content'
-import { Blog, blogQuery, GetBlogsEachLangs } from '../../lib/blog'
-import styles from '../../styles/Blog.module.css'
 import Hed from '../../components/hed'
-import CreateOgImage from '../../lib/ogimage'
 import { lang } from '../../i18n'
+import { type Blog, GetBlogsEachLangs, blogQuery } from '../../lib/blog'
+import { type Content, GetContent } from '../../lib/content'
+import CreateOgImage from '../../lib/ogimage'
+import styles from '../../styles/Blog.module.css'
 
 type Props = {
   blog: Blog[]
@@ -37,7 +37,7 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
       blog: blog[lang],
       desc: content,
       ogimage,
-    }
+    },
   }
 }
 
@@ -46,18 +46,16 @@ const BlogIndex: NextPage<Props> = ({ blog, desc, ogimage }) => {
     <main>
       <Hed title={desc.title} desc={desc.excerpt} ogimage={ogimage} />
 
-      <div className="container">
+      <div className='container'>
         <header className={styles.listHeader}>
-          <h1>
-            {desc.title}
-          </h1>
+          <h1>{desc.title}</h1>
           <div>
             <Page blocks={desc.blocks} />
           </div>
         </header>
       </div>
 
-      <div className="container">
+      <div className='container'>
         <BlogList blog={blog} />
       </div>
     </main>

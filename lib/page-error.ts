@@ -1,4 +1,4 @@
 export const notfound = {
   props: {},
-  redirect: { destination: '/404' }
+  redirect: { destination: '/404' },
 }

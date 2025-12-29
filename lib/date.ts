@@ -1,6 +1,6 @@
 import { lang } from '../i18n'
 
-export const formatDate = (date: undefined|string): string => {
+export const formatDate = (date: undefined | string): string => {
   if (date === undefined) {
     return ''
   }
@@ -8,9 +8,22 @@ export const formatDate = (date: undefined|string): string => {
   const msec = Date.parse(date)
   const d = new Date(msec)
   if (lang === 'ja') {
-    return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`
+    return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`
   }
 
-  const m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  const m = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ]
   return `${d.getDate()}st ${m[d.getMonth()]} ${d.getFullYear()}`
 }

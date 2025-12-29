@@ -1,9 +1,9 @@
-import React from 'react'
-import Link from 'next/link'
 import Image from 'next/image'
-import styles from '../styles/Blog.module.css'
+import Link from 'next/link'
+import type React from 'react'
+import type { Blog } from '../lib/blog'
 import { formatDate } from '../lib/date'
-import { Blog } from '../lib/blog'
+import styles from '../styles/Blog.module.css'
 
 type Props = {
   blog: Blog
@@ -15,18 +15,16 @@ const BlogHeader: React.FC<Props> = ({ blog, tag }) => {
   return (
     <div className={styles.blog}>
       <Link href={`/blog/${blog.slug}`}>
-        <HeaderTag className={styles.title}>
-          {blog.title}
-        </HeaderTag>
+        <HeaderTag className={styles.title}>{blog.title}</HeaderTag>
         <div className={styles.meta}>
-          <span className={styles.date}>
-            {formatDate(blog.date)}
-          </span>
+          <span className={styles.date}>{formatDate(blog.date)}</span>
           <p className={styles.authors}>
             {blog.writers.map((u, i) => (
               <span className={styles.author} key={i}>
                 <Image src={u.avatar} width={30} height={30} alt={u.name} />
-                <span className={`${styles.authorName} ${i === 0 ? styles.firstAuthor : styles.nofirstAuthor}`}>
+                <span
+                  className={`${styles.authorName} ${i === 0 ? styles.firstAuthor : styles.nofirstAuthor}`}
+                >
                   {u.name}
                 </span>
               </span>

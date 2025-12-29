@@ -1,11 +1,11 @@
-import type { NextPage, GetStaticProps } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import Image from 'next/image'
-import { lang } from '../i18n'
-import { Content, GetContent } from '../lib/content'
 import { Page } from 'rotion/ui'
-import styles from '../styles/Research.module.css'
 import Hed from '../components/hed'
+import { lang } from '../i18n'
+import { type Content, GetContent } from '../lib/content'
 import CreateOgImage from '../lib/ogimage'
+import styles from '../styles/Research.module.css'
 
 type Props = {
   research: Content
@@ -15,7 +15,7 @@ type Props = {
   ogimage: string
 }
 
-export const getStaticProps: GetStaticProps<{}> = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const [research, tnbc, vhh, covid] = await Promise.all([
     GetContent('research'),
     GetContent('tnbc'),
@@ -25,18 +25,18 @@ export const getStaticProps: GetStaticProps<{}> = async () => {
 
   const ogimage = await CreateOgImage({
     id: `research-${lang}`,
-    title: research![lang]!.title,
-    desc: research![lang]!.excerpt,
+    title: research?.[lang]?.title,
+    desc: research?.[lang]?.excerpt,
   })
 
   return {
     props: {
-      research: research![lang],
-      tnbc: tnbc![lang],
-      vhh: vhh![lang],
-      covid: covid![lang],
+      research: research?.[lang],
+      tnbc: tnbc?.[lang],
+      vhh: vhh?.[lang],
+      covid: covid?.[lang],
       ogimage,
-    }
+    },
   }
 }
 
@@ -44,21 +44,19 @@ const Research: NextPage<Props> = ({ research, tnbc, vhh, covid, ogimage }) => {
   return (
     <main>
       <Hed title={research.title} desc={research.excerpt} ogimage={ogimage} />
-      <div className="container">
-        <h1>
-          {research.title}
-        </h1>
+      <div className='container'>
+        <h1>{research.title}</h1>
         <div>
           <Page blocks={research.blocks} />
         </div>
       </div>
 
-      <div className="container">
+      <div className='container'>
         <div className={styles.researches}>
           <div className={styles.research}>
             <div className={styles.researchTitle}>
               <h2>{vhh.title}</h2>
-              <span></span>
+              <span />
             </div>
             <p className={styles.researchCover}>
               <span className={styles.vhhCover}>
@@ -73,7 +71,7 @@ const Research: NextPage<Props> = ({ research, tnbc, vhh, covid, ogimage }) => {
           <div className={styles.research}>
             <div className={styles.researchTitle}>
               <h2>{covid.title}</h2>
-              <span></span>
+              <span />
             </div>
             <p className={styles.researchCover}>
               <Image src={covid.cover} fill={true} alt={covid.title} />
@@ -86,7 +84,7 @@ const Research: NextPage<Props> = ({ research, tnbc, vhh, covid, ogimage }) => {
           <div className={styles.research}>
             <div className={styles.researchTitle}>
               <h2>{tnbc.title}</h2>
-              <span></span>
+              <span />
             </div>
             <p className={styles.researchCover}>
               <Image src={tnbc.cover} fill={true} alt={tnbc.title} />

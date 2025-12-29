@@ -1,13 +1,13 @@
 import {
-  FetchDatabase,
-  RichTextItemResponse,
-  SelectPropertyResponse,
-  DBPageBase,
-  GetDatabaseParameters,
-  ListBlockChildrenResponseEx,
+  type DBPageBase,
   FetchBlocks,
-  PersonUserObjectResponseEx,
-  PageObjectResponseEx,
+  FetchDatabase,
+  type GetDatabaseParameters,
+  type ListBlockChildrenResponseEx,
+  type PageObjectResponseEx,
+  type PersonUserObjectResponseEx,
+  type RichTextItemResponse,
+  type SelectPropertyResponse,
 } from 'rotion'
 
 type User = {
@@ -39,32 +39,32 @@ export type Members = {
 export type DBPage = DBPageBase & {
   properties: {
     Name: {
-      type: "title"
+      type: 'title'
       title: RichTextItemResponse[]
       id: string
     }
     Language: {
-      type: "select"
+      type: 'select'
       select: SelectPropertyResponse
       id: string
     }
     Title: {
-      type: "rich_text"
+      type: 'rich_text'
       rich_text: RichTextItemResponse[]
       id: string
     }
     Roles: {
-      type: "multi_select"
+      type: 'multi_select'
       multi_select: SelectPropertyResponse[]
       id: string
     }
     User: {
-      type: "people"
+      type: 'people'
       people: PersonUserObjectResponseEx[]
       id: string
     }
     Published: {
-      type: "checkbox"
+      type: 'checkbox'
       checkbox: boolean
       id: string
     }
@@ -77,21 +77,29 @@ const build = (page: DBPage): LocalizedMember => {
 
   return {
     id: page.id,
-    name: props.Name.title.map(v => v.plain_text).join(',') || '',
-    roles: props.Roles.multi_select.map(v => v.name) || [],
-    title: props.Title.rich_text.map(v => v.plain_text).join(',') || '',
-    user: props.User.people.length > 0 ? props.User.people.map(v => {
-      return { name: v.name, avatar: v.avatar } as User
-    })[0] : null,
-    cover: (p.icon?.type === 'file' && 'src' in p.icon ? p.icon.src as string : null) || null,
+    name: props.Name.title.map((v) => v.plain_text).join(',') || '',
+    roles: props.Roles.multi_select.map((v) => v.name) || [],
+    title: props.Title.rich_text.map((v) => v.plain_text).join(',') || '',
+    user:
+      props.User.people.length > 0
+        ? props.User.people.map((v) => {
+            return { name: v.name, avatar: v.avatar } as User
+          })[0]
+        : null,
+    cover:
+      (p.icon?.type === 'file' && 'src' in p.icon
+        ? (p.icon.src as string)
+        : null) || null,
     excerpt: null,
     last_edited_time: page.last_edited_time,
   }
 }
 
 export const buildPlainText = (b: ListBlockChildrenResponseEx): string => {
-  const richText = b.results.map(v => 'type' in v && v.type === 'paragraph' ? v.paragraph.rich_text : [] )
-  const text = richText.map(v => v.map(vv => vv.plain_text)).flat().join('')
+  const richText = b.results.map((v) =>
+    'type' in v && v.type === 'paragraph' ? v.paragraph.rich_text : [],
+  )
+  const text = richText.flatMap((v) => v.map((vv) => vv.plain_text)).join('')
   return text
 }
 
@@ -110,63 +118,77 @@ export const memberQuery = {
       {
         property: 'Published',
         checkbox: {
-          equals: true
-        }
-      }
-    ]
+          equals: true,
+        },
+      },
+    ],
   },
   sorts: [
     {
       property: 'Number',
-      direction: 'ascending'
+      direction: 'ascending',
     },
     {
       property: 'Language',
-      direction: 'descending'
+      direction: 'descending',
     },
-  ]
+  ],
 } as GetDatabaseParameters
 
 export const GetMembers = async (): Promise<Members> => {
   const { results } = await FetchDatabase(memberQuery)
 
-  const jaProps = results.filter(v => {
-    const p = v as DBPage
-    if (p.properties.Language.select.name === 'Japanese') {
-      return v
-    }
-  }).map(v => {
-    const p = v as DBPage
-    return build(p)
-  })
+  const jaProps = results
+    .filter((v) => {
+      const p = v as DBPage
+      if (p.properties.Language.select.name === 'Japanese') {
+        return v
+      }
+    })
+    .map((v) => {
+      const p = v as DBPage
+      return build(p)
+    })
 
-  const ja = await Promise.all(jaProps.map(async (v: LocalizedMember) => {
-    const blocks = await FetchBlocks({ block_id: v.id, last_edited_time: v.last_edited_time })
-    v.excerpt = buildExcerpt(blocks)
-    return {
-      props: v,
-      blocks,
-    }
-  }))
+  const ja = await Promise.all(
+    jaProps.map(async (v: LocalizedMember) => {
+      const blocks = await FetchBlocks({
+        block_id: v.id,
+        last_edited_time: v.last_edited_time,
+      })
+      v.excerpt = buildExcerpt(blocks)
+      return {
+        props: v,
+        blocks,
+      }
+    }),
+  )
 
-  const enProps = results.filter(v => {
-    const p = v as DBPage
-    if (p.properties.Language.select.name === 'English') {
-      return v
-    }
-  }).map(v => {
-    const p = v as DBPage
-    return build(p)
-  })
+  const enProps = results
+    .filter((v) => {
+      const p = v as DBPage
+      if (p.properties.Language.select.name === 'English') {
+        return v
+      }
+    })
+    .map((v) => {
+      const p = v as DBPage
+      return build(p)
+    })
 
-  const en = await Promise.all(enProps.map(async (v: LocalizedMember) => {
-    const blocks = await FetchBlocks({ block_id: v.id, last_edited_time: v.last_edited_time })
-    v.excerpt = buildExcerpt(blocks)
-    return {
-      props: v,
-      blocks,
-    }
-  }))
+  const en = await Promise.all(
+    enProps.map(async (v: LocalizedMember) => {
+      const blocks = await FetchBlocks({
+        block_id: v.id,
+        last_edited_time: v.last_edited_time,
+      })
+      v.excerpt = buildExcerpt(blocks)
+      return {
+        props: v,
+        blocks,
+      }
+    }),
+  )
 
   return { ja, en }
 }

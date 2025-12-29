@@ -1,15 +1,14 @@
-
-import type { NextPage, GetStaticProps } from 'next'
-import Link from 'next/link'
+import type { GetStaticProps, NextPage } from 'next'
 import Image from 'next/image'
-import t, { lang } from '../../i18n'
-import { Content, GetContent } from '../../lib/content'
-import { Pages } from '../../lib/dataset'
+import Link from 'next/link'
 import { Page } from 'rotion/ui'
-import styles from '../../styles/Datasets.module.css'
-import Unsplash from '../../components/unsplash'
 import Hed from '../../components/hed'
+import Unsplash from '../../components/unsplash'
+import t, { lang } from '../../i18n'
+import { type Content, GetContent } from '../../lib/content'
+import { Pages } from '../../lib/dataset'
 import CreateOgImage from '../../lib/ogimage'
+import styles from '../../styles/Datasets.module.css'
 
 type Props = {
   desc: Content
@@ -22,7 +21,7 @@ export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
   const datasets: Content[] = []
   for (const p of Pages) {
     const d = await GetContent('abstract', p.slug)
-    if (d && d[lang]) {
+    if (d?.[lang]) {
       datasets.push(d[lang]!)
     }
   }
@@ -41,10 +40,10 @@ export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
 
   return {
     props: {
-      desc: desc![lang],
+      desc: desc?.[lang],
       datasets,
       ogimage,
-    }
+    },
   }
 }
 
@@ -57,14 +56,15 @@ const DatasetsIndex: NextPage<Props> = ({ desc, datasets, ogimage }) => {
         <div className={styles.indexHeaderImage}>
           <Image src={desc.cover} fill={true} alt={`${desc.title} image`} />
           <div className={styles.indexUnsplash}>
-            <Unsplash name="Transly Translation Agency" href="https://unsplash.com/@translytranslations" />
+            <Unsplash
+              name='Transly Translation Agency'
+              href='https://unsplash.com/@translytranslations'
+            />
           </div>
         </div>
         <div className={styles.indexHeaderText}>
           <div className={styles.indexHeaderTextInner}>
-            <h1 className={styles.indexTitle}>
-              {desc.title}
-            </h1>
+            <h1 className={styles.indexTitle}>{desc.title}</h1>
             <div className={styles.indexDesc}>
               <Page blocks={desc.blocks} />
             </div>
@@ -72,9 +72,9 @@ const DatasetsIndex: NextPage<Props> = ({ desc, datasets, ogimage }) => {
         </div>
       </div>
 
-      <div className="container">
+      <div className='container'>
         <div className={styles.list}>
-          {datasets.map(v => (
+          {datasets.map((v) => (
             <div className={styles.dataset} key={v.id}>
               <div className={styles.datasetThumbnail}>
                 <div className={styles.datasetThumbnailInner}>
@@ -86,7 +86,9 @@ const DatasetsIndex: NextPage<Props> = ({ desc, datasets, ogimage }) => {
                 <p className={styles.datasetExcerpt}>{v.excerpt}</p>
                 <div className={`button ${styles.learnMoreButton}`}>
                   {/* @ts-ignore */}
-                  <Link href={`/datasets/${v.page.properties.Category.select.name}`}>
+                  <Link
+                    href={`/datasets/${v.page.properties.Category.select.name}`}
+                  >
                     {t('datasets.learnmore')}
                   </Link>
                 </div>

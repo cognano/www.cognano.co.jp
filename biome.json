@@ -1,35 +1,64 @@
 {
-    "$schema": "https://biomejs.dev/schemas/1.8.0/schema.json",
-    "organizeImports": {
-      "enabled": true
-    },
-    "linter": {
-      "enabled": true,
-      "rules": {
-        "recommended": true
+  "$schema": "https://biomejs.dev/schemas/1.8.0/schema.json",
+  "files": {
+    "ignore": [".next", "out", "node_modules", "public"]
+  },
+  "organizeImports": {
+    "enabled": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "a11y": {
+        "noSvgWithoutTitle": "warn",
+        "useKeyWithClickEvents": "warn",
+        "useButtonType": "warn",
+        "useSemanticElements": "warn",
+        "useFocusableInteractive": "warn"
       },
-      "ignore": [
-        "node_modules",
-        "public",
-        "*.json"
-      ]
-    },
-    "javascript": {
-      "formatter": {
-        "enabled": true,
-        "indentStyle": "space",
-        "indentWidth": 2,
-        "semicolons": "asNeeded",
-        "quoteStyle": "single",
-        "jsxQuoteStyle": "single"
-      }
-    },
-    "json": {
-      "formatter": {
-        "enabled": true,
-        "indentStyle": "space",
-        "indentWidth": 2,
-        "trailingCommas": "none"
+      "suspicious": {
+        "noArrayIndexKey": "warn",
+        "noExplicitAny": "warn",
+        "noControlCharactersInRegex": "warn",
+        "noDuplicateFontNames": "warn",
+        "noShorthandPropertyOverrides": "warn"
+      },
+      "correctness": {
+        "useExhaustiveDependencies": "warn"
+      },
+      "style": {
+        "noUnusedTemplateLiteral": "warn",
+        "useSelfClosingElements": "warn",
+        "useNodejsImportProtocol": "warn",
+        "noNonNullAssertion": "warn",
+        "useConst": "warn"
+      },
+      "complexity": {
+        "noBannedTypes": "warn",
+        "noForEach": "warn"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "warn"
       }
     }
+  },
+  "javascript": {
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "semicolons": "asNeeded",
+      "quoteStyle": "single",
+      "jsxQuoteStyle": "single"
+    }
+  },
+  "json": {
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "trailingCommas": "none"
+    }
   }
+}

@@ -1,5 +1,6 @@
-import React, { ReactNode, useEffect, useState } from 'react'
 import Link from 'next/link'
+import type React from 'react'
+import { type ReactNode, useEffect, useState } from 'react'
 import CookieConsent, {
   getCookieConsentValue,
   Cookies,
@@ -29,33 +30,35 @@ const Cookie: React.FC<Props> = ({ children }) => {
     }
   }, [])
 
-  const [initGA, setGA] = useState(() => { return (<></>)})
+  const [initGA, setGA] = useState(() => {
+    return <></>
+  })
   const style = {
-    backgroundColor: "#333",
-    color: "#fff",
+    backgroundColor: '#333',
+    color: '#fff',
   }
   const contentStyle = {
-    margin: "var(--spacing-10) var(--spacing-20)",
+    margin: 'var(--spacing-10) var(--spacing-20)',
   }
   const buttonStyle = {
-    backgroundColor: "var(--color-primary)",
-    color: "#fff",
-    borderRadius: "30px",
-    fontWeight: "bold",
-    padding: "var(--spacing-2) var(--spacing-5)",
-    marginRight: "var(--spacing-20)",
+    backgroundColor: 'var(--color-primary)',
+    color: '#fff',
+    borderRadius: '30px',
+    fontWeight: 'bold',
+    padding: 'var(--spacing-2) var(--spacing-5)',
+    marginRight: 'var(--spacing-20)',
   }
   const declineButtonStyle = {
-    backgroundColor: "inherit",
-    color: "#fff",
-    borderRadius: "30px",
-    border: "1px solid #888",
-    fontWeight: "bold",
-    padding: "var(--spacing-2) var(--spacing-5)",
+    backgroundColor: 'inherit',
+    color: '#fff',
+    borderRadius: '30px',
+    border: '1px solid #888',
+    fontWeight: 'bold',
+    padding: 'var(--spacing-2) var(--spacing-5)',
   }
   const privacy = {
-    fontWeight: "bold",
-    borderBottom: "1px solid var(--color-primary)",
+    fontWeight: 'bold',
+    borderBottom: '1px solid var(--color-primary)',
   }
 
   return (
@@ -72,11 +75,11 @@ const Cookie: React.FC<Props> = ({ children }) => {
         buttonStyle={buttonStyle}
         declineButtonStyle={declineButtonStyle}
       >
-        {t('cookie.message')}
-        {` `}
-        <Link style={privacy} href="/privacy" className="privacy-link">
+        {t('cookie.message')}{' '}
+        <Link style={privacy} href='/privacy' className='privacy-link'>
           Privacy Policy
-        </Link>.
+        </Link>
+        .
       </CookieConsent>
       {initGA}
     </>

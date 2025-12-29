@@ -1,11 +1,12 @@
-import React, { ReactNode } from 'react'
 import Link from 'next/link'
-import Logo from './logo'
-import styles from '../styles/App.module.css'
-import t from '../i18n'
 import { useRouter } from 'next/router'
+import type React from 'react'
+import type { ReactNode } from 'react'
+import t from '../i18n'
+import styles from '../styles/App.module.css'
 import { envelopeIcon } from './icons'
 import Language from './language'
+import Logo from './logo'
 
 type Props = {
   children?: ReactNode
@@ -13,7 +14,7 @@ type Props = {
 
 const Header: React.FC<Props> = ({ children }) => {
   const router = useRouter()
-  const border = router.pathname === '/' ? "" : styles.borderHeader
+  const border = router.pathname === '/' ? '' : styles.borderHeader
   return (
     <header className={styles.header}>
       <div className={`${styles.headerinner} ${border} container`}>
@@ -23,34 +24,22 @@ const Header: React.FC<Props> = ({ children }) => {
         <nav className={styles.globalnav}>
           <ul>
             <li>
-              <Link href="/about">
-                {t('header.about')}
-              </Link>
+              <Link href='/about'>{t('header.about')}</Link>
             </li>
             <li>
-              <Link href="/research">
-                {t('header.research')}
-              </Link>
+              <Link href='/research'>{t('header.research')}</Link>
             </li>
             <li>
-              <Link href="/projects">
-                {t('header.projects')}
-              </Link>
+              <Link href='/projects'>{t('header.projects')}</Link>
             </li>
             <li>
-              <Link href="/datasets">
-                {t('header.datasets')}
-              </Link>
+              <Link href='/datasets'>{t('header.datasets')}</Link>
             </li>
             <li>
-              <Link href="/blog">
-                {t('header.blog')}
-              </Link>
+              <Link href='/blog'>{t('header.blog')}</Link>
             </li>
             <li>
-              <Link href="/news">
-                {t('header.news')}
-              </Link>
+              <Link href='/news'>{t('header.news')}</Link>
             </li>
           </ul>
         </nav>
@@ -59,7 +48,7 @@ const Header: React.FC<Props> = ({ children }) => {
         </div>
         <div className={styles.infonav}>
           <div className={styles.contact}>
-            <Link href="/contact">
+            <Link href='/contact'>
               <span className={styles.envelopeIcon}>{envelopeIcon()}</span>
               <span className={styles.contactText}>{t('header.contact')}</span>
             </Link>

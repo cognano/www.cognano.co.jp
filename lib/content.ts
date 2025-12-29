@@ -1,56 +1,56 @@
 import {
-  FetchDatabase,
+  type DBPageBase,
+  type DateResponse,
   FetchBlocks,
+  FetchDatabase,
   FetchPage,
-  DateResponse,
-  RichTextItemResponse,
-  SelectPropertyResponse,
-  DBPageBase,
-  GetPageResponseEx,
-  ListBlockChildrenResponseEx,
-  GetDatabaseParameters,
+  type GetDatabaseParameters,
+  type GetPageResponseEx,
+  type ListBlockChildrenResponseEx,
+  type RichTextItemResponse,
+  type SelectPropertyResponse,
 } from 'rotion'
 import { buildPlainText } from './member'
 
 export type DBPage = DBPageBase & {
   properties: {
     Name: {
-      type: "title"
+      type: 'title'
       title: RichTextItemResponse[]
       id: string
     }
     Category: {
-      type: "select"
+      type: 'select'
       select: SelectPropertyResponse
       id: string
     }
     Slug: {
-      type: "select"
+      type: 'select'
       select: SelectPropertyResponse
       id: string
     }
     Language: {
-      type: "select"
+      type: 'select'
       select: SelectPropertyResponse
       id: string
     }
     Date: {
-      type: "date"
+      type: 'date'
       date: DateResponse | null
       id: string
     }
     Tags: {
-      type: "multi_select"
+      type: 'multi_select'
       multi_select: SelectPropertyResponse[]
       id: string
     }
     Published: {
-      type: "checkbox"
+      type: 'checkbox'
       checkbox: boolean
       id: string
     }
     'Last updated at': {
-      type: "date"
+      type: 'date'
       date: DateResponse | null
       id: string
     }
@@ -85,47 +85,74 @@ const query = {
   filter: {
     property: 'Published',
     checkbox: {
-      equals: true
+      equals: true,
     },
   },
   sorts: [
     {
       property: 'Date',
-      direction: 'descending'
+      direction: 'descending',
     },
-  ]
+  ],
 } as GetDatabaseParameters
 
-export const GetContent = async (slug: string, category?: string): Promise<ContentBilingual|undefined> => {
+export const GetContent = async (
+  slug: string,
+  category?: string,
+): Promise<ContentBilingual | undefined> => {
   const { results } = await FetchDatabase(query)
 
-  const pageEn = results.find(vv => {
+  const pageEn = results.find((vv) => {
     const v = vv as unknown as DBPage
     if (category) {
-      return v.properties.Slug.select.name === slug && v.properties.Language.select.name === 'English' && v.properties.Category.select.name === category
-    } else {
-      return v.properties.Slug.select.name === slug && v.properties.Language.select.name === 'English'
+      return (
+        v.properties.Slug.select.name === slug &&
+        v.properties.Language.select.name === 'English' &&
+        v.properties.Category.select.name === category
+      )
     }
+    return (
+      v.properties.Slug.select.name === slug &&
+      v.properties.Language.select.name === 'English'
+    )
   }) as DBPage
 
-  const pageJa = results.find(vv => {
+  const pageJa = results.find((vv) => {
     const v = vv as unknown as DBPage
     if (category) {
-      return v.properties.Slug.select.name === slug && v.properties.Language.select.name === 'Japanese' && v.properties.Category.select.name === category
-    } else {
-      return v.properties.Slug.select.name === slug && v.properties.Language.select.name === 'Japanese'
+      return (
+        v.properties.Slug.select.name === slug &&
+        v.properties.Language.select.name === 'Japanese' &&
+        v.properties.Category.select.name === category
+      )
     }
+    return (
+      v.properties.Slug.select.name === slug &&
+      v.properties.Language.select.name === 'Japanese'
+    )
   }) as DBPage
 
-  if (!pageEn && (!category || (category && (category.includes('vhh-') || category.includes('avida-'))))) {
-    console.log(`not found: english page with slug "${slug}", category: "${category}"`)
+  if (
+    !pageEn &&
+    (!category ||
+      (category && (category.includes('vhh-') || category.includes('avida-'))))
+  ) {
+    console.log(
+      `not found: english page with slug "${slug}", category: "${category}"`,
+    )
     /*for (const vv of results) {
       const v = vv as unknown as DBPage
       console.log(v.properties.Slug.select.name, v.properties.Language.select.name, v.properties.Category.select.name)
     }*/
   }
-  if (!pageJa && (!category || (category && (category.includes('vhh-') || category.includes('avida-'))))) {
-    console.log(`not found: japanese page with slug "${slug}", category: "${category}"`)
+  if (
+    !pageJa &&
+    (!category ||
+      (category && (category.includes('vhh-') || category.includes('avida-'))))
+  ) {
+    console.log(
+      `not found: japanese page with slug "${slug}", category: "${category}"`,
+    )
     /*for (const vv of results) {
       const v = vv as unknown as DBPage
       console.log(v.properties.Slug.select.name, v.properties.Language.select.name, v.properties.Category.select.name)
@@ -136,12 +163,18 @@ export const GetContent = async (slug: string, category?: string): Promise<Conte
   let ja = null
 
   if (pageEn) {
-    const blocksEn = await FetchBlocks({ block_id: pageEn.id, last_edited_time: pageEn.last_edited_time })
+    const blocksEn = await FetchBlocks({
+      block_id: pageEn.id,
+      last_edited_time: pageEn.last_edited_time,
+    })
     en = {
       id: pageEn.id,
-      title: pageEn.properties.Name.title.map(v => v.plain_text).join(','),
-      cover: (pageEn.cover && 'src' in pageEn.cover) ? pageEn.cover.src : '',
-      page: await FetchPage({ page_id: pageEn.id, last_edited_time: pageEn.last_edited_time }),
+      title: pageEn.properties.Name.title.map((v) => v.plain_text).join(','),
+      cover: pageEn.cover && 'src' in pageEn.cover ? pageEn.cover.src : '',
+      page: await FetchPage({
+        page_id: pageEn.id,
+        last_edited_time: pageEn.last_edited_time,
+      }),
       blocks: blocksEn,
       excerpt: buildExcerpt(blocksEn),
       last_edited_time: pageEn.last_edited_time,
@@ -149,12 +182,18 @@ export const GetContent = async (slug: string, category?: string): Promise<Conte
   }
 
   if (pageJa) {
-    const blocksJa = await FetchBlocks({ block_id: pageJa.id, last_edited_time: pageJa.last_edited_time })
+    const blocksJa = await FetchBlocks({
+      block_id: pageJa.id,
+      last_edited_time: pageJa.last_edited_time,
+    })
     ja = {
       id: pageJa.id,
-      title: pageJa.properties.Name.title.map(v => v.plain_text).join(','),
-      cover: (pageJa.cover && 'src' in pageJa.cover) ? pageJa.cover.src : '',
-      page: await FetchPage({ page_id: pageJa.id, last_edited_time: pageJa.last_edited_time }),
+      title: pageJa.properties.Name.title.map((v) => v.plain_text).join(','),
+      cover: pageJa.cover && 'src' in pageJa.cover ? pageJa.cover.src : '',
+      page: await FetchPage({
+        page_id: pageJa.id,
+        last_edited_time: pageJa.last_edited_time,
+      }),
       blocks: blocksJa,
       excerpt: buildExcerpt(blocksJa),
       last_edited_time: pageJa.last_edited_time,
