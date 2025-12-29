@@ -15,27 +15,29 @@ type Privacy = {
   Name: string
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const content = await GetContent('privacy')
 
-  const ogimage = await CreateOgImage({
-    id: `privacy-${lang}`,
-    title: content?.[lang]?.title,
-    desc: content?.[lang]?.excerpt,
-  })
-
-  if (!content) {
+  if (!content || !content[lang]) {
     return {
-      props: {},
       redirect: {
         destination: '/404',
+        permanent: false,
       },
     }
   }
 
+  const pageContent = content[lang]!
+
+  const ogimage = await CreateOgImage({
+    id: `privacy-${lang}`,
+    title: pageContent.title,
+    desc: pageContent.excerpt,
+  })
+
   return {
     props: {
-      content: content?.[lang],
+      content: pageContent,
       ogimage,
     },
   }

@@ -13,18 +13,19 @@ type Props = {
   ogimage: string
 }
 
-export const getStaticProps: GetStaticProps<{}> = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const contact = await GetContent('contact')
+  const content = contact![lang]!
 
   const ogimage = await CreateOgImage({
     id: `contact-${lang}`,
-    title: contact?.[lang]?.title,
-    desc: contact?.[lang]?.excerpt,
+    title: content.title,
+    desc: content.excerpt,
   })
 
   return {
     props: {
-      contact: contact?.[lang],
+      contact: content,
       ogimage,
     },
   }

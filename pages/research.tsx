@@ -23,18 +23,23 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     GetContent('covid-19'),
   ])
 
+  const researchContent = research![lang]!
+  const tnbcContent = tnbc![lang]!
+  const vhhContent = vhh![lang]!
+  const covidContent = covid![lang]!
+
   const ogimage = await CreateOgImage({
     id: `research-${lang}`,
-    title: research?.[lang]?.title,
-    desc: research?.[lang]?.excerpt,
+    title: researchContent.title,
+    desc: researchContent.excerpt,
   })
 
   return {
     props: {
-      research: research?.[lang],
-      tnbc: tnbc?.[lang],
-      vhh: vhh?.[lang],
-      covid: covid?.[lang],
+      research: researchContent,
+      tnbc: tnbcContent,
+      vhh: vhhContent,
+      covid: covidContent,
       ogimage,
     },
   }

@@ -19,9 +19,9 @@ import CreateOgImage from '../../lib/ogimage'
 import styles from '../../styles/News.module.css'
 
 type Props = {
-  news?: Blog
-  blocks?: ListBlockChildrenResponseEx
-  excerpt?: string
+  news: Blog
+  blocks: ListBlockChildrenResponseEx
+  excerpt: string
   desc: Content
   latestNews: Blog[]
   ogimage: string
@@ -46,7 +46,7 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const [desc, blog] = await Promise.all([
     GetContent('news'),
     GetBlogsEachLangs(newsQuery),
@@ -65,7 +65,7 @@ export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
       id: `news-${params?.slug}-${lang}`,
       title: news.title,
       desc:
-        lang === 'en' ? `at ${formatDate(news?.date)}` : formatDate(news?.date),
+        lang === 'en' ? `at ${formatDate(news.date)}` : formatDate(news.date),
     })
 
     return {
@@ -73,7 +73,7 @@ export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
         news,
         blocks,
         excerpt,
-        desc,
+        desc: desc![lang]!,
         latestNews: latestNews[lang],
         ogimage,
       },
@@ -81,9 +81,9 @@ export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
   }
 
   return {
-    props: {},
     redirect: {
       destination: '/404',
+      permanent: false,
     },
   }
 }
@@ -99,8 +99,8 @@ const NewsPost: NextPage<Props> = ({
   return (
     <main>
       <Hed
-        title={news?.title}
-        desc={excerpt!}
+        title={news.title}
+        desc={excerpt}
         suffix={t('header.news')}
         ogimage={ogimage}
       />
@@ -109,14 +109,14 @@ const NewsPost: NextPage<Props> = ({
           <p className={styles.category}>
             <Link href='/news'>{t('header.news')}</Link>
           </p>
-          <h1 className={styles.newsTitle}>{news?.title}</h1>
+          <h1 className={styles.newsTitle}>{news.title}</h1>
           <div className={styles.newsMeta}>
             <p className={styles.publishedAt}>
               <span className={styles.calendarIcon}>{calendarIcon()}</span>
-              <span className={styles.date}>{formatDate(news?.date)}</span>
+              <span className={styles.date}>{formatDate(news.date)}</span>
             </p>
             <ul className={styles.newsTags}>
-              {news?.tags.map(
+              {news.tags.map(
                 (tag, i) => tag !== 'News' && <li key={i}>{tagIcon(tag)}</li>,
               )}
             </ul>
@@ -125,7 +125,7 @@ const NewsPost: NextPage<Props> = ({
 
         <article className={styles.newsBody}>
           <section className={`news-body ${styles.blocks}`}>
-            <Page blocks={blocks!} />
+            <Page blocks={blocks} />
           </section>
         </article>
 

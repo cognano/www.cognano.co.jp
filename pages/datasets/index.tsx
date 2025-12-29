@@ -16,7 +16,7 @@ type Props = {
   ogimage: string
 }
 
-export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const desc = await GetContent('datasets')
   const datasets: Content[] = []
   for (const p of Pages) {
@@ -40,7 +40,7 @@ export const getStaticProps: GetStaticProps<{}> = async ({ params }) => {
 
   return {
     props: {
-      desc: desc?.[lang],
+      desc: content,
       datasets,
       ogimage,
     },
@@ -85,9 +85,8 @@ const DatasetsIndex: NextPage<Props> = ({ desc, datasets, ogimage }) => {
                 <h2 className={styles.datasetTitle}>{v.title}</h2>
                 <p className={styles.datasetExcerpt}>{v.excerpt}</p>
                 <div className={`button ${styles.learnMoreButton}`}>
-                  {/* @ts-ignore */}
                   <Link
-                    href={`/datasets/${v.page.properties.Category.select.name}`}
+                    href={`/datasets/${(v.page.properties as any).Category.select.name}`}
                   >
                     {t('datasets.learnmore')}
                   </Link>

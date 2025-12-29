@@ -16,10 +16,10 @@ import CreateOgImage from '../../lib/ogimage'
 import styles from '../../styles/Blog.module.css'
 
 type Props = {
-  blog?: Blog
-  blocks?: ListBlockChildrenResponseEx
-  excerpt?: string
-  ogimage?: string
+  blog: Blog
+  blocks: ListBlockChildrenResponseEx
+  excerpt: string
+  ogimage: string
 }
 
 type Params = {
@@ -73,9 +73,9 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   }
 
   return {
-    props: {},
     redirect: {
       destination: '/404',
+      permanent: false,
     },
   }
 }
@@ -84,8 +84,8 @@ const BlogPost: NextPage<Props> = ({ blog, blocks, excerpt, ogimage }) => {
   return (
     <article className='container blog'>
       <Hed
-        title={blog?.title}
-        desc={excerpt!}
+        title={blog.title}
+        desc={excerpt}
         suffix={t('header.blog')}
         ogimage={ogimage}
       />
@@ -93,10 +93,10 @@ const BlogPost: NextPage<Props> = ({ blog, blocks, excerpt, ogimage }) => {
         <p className={styles.category}>
           <Link href='/blog'>{t('header.blog')}</Link>
         </p>
-        <BlogHeader blog={blog!} tag='h1' />
+        <BlogHeader blog={blog} tag='h1' />
       </header>
       <section className={styles.blocks}>
-        <Page blocks={blocks!} />
+        <Page blocks={blocks} />
       </section>
     </article>
   )
