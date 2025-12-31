@@ -11,7 +11,7 @@
         "react-dom": "^19.1.0",
         "react-loader-spinner": "^6.1.6",
         "react-modal": "^3.16.3",
-        "rotion": "^3.0.0-rc.1",
+        "rotion": "^3.0.0-rc.2",
         "schema-dts": "^1.1.2",
       },
       "devDependencies": {
@@ -975,7 +975,7 @@
 
     "robust-predicates": ["robust-predicates@3.0.2", "", {}, "sha512-IXgzBWvWQwE6PrDI05OvmXUIruQTcoMDzRsOd5CDvHCVLcLHMTSYvOK5Cm46kWqlV3yAbuSpBZdJ5oP5OUoStg=="],
 
-    "rotion": ["rotion@3.0.0-rc.1", "", { "dependencies": { "@notionhq/client": "^5.6.0", "cdate": "^0.0.7", "cdate-relative": "^0.1.0", "heic-convert": "^2.1.0", "katex": "^0.16.9", "mermaid": "^11.4.1", "pdfjs-dist": "^5.4.394", "prismjs": "^1.25.0", "replace-ext": "^2.0.0", "sharp": "^0.34.5" }, "peerDependencies": { "react": "^17.0.2 || ^18.0.0-0 || ^19.0.0-0", "react-dom": "^17.0.2 || ^18.0.0-0 || ^19.0.0-0" } }, "sha512-9XBooWx63X+RXHoH9xS5dKEdYRORklg2jEgGz+bevceH8aF8dpaT5bDODJcK8vqQybcPxGnlkOK0UKtvc8frHQ=="],
+    "rotion": ["rotion@3.0.0-rc.2", "", { "dependencies": { "@notionhq/client": "^5.6.0", "cdate": "^0.0.7", "cdate-relative": "^0.1.0", "heic-convert": "^2.1.0", "katex": "^0.16.9", "mermaid": "^11.4.1", "pdfjs-dist": "^5.4.394", "prismjs": "^1.25.0", "replace-ext": "^2.0.0", "sharp": "^0.34.5" }, "peerDependencies": { "react": "^17.0.2 || ^18.0.0-0 || ^19.0.0-0", "react-dom": "^17.0.2 || ^18.0.0-0 || ^19.0.0-0" } }, "sha512-Z1ohdGaR48Dj/sLKQYK4aeykmmmgyTiyiBAfDv3TXW0oxxVryGVVJ6E/8mtbn7mktjHatd5nyVgeb5FLkVpJvw=="],
 
     "roughjs": ["roughjs@4.6.6", "", { "dependencies": { "hachure-fill": "^0.5.2", "path-data-parser": "^0.1.0", "points-on-curve": "^0.2.0", "points-on-path": "^0.2.1" } }, "sha512-ZUz/69+SYpFN/g/lUlo2FXcIjRkSu3nDarreVdGGndHEBJ6cXPdKguS8JGxwj5HA5xIbVKSmLgr5b3AWxtRfvQ=="],
 
