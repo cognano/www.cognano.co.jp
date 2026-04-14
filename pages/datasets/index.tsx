@@ -73,6 +73,23 @@ const DatasetsIndex: NextPage<Props> = ({ desc, datasets, ogimage }) => {
       </div>
 
       <div className='container'>
+        <Link
+          href='/collaboration-sample-data-request'
+          className={styles.sampleRequestBanner}
+        >
+          <div className={styles.sampleRequestBannerText}>
+            <h2 className={styles.sampleRequestBannerTitle}>
+              {t('datasets.sampleRequestTitle')}
+            </h2>
+            <p className={styles.sampleRequestBannerDesc}>
+              {t('datasets.sampleRequestDesc')}
+            </p>
+          </div>
+          <span className={styles.sampleRequestBannerCta}>
+            {t('datasets.sampleRequestCta')} →
+          </span>
+        </Link>
+
         <div className={styles.list}>
           {datasets.map((v) => (
             <div className={styles.dataset} key={v.id}>

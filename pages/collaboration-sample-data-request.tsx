@@ -6,26 +6,26 @@ import Hed from '../components/hed'
 import t, { lang } from '../i18n'
 import { type Content, GetContent } from '../lib/content'
 import CreateOgImage from '../lib/ogimage'
-import styles from '../styles/Contact.module.css'
+import styles from '../styles/SampleDataRequest.module.css'
 
 type Props = {
-  contact: Content
+  dataRequest: Content
   ogimage: string
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const contact = await GetContent('contact')
-  const content = contact![lang]!
+  const dataRequest = await GetContent('data-request')
+  const content = dataRequest![lang]!
 
   const ogimage = await CreateOgImage({
-    id: `contact-${lang}`,
+    id: `collaboration-sample-data-request-${lang}`,
     title: content.title,
     desc: content.excerpt,
   })
 
   return {
     props: {
-      contact: content,
+      dataRequest: content,
       ogimage,
     },
   }
@@ -35,18 +35,29 @@ const formError = (msg: string) => {
   return <p className={styles.error}>{msg}</p>
 }
 
-const Contact: NextPage<Props> = ({ contact, ogimage }) => {
+const SampleDataRequest: NextPage<Props> = ({ dataRequest, ogimage }) => {
   const endpoint =
-    lang === 'ja' ? 'https://api.cognano.co.jp/' : 'https://api.cognanous.com/'
+    lang === 'ja'
+      ? 'https://api.cognano.co.jp/data-request'
+      : 'https://api.cognanous.com/data-request'
   const initQuery = {
     name: '',
+    affiliation: '',
     email: '',
-    message: '',
+    purpose: '',
+  }
+  const initErrors = {
+    name: '',
+    affiliation: '',
+    email: '',
+    purpose: '',
+    agreement: '',
   }
   const [formStatus, setFormStatus] = useState(false)
   const [lockStatus, setLockStatus] = useState(false)
   const [query, setQuery] = useState(initQuery)
-  const [errors, setErrors] = useState(initQuery)
+  const [errors, setErrors] = useState(initErrors)
+  const [agreed, setAgreed] = useState(false)
 
   const handleChange =
     () => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -89,6 +100,14 @@ const Contact: NextPage<Props> = ({ contact, ogimage }) => {
       }
     })
 
+    if (!agreed) {
+      isValid = false
+      setErrors((prevState) => ({
+        ...prevState,
+        agreement: t('sampleData.agreementRequired'),
+      }))
+    }
+
     return isValid
   }
 
@@ -97,7 +116,7 @@ const Contact: NextPage<Props> = ({ contact, ogimage }) => {
   ) => {
     e.preventDefault()
     setLockStatus(true)
-    setErrors(initQuery)
+    setErrors(initErrors)
 
     if (!validate()) {
       setLockStatus(false)
@@ -105,15 +124,18 @@ const Contact: NextPage<Props> = ({ contact, ogimage }) => {
     }
 
     const formData = new FormData()
+    formData.append('type', 'sample-data-request')
     Object.entries(query).forEach(([key, value]) => {
       formData.append(key, value)
     })
+    formData.append('agreement', 'agreed')
 
     fetch(endpoint, { method: 'POST', body: formData })
       .then((res) => {
         setLockStatus(false)
         setFormStatus(true)
         setQuery(initQuery)
+        setAgreed(false)
         console.log(res)
       })
       .catch((err) => {
@@ -124,12 +146,12 @@ const Contact: NextPage<Props> = ({ contact, ogimage }) => {
 
   return (
     <>
-      <Hed title={contact.title} desc={contact.excerpt} ogimage={ogimage} />
+      <Hed title={dataRequest.title} desc={dataRequest.excerpt} ogimage={ogimage} />
 
       <header className='container'>
-        <h1>{contact.title}</h1>
-        <div className={styles.contactDesc}>
-          <Page blocks={contact.blocks} />
+        <h1>{dataRequest.title}</h1>
+        <div className={styles.headerDesc}>
+          <Page blocks={dataRequest.blocks} />
         </div>
       </header>
 
@@ -144,12 +166,29 @@ const Contact: NextPage<Props> = ({ contact, ogimage }) => {
                 <input
                   type='text'
                   id='name'
-                  placeholder='Your Name'
+                  placeholder={t('sampleData.namePlaceholder')}
                   name='name'
                   value={query.name}
                   onChange={handleChange()}
                 />
                 {errors.name && formError(errors.name)}
+              </div>
+            </div>
+
+            <div className={styles.line}>
+              <label htmlFor='affiliation' className={styles.label}>
+                {t('sampleData.affiliation')}
+              </label>
+              <div className={styles.input}>
+                <input
+                  type='text'
+                  id='affiliation'
+                  placeholder={t('sampleData.affiliationPlaceholder')}
+                  name='affiliation'
+                  value={query.affiliation}
+                  onChange={handleChange()}
+                />
+                {errors.affiliation && formError(errors.affiliation)}
               </div>
             </div>
 
@@ -169,47 +208,71 @@ const Contact: NextPage<Props> = ({ contact, ogimage }) => {
                 {errors.email && formError(errors.email)}
               </div>
             </div>
-          </div>
 
-          <div>
             <div className={styles.line}>
-              <label htmlFor='message' className={styles.label}>
-                {t('contact.message')}
+              <label htmlFor='purpose' className={styles.label}>
+                {t('sampleData.purpose')}
               </label>
               <div className={styles.input}>
                 <textarea
-                  name='message'
-                  id='message'
+                  name='purpose'
+                  id='purpose'
                   rows={5}
-                  value={query.message}
+                  placeholder={t('sampleData.purposePlaceholder')}
+                  value={query.purpose}
                   onChange={handleChange()}
                 />
-                {errors.message && formError(errors.message)}
+                {errors.purpose && formError(errors.purpose)}
               </div>
             </div>
+          </div>
 
-            <div className={styles.line}>
-              <span />
-              <div className={styles.input}>
-                {formStatus ? (
-                  <p>{t('contact.thanks')}</p>
-                ) : lockStatus ? (
-                  <MutatingDots
-                    color='#666'
-                    secondaryColor='#000'
-                    height={100}
-                    width={100}
-                  />
-                ) : (
-                  <button
-                    className={styles.button}
-                    type='submit'
-                    disabled={lockStatus}
-                  >
-                    {t('contact.submit')}
-                  </button>
-                )}
+          <div>
+            <div className={styles.agreementSection}>
+              <h3 className={styles.agreementTitle}>
+                {t('sampleData.termsTitle')}
+              </h3>
+              <div className={styles.termsBox}>
+                <ul>
+                  <li>{t('sampleData.terms1')}</li>
+                  <li>{t('sampleData.terms2')}</li>
+                  <li>{t('sampleData.terms3')}</li>
+                  <li>{t('sampleData.terms4')}</li>
+                  <li>{t('sampleData.terms5')}</li>
+                </ul>
               </div>
+              <label htmlFor='agreement' className={styles.checkboxLabel}>
+                <input
+                  type='checkbox'
+                  id='agreement'
+                  name='agreement'
+                  checked={agreed}
+                  onChange={(e) => setAgreed(e.target.checked)}
+                />
+                <span>{t('sampleData.agreementLabel')}</span>
+              </label>
+              {errors.agreement && formError(errors.agreement)}
+            </div>
+
+            <div className={styles.submitArea}>
+              {formStatus ? (
+                <p>{t('sampleData.thanks')}</p>
+              ) : lockStatus ? (
+                <MutatingDots
+                  color='#666'
+                  secondaryColor='#000'
+                  height={100}
+                  width={100}
+                />
+              ) : (
+                <button
+                  className={styles.button}
+                  type='submit'
+                  disabled={lockStatus}
+                >
+                  {t('contact.submit')}
+                </button>
+              )}
             </div>
           </div>
         </form>
@@ -218,4 +281,4 @@ const Contact: NextPage<Props> = ({ contact, ogimage }) => {
   )
 }
 
-export default Contact
+export default SampleDataRequest

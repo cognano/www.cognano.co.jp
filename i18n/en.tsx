@@ -72,6 +72,29 @@ export default {
     tooshort: '* This input is too short.',
     emailinvalid: '* This email address format is incorrect.',
   },
+  sampleData: {
+    affiliation: 'Affiliation',
+    affiliationPlaceholder: 'University / Research Institution',
+    purpose: 'Purpose of Use',
+    purposePlaceholder:
+      'Please describe the intended use of the dataset (e.g., VHH antibody structural analysis, machine learning model evaluation, etc.)',
+    namePlaceholder: 'Your Name',
+    termsTitle: 'Terms of Use',
+    terms1:
+      'This dataset is available for research evaluation purposes only. Commercial use is not permitted.',
+    terms2:
+      'Redistribution of the data or sharing with third parties is prohibited.',
+    terms3:
+      'When publishing research results, please acknowledge the use of COGNANO\'s dataset.',
+    terms4:
+      'Please handle the provided data in accordance with your institution\'s ethics and data management policies.',
+    terms5:
+      'COGNANO assumes no liability for any damages arising from the use of this data.',
+    agreementLabel: 'I agree to the above terms of use',
+    agreementRequired: '* You must agree to the terms of use.',
+    thanks:
+      'Thank you for your request! We will contact you shortly.',
+  },
   language: {
     ja: 'Japanese',
     en: 'English',
@@ -84,6 +107,10 @@ export default {
   },
   datasets: {
     datasets: 'Datasets',
+    sampleRequestTitle: 'Sample Datasets for Academic Research Evaluation',
+    sampleRequestDesc:
+      'We provide high-quality VHH datasets for academic research evaluation purposes.',
+    sampleRequestCta: 'Request a sample',
     download: 'Download',
     fasta: 'FASTQ, FASTA Files',
     table: 'Library Tables, Labeled Dataset',

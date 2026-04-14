@@ -1,0 +1,136 @@
+.error {
+	color: var(--color-primary);
+	font-size: var(--fontSize-1);
+	margin: 0;
+}
+
+.headerDesc {
+	font-size: var(--fontSize-2);
+	line-height: var(--lineHeight-relaxed);
+	max-width: 60rem;
+}
+
+.form {
+	margin: var(--spacing-20) 0 0;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 3rem;
+}
+
+.line {
+	display: grid;
+	grid-template-columns: 10rem 1fr;
+	gap: 2rem;
+	margin: var(--spacing-10) 0 0;
+}
+
+.label {
+	font-size: var(--fontSize-3);
+	font-family: var(--fontFamily-serif);
+	font-weight: bold;
+	padding-top: var(--spacing-1);
+}
+
+.input {
+	font-size: var(--fontSize-3);
+}
+
+.input input[type='text'],
+.input input[type='email'] {
+	font-size: var(--fontSize-3);
+	width: 100%;
+	padding: var(--spacing-2);
+}
+
+.input textarea {
+	font-family: var(--fontFamily-sans);
+	font-size: var(--fontSize-3);
+	padding: var(--spacing-2);
+	width: 100%;
+	min-height: 18rem;
+}
+
+.submitArea {
+	margin-top: var(--spacing-10);
+}
+
+.agreementSection {
+	margin-top: var(--spacing-10);
+}
+
+.agreementTitle {
+	font-size: var(--fontSize-2);
+	font-family: var(--fontFamily-serif);
+	margin: 0 0 var(--spacing-3);
+}
+
+.termsBox {
+	border: 1px solid var(--color-accent);
+	border-radius: 8px;
+	padding: var(--spacing-5) var(--spacing-8);
+	background-color: #f9f9f9;
+	font-size: var(--fontSize-1);
+	line-height: var(--lineHeight-relaxed);
+	max-height: 16rem;
+	overflow-y: auto;
+}
+
+.termsBox ul {
+	margin: 0;
+	padding: 0 0 0 var(--spacing-5);
+}
+
+.termsBox li {
+	margin-bottom: var(--spacing-3);
+}
+
+.checkboxLabel {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-3);
+	margin-top: var(--spacing-5);
+	font-size: var(--fontSize-2);
+	cursor: pointer;
+}
+
+.checkboxLabel input[type='checkbox'] {
+	width: 1.2rem;
+	height: 1.2rem;
+	cursor: pointer;
+	flex-shrink: 0;
+}
+
+.button {
+	padding: var(--spacing-3) var(--spacing-10);
+	font-size: var(--fontSize-1);
+	font-weight: var(--fontWeight-black);
+	cursor: pointer;
+	border: 1px solid var(--color-text);
+	border-radius: 30px;
+	background-color: inherit;
+	color: #000;
+}
+.button:hover {
+	border-color: var(--color-primary);
+	color: var(--color-primary);
+}
+
+@media (max-width: 1200px) {
+	.form {
+		display: block;
+	}
+}
+@media (max-width: 600px) {
+	.form {
+		margin-top: var(--spacing-10);
+	}
+	.line {
+		display: block;
+		margin-top: var(--spacing-5);
+	}
+	.button {
+		display: block;
+		width: 10rem;
+		margin: 0 auto;
+	}
+}

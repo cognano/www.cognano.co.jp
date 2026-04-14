@@ -72,12 +72,38 @@ export default {
     tooshort: '* 入力が少なすぎます。',
     emailinvalid: '* メールアドレスの形式が正しくありません。',
   },
+  sampleData: {
+    affiliation: '所属',
+    affiliationPlaceholder: '大学・研究機関名',
+    purpose: '利用目的',
+    purposePlaceholder:
+      'データセットの利用目的をご記入ください（例：VHH抗体の構造解析研究、機械学習モデルの評価など）',
+    namePlaceholder: 'お名前',
+    termsTitle: '利用上の注意',
+    terms1:
+      '本データセットは研究評価目的でのみ利用可能です。商用利用はできません。',
+    terms2:
+      'データの再配布、第三者への提供は禁止します。',
+    terms3:
+      '研究成果を公表する際は、COGNANOのデータセットを使用した旨を明記してください。',
+    terms4:
+      '提供されたデータの取り扱いについては、所属機関の倫理規定およびデータ管理規定に従ってください。',
+    terms5:
+      'COGNANOは、本データの利用により生じた損害について一切の責任を負いません。',
+    agreementLabel: '上記の利用上の注意に同意します',
+    agreementRequired: '* 利用上の注意への同意が必要です。',
+    thanks: 'お申込みありがとうございます！担当者より折り返しご連絡いたします。',
+  },
   language: {
     ja: '日本語',
     en: '英語',
   },
   datasets: {
     datasets: 'データセット',
+    sampleRequestTitle: 'アカデミア向け研究評価用サンプルデータ',
+    sampleRequestDesc:
+      'COGNANOが保有する高品質なVHHデータセットを、研究評価用としてご提供します。',
+    sampleRequestCta: '申込みはこちら',
     download: 'ダウンロード',
     fasta: 'FASTQ, FASTA ファイル',
     table: 'Library テーブル, Labeled データセット',
