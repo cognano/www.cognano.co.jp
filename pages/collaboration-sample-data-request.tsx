@@ -146,7 +146,11 @@ const SampleDataRequest: NextPage<Props> = ({ dataRequest, ogimage }) => {
 
   return (
     <>
-      <Hed title={dataRequest.title} desc={dataRequest.excerpt} ogimage={ogimage} />
+      <Hed
+        title={dataRequest.title}
+        desc={dataRequest.excerpt}
+        ogimage={ogimage}
+      />
 
       <header className='container'>
         <h1>{dataRequest.title}</h1>

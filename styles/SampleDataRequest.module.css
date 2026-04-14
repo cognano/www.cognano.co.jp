@@ -35,8 +35,8 @@
 	font-size: var(--fontSize-3);
 }
 
-.input input[type='text'],
-.input input[type='email'] {
+.input input[type="text"],
+.input input[type="email"] {
 	font-size: var(--fontSize-3);
 	width: 100%;
 	padding: var(--spacing-2);
@@ -93,7 +93,7 @@
 	cursor: pointer;
 }
 
-.checkboxLabel input[type='checkbox'] {
+.checkboxLabel input[type="checkbox"] {
 	width: 1.2rem;
 	height: 1.2rem;
 	cursor: pointer;
