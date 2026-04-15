@@ -71,7 +71,7 @@
 	background-color: #f9f9f9;
 	font-size: var(--fontSize-1);
 	line-height: var(--lineHeight-relaxed);
-	max-height: 16rem;
+	max-height: 32rem;
 	overflow-y: auto;
 }
 

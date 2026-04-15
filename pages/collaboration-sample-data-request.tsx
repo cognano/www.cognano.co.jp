@@ -10,12 +10,16 @@ import styles from '../styles/SampleDataRequest.module.css'
 
 type Props = {
   dataRequest: Content
+  terms: Content
   ogimage: string
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const dataRequest = await GetContent('data-request')
   const content = dataRequest![lang]!
+
+  const termsContent = await GetContent('mta-vhh-antibodies')
+  const terms = termsContent![lang]!
 
   const ogimage = await CreateOgImage({
     id: `collaboration-sample-data-request-${lang}`,
@@ -26,6 +30,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   return {
     props: {
       dataRequest: content,
+      terms,
       ogimage,
     },
   }
@@ -35,7 +40,11 @@ const formError = (msg: string) => {
   return <p className={styles.error}>{msg}</p>
 }
 
-const SampleDataRequest: NextPage<Props> = ({ dataRequest, ogimage }) => {
+const SampleDataRequest: NextPage<Props> = ({
+  dataRequest,
+  terms,
+  ogimage,
+}) => {
   const endpoint =
     lang === 'ja'
       ? 'https://api.cognano.co.jp/data-request'
@@ -233,17 +242,9 @@ const SampleDataRequest: NextPage<Props> = ({ dataRequest, ogimage }) => {
 
           <div>
             <div className={styles.agreementSection}>
-              <h3 className={styles.agreementTitle}>
-                {t('sampleData.termsTitle')}
-              </h3>
+              <h3 className={styles.agreementTitle}>{terms.title}</h3>
               <div className={styles.termsBox}>
-                <ul>
-                  <li>{t('sampleData.terms1')}</li>
-                  <li>{t('sampleData.terms2')}</li>
-                  <li>{t('sampleData.terms3')}</li>
-                  <li>{t('sampleData.terms4')}</li>
-                  <li>{t('sampleData.terms5')}</li>
-                </ul>
+                <Page blocks={terms.blocks} />
               </div>
               <label htmlFor='agreement' className={styles.checkboxLabel}>
                 <input
