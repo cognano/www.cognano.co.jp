@@ -4,10 +4,13 @@ export default {
     news: 'お知らせ',
     research: '研究',
     projects: 'プロジェクト',
+    antibodies: '抗体',
     datasets: 'データセット',
     blog: 'ブログ',
     about: '私たち',
     contact: 'お問合せ',
+    menu: 'メニュー',
+    close: '閉じる',
   },
   footer: {
     privacy: 'プライバシーポリシー',
@@ -90,10 +93,6 @@ export default {
   },
   datasets: {
     datasets: 'データセット',
-    sampleRequestTitle: 'アカデミア向け研究評価用サンプルデータ',
-    sampleRequestDesc:
-      'COGNANOが保有する高品質なVHHデータセットを、研究評価用としてご提供します。',
-    sampleRequestCta: '申込みはこちら',
     download: 'ダウンロード',
     fasta: 'FASTQ, FASTA ファイル',
     table: 'Library テーブル, Labeled データセット',

@@ -4,6 +4,12 @@
 	margin: 0;
 }
 
+.contactDesc {
+	font-size: var(--fontSize-2);
+	line-height: var(--lineHeight-relaxed);
+	max-width: 60rem;
+}
+
 .form {
 	margin: var(--spacing-20) 0 0;
 	display: grid;

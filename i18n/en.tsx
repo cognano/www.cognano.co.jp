@@ -4,10 +4,13 @@ export default {
     news: 'News',
     research: 'Research',
     projects: 'Projects',
+    antibodies: 'Antibodies',
     datasets: 'Datasets',
     blog: 'Blog',
     about: 'About',
     contact: 'Contact',
+    menu: 'Menu',
+    close: 'Close',
   },
   footer: {
     privacy: 'Privacy Policy',
@@ -95,10 +98,6 @@ export default {
   },
   datasets: {
     datasets: 'Datasets',
-    sampleRequestTitle: 'Sample Datasets for Academic Research Evaluation',
-    sampleRequestDesc:
-      'We provide high-quality VHH datasets for academic research evaluation purposes.',
-    sampleRequestCta: 'Request a sample',
     download: 'Download',
     fasta: 'FASTQ, FASTA Files',
     table: 'Library Tables, Labeled Dataset',

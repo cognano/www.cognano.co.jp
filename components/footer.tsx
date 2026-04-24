@@ -1,18 +1,12 @@
 import Link from 'next/link'
 import type React from 'react'
-import { type ReactNode, useState } from 'react'
+import type { ReactNode } from 'react'
 import t from '../i18n'
 import styles from '../styles/App.module.css'
 import {
-  briefcaseIcon,
-  companyIcon,
-  databaseIcon,
   facebookIcon,
-  fileIcon,
   githubIcon,
   linkedinIcon,
-  newsIcon,
-  pensquareIcon,
   xIcon,
   youtubeIcon,
 } from './icons'
@@ -25,8 +19,6 @@ type Props = {
 
 const Footer: React.FC<Props> = ({ children }) => {
   const nowYear = new Date().getFullYear()
-  const [open, setOpen] = useState(false)
-  const onClick = () => setOpen(!open)
 
   return (
     <footer className={`${styles.footer} container`}>
@@ -42,6 +34,9 @@ const Footer: React.FC<Props> = ({ children }) => {
             </li>
             <li>
               <Link href='/projects'>{t('header.projects')}</Link>
+            </li>
+            <li>
+              <Link href='/antibodies'>{t('header.antibodies')}</Link>
             </li>
             <li>
               <Link href='/datasets'>{t('header.datasets')}</Link>
@@ -120,45 +115,6 @@ const Footer: React.FC<Props> = ({ children }) => {
           </a>
         </p>
       </div>
-
-      <ul className={styles.mobileNav}>
-        <li>
-          <Link href='/about'>
-            {companyIcon()}
-            {t('header.about')}
-          </Link>
-        </li>
-        <li>
-          <Link href='/research'>
-            {fileIcon()}
-            {t('header.research')}
-          </Link>
-        </li>
-        <li>
-          <Link href='/projects'>
-            {briefcaseIcon()}
-            {t('header.projects')}
-          </Link>
-        </li>
-        <li>
-          <Link href='/datasets'>
-            {databaseIcon()}
-            {t('header.datasets')}
-          </Link>
-        </li>
-        <li>
-          <Link href='/blog'>
-            {pensquareIcon()}
-            {t('header.blog')}
-          </Link>
-        </li>
-        <li>
-          <Link href='/news'>
-            {newsIcon()}
-            {t('header.news')}
-          </Link>
-        </li>
-      </ul>
     </footer>
   )
 }

@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   const terms = termsContent![lang]!
 
   const ogimage = await CreateOgImage({
-    id: `collaboration-sample-data-request-${lang}`,
+    id: `antibodies-${lang}`,
     title: content.title,
     desc: content.excerpt,
   })

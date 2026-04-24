@@ -48,56 +48,6 @@
 	color: #000;
 	padding: 0 var(--spacing-10) var(--spacing-10);
 }
-.sampleRequestBanner {
-	margin-top: var(--spacing-20);
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: var(--spacing-8);
-	padding: var(--spacing-8) var(--spacing-10);
-	background: linear-gradient(135deg, #fff5f3 0%, #ffe8e3 100%);
-	border: 1px solid var(--color-primary);
-	border-radius: 16px;
-}
-.sampleRequestBannerText {
-	flex: 1;
-}
-.sampleRequestBannerTitle {
-	font-size: var(--fontSize-3);
-	font-family: var(--fontFamily-serif);
-	font-weight: bold;
-	margin: 0 0 var(--spacing-2);
-	color: var(--color-text);
-}
-.sampleRequestBannerDesc {
-	font-size: var(--fontSize-1);
-	margin: 0;
-	color: var(--color-text);
-	line-height: var(--lineHeight-relaxed);
-}
-.sampleRequestBannerCta {
-	flex-shrink: 0;
-	padding: var(--spacing-3) var(--spacing-8);
-	font-size: var(--fontSize-1);
-	font-weight: var(--fontWeight-black);
-	background-color: var(--color-primary);
-	color: #fff;
-	border-radius: 30px;
-	text-decoration: none;
-	white-space: nowrap;
-	transition: opacity 0.2s;
-}
-.sampleRequestBannerCta:hover {
-	opacity: 0.85;
-}
-@media (max-width: 768px) {
-	.sampleRequestBanner {
-		flex-direction: column;
-		align-items: flex-start;
-		padding: var(--spacing-5) var(--spacing-5);
-	}
-}
-
 .list {
 	padding: var(--spacing-20) 0;
 	display: grid;
