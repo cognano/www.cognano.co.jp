@@ -29,6 +29,7 @@ runs:
     with:
       path: |
         .cache
+        !.cache/locks
         public/images
         public/ogimages
       key: rotion
