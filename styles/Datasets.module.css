@@ -6,8 +6,8 @@
 }
 .indexUnsplash {
 	position: absolute;
-	top: .5rem;
-	right: .5rem;
+	top: 0.5rem;
+	right: 0.5rem;
 	z-index: 2;
 	background: none;
 }
@@ -116,7 +116,7 @@
 	bottom: -1rem;
 	right: 1rem;
 	background-color: #fff;
-	padding: .7rem .5rem 0;
+	padding: 0.7rem 0.5rem 0;
 }
 .abstract {
 	width: 100%;

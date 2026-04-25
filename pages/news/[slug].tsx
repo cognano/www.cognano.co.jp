@@ -8,8 +8,8 @@ import { tagIcon } from '../../components/news-list'
 import t, { lang } from '../../i18n'
 import {
   type Blog,
-  GetBlogsEachLangs,
   buildExcerpt,
+  GetBlogsEachLangs,
   newsQuery,
   newsQueryLatest,
 } from '../../lib/blog'

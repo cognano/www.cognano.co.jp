@@ -163,7 +163,7 @@ export const GetDatasetMetas = async (
     const size = v.properties.Size.rich_text.map((v) => v.plain_text).join('')
     const text = v.properties.Text.rich_text.map((v) => v.plain_text).join('')
 
-    // @ts-ignore
+    // @ts-expect-error
     links[slug] = { name: name, url, size, slug, text }
   }
 

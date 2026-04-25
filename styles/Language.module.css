@@ -29,7 +29,7 @@
 	border-radius: 10px;
 	position: absolute;
 	bottom: 2.45rem;
-	left: .9rem;
+	left: 0.9rem;
 	box-shadow: 0 0 10px #ddd;
 	text-align: left;
 }
@@ -37,7 +37,7 @@
 	top: 2.45rem;
 	bottom: auto;
 	left: auto;
-	right: .9rem;
+	right: 0.9rem;
 }
 .switcher ul {
 	list-style: none;

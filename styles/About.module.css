@@ -231,7 +231,7 @@
 	font-size: var(--fontSize-0);
 }
 .viewFullProfile {
-	font-size: .7rem;
+	font-size: 0.7rem;
 	padding: var(--spacing-2) var(--spacing-6);
 	border: 1px solid var(--color-text);
 	display: inline-block;
@@ -373,7 +373,7 @@
 		height: 300px;
 	}
 	.purposeImageLicense {
-		right: .5rem;
+		right: 0.5rem;
 	}
 	.purposeImageLicense p {
 		font-size: 9px;

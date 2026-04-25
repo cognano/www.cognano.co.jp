@@ -1,11 +1,11 @@
 import type { ParsedUrlQuery, ParsedUrlQueryInput } from 'node:querystring'
 import { useRouter } from 'next/router'
 import React, {
+  type MouseEventHandler,
+  type ReactElement,
+  type ReactNode,
   useEffect,
   useState,
-  type ReactNode,
-  type ReactElement,
-  type MouseEventHandler,
 } from 'react'
 
 import en from './en'
@@ -40,7 +40,7 @@ export const useLanguageQuery = (forceLang?: string) => {
   if (router.query) {
     const query: ParsedUrlQuery = router.query
     const keys = Object.keys(query)
-    keys.forEach((key: string, index: number) => {
+    keys.forEach((key: string, _index: number) => {
       passedQuery[key] = query[key] as string
     })
   }
@@ -73,16 +73,16 @@ export const getT = (key: string, lang: string) => {
 }
 
 export const useTranslation = () => {
-  const router = useRouter()
+  const _router = useRouter()
   let i18nObj: I18N
   i18nObj = i18n() as I18N
 
   const translations: Dictionary = i18nObj.translations
-  const defaultLang: string = i18nObj.defaultLang
+  const _defaultLang: string = i18nObj.defaultLang
   const { lang } = useSelectedLanguage()
 
   return {
-    t: (key: string, view?: object): any => {
+    t: (key: string, _view?: object): any => {
       const value: any = key
         .split('.')
         .reduce(
@@ -166,12 +166,11 @@ const useLanguageSwitcherIsActive = (currentLang: string) => {
     if (router.query.lang === undefined) {
       router.query = { lang: defaultLang }
     }
-    const current =
-      !router.query || !router.query.lang
-        ? defaultLang === currentLang
-        : router.query.lang === currentLang
+    const current = !router.query?.lang
+      ? defaultLang === currentLang
+      : router.query.lang === currentLang
     setIsActive(current)
-  }, [currentLang, defaultLang, router.query])
+  }, [currentLang, defaultLang, router.query, router])
 
   return { isActive } as const
 }
@@ -189,13 +188,12 @@ export const useSelectedLanguage = () => {
     if (
       router.query.lang &&
       router.query.lang !== lang &&
-      translations &&
-      translations[router.query.lang as string]
+      translations?.[router.query.lang as string]
     ) {
       const lang: string = router.query.lang as string
       setLang(lang)
     }
-  }, [lang, router.query.lang])
+  }, [lang, router.query.lang, translations])
 
   return { lang, setLang } as const
 }
@@ -211,8 +209,7 @@ const getDefaultLanguage = (i: I18N): string => {
   if (
     i.useBrowserDefault &&
     typeof window !== 'undefined' &&
-    window &&
-    window.navigator &&
+    window?.navigator &&
     (window.navigator.languages || window.navigator.language)
   ) {
     browserLang = (window.navigator.languages?.[0] || window.navigator.language)

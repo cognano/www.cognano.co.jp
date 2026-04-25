@@ -11,7 +11,9 @@
 	text-decoration: none;
 	border: 1px solid #000;
 	border-radius: 10px;
-	transition: color 0.15s ease, border-color 0.15s ease;
+	transition:
+		color 0.15s ease,
+		border-color 0.15s ease;
 	position: relative;
 	overflow: hidden;
 }
@@ -157,7 +159,7 @@
 @media (max-width: 480px) {
 	.blog h1,
 	.title {
-		padding-top: .8rem;
+		padding-top: 0.8rem;
 		font-size: var(--fontSize-3);
 	}
 	.blocks p {

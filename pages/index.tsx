@@ -10,8 +10,8 @@ import Unsplash from '../components/unsplash'
 import t, { lang } from '../i18n'
 import {
   type Blog,
-  GetBlogsEachLangs,
   blogQueryLatest,
+  GetBlogsEachLangs,
   newsQueryLatest,
 } from '../lib/blog'
 import { type Content, GetContent } from '../lib/content'

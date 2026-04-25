@@ -433,7 +433,7 @@
 	width: 1rem;
 	height: 1rem;
 	display: inline-block;
-	margin-right: .6rem;
+	margin-right: 0.6rem;
 	vertical-align: text-top;
 }
 .newsTitle {
@@ -449,10 +449,10 @@
 	padding: 0;
 }
 .newsCalendar {
-	width: .9rem;
-	height: .9rem;
+	width: 0.9rem;
+	height: 0.9rem;
 	display: inline-block;
-	margin-right: .6rem;
+	margin-right: 0.6rem;
 	vertical-align: text-top;
 }
 
@@ -614,11 +614,11 @@
 
 	/* FAQ */
 	.faqQ {
-		margin: 0 0 .5rem -1.8rem;
+		margin: 0 0 0.5rem -1.8rem;
 		font-size: var(--fontSize-1);
 	}
 	.faqQ::before {
-		padding-right: .4rem;
+		padding-right: 0.4rem;
 	}
 	.faqA {
 		font-size: var(--fontSize-1);

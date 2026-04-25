@@ -1,11 +1,17 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.8.0/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.13/schema.json",
   "files": {
-    "ignore": [".next", "out", "node_modules", "public"]
+    "includes": [
+      "**",
+      "!**/.next",
+      "!**/out",
+      "!**/node_modules",
+      "!**/public",
+      "!**/.claude",
+      "!next-env.d.ts"
+    ]
   },
-  "organizeImports": {
-    "enabled": true
-  },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "linter": {
     "enabled": true,
     "rules": {
@@ -15,28 +21,35 @@
         "useKeyWithClickEvents": "warn",
         "useButtonType": "warn",
         "useSemanticElements": "warn",
-        "useFocusableInteractive": "warn"
+        "useFocusableInteractive": "warn",
+        "noStaticElementInteractions": "warn"
       },
       "suspicious": {
         "noArrayIndexKey": "warn",
         "noExplicitAny": "warn",
         "noControlCharactersInRegex": "warn",
         "noDuplicateFontNames": "warn",
-        "noShorthandPropertyOverrides": "warn"
+        "noShorthandPropertyOverrides": "warn",
+        "useIterableCallbackReturn": "warn",
+        "noDuplicateProperties": "warn"
       },
       "correctness": {
-        "useExhaustiveDependencies": "warn"
+        "useExhaustiveDependencies": "warn",
+        "noUnusedFunctionParameters": "warn",
+        "noUnusedVariables": "warn"
       },
       "style": {
         "noUnusedTemplateLiteral": "warn",
         "useSelfClosingElements": "warn",
         "useNodejsImportProtocol": "warn",
         "noNonNullAssertion": "warn",
-        "useConst": "warn"
+        "useConst": "warn",
+        "noDescendingSpecificity": "warn"
       },
       "complexity": {
         "noBannedTypes": "warn",
-        "noForEach": "warn"
+        "noForEach": "warn",
+        "noUselessFragments": "warn"
       },
       "security": {
         "noDangerouslySetInnerHtml": "warn"

@@ -88,7 +88,7 @@
 .newsBody li p {
 	font-size: var(--fontSize-1);
 	margin: 0;
-	padding: .2rem 0 0;
+	padding: 0.2rem 0 0;
 }
 
 /* LATEST */

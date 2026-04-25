@@ -71,7 +71,7 @@
 	color: var(--color-text);
 	font-weight: bold;
 	cursor: default;
-	padding-right: 0 !important;
+	padding-right: 0;
 }
 .dropdownLabel::after {
 	content: "";
@@ -106,7 +106,7 @@
 	z-index: 10;
 }
 .dropdownOpen {
-	display: block !important;
+	display: block;
 }
 .dropdown li {
 	margin: 0;
@@ -315,8 +315,8 @@
 
 /* UNSPLASH */
 .unsplash {
-	font-size: .8rem;
-	font-weight: normal !important;
+	font-size: 0.8rem;
+	font-weight: normal;
 	line-height: 1;
 }
 .unsplash a {
@@ -383,7 +383,12 @@
 		background-color: var(--color-text);
 		border-radius: 1px;
 		transition:
-			transform 0.3s ease, opacity 0.2s ease, width 0.3s ease, top 0.3s ease, bottom 0.3s ease, left 0.3s ease;
+			transform 0.3s ease,
+			opacity 0.2s ease,
+			width 0.3s ease,
+			top 0.3s ease,
+			bottom 0.3s ease,
+			left 0.3s ease;
 	}
 	.hamburger span:nth-child(1) {
 		top: 4px;

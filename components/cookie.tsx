@@ -2,8 +2,8 @@ import Link from 'next/link'
 import type React from 'react'
 import { type ReactNode, useEffect, useState } from 'react'
 import CookieConsent, {
-  getCookieConsentValue,
   Cookies,
+  getCookieConsentValue,
 } from 'react-cookie-consent'
 import t from '../i18n'
 import GA from './ga'
