@@ -36,7 +36,9 @@ const Footer: React.FC<Props> = ({ children }) => {
               <Link href='/projects'>{t('header.projects')}</Link>
             </li>
             <li>
-              <Link href='/antibodies'>{t('header.antibodies')}</Link>
+              <Link href='/collaboration-sample-data-request'>
+                {t('header.antibodies')}
+              </Link>
             </li>
             <li>
               <Link href='/datasets'>{t('header.datasets')}</Link>
