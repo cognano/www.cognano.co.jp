@@ -82,20 +82,10 @@ const build = (page: DBPage): LocalizedProject => {
 export const projectsQuery = {
   database_id: process.env.NOTION_PROJECT_DB_ID,
   filter: {
-    and: [
-      {
-        property: 'Published',
-        checkbox: {
-          equals: true,
-        },
-      },
-      {
-        property: 'Tags',
-        multi_select: {
-          does_not_contain: 'News',
-        },
-      },
-    ],
+    property: 'Published',
+    checkbox: {
+      equals: true,
+    },
   },
   sorts: [
     {
