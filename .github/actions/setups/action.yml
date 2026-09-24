@@ -6,6 +6,11 @@ on:
 runs:
   using: "composite"
   steps:
+  - name: Setup Node.js
+    uses: actions/setup-node@v4
+    with:
+      node-version: 24
+
   - name: Setup Bun
     uses: oven-sh/setup-bun@v2
     with:
@@ -32,5 +37,5 @@ runs:
         !.cache/locks
         public/images
         public/ogimages
-      key: rotion
+      key: rotion-${{ github.run_id }}
       restore-keys: rotion
