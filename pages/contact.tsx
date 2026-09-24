@@ -2,6 +2,7 @@ import type { GetStaticProps, NextPage } from 'next'
 import { useState } from 'react'
 import { MutatingDots } from 'react-loader-spinner'
 import { Page } from 'rotion/ui'
+import CopyEmail from '../components/copy-email'
 import Hed from '../components/hed'
 import t, { lang } from '../i18n'
 import { type Content, GetContent } from '../lib/content'
@@ -214,6 +215,18 @@ const Contact: NextPage<Props> = ({ contact, ogimage }) => {
           </div>
         </form>
       </section>
+
+      {lang === 'ja' && (
+        <section className='container'>
+          <div className={styles.integrity}>
+            <h2 className={styles.integrityTitle}>
+              {t('contact.integrityTitle')}
+            </h2>
+            <p className={styles.integrityDesc}>{t('contact.integrityDesc')}</p>
+            <CopyEmail user='ytirgetni' domain='pj.oc.onangoc' />
+          </div>
+        </section>
+      )}
     </>
   )
 }
