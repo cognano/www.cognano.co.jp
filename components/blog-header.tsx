@@ -11,7 +11,7 @@ type Props = {
 }
 
 const BlogHeader: React.FC<Props> = ({ blog, tag }) => {
-  const HeaderTag = (tag || 'p') as keyof JSX.IntrinsicElements
+  const HeaderTag = (tag || 'p') as keyof React.JSX.IntrinsicElements
   return (
     <div className={styles.blog}>
       <Link href={`/blog/${blog.slug}`}>
