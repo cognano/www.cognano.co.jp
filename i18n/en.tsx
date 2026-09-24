@@ -74,6 +74,8 @@ export default {
     required: '* This field is required.',
     tooshort: '* This input is too short.',
     emailinvalid: '* This email address format is incorrect.',
+    copy: 'Copy',
+    copied: 'Copied',
   },
   sampleData: {
     affiliation: 'Affiliation',

@@ -63,6 +63,49 @@
 	color: var(--color-primary);
 }
 
+.integrity {
+	margin: var(--spacing-20) 0 0;
+	max-width: 60rem;
+}
+.integrityTitle {
+	margin: 0;
+	font-size: var(--fontSize-4);
+	font-family: var(--fontFamily-serif);
+	font-weight: bold;
+}
+.integrityDesc {
+	font-size: var(--fontSize-2);
+	line-height: var(--lineHeight-relaxed);
+}
+.copyEmail {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: var(--spacing-4);
+}
+.email {
+	font-size: var(--fontSize-3);
+	user-select: all;
+}
+.copyButton {
+	padding: var(--spacing-1) var(--spacing-5);
+	font-size: var(--fontSize-0);
+	font-weight: var(--fontWeight-black);
+	cursor: pointer;
+	border: 1px solid var(--color-text);
+	border-radius: 30px;
+	background-color: inherit;
+	color: #000;
+}
+.copyButton:hover {
+	border-color: var(--color-primary);
+	color: var(--color-primary);
+}
+.copyButton:disabled {
+	cursor: default;
+	opacity: 0.5;
+}
+
 @media (max-width: 1200px) {
 	.form {
 		display: block;
