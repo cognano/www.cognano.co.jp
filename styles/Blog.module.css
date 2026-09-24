@@ -30,6 +30,13 @@
 	min-height: 11rem;
 	font-family: var(--fontFamily-serif);
 }
+.titleText {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 4;
+	line-clamp: 4;
+	overflow: hidden;
+}
 .blog a:hover .title {
 	color: var(--color-primary);
 	border-color: var(--color-primary);
@@ -117,6 +124,12 @@
 }
 .header .title {
 	margin: 0;
+}
+.header .titleText {
+	display: inline;
+	-webkit-line-clamp: unset;
+	line-clamp: none;
+	overflow: visible;
 }
 
 .blocks {

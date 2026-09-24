@@ -15,7 +15,9 @@ const BlogHeader: React.FC<Props> = ({ blog, tag }) => {
   return (
     <div className={styles.blog}>
       <Link href={`/blog/${blog.slug}`}>
-        <HeaderTag className={styles.title}>{blog.title}</HeaderTag>
+        <HeaderTag className={styles.title}>
+          <span className={styles.titleText}>{blog.title}</span>
+        </HeaderTag>
         <div className={styles.meta}>
           <span className={styles.date}>{formatDate(blog.date)}</span>
           <p className={styles.authors}>
