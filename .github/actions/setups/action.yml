@@ -37,5 +37,5 @@ runs:
         !.cache/locks
         public/images
         public/ogimages
-      key: rotion
+      key: rotion-${{ github.run_id }}
       restore-keys: rotion
