@@ -38,4 +38,4 @@ runs:
         public/images
         public/ogimages
       key: rotion-${{ github.run_id }}
-      restore-keys: rotion
+      restore-keys: rotion-
