@@ -64,11 +64,11 @@
 }
 
 .integrity {
-	margin: var(--spacing-20) 0 0;
+	margin: var(--spacing-32) 0 0;
 	max-width: 60rem;
 }
 .integrityTitle {
-	margin: 0;
+	margin: 0 0 var(--spacing-6);
 	font-size: var(--fontSize-4);
 	font-family: var(--fontFamily-serif);
 	font-weight: bold;
@@ -114,6 +114,9 @@
 @media (max-width: 600px) {
 	.form {
 		margin-top: var(--spacing-10);
+	}
+	.integrity {
+		margin-top: var(--spacing-20);
 	}
 	.line {
 		display: block;
