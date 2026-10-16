@@ -9,26 +9,26 @@
     "lint": "biome ci ."
   },
   "dependencies": {
-    "next": "^16.3.6",
-    "react": "^19.3.0",
+    "next": "^16.4.2",
+    "react": "^19.3.1",
     "react-cookie-consent": "^10.0.2",
-    "react-dom": "^19.3.0",
+    "react-dom": "^19.3.1",
     "react-loader-spinner": "6.1.6",
     "react-modal": "^3.16.3",
     "rotion": "^4.0.2",
-    "schema-dts": "^2.0.0"
+    "schema-dts": "^2.1.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.14",
+    "@biomejs/biome": "^2.5.15",
     "@resvg/resvg-js": "^2.6.2",
-    "@types/bun": "^1.4.2",
+    "@types/bun": "^1.4.3",
     "@types/prismjs": "^1.26.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@types/react-modal": "^3.16.3",
     "satori": "^0.26.0",
     "twemoji": "^14.0.2",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   },
   "packageManager": "yarn@4.4.1"
 }
