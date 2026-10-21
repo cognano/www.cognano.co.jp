@@ -15,8 +15,17 @@ const BlogHeader: React.FC<Props> = ({ blog, tag }) => {
   return (
     <div className={styles.blog}>
       <Link href={`/blog/${blog.slug}`}>
+        {blog.cover && (
+          <span
+            className={styles.cover}
+            style={{ backgroundImage: `url(${blog.cover})` }}
+            aria-hidden='true'
+          />
+        )}
         <HeaderTag className={styles.title}>
-          <span className={styles.titleText}>{blog.title}</span>
+          <span className={styles.titleText}>
+            <span className={styles.titleInline}>{blog.title}</span>
+          </span>
         </HeaderTag>
         <div className={styles.meta}>
           <span className={styles.date}>{formatDate(blog.date)}</span>

@@ -27,6 +27,8 @@ export type Blog = {
   tags: string[]
   writers: Writer[]
   language: string
+  // First image in the post body, used as the list card background.
+  cover?: string | null
 }
 
 export type BlogEachLangs = {
@@ -123,6 +125,30 @@ const build = (page: DBPage): Blog => {
       }) || [],
     language: props.Language.select.name || '',
   }
+}
+
+// Returns the src of the first image found in the post body, if any.
+export const findFirstImage = (
+  blocks: ListBlockChildrenResponseEx,
+): string | null => {
+  for (const block of blocks.results) {
+    if (block.type === 'image' && block.image.src) {
+      return block.image.src
+    }
+    const nested =
+      block.type === 'column_list'
+        ? block.columns
+        : 'children' in block && block.children
+          ? [block.children]
+          : []
+    for (const child of nested) {
+      const src = findFirstImage(child)
+      if (src) {
+        return src
+      }
+    }
+  }
+  return null
 }
 
 export const buildExcerpt = (b: ListBlockChildrenResponseEx): string => {
