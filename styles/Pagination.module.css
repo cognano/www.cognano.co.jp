@@ -1,0 +1,74 @@
+.pagination {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: var(--spacing-4);
+	margin: var(--spacing-16) 0 0;
+	font-size: var(--fontSize-0);
+}
+
+.pages {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--spacing-2);
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+/* Cancel the global `ol li` bottom margin so numbers align with Prev/Next. */
+.pages li {
+	display: flex;
+	margin: 0;
+}
+
+.page,
+.current {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 2.5rem;
+	height: 2.5rem;
+	padding: 0 var(--spacing-2);
+	border: 1px solid var(--color-text);
+	border-radius: 30px;
+	text-decoration: none;
+	line-height: 1;
+}
+
+.page {
+	color: var(--color-text);
+	transition:
+		color 0.15s ease,
+		border-color 0.15s ease;
+}
+
+.page:hover {
+	color: var(--color-primary);
+	border-color: var(--color-primary);
+}
+
+.current {
+	color: #fff;
+	background-color: var(--color-text);
+	font-weight: var(--fontWeight-bold);
+}
+
+.step {
+	display: inline-flex;
+	align-items: center;
+	height: 2.5rem;
+	line-height: 1;
+	color: var(--color-text);
+	text-decoration: none;
+	font-weight: var(--fontWeight-bold);
+}
+
+a.step:hover {
+	color: var(--color-primary);
+}
+
+.disabled {
+	opacity: 0.3;
+}
