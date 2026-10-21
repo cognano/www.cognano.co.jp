@@ -20,6 +20,29 @@
 .blog a:hover {
 	border: 1px solid var(--color-primary);
 }
+/* Post image behind the card text */
+.cover {
+	position: absolute;
+	inset: 0;
+	background-position: center;
+	background-size: cover;
+	pointer-events: none;
+}
+/* Keep text readable on top of the image */
+.cover ~ .title .titleInline {
+	background-color: #fff;
+	padding: 0.15em 0.4em;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+.cover ~ .meta {
+	background-color: #fff;
+}
+.title,
+.meta {
+	position: relative;
+	z-index: 1;
+}
 .title {
 	color: #000;
 	font-weight: var(--fontWeight-bold);
