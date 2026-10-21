@@ -83,6 +83,16 @@ function buildNodataWriter(id: string): Writer {
         name: 'Ryosuke Matsumoto',
         avatar: '/static/matsumotory.webp',
       } as Writer
+    case '9b5316b2-f11c-4e56-8caa-f59d49592422':
+      return {
+        name: 'Ryotaro Tamura',
+        avatar: '/static/tokibi.webp',
+      } as Writer
+    case '35f346ff-3c50-4801-8fb1-8057c3b921cd':
+      return {
+        name: 'Hirofumi Tsuruta',
+        avatar: '/static/tsurubee.webp',
+      } as Writer
     default:
       console.log(`Unknown writer -- Id: ${id}`)
       return { name: 'Unknown', avatar: '' } as Writer
