@@ -21,6 +21,11 @@ export default {
     buttonText: 'OK, got it',
     declineButtonText: 'Decline',
   },
+  pagination: {
+    prev: 'Prev',
+    next: 'Next',
+    label: 'Pagination',
+  },
   index: {
     aboutUs: 'About us',
     blog: 'Blog',

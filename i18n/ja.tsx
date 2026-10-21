@@ -21,6 +21,11 @@ export default {
     buttonText: '同意する',
     declineButtonText: '同意しない',
   },
+  pagination: {
+    prev: '前へ',
+    next: '次へ',
+    label: 'ページ送り',
+  },
   index: {
     aboutUs: '私たちについて',
     blog: 'ブログ',
